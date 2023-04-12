@@ -1,0 +1,31 @@
+Target dependency graph (11 targets)
+IdensicMobileSDK in Pods, no dependencies
+PayWingsOAuthSDK in Pods, no dependencies
+eIDRTC in Pods, no dependencies
+VideoID in Pods, depends on:
+eIDRTC in Pods (explicit)
+PayWingsOnboardingKYC in Pods, depends on:
+VideoID in Pods (explicit)
+R.swift.Library in Pods, no dependencies
+R.swift in Pods, depends on:
+R.swift.Library in Pods (explicit)
+SnapKit in Pods, no dependencies
+SCard in Pods, depends on:
+IdensicMobileSDK in Pods (explicit)
+PayWingsOAuthSDK in Pods (explicit)
+PayWingsOnboardingKYC in Pods (explicit)
+R.swift in Pods (explicit)
+SnapKit in Pods (explicit)
+Pods-SCard_Example in Pods, depends on:
+IdensicMobileSDK in Pods (explicit)
+PayWingsOAuthSDK in Pods (explicit)
+PayWingsOnboardingKYC in Pods (explicit)
+R.swift in Pods (explicit)
+R.swift.Library in Pods (explicit)
+SCard in Pods (explicit)
+SnapKit in Pods (explicit)
+VideoID in Pods (explicit)
+eIDRTC in Pods (explicit)
+Pods-SCard_Tests in Pods, depends on:
+IdensicMobileSDK in Pods (explicit)
+Pods-SCard_Example in Pods (explicit)
