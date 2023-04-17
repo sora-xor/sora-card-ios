@@ -78,7 +78,6 @@ final class SCTermsConditionsView: UIView {
     private lazy var acceptButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.acceptButton.sora.isEnabled = false
             self?.onAcceptButton?()
         }
         button.sora.cornerRadius = .custom(28)

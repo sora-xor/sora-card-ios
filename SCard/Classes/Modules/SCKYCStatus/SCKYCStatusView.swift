@@ -92,7 +92,7 @@ final class SCKYCStatusView: UIView {
             textLabel.sora.text = R.string.soraCard.verificationSuccessfulDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycSuccessful()!)
 
-        case .notStarted:
+        case .notStarted, .userCanceled:
             titleLabel.sora.text = R.string.soraCard.verificationFailedTitle(preferredLanguages: .currentLocale)
             textLabel.sora.text = R.string.soraCard.verificationFailedDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycRejected()!)

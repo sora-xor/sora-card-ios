@@ -50,7 +50,7 @@ public final class SCKYCService {
         Task { await kycStatuses() }
     }
 
-    @Stream internal var _userStatusStream = Stream(wrappedValue: SCKYCUserStatus.notStarted)
+    @SCStream internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.notStarted)
 
 
     func refreshAccessTokenIfNeeded() async -> Bool {

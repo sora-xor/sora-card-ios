@@ -4,6 +4,8 @@ import SoraUIKit
 
 public class SCard {
 
+    public static var shared: SCard?
+
     public struct Config {
         public let backendUrl: String
         public let pwAuthDomain: String
@@ -54,15 +56,17 @@ public class SCard {
     private let client: SCAPIClient
     private let service: SCKYCService
     private let storage: SCStorage = .shared
+    private let address: String
 
     public init(
         address: String,
         config: Config,
-        balanceStream: AsyncStream<Decimal>,
+        balanceStream: SCStream<Decimal>,
         onSwapController: @escaping (UIViewController) -> Void
     ) {
 
         self.config = config
+        self.address = address
         client = .init(baseURL: URL(string: config.backendUrl)!, baseAuth: "", token: .empty, logLevels: .debug)
         service = .init(client: client, config: config)
         coordinator = .init(
@@ -78,10 +82,28 @@ public class SCard {
         Task { await coordinator.start(in: vc) }
     }
 
-    public func resetState() {
-        Task {
-            await storage.removeToken()
-            storage.set(isRety: false)
-        }
+    public func accessToken() async -> String? {
+        await storage.token()?.accessToken
+    }
+
+    public func removeToken() async {
+        await storage.removeToken()
+    }
+
+    public var userStatusStream: AsyncStream<SCKYCUserStatus> {
+        service.userStatusStream
+    }
+
+    public func userStatus() async -> SCKYCUserStatus? {
+        await service.userStatus()
+    }
+
+    public var isSCBannerHidden: Bool {
+        get { storage.isSCBannerHidden() }
+        set { storage.set(isHidden: newValue) }
+    }
+
+    public func xOneViewController(address: String) -> UIViewController {
+        return SCXOneViewController(viewModel: .init(address: address, service: service))
     }
 }

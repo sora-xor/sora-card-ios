@@ -8,14 +8,14 @@ final class SCKYCCoordinator {
     private let address: String
     private let service: SCKYCService
     private let storage: SCStorage
-    private let balanceStream: AsyncStream<Decimal>
+    private let balanceStream: SCStream<Decimal>
     private let onSwapController: (UIViewController) -> Void
 
     init(
         address: String,
         service: SCKYCService,
         storage: SCStorage,
-        balanceStream: AsyncStream<Decimal>,
+        balanceStream: SCStream<Decimal>,
         onSwapController: @escaping (UIViewController) -> Void
     ) {
         self.address = address
@@ -34,29 +34,21 @@ final class SCKYCCoordinator {
     }()
 
     func start(in rootViewController: UIViewController) async {
+        await MainActor.run {
+            navigationController.viewControllers = []
+        }
+
         await rootViewController.present(navigationController, animated: true)
         let data = SCKYCUserDataModel()
 
-        SoramitsuUI.shared.themeMode = service.config.themeMode
+//        await MainActor.run { [weak self] in
+//            SoramitsuUI.shared.themeMode = service.config.themeMode
+//        }
 
         if await storage.token() != nil,
-           await self.service.refreshAccessTokenIfNeeded()
+           await self.service.refreshAccessTokenIfNeeded() // TODO: SC refactor refreshing AccessToken
         {
-            let response = await service.kycStatuses()
-
-            await MainActor.run { [weak self] in
-                switch response {
-                case .success(let statuses):
-                    if statuses.isEmpty {
-                        self?.showCardDetails(data: data)
-                    } else {
-                        self?.showStatus(data: data)
-                    }
-                case .failure(let error):
-                    print(error)
-                    Task { [weak self] in await self?.resetKYC() }
-                }
-            }
+            checkUserStatus(data: data)
         } else {
             await MainActor.run { [weak self] in
                 self?.showCardDetails(data: data)
@@ -121,7 +113,11 @@ final class SCKYCCoordinator {
         }
 
         viewModel.onAccept = { [weak self] in
-            self?.showEnterPhone(data: data)
+            if self?.storage.hasToken() ?? false {
+                self?.checkUserStatus(data: data)
+            } else {
+                self?.showEnterPhone(data: data)
+            }
         }
 
         navigationController.pushViewController(viewController, animated: true)
@@ -209,12 +205,15 @@ final class SCKYCCoordinator {
                 guard let self else { return }
                 switch response {
                 case .success(let statuses):
-                    if statuses.isEmpty || self.storage.isKYCRety() && hasFreeAttempts {
+                    let statusesToShow = statuses.filter({ $0.userStatus != .userCanceled })
+                    if statusesToShow.isEmpty || self.storage.isKYCRety() && hasFreeAttempts {
                         if data.haveEnoughXor {
                             self.showGetPrepared(data: data)
                         } else {
                             self.showCardDetails(data: data)
-                            self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
+                            if let last = self.navigationController.viewControllers.last {
+                                self.navigationController.viewControllers = [last]
+                            }
                         }
                         return
                     }
@@ -291,66 +290,6 @@ final class SCKYCCoordinator {
     private func showSwapController() {
         onSwapController(navigationController)
     }
-
-// TODO: move to app code
-//    private func showSwapController() {
-//        guard let swapController = createSwapController(presenter: navigationController) else { return }
-//        navigationController.present(swapController, animated: true)
-//    }
-//
-//    private func createSwapController(
-//        presenter: UIViewController,
-//        localizationManager: LocalizationManagerProtocol = LocalizationManager.shared
-//    ) -> UIViewController? {
-//
-//        guard
-//            let connection = ChainRegistryFacade.sharedRegistry.getConnection(for: Chain.sora.genesisHash()),
-//            let walletContext = try? WalletContextFactory().createContext(connection: connection, presenter: presenter)
-//        else {
-//            return nil
-//        }
-//
-//        let assetManager = ChainRegistryFacade.sharedRegistry.getAssetManager(for: Chain.sora.genesisHash())
-//        assetManager.setup(for: SelectedWalletSettings.shared)
-//
-//
-//        guard let connection = ChainRegistryFacade.sharedRegistry.getConnection(for: Chain.sora.genesisHash()) else {
-//            return nil
-//        }
-//
-//        let primitiveFactory = WalletPrimitiveFactory(keystore: Keychain())
-//
-//        guard let selectedAccount = SelectedWalletSettings.shared.currentAccount,
-//              let accountSettings = try? primitiveFactory.createAccountSettings(for: selectedAccount, assetManager: assetManager) else {
-//            return nil
-//        }
-//
-//        let providerFactory = BalanceProviderFactory(accountId: accountSettings.accountId,
-//                                                     cacheFacade: CoreDataCacheFacade.shared,
-//                                                     networkOperationFactory: walletContext.networkOperationFactory,
-//                                                     identifierFactory: SingleProviderIdentifierFactory())
-//
-//        let polkaswapContext = PolkaswapNetworkOperationFactory(engine: connection)
-//
-//        guard let swapController = SwapViewFactory.createView(selectedTokenId: "",
-//                                                              selectedSecondTokenId: WalletAssetId.xor.rawValue,
-//                                                              assetManager: assetManager,
-//                                                              fiatService: FiatService.shared,
-//                                                              networkFacade: walletContext.networkOperationFactory,
-//                                                              polkaswapNetworkFacade: polkaswapContext,
-//                                                              providerFactory: providerFactory) else { return nil }
-//
-//        let localizableTitle = LocalizableResource { locale in
-//            "TODO" // R.string.localizable.commonAssets(preferredLanguages: locale.rLanguages)
-//        }
-//
-//        localizationManager.addObserver(with: swapController) { [weak swapController] (_, _) in
-//            let currentTitle = localizableTitle.value(for: localizationManager.selectedLocale)
-//            swapController?.tabBarItem.title = currentTitle
-//        }
-//
-//        return swapController
-//    }
 }
 
 enum WebPresentableStyle {
