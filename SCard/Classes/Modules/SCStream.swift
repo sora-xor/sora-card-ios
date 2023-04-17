@@ -1,21 +1,21 @@
 import Foundation
 
 @propertyWrapper
-class Stream<Value> {
+public class SCStream<Value> {
 
-    var stream: AsyncStream<Value> {
+    public var stream: AsyncStream<Value> {
         let (stream, continuation) = AsyncStream<Value>.streamWithContinuation()
         continuations.append(continuation)
         return stream
     }
 
-    var wrappedValue: Value {
+    public var wrappedValue: Value {
         didSet {
             _ = continuations.map { $0.yield(wrappedValue) }
         }
     }
 
-    init(wrappedValue: Value) {
+    public init(wrappedValue: Value) {
         self.wrappedValue = wrappedValue
     }
 

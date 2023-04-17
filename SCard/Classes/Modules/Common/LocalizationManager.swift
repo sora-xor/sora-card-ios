@@ -1,8 +1,8 @@
 import Foundation
 
-public typealias LocalizationChangeClosure = (String, String) -> Void
+typealias LocalizationChangeClosure = (String, String) -> Void
 
-public protocol LocalizationManagerProtocol: class {
+protocol LocalizationManagerProtocol {
     var selectedLocalization: String { get set }
 
     var availableLocalizations: [String] { get }
@@ -14,7 +14,7 @@ public protocol LocalizationManagerProtocol: class {
     func removeObserver(by owner: AnyObject)
 }
 
-public extension LocalizationManagerProtocol {
+extension LocalizationManagerProtocol {
     var selectedLocale: Locale {
         return Locale(identifier: selectedLocalization)
     }
@@ -24,7 +24,7 @@ public extension LocalizationManagerProtocol {
     }
 }
 
-public final class LocalizationManager: LocalizationManagerProtocol {
+final class LocalizationManager: LocalizationManagerProtocol {
     public struct ObserverWrapper {
         public weak var owner: AnyObject?
         public let closure: LocalizationChangeClosure

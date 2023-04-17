@@ -73,9 +73,14 @@ struct SCKYCStatusResponse: Codable {
             return .pending
         }
 
-        if kycStatus == .failed || kycStatus == .rejected || verificationStatus == .rejected {
+        if kycStatus == .rejected || verificationStatus == .rejected {
             return .rejected
         }
+        
+        if kycStatus == .failed {
+            return .userCanceled
+        }
+
 
         if verificationStatus == .accepted {
             return .successful
@@ -85,24 +90,12 @@ struct SCKYCStatusResponse: Codable {
     }
 }
 
-enum SCKYCUserStatus {
+public enum SCKYCUserStatus {
     case notStarted
     case pending
     case rejected
     case successful
-
-//    var text: String {
-//        switch self {
-//        case .notStarted:
-//            return R.string.soraCard.statusNotStarted(preferredLanguages: .currentLocale)
-//        case .pending:
-//            return R.string.soraCard.statusPending(preferredLanguages: .currentLocale)
-//        case .rejected:
-//            return "TODO" // R.string.localizable.soraCardVerificationRejected(preferredLanguages: .currentLocale)
-//        case .successful:
-//            return "TODO" // R.string.localizable.soraCardVerificationSuccessful(preferredLanguages: .currentLocale)
-//        }
-//    }
+    case userCanceled
 }
 
 enum SCKYCStatus: String, Codable {

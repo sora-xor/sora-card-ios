@@ -1,8 +1,3 @@
-import Foundation
-//import CommonWallet
-//import XNetworking
-//import RobinHood
-
 final class SCKYCDetailsViewModel {
 
     static let requiredAmountOfEuro = 100
@@ -19,15 +14,14 @@ final class SCKYCDetailsViewModel {
     private let data: SCKYCUserDataModel
 
     private let service: SCKYCService
-    private let balanceStream: AsyncStream<Decimal>
+    private let balanceStream: SCStream<Decimal>
     private var xorPriceInEuro: Float?
-    private var xorBalance: Decimal?
     private var kycAttempts: SCKYCAtempts?
 
     init(
         data: SCKYCUserDataModel,
         service: SCKYCService,
-        balanceStream: AsyncStream<Decimal>
+        balanceStream: SCStream<Decimal>
     ) {
         self.data = data
         self.service = service
@@ -45,31 +39,42 @@ final class SCKYCDetailsViewModel {
 
     private func getData() {
 
-        Task {
+        Task { [weak self] in
             switch await service.kycAttempts() {
             case .failure(_): ()
             case .success(let kycAttempts):
-                self.kycAttempts = kycAttempts
+                self?.kycAttempts = kycAttempts
             }
 
-            await fetchFiat()
+            await self?.fetchFiat()
         }
     }
 
     private func fetchFiat() async {
+
         if case .success(let priceResponse) = await service.xorPriceInEuro() {
             xorPriceInEuro = Float(priceResponse.price)
+             try? await Task.sleep(nanoseconds: 1000000000)
+            updateBalance(xorBalance: balanceStream.wrappedValue)
+        } else {
+            print("### fetchFiat error")
         }
-        for await balance in self.balanceStream {
-            xorBalance = balance
-            await MainActor.run { updateBalance() }
+
+        subscribeUpdateBalance()
+    }
+
+    private func subscribeUpdateBalance() {
+        Task { [weak self, balanceStream] in
+            for await balance in balanceStream.stream {
+                await MainActor.run { [weak self] in
+                    self?.updateBalance(xorBalance: balance)
+                }
+            }
         }
     }
 
-    private func updateBalance() {
-        guard let xorPriceInEuro = self.xorPriceInEuro,
-              let xorBalance = self.xorBalance
-        else { return }
+    private func updateBalance(xorBalance: Decimal) {
+        guard let xorPriceInEuro = self.xorPriceInEuro else { return }
 
         let xorPriceInEuroDecimal = Decimal(Double(xorPriceInEuro))
         let requiredAmountOfXORInEuro = Decimal(Self.requiredAmountOfEuro) // 95€
@@ -100,6 +105,8 @@ final class SCKYCDetailsViewModel {
             balanceText = R.string.soraCard.detailsAlreadyUsedFreeTry(preferredLanguages: .currentLocale)
         }
 
-        self.onBalanceUpdate?(haveEnoughXor ? 1 : percentage, balanceText, isKYCFree)
+        DispatchQueue.main.async  {
+            self.onBalanceUpdate?(haveEnoughXor ? 1 : percentage, balanceText, isKYCFree)
+        }
     }
 }

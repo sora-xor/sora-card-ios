@@ -5,7 +5,7 @@
 
 import Foundation
 
-public protocol SettingsManagerProtocol: AnyObject {
+protocol SettingsManagerProtocol: AnyObject {
     func set(value: Bool, for key: String)
     func set(value: Int, for key: String)
     func set(value: Double, for key: String)

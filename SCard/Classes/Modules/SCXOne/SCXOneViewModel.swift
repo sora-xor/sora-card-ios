@@ -1,9 +1,9 @@
 import Foundation
 
-final class SCXOneViewModel {
+public final class SCXOneViewModel {
     var onDone: (() -> Void)?
 
-    init(address: String, service: SCKYCService) {
+    public init(address: String, service: SCKYCService) {
         self.address = address
         self.service = service
     }
