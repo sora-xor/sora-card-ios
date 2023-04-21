@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         resetLabel.textColor = .blue
         resetLabel.isUserInteractionEnabled = true
         resetLabel.addTapGesture(with: { SoramitsuTapGestureRecognizer in
-            self.soraCard?.resetState()
+            Task { await self.soraCard?.removeToken() }
         })
 
         view.addSubview(resetLabel)
@@ -40,11 +40,12 @@ class ViewController: UIViewController {
     private var refreshBalanceTimer = Timer()
     func showSoraCard() {
 
-        let (balanceStream, balanceContinuation) = AsyncStream<Decimal>.streamWithContinuation()
+        @SCStream var xorBalanceStream = SCStream<Decimal>(wrappedValue: Decimal(0))
 
         refreshBalanceTimer.invalidate()
         refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            balanceContinuation.yield(Decimal(UInt.random(in: 0...150)))
+            let balane = Decimal(UInt.random(in: 0...150))
+            xorBalanceStream.wrappedValue = balane
         }
 
         let scConfig = SCard.Config(
@@ -61,7 +62,7 @@ class ViewController: UIViewController {
         soraCard = SCard(
             address: "123",
             config: scConfig,
-            balanceStream: balanceStream,
+            balanceStream: xorBalanceStream,
             onSwapController: { vc in
                 print("TODO: show SwapController in \(vc)")
             }
