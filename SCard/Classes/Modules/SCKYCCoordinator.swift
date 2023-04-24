@@ -41,23 +41,34 @@ final class SCKYCCoordinator {
         await rootViewController.present(navigationController, animated: true)
         let data = SCKYCUserDataModel()
 
-//        await MainActor.run { [weak self] in
-//            SoramitsuUI.shared.themeMode = service.config.themeMode
-//        }
-
-        if await storage.token() != nil,
+        if storage.hasToken(), // await storage.token() != nil,
            await self.service.refreshAccessTokenIfNeeded() // TODO: SC refactor refreshing AccessToken
         {
             checkUserStatus(data: data)
         } else {
             await MainActor.run { [weak self] in
-                self?.showCardDetails(data: data)
+                self?.showLogin(data: data)
             }
         }
     }
 
     private func showXOne() {
         let viewController = SCXOneViewController(viewModel: .init(address: address, service: service))
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    private func showLogin(data: SCKYCUserDataModel) {
+
+        let viewController = SCKYCLoginViewController()
+
+        viewController.onUnsupportedCountries = { [weak self] in
+            self?.show(url: URL(string: "https://soracard.com/blacklist")!)
+        }
+
+        viewController.onLogin = { [weak self] in
+            self?.showTermsAndConditions(data: data)
+        }
+
         navigationController.pushViewController(viewController, animated: true)
     }
 

@@ -196,7 +196,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 77 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 78 localization keys.
     struct soraCard {
       /// de translation: ATTENTION: You have only 2 free attempts to pass the KYC process. Every other attempt after that will cost €3.8. Paid attempts will be available after the next update of the app.
       ///
@@ -222,6 +222,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let termsAndConditionsConfirmDescription = Rswift.StringResource(key: "terms.and.conditions.confirm.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Can't fetch data, tap to refresh.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cantFetchRefresh = Rswift.StringResource(key: "cant.fetch.refresh", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Cancel
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -334,6 +338,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonSendLink = Rswift.StringResource(key: "common.send.link", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Log in or Sign up
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let loginTitle = Rswift.StringResource(key: "login.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Magic link will be sent to your email
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -442,10 +450,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let verificationFailedTitle = Rswift.StringResource(key: "verification.failed.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Verification in progress
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static let statusPending = Rswift.StringResource(key: "status.pending", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Verify your email
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -595,6 +599,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("terms.and.conditions.confirm.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Can't fetch data, tap to refresh.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cantFetchRefresh(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cant.fetch.refresh", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cant.fetch.refresh"
+        }
+
+        return NSLocalizedString("cant.fetch.refresh", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Cancel
@@ -1023,6 +1042,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common.send.link", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Log in or Sign up
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func loginTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("login.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "login.title"
+        }
+
+        return NSLocalizedString("login.title", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Magic link will be sent to your email
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -1428,21 +1462,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("verification.failed.title", tableName: "SoraCard", bundle: bundle, comment: "")
-      }
-
-      /// de translation: Verification in progress
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static func statusPending(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("status.pending", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "status.pending"
-        }
-
-        return NSLocalizedString("status.pending", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Verify your email

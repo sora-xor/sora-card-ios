@@ -74,4 +74,5 @@
 "details.free.card.issuance.conditions.euro" = "or 12 € application fee";
 "common.error.general.title" = "Error";
 "status.not.started" = "Get SORA Card";
-"status.pending" = "Verification in progress";
+"cant.fetch.refresh" = "Can't fetch data, tap to refresh.";
+"login.title" = "Log in or Sign up";
