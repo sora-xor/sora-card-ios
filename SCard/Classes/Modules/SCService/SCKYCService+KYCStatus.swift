@@ -81,7 +81,6 @@ struct SCKYCStatusResponse: Codable {
             return .userCanceled
         }
 
-
         if verificationStatus == .accepted {
             return .successful
         }
