@@ -41,7 +41,11 @@ final class SCKYCCoordinator {
         await rootViewController.present(navigationController, animated: true)
         let data = SCKYCUserDataModel()
 
-        if storage.hasToken(), // await storage.token() != nil,
+        DispatchQueue.main.async {
+            self.service.startKYCStatusRefresher()
+        }
+
+        if storage.hasToken(),
            await self.service.refreshAccessTokenIfNeeded() // TODO: SC refactor refreshing AccessToken
         {
             checkUserStatus(data: data)

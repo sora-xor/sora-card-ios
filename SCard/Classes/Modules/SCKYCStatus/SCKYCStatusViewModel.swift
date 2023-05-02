@@ -10,6 +10,7 @@ final class SCKYCStatusViewModel {
     var onSupport: (() -> Void)?
 
     private let service: SCKYCService
+    private var hasFreeAttempts: Bool?
 
     init(data: SCKYCUserDataModel, service: SCKYCService) {
         self.data = data
@@ -23,22 +24,25 @@ final class SCKYCStatusViewModel {
             onError?("PayWings Login required!")
             return
         }
-        let response = await service.kycStatuses()
-        switch response {
+
+        await getKYCAttempts()
+
+        for await status in service.userStatusStream {
+
+            if hasFreeAttempts == nil {
+                await getKYCAttempts()
+            }
+            guard let hasFreeAttempts = self.hasFreeAttempts else { return }
+            onStatus?(status, hasFreeAttempts)
+        }
+    }
+
+    private func getKYCAttempts() async {
+        switch await service.kycAttempts() {
         case .failure(let error):
             onError?(error.errorDescription ?? "error")
-        case .success(let statuses):
-            guard let status = statuses.sorted.last else {
-                onError?("KYC not started yet")
-                return
-            }
-
-            switch await service.kycAttempts() {
-            case .failure(let error):
-                onError?(error.errorDescription ?? "error")
-            case .success(let kycAttempts):
-                onStatus?(status.userStatus, kycAttempts.hasFreeAttempts)
-            }
+        case .success(let kycAttempts):
+            self.hasFreeAttempts = kycAttempts.hasFreeAttempts
         }
     }
 }

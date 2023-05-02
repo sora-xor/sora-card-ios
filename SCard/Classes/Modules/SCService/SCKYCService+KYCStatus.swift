@@ -1,10 +1,10 @@
 import Foundation
 
 extension SCKYCService {
-//    func kycStatus() async -> Result<SCKYCStatusResponse?, NetworkingError> {
-//        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycStatus)
-//        return await client.performDecodable(request: request)
-//    }
+    //    func kycStatus() async -> Result<SCKYCStatusResponse?, NetworkingError> {
+    //        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycStatus)
+    //        return await client.performDecodable(request: request)
+    //    }
 
     var userStatusStream: AsyncStream<SCKYCUserStatus> {
         _userStatusStream.stream
