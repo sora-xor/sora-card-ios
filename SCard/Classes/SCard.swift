@@ -64,9 +64,9 @@ public class SCard {
         balanceStream: SCStream<Decimal>,
         onSwapController: @escaping (UIViewController) -> Void
     ) {
-
         self.config = config
         self.address = address
+
         client = .init(baseURL: URL(string: config.backendUrl)!, baseAuth: "", token: .empty, logLevels: .debug)
         service = .init(client: client, config: config)
         coordinator = .init(
@@ -76,6 +76,14 @@ public class SCard {
             balanceStream: balanceStream,
             onSwapController: onSwapController
         )
+
+        Task {
+            if SCStorage.shared.isFirstLaunch() {
+                await SCStorage.shared.removeToken()
+                SCStorage.shared.setAppLaunched()
+                service._userStatusStream.wrappedValue = .notStarted
+            }
+        }
     }
 
     public func start(in vc: UIViewController) {

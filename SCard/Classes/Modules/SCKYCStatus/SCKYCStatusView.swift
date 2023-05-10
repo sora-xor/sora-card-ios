@@ -56,6 +56,7 @@ final class SCKYCStatusView: UIView {
         }
         button.sora.cornerRadius = .custom(28)
         button.sora.title = "Try again for free" // TODO:
+        button.sora.isHidden = true
         return button
     }()
 

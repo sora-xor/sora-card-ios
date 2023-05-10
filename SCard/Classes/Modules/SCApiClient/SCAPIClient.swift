@@ -57,12 +57,20 @@ public class SCAPIClient {
         self.baseAuth = baseAuth
         self.token = token
         self.logger.logLevels = logLevels
+        self.headers = [
+            .init(field: "appName", value: Bundle.main.appName),
+            .init(field: "displayName", value: Bundle.main.displayName),
+            .init(field: "language", value: Bundle.main.language),
+            .init(field: "appBuild", value: Bundle.main.appBuild),
+            .init(field: "appVersionLong", value: Bundle.main.appVersionLong),
+        ]
     }
 
     private let apiKey = ""
     private let baseAuth: String
     private var token: SCToken
     private let baseURL: URL
+    private let headers: [HTTPHeader]
 
     private let session = URLSession.shared
     private let logger = NetworkingLogger()
@@ -118,7 +126,7 @@ public class SCAPIClient {
 
         urlRequest.addValue("Bearer " + token.accessToken, forHTTPHeaderField: "Authorization")
 
-        request.headers?.forEach {
+        (headers + (request.headers ?? [])).forEach {
             urlRequest.addValue($0.value, forHTTPHeaderField: $0.field)
         }
 
@@ -190,4 +198,14 @@ struct SCToken: Codable, SecretDataRepresentable {
     func asSecretData() -> Data? {
         "\(refreshToken)@\(accessToken)@\(accessTokenExpirationTime)".data(using: .utf8)
     }
+}
+
+extension Bundle {
+    public var appName: String { getInfo("CFBundleName")  }
+    public var displayName: String { getInfo("CFBundleDisplayName")}
+    public var language: String { getInfo("CFBundleDevelopmentRegion")}
+    public var identifier: String { getInfo("CFBundleIdentifier")}
+    public var appBuild: String { getInfo("CFBundleVersion") }
+    public var appVersionLong: String { getInfo("CFBundleShortVersionString") }
+    fileprivate func getInfo(_ str: String) -> String { infoDictionary?[str] as? String ?? "" }
 }

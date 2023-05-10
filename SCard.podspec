@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = 'SCard'
-  s.version          = '0.1.0'
+  s.version          = '1.0.0'
   s.summary          = 'Description of Sora Card.'
 
   s.description      = <<-DESC
-  A description of Sora Card neet to add here
+  You can start the card application and KYC procedure in all security and privacy, and order your SORA Card through Polkaswap.io, soracard.com, or SORA Wallet.
                        DESC
 
   s.homepage         = 'https://github.com/Soramitsu/SCard'
@@ -21,9 +21,9 @@ Pod::Spec.new do |s|
   s.frameworks = 'UIKit'
   s.dependency 'R.swift', '~> 6.1.0'
   s.dependency 'SnapKit'
-  s.dependency 'SoraUIKit', '~> 1.0.0'
+  s.dependency 'SoraUIKit', '~> 1.0.1'
   s.dependency 'PayWingsOAuthSDK', '1.2.1'
-  s.dependency 'PayWingsOnboardingKYC', '5.1.4'
+  s.dependency 'PayWingsOnboardingKYC', '5.1.5'
   # TODO: release IdensicMobileSDK to public pods
   s.dependency 'IdensicMobileSDK' #, :http => 'https://github.com/paywings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.0.0.tar.gz'
 
