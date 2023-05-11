@@ -82,6 +82,8 @@ public class SCard {
                 await SCStorage.shared.removeToken()
                 SCStorage.shared.setAppLaunched()
                 service._userStatusStream.wrappedValue = .notStarted
+            } else {
+                _ = await service.kycStatuses()
             }
         }
     }

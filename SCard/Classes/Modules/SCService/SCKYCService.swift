@@ -47,8 +47,6 @@ public final class SCKYCService {
         )
         
         self.payWingsOAuthClient = PayWingsOAuthClient.instance()!
-
-        Task { await kycStatuses() }
     }
 
     @SCStream internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.notStarted)
