@@ -14,7 +14,6 @@ final class SCKYCStatusView: UIView {
             self?.onLogoutButton?()
         }
         button.sora.title = "Log out" // TODO:
-        button.sora.isHidden = true
         return button
     }()
 
@@ -167,18 +166,11 @@ final class SCKYCStatusView: UIView {
 
     private func setupInitialLayout() {
 
-        addSubview(logoutButton)
         addSubview(titleLabel)
         addSubview(textLabel)
-        addSubview(actionButton)
-
-        logoutButton.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview().inset(24)
-        }
 
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(logoutButton.snp.bottom).offset(10)
+            $0.top.equalTo(self.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
 
@@ -187,27 +179,13 @@ final class SCKYCStatusView: UIView {
             $0.leading.trailing.equalToSuperview().inset(24)
         }
 
-        let containerView = UIView()
-        addSubview(containerView)
-
-        containerView.snp.makeConstraints {
-            $0.top.equalTo(textLabel.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(actionButton.snp.top)
-        }
-
-        containerView.addSubview(iconView)
-
-        iconView.snp.makeConstraints {
-            $0.top.bottom.lessThanOrEqualToSuperview().inset(8)
-            $0.width.lessThanOrEqualToSuperview().multipliedBy(0.75)
-            $0.center.equalToSuperview()
-        }
+        addSubview(iconView)
 
         let buttonsView = UIStackView(arrangedSubviews: [
             actionDescriptionLabel,
             actionButton,
-            secondButton
+            secondButton,
+            logoutButton
         ])
         buttonsView.axis = .vertical
         buttonsView.spacing = 16
@@ -215,6 +193,15 @@ final class SCKYCStatusView: UIView {
         addSubview(buttonsView) {
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-24)
+        }
+
+        iconView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        iconView.snp.makeConstraints {
+            $0.top.equalTo(textLabel.snp.bottom)
+            $0.leading.greaterThanOrEqualToSuperview().inset(30)
+            $0.trailing.lessThanOrEqualToSuperview().inset(30)
+            $0.centerX.equalToSuperview()
+            $0.bottom.lessThanOrEqualTo(buttonsView.snp.top)
         }
 
         addSubview(activityIndicatorView) {
