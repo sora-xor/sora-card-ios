@@ -88,7 +88,7 @@ public class SCard {
         }
     }
 
-    public var selectedLocalization: String {
+    public var selectedLocalization: String = "en" {
         didSet {
             LocalizationManager.shared.selectedLocalization = selectedLocalization
         }
