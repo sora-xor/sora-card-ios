@@ -196,7 +196,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 78 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 89 localization keys.
     struct soraCard {
       /// de translation: ATTENTION: You have only 2 free attempts to pass the KYC process. Every other attempt after that will cost €3.8. Paid attempts will be available after the next update of the app.
       ///
@@ -218,7 +218,11 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let verificationSuccessfulTitle = Rswift.StringResource(key: "verification.successful.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: By continuing you confirm that you have read understood and accept these policies
+      /// de translation: Apologies for the inconvenience. We’re working diligently to resolve this. Please, try again later.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let paymentWidgetUnavailableDescription = Rswift.StringResource(key: "payment.widget.unavailable.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: By continuing you confirm that you have read, understood and accepted these policies
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let termsAndConditionsConfirmDescription = Rswift.StringResource(key: "terms.and.conditions.confirm.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -238,6 +242,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonClose = Rswift.StringResource(key: "common.close", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Code falsch. Bitte versuche es erneut.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let otpErrorMessageWrongCode = Rswift.StringResource(key: "otp.error.message.wrong.code", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Continue
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -270,6 +278,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonErrorGeneralTitle = Rswift.StringResource(key: "common.error.general.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Every other attempt will cost you €%@
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let verificationRejectedScreenAttemptsPriceDisclaimer = Rswift.StringResource(key: "verification.rejected.screen.attempts.price.disclaimer", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Familienname, Nachname
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -342,6 +354,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let loginTitle = Rswift.StringResource(key: "login.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Log out
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let logOut = Rswift.StringResource(key: "log.out", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Magic link will be sent to your email
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -426,6 +442,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let getPreparedTakeSelfieDescription = Rswift.StringResource(key: "get.prepared.take.selfie.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: The payment widget is currently unavailable
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let paymentWidgetUnavailableMessage = Rswift.StringResource(key: "payment.widget.unavailable.message", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: To complete the KYC you will need to:
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -438,6 +458,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonTryAgain = Rswift.StringResource(key: "common.try.again", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Try again for free
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let verificationRejectedScreenTryAgainForFree = Rswift.StringResource(key: "verification.rejected.screen.try.again.for.free", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Try again for €%@
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let verificationRejectedScreenTryAgainForEuros = Rswift.StringResource(key: "verification.rejected.screen.try.again.for.euros", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Um ein für die SORA-Karte benötigtes IBAN-Konto zu erhalten, müssen Benutzer einen KYC-Prozess mit dem Kartenaussteller durchlaufen. Dies ist eine erforderliche Einhaltung. Die SORA-Community sammelt keine personenbezogenen Daten von Ihnen und wird dies auch in Zukunft nicht tun.
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -462,14 +490,26 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let userRegistrationFirstNameInputFiledLabel = Rswift.StringResource(key: "user.registration.first.name.input.filed.label", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: We want you to know exactly how SORA Card services work, who and why needs your details. Reviewing these policies will help you continue using the app with peace of mind.
+      /// de translation: We want you to know exactly how the SORA card service will work, who needs your details and why. Reviewing these policies will help you use the app with peace of mind.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let termsAndConditionsDescription = Rswift.StringResource(key: "terms.and.conditions.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Widget unavailable
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let paymentWidgetUnavailableTitle = Rswift.StringResource(key: "payment.widget.unavailable.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Yes, I understand
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let paymentWidgetUnavailableConfirm = Rswift.StringResource(key: "payment.widget.unavailable.confirm", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: You already used your free try
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let detailsAlreadyUsedFreeTry = Rswift.StringResource(key: "details.already.used.free.try", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: You have %@ more free KYC attempt.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let verificationRejectedScreenAttemptsLeft = Rswift.StringResource(key: "verification.rejected.screen.attempts.left", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: You have enough XOR
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -478,6 +518,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let kycResultVerificationInProgressDescription = Rswift.StringResource(key: "kyc.result.verification.in.progress.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: You have used your free KYC attempts.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let verificationRejectedScreenAttemptsUsed = Rswift.StringResource(key: "verification.rejected.screen.attempts.used", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: You have used your free attempt to pass the KYC process.  We kindly ask you to wait until the next upgrade of the application to proceed with paid attempts.
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -490,7 +534,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let enterPhoneNumberDescription = Rswift.StringResource(key: "enter.phone.number.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Your application has failed. To read more about the reason of the failure, please read the following additional description.
+      /// de translation: Your application has been rejected.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let verificationRejectedDescription = Rswift.StringResource(key: "verification.rejected.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -586,7 +630,22 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("verification.successful.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: By continuing you confirm that you have read understood and accept these policies
+      /// de translation: Apologies for the inconvenience. We’re working diligently to resolve this. Please, try again later.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func paymentWidgetUnavailableDescription(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("payment.widget.unavailable.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "payment.widget.unavailable.description"
+        }
+
+        return NSLocalizedString("payment.widget.unavailable.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: By continuing you confirm that you have read, understood and accepted these policies
       ///
       /// Locales: de, en, es, ru, fr, nl
       static func termsAndConditionsConfirmDescription(preferredLanguages: [String]? = nil) -> String {
@@ -659,6 +718,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common.close", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Code falsch. Bitte versuche es erneut.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func otpErrorMessageWrongCode(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("otp.error.message.wrong.code", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "otp.error.message.wrong.code"
+        }
+
+        return NSLocalizedString("otp.error.message.wrong.code", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Continue
@@ -783,6 +857,23 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common.error.general.title", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Every other attempt will cost you €%@
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func verificationRejectedScreenAttemptsPriceDisclaimer(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("verification.rejected.screen.attempts.price.disclaimer", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "verification.rejected.screen.attempts.price.disclaimer"
+        }
+
+        let format = NSLocalizedString("verification.rejected.screen.attempts.price.disclaimer", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// de translation: Familienname, Nachname
@@ -1055,6 +1146,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("login.title", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Log out
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func logOut(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("log.out", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "log.out"
+        }
+
+        return NSLocalizedString("log.out", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Magic link will be sent to your email
@@ -1374,6 +1480,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("get.prepared.take.selfie.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: The payment widget is currently unavailable
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func paymentWidgetUnavailableMessage(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("payment.widget.unavailable.message", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "payment.widget.unavailable.message"
+        }
+
+        return NSLocalizedString("payment.widget.unavailable.message", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: To complete the KYC you will need to:
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -1417,6 +1538,38 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common.try.again", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Try again for free
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func verificationRejectedScreenTryAgainForFree(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("verification.rejected.screen.try.again.for.free", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "verification.rejected.screen.try.again.for.free"
+        }
+
+        return NSLocalizedString("verification.rejected.screen.try.again.for.free", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Try again for €%@
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func verificationRejectedScreenTryAgainForEuros(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("verification.rejected.screen.try.again.for.euros", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "verification.rejected.screen.try.again.for.euros"
+        }
+
+        let format = NSLocalizedString("verification.rejected.screen.try.again.for.euros", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// de translation: Um ein für die SORA-Karte benötigtes IBAN-Konto zu erhalten, müssen Benutzer einen KYC-Prozess mit dem Kartenaussteller durchlaufen. Dies ist eine erforderliche Einhaltung. Die SORA-Community sammelt keine personenbezogenen Daten von Ihnen und wird dies auch in Zukunft nicht tun.
@@ -1509,7 +1662,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("user.registration.first.name.input.filed.label", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: We want you to know exactly how SORA Card services work, who and why needs your details. Reviewing these policies will help you continue using the app with peace of mind.
+      /// de translation: We want you to know exactly how the SORA card service will work, who needs your details and why. Reviewing these policies will help you use the app with peace of mind.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static func termsAndConditionsDescription(preferredLanguages: [String]? = nil) -> String {
@@ -1522,6 +1675,36 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("terms.and.conditions.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Widget unavailable
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func paymentWidgetUnavailableTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("payment.widget.unavailable.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "payment.widget.unavailable.title"
+        }
+
+        return NSLocalizedString("payment.widget.unavailable.title", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Yes, I understand
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func paymentWidgetUnavailableConfirm(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("payment.widget.unavailable.confirm", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "payment.widget.unavailable.confirm"
+        }
+
+        return NSLocalizedString("payment.widget.unavailable.confirm", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: You already used your free try
@@ -1537,6 +1720,23 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("details.already.used.free.try", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: You have %@ more free KYC attempt.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func verificationRejectedScreenAttemptsLeft(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("verification.rejected.screen.attempts.left", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "verification.rejected.screen.attempts.left"
+        }
+
+        let format = NSLocalizedString("verification.rejected.screen.attempts.left", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// de translation: You have enough XOR
@@ -1567,6 +1767,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("kyc.result.verification.in.progress.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: You have used your free KYC attempts.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func verificationRejectedScreenAttemptsUsed(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("verification.rejected.screen.attempts.used", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "verification.rejected.screen.attempts.used"
+        }
+
+        return NSLocalizedString("verification.rejected.screen.attempts.used", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: You have used your free attempt to pass the KYC process.  We kindly ask you to wait until the next upgrade of the application to proceed with paid attempts.
@@ -1616,7 +1831,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("enter.phone.number.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: Your application has failed. To read more about the reason of the failure, please read the following additional description.
+      /// de translation: Your application has been rejected.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static func verificationRejectedDescription(preferredLanguages: [String]? = nil) -> String {

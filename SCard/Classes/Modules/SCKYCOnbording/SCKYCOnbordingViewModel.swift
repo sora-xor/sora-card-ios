@@ -29,7 +29,8 @@ final class SCKYCOnbordingViewModel {
             data.referenceId = respons.referenceID
             return data.referenceNumber
         case .failure(let error):
-            print(error) // TODO: Update UI
+            print(error)
+            showErrorAlert(title: "Error", message: error.errorDescription ?? error.localizedDescription)
             return nil
         }
     }
@@ -145,6 +146,16 @@ final class SCKYCOnbordingViewModel {
                 UIApplication.shared.open(url, options: [:], completionHandler: { _ in })
             }
         })
+        viewController?.present(alertController, animated: true)
+    }
+
+    private func showErrorAlert(title: String, message: String) {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
         viewController?.present(alertController, animated: true)
     }
 }

@@ -9,6 +9,7 @@ final class SCKYCUserDataModel {
 
     var lastPhoneOTPSentDate = Date()
     var lastEmailOTPSentDate = Date()
+    var otpLength = 6
 
     var referenceId = ""
     var referenceNumber = ""

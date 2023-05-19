@@ -29,7 +29,7 @@ final class SCKYCEnterPhoneViewModel {
 
 extension SCKYCEnterPhoneViewModel: SignInWithPhoneNumberRequestOtpCallbackDelegate {
     func onShowOtpInputScreen(otpLength: Int) {
-        // TODO: SC otpLength needed?
+        data.otpLength = otpLength
         onError?("")
         onContinue?()
     }

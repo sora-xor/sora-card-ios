@@ -64,7 +64,7 @@ class ViewController: UIViewController {
             config: scConfig,
             balanceStream: xorBalanceStream,
             onSwapController: { vc in
-                print("TODO: show SwapController in \(vc)")
+                print("show SwapController in \(vc)")
             }
         )
 

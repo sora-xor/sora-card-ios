@@ -51,6 +51,7 @@
 "common.ok" = "De acuerdo";
 "no.free.kyc.attempts.title" = "No quedan más intentos gratuitos";
 "get.prepared.need" = "Para completar el KYC necesitarás:";
+"otp.error.message.wrong.code" = "Código incorrecto. Inténtalo de nuevo.";
 "details.need.xor.desription" = "Necesita %@ más XOR (€%@)";
 "details.enough.xor.desription" = "Tienes suficientes XOR";
 "verification.rejected.support" = "Ayuda";
@@ -76,3 +77,13 @@
 "status.not.started" = "Consiga la Tarjeta SORA";
 "cant.fetch.refresh" = "Can't fetch data, tap to refresh.";
 "login.title" = "Log in or Sign up";
+"verification.rejected.screen.try.again.for.euros" = "Try again for €%@";
+"verification.rejected.screen.try.again.for.free" = "Try again for free";
+"verification.rejected.screen.attempts.used" = "You have used your free KYC attempts.";
+"verification.rejected.screen.attempts.price.disclaimer" = "Every other attempt will cost you €%@";
+"verification.rejected.screen.attempts.left" = "You have %@ more free KYC attempt.";
+"payment.widget.unavailable.title" = "Widget unavailable";
+"payment.widget.unavailable.message" = "The payment widget is currently unavailable";
+"payment.widget.unavailable.description" = "Apologies for the inconvenience.\nWe’re working diligently to resolve this.\nPlease, try again later.";
+"payment.widget.unavailable.confirm" = "Yes, I understand";
+"log.out" = "Log out";

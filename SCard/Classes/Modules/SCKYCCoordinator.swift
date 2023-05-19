@@ -46,7 +46,7 @@ final class SCKYCCoordinator {
         }
 
         if storage.hasToken(),
-           await self.service.refreshAccessTokenIfNeeded() // TODO: SC refactor refreshing AccessToken
+           await self.service.refreshAccessTokenIfNeeded()
         {
             checkUserStatus(data: data)
         } else {

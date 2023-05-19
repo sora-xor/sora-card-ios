@@ -3,6 +3,8 @@ import SoraUIKit
 
 final class SCKYCStatusView: UIView {
 
+    static let attemptsPrice = "3.80"
+
     var onLogoutButton: (() -> Void)?
     var onRetryButton: (() -> Void)?
     var onSupportButton: (() -> Void)?
@@ -13,7 +15,7 @@ final class SCKYCStatusView: UIView {
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onLogoutButton?()
         }
-        button.sora.title = "Log out" // TODO:
+        button.sora.title = R.string.soraCard.logOut(preferredLanguages: .currentLocale)
         return button
     }()
 
@@ -54,7 +56,7 @@ final class SCKYCStatusView: UIView {
             self?.onRetryButton?()
         }
         button.sora.cornerRadius = .custom(28)
-        button.sora.title = "Try again for free" // TODO:
+        button.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForFree(preferredLanguages: .currentLocale)
         button.sora.isHidden = true
         return button
     }()
@@ -119,7 +121,7 @@ final class SCKYCStatusView: UIView {
             iconView.sora.picture = .logo(image: R.image.kycSuccessful()!)
             actionButton.sora.isHidden = true
 
-            secondButton.sora.title = "Close"
+            secondButton.sora.title = R.string.soraCard.commonClose(preferredLanguages: .currentLocale)
             secondButton.sora.removeAllHandlers(for: .touchUpInside)
             secondButton.sora.addHandler(for: .touchUpInside) { [weak self] in
                 self?.onCloseButton?()
@@ -143,17 +145,38 @@ final class SCKYCStatusView: UIView {
         case .rejected:
 
             titleLabel.sora.text = R.string.soraCard.verificationRejectedTitle(preferredLanguages: .currentLocale)
-            textLabel.sora.text = "Your application has been rejected."
+            textLabel.sora.text = R.string.soraCard.verificationRejectedDescription(preferredLanguages: .currentLocale) // "Your application has been rejected."
             iconView.sora.picture = .logo(image: R.image.kycRejected()!)
 
             actionButton.sora.isHidden = false
 
+            let disclaimer = SoramitsuTextItem(
+                text:  "\n\(R.string.soraCard.verificationRejectedScreenAttemptsPriceDisclaimer(Self.attemptsPrice, preferredLanguages: .currentLocale))",
+                fontData: ScreenSizeMapper.value(small: FontType.paragraphS, medium: FontType.paragraphM, large: FontType.paragraphM),
+                textColor: .fgPrimary,
+                alignment: .center
+            )
+
             if hasFreeAttemts {
-                actionDescriptionLabel.sora.text = "You have 1 more free KYC attempt.\nEvery other attempt will cost you €3.80"
-                actionButton.sora.title = "Try again for free"
+
+                let attemptsLeft = SoramitsuTextItem(
+                    text:  R.string.soraCard.verificationRejectedScreenAttemptsLeft("1", preferredLanguages: .currentLocale),
+                    fontData: ScreenSizeMapper.value(small: FontType.paragraphBoldS, medium: FontType.paragraphBoldM, large: FontType.paragraphBoldM),
+                    textColor: .fgPrimary,
+                    alignment: .center
+                )
+                actionDescriptionLabel.sora.attributedText =  [attemptsLeft, disclaimer]
+                actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForFree(preferredLanguages: .currentLocale)
+
             } else {
-                actionDescriptionLabel.sora.text = "You have used your free KYC attempts.\nEvery other attempt will cost you €3.80"
-                actionButton.sora.title = "Try again for €3.80"
+                let attemptsLeft = SoramitsuTextItem(
+                    text:  R.string.soraCard.verificationRejectedScreenAttemptsUsed(preferredLanguages: .currentLocale),
+                    fontData: ScreenSizeMapper.value(small: FontType.paragraphBoldS, medium: FontType.paragraphBoldM, large: FontType.paragraphBoldM),
+                    textColor: .fgPrimary,
+                    alignment: .center
+                )
+                actionDescriptionLabel.sora.attributedText =  [attemptsLeft, disclaimer]
+                actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForEuros(Self.attemptsPrice, preferredLanguages: .currentLocale)
             }
 
             secondButton.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)

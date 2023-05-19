@@ -33,9 +33,7 @@ final class SCKYCEnterPhoneCodeViewModel {
     private let service: SCKYCService
 
     func check(code: String) {
-
-        // TODO: SC use codeLen
-        if code.count < 6 {
+        if code.count < data.otpLength {
             codeState = .editing
             onUpdateUI?()
             return
@@ -61,12 +59,10 @@ extension SCKYCEnterPhoneCodeViewModel: SignInWithPhoneNumberVerifyOtpCallbackDe
         onUserRegistration?(data)
     }
 
-    func onUserSignInRequired() {
-        // TODO: needed?
-    }
+    func onUserSignInRequired() {}
 
     func onVerificationFailed() {
-        codeState = .wrong("Incorrect or expired OTP") // TODO: SC localize?
+        codeState = .wrong(R.string.soraCard.otpErrorMessageWrongCode(preferredLanguages: .currentLocale))
         onUpdateUI?()
     }
 

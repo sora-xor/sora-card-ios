@@ -55,7 +55,6 @@ extension SCKYCEnterEmailViewModel: RegisterUserCallbackDelegate, ChangeUnverifi
     }
 
     func onUserSignInRequired() {
-        // TODO: neede
         onError?("")
         onContinue?(data)
     }
