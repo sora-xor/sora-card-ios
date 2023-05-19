@@ -6,6 +6,13 @@ public class SCard {
 
     public static var shared: SCard?
 
+    private let config: Config
+    private let coordinator: SCKYCCoordinator
+    private let client: SCAPIClient
+    private let service: SCKYCService
+    private let storage: SCStorage = .shared
+    private let address: String
+
     public struct Config {
         public let backendUrl: String
         public let pwAuthDomain: String
@@ -51,13 +58,6 @@ public class SCard {
         }
     }
 
-    private let config: Config
-    private let coordinator: SCKYCCoordinator
-    private let client: SCAPIClient
-    private let service: SCKYCService
-    private let storage: SCStorage = .shared
-    private let address: String
-
     public init(
         address: String,
         config: Config,
@@ -85,6 +85,12 @@ public class SCard {
             } else {
                 _ = await service.kycStatuses()
             }
+        }
+    }
+
+    public var selectedLocalization: String {
+        didSet {
+            LocalizationManager.shared.selectedLocalization = selectedLocalization
         }
     }
 
