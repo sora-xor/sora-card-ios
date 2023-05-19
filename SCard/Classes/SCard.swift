@@ -4,6 +4,10 @@ import SoraUIKit
 
 public class SCard {
 
+    static let minXorAmount = "100"
+    static let issuanceFee = "12"
+    static let attemptsPrice = "3.80"
+
     public static var shared: SCard?
 
     private let config: Config

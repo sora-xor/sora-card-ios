@@ -71,8 +71,8 @@
 "details.description" = "Get a Euro IBAN account and Mastercard Debit Card connected to your SORA Wallet";
 "details.annual.service.fee" = "Frais de service annuels de 0€";
 "details.free.card.issuance" = "Émission de carte gratuite";
-"details.free.card.issuance.conditions.xor" = "Si vous détenez, stakez, ou fournissez des liquidités pour un montant d'au moins 100€ de XOR avec votre compte SORA";
-"details.free.card.issuance.conditions.euro" = "ou 12€ de frais de demande";
+"details.free.card.issuance.conditions.xor" = "Si vous détenez, stakez, ou fournissez des liquidités pour un montant d'au moins %@€ de XOR avec votre compte SORA";
+"details.free.card.issuance.conditions.euro" = "ou %@€ de frais de demande";
 "common.error.general.title" = "Erreur";
 "status.not.started" = "Obtenir la SORA Card";
 "cant.fetch.refresh" = "Impossible de récupérer les données, tappez pour rafraîchir";

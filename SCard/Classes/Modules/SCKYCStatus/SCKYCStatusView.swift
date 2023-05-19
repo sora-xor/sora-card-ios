@@ -3,8 +3,6 @@ import SoraUIKit
 
 final class SCKYCStatusView: UIView {
 
-    static let attemptsPrice = "3.80"
-
     var onLogoutButton: (() -> Void)?
     var onRetryButton: (() -> Void)?
     var onSupportButton: (() -> Void)?
@@ -151,7 +149,7 @@ final class SCKYCStatusView: UIView {
             actionButton.sora.isHidden = false
 
             let disclaimer = SoramitsuTextItem(
-                text:  "\n\(R.string.soraCard.verificationRejectedScreenAttemptsPriceDisclaimer(Self.attemptsPrice, preferredLanguages: .currentLocale))",
+                text:  "\n\(R.string.soraCard.verificationRejectedScreenAttemptsPriceDisclaimer(SCard.attemptsPrice, preferredLanguages: .currentLocale))",
                 fontData: ScreenSizeMapper.value(small: FontType.paragraphS, medium: FontType.paragraphM, large: FontType.paragraphM),
                 textColor: .fgPrimary,
                 alignment: .center
@@ -176,7 +174,7 @@ final class SCKYCStatusView: UIView {
                     alignment: .center
                 )
                 actionDescriptionLabel.sora.attributedText =  [attemptsLeft, disclaimer]
-                actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForEuros(Self.attemptsPrice, preferredLanguages: .currentLocale)
+                actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForEuros(SCard.attemptsPrice, preferredLanguages: .currentLocale)
             }
 
             secondButton.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)

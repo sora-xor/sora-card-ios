@@ -71,8 +71,8 @@
 "details.description" = "Consigue una cuenta Euro IBAN y Tarjeta de Débito Mastercard conectadas a tu billetera SORA";
 "details.annual.service.fee" = "Cuota anual de servicio 0 €";
 "details.free.card.issuance" = "Emisión gratuita de la tarjeta";
-"details.free.card.issuance.conditions.xor" = "Si tienes al menos 100 € de XOR en la billetera, en staking o liquidez en tu cuenta SORA";
-"details.free.card.issuance.conditions.euro" = "o tarifa de solicitud de 12 €";
+"details.free.card.issuance.conditions.xor" = "Si tienes al menos %@ € de XOR en la billetera, en staking o liquidez en tu cuenta SORA";
+"details.free.card.issuance.conditions.euro" = "o tarifa de solicitud de %@ €";
 "common.error.general.title" = "Error";
 "status.not.started" = "Consiga la Tarjeta SORA";
 "cant.fetch.refresh" = "Can't fetch data, tap to refresh.";

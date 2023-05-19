@@ -322,7 +322,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let detailsAlreadyHaveCard = Rswift.StringResource(key: "details.already.have.card", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: If you hold, stake or provide liquidity for at least €100 worth of XOR in your SORA account
+      /// de translation: If you hold, stake or provide liquidity for at least €%@ worth of XOR in your SORA account
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let detailsFreeCardIssuanceConditionsXor = Rswift.StringResource(key: "details.free.card.issuance.conditions.xor", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -542,7 +542,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonOk = Rswift.StringResource(key: "common.ok", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: or 12 € application fee
+      /// de translation: or %@ € application fee
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let detailsFreeCardIssuanceConditionsEuro = Rswift.StringResource(key: "details.free.card.issuance.conditions.euro", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -1028,19 +1028,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("details.already.have.card", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: If you hold, stake or provide liquidity for at least €100 worth of XOR in your SORA account
+      /// de translation: If you hold, stake or provide liquidity for at least €%@ worth of XOR in your SORA account
       ///
       /// Locales: de, en, es, ru, fr, nl
-      static func detailsFreeCardIssuanceConditionsXor(preferredLanguages: [String]? = nil) -> String {
+      static func detailsFreeCardIssuanceConditionsXor(_ value1: String, preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("details.free.card.issuance.conditions.xor", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          let format = NSLocalizedString("details.free.card.issuance.conditions.xor", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
         }
 
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
           return "details.free.card.issuance.conditions.xor"
         }
 
-        return NSLocalizedString("details.free.card.issuance.conditions.xor", tableName: "SoraCard", bundle: bundle, comment: "")
+        let format = NSLocalizedString("details.free.card.issuance.conditions.xor", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// de translation: Ihre KYC-Verifizierung ist erfolgreich und wir bereiten bereits den Versand der SORA-Karte vor!
@@ -1861,19 +1863,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common.ok", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: or 12 € application fee
+      /// de translation: or %@ € application fee
       ///
       /// Locales: de, en, es, ru, fr, nl
-      static func detailsFreeCardIssuanceConditionsEuro(preferredLanguages: [String]? = nil) -> String {
+      static func detailsFreeCardIssuanceConditionsEuro(_ value1: String, preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("details.free.card.issuance.conditions.euro", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          let format = NSLocalizedString("details.free.card.issuance.conditions.euro", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
         }
 
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
           return "details.free.card.issuance.conditions.euro"
         }
 
-        return NSLocalizedString("details.free.card.issuance.conditions.euro", tableName: "SoraCard", bundle: bundle, comment: "")
+        let format = NSLocalizedString("details.free.card.issuance.conditions.euro", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// de translation: Überprüfung läuft
