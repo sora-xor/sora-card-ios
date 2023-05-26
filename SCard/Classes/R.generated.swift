@@ -105,12 +105,16 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 7 images.
+  /// This `R.image` struct is generated, and contains static references to 9 images.
   struct image {
     /// Image `arrowDown`.
     static let arrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowDown")
+    /// Image `arrowRightSmall`.
+    static let arrowRightSmall = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowRightSmall")
     /// Image `checkSmall`.
     static let checkSmall = Rswift.ImageResource(bundle: R.hostingBundle, name: "checkSmall")
+    /// Image `close`.
+    static let close = Rswift.ImageResource(bundle: R.hostingBundle, name: "close")
     /// Image `crossSmall`.
     static let crossSmall = Rswift.ImageResource(bundle: R.hostingBundle, name: "crossSmall")
     /// Image `kycPending`.
@@ -130,9 +134,23 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "arrowRightSmall", bundle: ..., traitCollection: ...)`
+    static func arrowRightSmall(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.arrowRightSmall, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "checkSmall", bundle: ..., traitCollection: ...)`
     static func checkSmall(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.checkSmall, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "close", bundle: ..., traitCollection: ...)`
+    static func close(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.close, compatibleWith: traitCollection)
     }
     #endif
 
@@ -196,7 +214,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 89 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 94 localization keys.
     struct soraCard {
       /// de translation: ATTENTION: You have only 2 free attempts to pass the KYC process. Every other attempt after that will cost €3.8. Paid attempts will be available after the next update of the app.
       ///
@@ -234,6 +252,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonCancel = Rswift.StringResource(key: "common.cancel", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Card settings
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardHubSettingsTitle = Rswift.StringResource(key: "card.hub.settings.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Change your email
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -306,7 +328,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let statusNotStarted = Rswift.StringResource(key: "status.not.started", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Get a Euro IBAN account and Mastercard Debit Card connected to your SORA Wallet
+      /// de translation: Get a Euro IBAN account and Mastercard Debit Card accessible within your SORA Wallet
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let detailsDescription = Rswift.StringResource(key: "details.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -357,7 +379,19 @@ struct R: Rswift.Validatable {
       /// de translation: Log out
       ///
       /// Locales: de, en, es, ru, fr, nl
+      static let cardHubSettingsLogoutButton = Rswift.StringResource(key: "card.hub.settings.logout.button", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Log out
+      ///
+      /// Locales: de, en, es, ru, fr, nl
       static let logOut = Rswift.StringResource(key: "log.out", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Log out SORA Card
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardHubSettingsLogout = Rswift.StringResource(key: "card.hub.settings.logout", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Log out of SORA Card
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardHubSettingsLogoutTitle = Rswift.StringResource(key: "card.hub.settings.logout.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Magic link will be sent to your email
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -506,6 +540,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let detailsAlreadyUsedFreeTry = Rswift.StringResource(key: "details.already.used.free.try", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: You are about to log out of SORA Card. You will still have access to the SORA Card standalone app, but the balance will no longer be available to you in the SORA Wallet.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardHubSettingsLogoutDescription = Rswift.StringResource(key: "card.hub.settings.logout.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: You have %@ more free KYC attempt.
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -688,6 +726,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("common.cancel", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Card settings
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardHubSettingsTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.settings.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.settings.title"
+        }
+
+        return NSLocalizedString("card.hub.settings.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Change your email
@@ -968,7 +1021,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("status.not.started", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: Get a Euro IBAN account and Mastercard Debit Card connected to your SORA Wallet
+      /// de translation: Get a Euro IBAN account and Mastercard Debit Card accessible within your SORA Wallet
       ///
       /// Locales: de, en, es, ru, fr, nl
       static func detailsDescription(preferredLanguages: [String]? = nil) -> String {
@@ -1153,6 +1206,21 @@ struct R: Rswift.Validatable {
       /// de translation: Log out
       ///
       /// Locales: de, en, es, ru, fr, nl
+      static func cardHubSettingsLogoutButton(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.settings.logout.button", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.settings.logout.button"
+        }
+
+        return NSLocalizedString("card.hub.settings.logout.button", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Log out
+      ///
+      /// Locales: de, en, es, ru, fr, nl
       static func logOut(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("log.out", tableName: "SoraCard", bundle: hostingBundle, comment: "")
@@ -1163,6 +1231,36 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("log.out", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Log out SORA Card
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardHubSettingsLogout(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.settings.logout", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.settings.logout"
+        }
+
+        return NSLocalizedString("card.hub.settings.logout", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Log out of SORA Card
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardHubSettingsLogoutTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.settings.logout.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.settings.logout.title"
+        }
+
+        return NSLocalizedString("card.hub.settings.logout.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Magic link will be sent to your email
@@ -1722,6 +1820,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("details.already.used.free.try", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: You are about to log out of SORA Card. You will still have access to the SORA Card standalone app, but the balance will no longer be available to you in the SORA Wallet.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardHubSettingsLogoutDescription(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.settings.logout.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.settings.logout.description"
+        }
+
+        return NSLocalizedString("card.hub.settings.logout.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: You have %@ more free KYC attempt.

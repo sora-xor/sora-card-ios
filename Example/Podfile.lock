@@ -2,20 +2,20 @@ PODS:
   - eIDRTC (1.1.34)
   - IdensicMobileSDK (1.19.6)
   - PayWingsOAuthSDK (1.2.1)
-  - PayWingsOnboardingKYC (5.1.4):
+  - PayWingsOnboardingKYC (5.1.5):
     - VideoID (= 7.1.31)
   - R.swift (6.1.0):
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
-  - SCard (0.1.0):
+  - SCard (1.0.0):
     - IdensicMobileSDK
     - PayWingsOAuthSDK (= 1.2.1)
-    - PayWingsOnboardingKYC (= 5.1.4)
+    - PayWingsOnboardingKYC (= 5.1.5)
     - R.swift (~> 6.1.0)
     - SnapKit
-    - SoraUIKit (~> 1.0.0)
+    - SoraUIKit (~> 1.0.1)
   - SnapKit (5.6.0)
-  - SoraUIKit (1.0.0)
+  - SoraUIKit (1.0.1)
   - VideoID (7.1.31):
     - eIDRTC (= 1.1.34)
 
@@ -23,7 +23,7 @@ DEPENDENCIES:
   - "IdensicMobileSDK (from `{:http=>\"https://github.com/paywings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.0.0.tar.gz\"}`)"
   - R.swift (~> 6.1.0)
   - SCard (from `../`)
-  - SoraUIKit (from `https://github.com/soramitsu/ios-ui.git`, tag `1.0.0`)
+  - SoraUIKit (from `https://github.com/soramitsu/ios-ui.git`, tag `1.0.1`)
 
 SPEC REPOS:
   trunk:
@@ -42,27 +42,27 @@ EXTERNAL SOURCES:
     :path: "../"
   SoraUIKit:
     :git: https://github.com/soramitsu/ios-ui.git
-    :tag: 1.0.0
+    :tag: 1.0.1
 
 CHECKOUT OPTIONS:
   IdensicMobileSDK:
     :http: https://github.com/paywings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.0.0.tar.gz
   SoraUIKit:
     :git: https://github.com/soramitsu/ios-ui.git
-    :tag: 1.0.0
+    :tag: 1.0.1
 
 SPEC CHECKSUMS:
   eIDRTC: debca63e4c367be509c77292df65b9527d695f10
   IdensicMobileSDK: 03ade0371c3b579ca7e6129dc59cf43341b74e98
   PayWingsOAuthSDK: c6df50b0767cc3803011331b8cbacd2eafa52224
-  PayWingsOnboardingKYC: 049abe87d87fa59445af2ccb68330404564832a9
+  PayWingsOnboardingKYC: 17215f6d23b7596cba793713b31c6c68f10c5c27
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
-  SCard: 86b40ca7c6b4a7533c25d1ac887f1908eb726681
+  SCard: 9071d25925540d1722b83c0c5765913e23fcdb5f
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
-  SoraUIKit: 9005579df8b8bff0a86c44cac12dfce7de25e92d
+  SoraUIKit: d23f2c122974e5700c8c646ba4d314fa3db12f6f
   VideoID: d48d4f30f79f12229421a09e65692561960dc5b5
 
-PODFILE CHECKSUM: 0080a6ab58fb81969d2c848ec4d503607d17f33f
+PODFILE CHECKSUM: 15798735f133dfb0e9a739d77bb1b3682906e1f4
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

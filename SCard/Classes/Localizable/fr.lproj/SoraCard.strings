@@ -68,7 +68,7 @@
 "unsupported.countries.disclaimer" = "Les résidents de certains pays ne peuvent pas demander de carte SORA pour le moment";
 "common.user.not.found" = "Aucun numéro de portable trouvé, veuillez le revérifier et réessayer.";
 "details.title" = "Rechargez votre SORA Card avec une monnaie fiduciaire et payez en ligne, en magasin, ou retirez depuis un distributeur automatique";
-"details.description" = "Get a Euro IBAN account and Mastercard Debit Card connected to your SORA Wallet";
+"details.description" = "Obtenez un IBAN en compte Euros ainsi qu'un carte de débit Mastercard connectés à votre portefeuille SORA";
 "details.annual.service.fee" = "Frais de service annuels de 0€";
 "details.free.card.issuance" = "Émission de carte gratuite";
 "details.free.card.issuance.conditions.xor" = "Si vous détenez, stakez, ou fournissez des liquidités pour un montant d'au moins %@€ de XOR avec votre compte SORA";
@@ -82,8 +82,13 @@
 "verification.rejected.screen.attempts.used" = "Vous avez utilisé toutes vos tentatives gratuites pour la vérification KYC";
 "verification.rejected.screen.attempts.price.disclaimer" = "Toute autre tentative coûtera %@€";
 "verification.rejected.screen.attempts.left" = "Vous avez encore %@ tentative(s) de KYC gratuite(s)";
-"payment.widget.unavailable.title" = "Widget unavailable";
-"payment.widget.unavailable.message" = "The payment widget is currently unavailable";
-"payment.widget.unavailable.description" = "Apologies for the inconvenience.\nWe’re working diligently to resolve this.\nPlease, try again later.";
-"payment.widget.unavailable.confirm" = "Yes, I understand";
-"log.out" = "Log out";
+"payment.widget.unavailable.title" = "Widget indisponible";
+"payment.widget.unavailable.message" = "Le widget de paiement est actuellement indisponible";
+"payment.widget.unavailable.description" = "Veuillez nous excuser pour le désagrément. Nous travaillons actuellement à résoudre le problème. Veuillez réessayer plus tard.";
+"payment.widget.unavailable.confirm" = "Oui, je comprends";
+"log.out" = "Se déconnecter";
+"card.hub.settings.logout.title" = "Log out of SORA Card";
+"card.hub.settings.logout.description" = "You are about to log out of SORA Card. You will still have access to the SORA Card standalone app, but the balance will no longer be available to you in the SORA Wallet.";
+"card.hub.settings.logout.button" = "Log out";
+"card.hub.settings.title" = "Card settings";
+"card.hub.settings.logout" = "Log out SORA Card";

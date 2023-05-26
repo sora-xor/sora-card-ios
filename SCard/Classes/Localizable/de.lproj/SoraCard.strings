@@ -68,7 +68,7 @@
 "unsupported.countries.disclaimer" = "Einwohner bestimmter Länder können derzeit keine SORA Card beantragen";
 "common.user.not.found" = "Keine Handynummer gefunden, bitte überprüfen Sie sie erneut und versuchen Sie es erneut.";
 "details.title" = "Top up SORA Card with fiat or crypto and pay online, in-store or withdraw from an ATM";
-"details.description" = "Get a Euro IBAN account and Mastercard Debit Card connected to your SORA Wallet";
+"details.description" = "Get a Euro IBAN account and Mastercard Debit Card accessible within your SORA Wallet";
 "details.annual.service.fee" = "€0 annual service fee";
 "details.free.card.issuance" = "Free card issuance";
 "details.free.card.issuance.conditions.xor" = "If you hold, stake or provide liquidity for at least €%@ worth of XOR in your SORA account";
@@ -87,3 +87,8 @@
 "payment.widget.unavailable.description" = "Apologies for the inconvenience.\nWe’re working diligently to resolve this.\nPlease, try again later.";
 "payment.widget.unavailable.confirm" = "Yes, I understand";
 "log.out" = "Log out";
+"card.hub.settings.logout.title" = "Log out of SORA Card";
+"card.hub.settings.logout.description" = "You are about to log out of SORA Card. You will still have access to the SORA Card standalone app, but the balance will no longer be available to you in the SORA Wallet.";
+"card.hub.settings.logout.button" = "Log out";
+"card.hub.settings.title" = "Card settings";
+"card.hub.settings.logout" = "Log out SORA Card";

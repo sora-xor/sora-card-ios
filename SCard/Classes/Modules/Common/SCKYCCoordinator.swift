@@ -25,6 +25,7 @@ final class SCKYCCoordinator {
         self.onSwapController = onSwapController
     }
 
+    private weak var rootViewController: UIViewController?
     private let navigationController: UINavigationController = {
         let navigationVC = UINavigationController()
         navigationVC.navigationBar.backgroundColor = .white
@@ -34,8 +35,16 @@ final class SCKYCCoordinator {
     }()
 
     func start(in rootViewController: UIViewController) async {
+        self.rootViewController = rootViewController
         await MainActor.run {
             navigationController.viewControllers = []
+        }
+
+        guard await self.service.userStatus() != .successful else {
+            await MainActor.run {
+                self.showCardHub()
+            }
+            return
         }
 
         await rootViewController.present(navigationController, animated: true)
@@ -232,7 +241,13 @@ final class SCKYCCoordinator {
                         }
                         return
                     }
-                    self.showStatus(data: data)
+                    if statusesToShow.sorted.last?.userStatus == .successful {
+                        // TODO: dismiss login flow
+                        self.showCardHub()
+                    } else {
+                        self.showStatus(data: data)
+                    }
+
                 case .failure(let error):
                     print(error)
                     Task { [weak self] in await self?.resetKYC() }
@@ -284,6 +299,38 @@ final class SCKYCCoordinator {
         }
 
         navigationController.pushViewController(viewController, animated: true)
+    }
+
+    private func showCardHub() {
+
+        let viewController = SCCardHubViewController()
+
+        viewController.onLogout = { [weak self] in
+            self?.showLogoutAlert(in: viewController)
+        }
+
+        let containerView = BlurViewController()
+        containerView.modalPresentationStyle = .overFullScreen
+        containerView.add(viewController)
+
+        self.rootViewController?.present(containerView, animated: true)
+    }
+
+    private func showLogoutAlert(in viewController: UIViewController) {
+        let alertController = UIAlertController(
+            title: R.string.soraCard.cardHubSettingsLogoutTitle(preferredLanguages: .currentLocale),
+            message: R.string.soraCard.cardHubSettingsLogoutDescription(preferredLanguages: .currentLocale),
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(title: R.string.soraCard.commonCancel(preferredLanguages: .currentLocale), style: .cancel))
+        alertController.addAction(
+            UIAlertAction(title: R.string.soraCard.cardHubSettingsLogoutButton(preferredLanguages: .currentLocale) , style: .destructive
+        ) { [weak self, viewController] _ in
+            Task { [weak self] in await self?.storage.removeToken() }
+            self?.storage.set(isRety: false)
+            viewController.dismiss(animated: true)
+        })
+        viewController.present(alertController, animated: true)
     }
 
     private func retryKYC() async {
