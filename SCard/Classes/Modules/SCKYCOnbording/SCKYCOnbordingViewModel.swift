@@ -85,7 +85,7 @@ final class SCKYCOnbordingViewModel {
                 let microphoneAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == .authorized) ? true : false
 
                 let accessToken = token?.accessToken ?? ""
-                let refreshToken = token?.refreshToken
+                let refreshToken = token?.refreshToken ?? ""
                 let userCredentials = UserCredentials(accessToken: accessToken, refreshToken: refreshToken)
                 if cameraAuthorized && microphoneAuthorized {
                     let config = KycConfig(
