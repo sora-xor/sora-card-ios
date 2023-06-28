@@ -80,18 +80,22 @@ final class SCKYCOnbordingViewModel {
             )
 
             DispatchQueue.main.async {
-               let cameraAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized) ? true : false
-               let microphoneAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == .authorized) ? true : false
 
-               if cameraAuthorized && microphoneAuthorized {
-                   let config = KycConfig(
-                    credentials: credentials,
-                    settings: settings,
-                    userData: userData,
-                    userCredentials: UserCredentials(accessToken: token?.accessToken ?? "", refreshToken: token?.refreshToken)
-                   )
-                   PayWingsOnboardingKyc.startKyc(vc: self.viewController ?? .init(), config: config, result: self.result)
-               }
+                let cameraAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized) ? true : false
+                let microphoneAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == .authorized) ? true : false
+
+                let accessToken = token?.accessToken ?? ""
+                let refreshToken = token?.refreshToken
+                let userCredentials = UserCredentials(accessToken: accessToken, refreshToken: refreshToken)
+                if cameraAuthorized && microphoneAuthorized {
+                    let config = KycConfig(
+                        credentials: credentials,
+                        settings: settings,
+                        userData: userData,
+                        userCredentials:userCredentials
+                    )
+                    PayWingsOnboardingKyc.startKyc(vc: self.viewController ?? .init(), config: config, result: self.result)
+                }
             }
         }
     }
