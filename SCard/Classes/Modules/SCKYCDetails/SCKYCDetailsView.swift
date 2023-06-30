@@ -6,7 +6,6 @@ final class SCKYCDetailsView: UIView {
     var onIssueCard: (() -> Void)?
     var onGetMoreXor: (() -> Void)?
     var onIssueCardForFree: (() -> Void)?
-    var onHaveCard: (() -> Void)?
     var onUnsupportedCountries: (() -> Void)?
 
     private let scrollView = UIScrollView()
@@ -157,31 +156,6 @@ final class SCKYCDetailsView: UIView {
         return button
     }()
 
-// TODO: Issue card for 12 €
-//    private lazy var issueCardButton: SoramitsuButton = {
-//        let button = SoramitsuButton(size: .large, type: .outlined(.primary))
-//        button.sora.addHandler(for: .touchUpInside) { [weak self] in
-//            self?.issueCardButton.sora.isEnabled = false
-//            self?.onIssueCard?()
-//            self?.issueCardButton.sora.isEnabled = true
-//        }
-//        button.sora.title = "Issue card for 12 € " // TODO: SC localize
-//        button.sora.cornerRadius = .custom(28)
-//        return button
-//    }()
-
-    private lazy var haveCardButton: SoramitsuButton = {
-        let button = SoramitsuButton(size: .large, type: .bleached(.primary))
-        button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.haveCardButton.sora.isEnabled = false
-            self?.onHaveCard?()
-            self?.haveCardButton.sora.isEnabled = true
-        }
-        button.sora.title = R.string.soraCard.detailsAlreadyHaveCard(preferredLanguages: .currentLocale)
-        button.sora.cornerRadius = .custom(28)
-        return button
-    }()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -190,10 +164,6 @@ final class SCKYCDetailsView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    func updateHaveCardButton(isHidden: Bool) {
-        haveCardButton.isHidden = isHidden
     }
 
     func updateBalance(percentage: Float, title: String, isKYCFree: Bool) {
@@ -224,13 +194,6 @@ final class SCKYCDetailsView: UIView {
             }
         } else {
             actionButton.isHidden = true
-//            actionButton.sora.title = "Issue card for 12 €"
-//            actionButton.sora.removeAllHandlers(for: .touchUpInside)
-//            actionButton.sora.addHandler(for: .touchUpInside) { [weak self] in
-//                self?.actionButton.sora.isEnabled = false
-//                self?.onIssueCard?()
-//                self?.actionButton.sora.isEnabled = true
-//            }
         }
     }
 
@@ -260,8 +223,7 @@ final class SCKYCDetailsView: UIView {
             detailsContainerView,
             unsupportedCountriesDisclaimerLabel,
             unsupportedCountriesButton,
-            actionButton,
-            haveCardButton
+            actionButton
         ])
 
         scrollView.addSubview(containerView)

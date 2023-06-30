@@ -96,10 +96,6 @@ final class SCKYCCoordinator {
             self?.showTermsAndConditions(data: data)
         }
 
-        viewModel.onHaveCard = { [weak self] in
-            self?.showTermsAndConditions(data: data)
-        }
-
         viewModel.onIssueCard = {
             print("TODO: 12$ pay integration")
         }
@@ -288,8 +284,8 @@ final class SCKYCCoordinator {
             Task { [weak self] in await self?.retryKYC() }
         }
 
-        viewModel.onReset = { [weak self] in
-            Task { [weak self] in await self?.resetKYC() }
+        viewModel.onLogout = { [weak self] in
+            self?.showLogoutAlert(in: viewController)
         }
 
         viewModel.onSupport = { [weak self] in
@@ -328,6 +324,7 @@ final class SCKYCCoordinator {
         ) { [weak self, viewController] _ in
             Task { [weak self] in await self?.storage.removeToken() }
             self?.storage.set(isRety: false)
+            self?.service._userStatusStream.wrappedValue = .notStarted
             viewController.dismiss(animated: true)
         })
         viewController.present(alertController, animated: true)

@@ -49,7 +49,7 @@ final class SCKYCStatusViewController: UIViewController {
 
         rootView.onLogoutButton = { [unowned viewModel] in
             DispatchQueue.main.async {
-                viewModel.onReset?()
+                viewModel.onLogout?()
             }
         }
 

@@ -1,6 +1,6 @@
 "terms.and.conditions.title" = "Conditions d'utilisation";
 "terms.and.conditions.description" = "Nous souhaitons que vous sachiez exactement comment les services SORA Card fonctionnent, ainsi que les entités et les conditions d'utilisation de vos données. Examiner les politiques d'utilisation vous aidera à continuer à utiliser l'application l'esprit tranquille.";
-"terms.and.conditions.sora.community.alert" = "Pour obtenir un compte IBAN nécessaire pour la carte SORA, les utilisateurs doivent se soumettre à un processus KYC avec l'émetteur de la carte. Il s'agit d'une conformité obligatoire. La communauté SORA ne collecte et ne collectera aucune de vos données personnelles.";
+"terms.and.conditions.sora.community.alert" = "Pour obtenir un compte IBAN nécessaire pour la SORA Card, les utilisateurs doivent se soumettre à un processus KYC avec l'émetteur de la carte. Il s'agit d'une conformité obligatoire. La communauté SORA ne collecte et ne collectera aucune de vos données personnelles.";
 "terms.and.conditions.general.terms" = "Conditions générales d'utilisation";
 "terms.and.conditions.privacy.policy" = "Politique de confidentialité";
 "terms.and.conditions.confirm.description" = "En continuant, vous confirmez avoir lu, compris et accepté les conditions d'utilisation";
@@ -65,7 +65,7 @@
 "verification.rejected.title" = "Demande rejetée";
 "verification.successful.title" = "Demande approuvée";
 "unsupported.countries.link" = "Voir la liste";
-"unsupported.countries.disclaimer" = "Les résidents de certains pays ne peuvent pas demander de carte SORA pour le moment";
+"unsupported.countries.disclaimer" = "Les résidents de certains pays ne peuvent pas accéder à SORA Card pour le moment";
 "common.user.not.found" = "Aucun numéro de portable trouvé, veuillez le revérifier et réessayer.";
 "details.title" = "Rechargez votre SORA Card avec une monnaie fiduciaire et payez en ligne, en magasin, ou retirez depuis un distributeur automatique";
 "details.description" = "Obtenez un IBAN en compte Euros ainsi qu'un carte de débit Mastercard connectés à votre portefeuille SORA";
@@ -75,8 +75,11 @@
 "details.free.card.issuance.conditions.euro" = "ou %@€ de frais de demande";
 "common.error.general.title" = "Erreur";
 "status.not.started" = "Obtenir la SORA Card";
-"cant.fetch.refresh" = "Impossible de récupérer les données, tappez pour rafraîchir";
+"cant.fetch.refresh" = "Impossible de récupérer les données, tapez pour rafraîchir";
 "login.title" = "S'identifier ou s'inscrire";
+"get.more.xor.dialog.description" = "Vous pouvez échanger vers du XOR ou en acheter avec des Euros";
+"get.more.xor.dialog.swap.option" = "Échanger de la crypto pour du XOR";
+"get.more.xor.dialog.buy.option" = "Acheter du XOR avec des EUR";
 "verification.rejected.screen.try.again.for.euros" = "Réessayer pour %@€";
 "verification.rejected.screen.try.again.for.free" = "Réessayer gratuitement";
 "verification.rejected.screen.attempts.used" = "Vous avez utilisé toutes vos tentatives gratuites pour la vérification KYC";
@@ -84,11 +87,11 @@
 "verification.rejected.screen.attempts.left" = "Vous avez encore %@ tentative(s) de KYC gratuite(s)";
 "payment.widget.unavailable.title" = "Widget indisponible";
 "payment.widget.unavailable.message" = "Le widget de paiement est actuellement indisponible";
-"payment.widget.unavailable.description" = "Veuillez nous excuser pour le désagrément. Nous travaillons actuellement à résoudre le problème. Veuillez réessayer plus tard.";
+"payment.widget.unavailable.description" = "Veuillez nous excuser du désagrément. Nous travaillons actuellement à résoudre le problème. Veuillez réessayer plus tard.";
 "payment.widget.unavailable.confirm" = "Oui, je comprends";
 "log.out" = "Se déconnecter";
-"card.hub.settings.logout.title" = "Log out of SORA Card";
-"card.hub.settings.logout.description" = "You are about to log out of SORA Card. You will still have access to the SORA Card standalone app, but the balance will no longer be available to you in the SORA Wallet.";
-"card.hub.settings.logout.button" = "Log out";
-"card.hub.settings.title" = "Card settings";
-"card.hub.settings.logout" = "Log out SORA Card";
+"card.hub.settings.logout.title" = "Se déconnecter de SORA Card";
+"card.hub.settings.logout.description" = "Vous êtes sur le point de vous déconnecter de votre compte SORA Card. Vous aurez toujours accès à l'application indépendante de SORA Card, mais le solde de votre compte ne sera plus disponible dans le portefeuille SORA.";
+"card.hub.settings.logout.button" = "Se déconnecter";
+"card.hub.settings.title" = "Paramètres de la carte";
+"card.hub.settings.logout" = "Se déconnecter de SORA Card";

@@ -8,7 +8,6 @@ final class SCKYCDetailsViewModel {
     var onIssueCard: (() -> Void)?
     var onSwapXor: (() -> Void)?
     var onGetXorWithFiat: (() -> Void)?
-    var onHaveCard: (() -> Void)?
     var onUnsupportedCountries: (() -> Void)?
 
     private let data: SCKYCUserDataModel

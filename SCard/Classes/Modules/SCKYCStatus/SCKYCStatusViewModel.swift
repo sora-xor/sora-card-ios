@@ -6,7 +6,7 @@ final class SCKYCStatusViewModel {
     var onError: ((String) -> Void)?
     var onClose: (() -> Void)?
     var onRetry: (() -> Void)?
-    var onReset: (() -> Void)?
+    var onLogout: (() -> Void)?
     var onSupport: (() -> Void)?
 
     private let service: SCKYCService

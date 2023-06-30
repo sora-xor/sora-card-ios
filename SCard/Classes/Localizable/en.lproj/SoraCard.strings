@@ -77,6 +77,9 @@
 "status.not.started" = "Get SORA Card";
 "cant.fetch.refresh" = "Can't fetch data, tap to refresh.";
 "login.title" = "Log in or Sign up";
+"get.more.xor.dialog.description" = "You can swap for XOR or buy with Euro";
+"get.more.xor.dialog.swap.option" = "Swap crypto for XOR";
+"get.more.xor.dialog.buy.option" = "Buy XOR with EUR";
 "verification.rejected.screen.try.again.for.euros" = "Try again for €%@";
 "verification.rejected.screen.try.again.for.free" = "Try again for free";
 "verification.rejected.screen.attempts.used" = "You have used your free KYC attempts.";

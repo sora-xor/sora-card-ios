@@ -68,7 +68,7 @@
 "unsupported.countries.disclaimer" = "Inwoners uit bepaalde landen kunnen op dit moment geen SORA Card aanvragen";
 "common.user.not.found" = "Geen mobiel nummer gevonden, controleer het opnieuw en probeer het opnieuw.";
 "details.title" = "Top up SORA Card with fiat or crypto and pay online, in-store or withdraw from an ATM";
-"details.description" = "Get a Euro IBAN account and Mastercard Debit Card accessible within your SORA Wallet";
+"details.description" = "Krijg een Euro IBAN-account en Mastercard-betaalpas die toegankelijk zijn in uw SORA-portemonnee";
 "details.annual.service.fee" = "€0 annual service fee";
 "details.free.card.issuance" = "Free card issuance";
 "details.free.card.issuance.conditions.xor" = "If you hold, stake or provide liquidity for at least €%@ worth of XOR in your SORA account";
@@ -77,6 +77,9 @@
 "status.not.started" = "Get SORA Card";
 "cant.fetch.refresh" = "Can't fetch data, tap to refresh.";
 "login.title" = "Log in or Sign up";
+"get.more.xor.dialog.description" = "You can swap for XOR or buy with Euro";
+"get.more.xor.dialog.swap.option" = "Swap crypto for XOR";
+"get.more.xor.dialog.buy.option" = "Buy XOR with EUR";
 "verification.rejected.screen.try.again.for.euros" = "Try again for €%@";
 "verification.rejected.screen.try.again.for.free" = "Try again for free";
 "verification.rejected.screen.attempts.used" = "You have used your free KYC attempts.";
