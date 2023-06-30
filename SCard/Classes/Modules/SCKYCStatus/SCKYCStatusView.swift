@@ -102,7 +102,7 @@ final class SCKYCStatusView: UIView {
         activityIndicatorView.stopAnimating()
         switch state {
         case .pending:
-            titleLabel.sora.text = R.string.soraCard.kycResultVerificationInProgress()
+            titleLabel.sora.text = R.string.soraCard.kycResultVerificationInProgress(preferredLanguages: .currentLocale)
             textLabel.sora.text = R.string.soraCard.kycResultVerificationInProgressDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycPending()!)
             actionButton.sora.isHidden = true
@@ -143,7 +143,7 @@ final class SCKYCStatusView: UIView {
         case .rejected:
 
             titleLabel.sora.text = R.string.soraCard.verificationRejectedTitle(preferredLanguages: .currentLocale)
-            textLabel.sora.text = R.string.soraCard.verificationRejectedDescription(preferredLanguages: .currentLocale) // "Your application has been rejected."
+            textLabel.sora.text = R.string.soraCard.verificationRejectedDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycRejected()!)
 
             actionButton.sora.isHidden = false
