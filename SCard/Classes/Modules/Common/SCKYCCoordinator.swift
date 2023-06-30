@@ -309,7 +309,9 @@ final class SCKYCCoordinator {
         containerView.modalPresentationStyle = .overFullScreen
         containerView.add(viewController)
 
-        self.rootViewController?.present(containerView, animated: true)
+        self.navigationController.dismiss(animated: true) { [weak self] in
+            self?.rootViewController?.present(containerView, animated: true)
+        }
     }
 
     private func showLogoutAlert(in viewController: UIViewController) {

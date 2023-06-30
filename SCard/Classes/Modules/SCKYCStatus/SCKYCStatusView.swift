@@ -166,6 +166,9 @@ final class SCKYCStatusView: UIView {
                 actionDescriptionLabel.sora.attributedText =  [attemptsLeft, disclaimer]
                 actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForFree(preferredLanguages: .currentLocale)
 
+                // TODO: impl in phase 2
+                actionButton.isHidden = false
+
             } else {
                 let attemptsLeft = SoramitsuTextItem(
                     text:  R.string.soraCard.verificationRejectedScreenAttemptsUsed(preferredLanguages: .currentLocale),
@@ -175,6 +178,9 @@ final class SCKYCStatusView: UIView {
                 )
                 actionDescriptionLabel.sora.attributedText =  [attemptsLeft, disclaimer]
                 actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForEuros(SCard.attemptsPrice, preferredLanguages: .currentLocale)
+
+                // TODO: impl in phase 2
+                actionButton.isHidden = true
             }
 
             secondButton.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)
