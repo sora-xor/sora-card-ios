@@ -47,7 +47,10 @@ final class SCKYCCoordinator {
             return
         }
 
-        await rootViewController.present(navigationController, animated: true)
+        if await navigationController.presentingViewController == nil {
+            await rootViewController.present(navigationController, animated: true)
+        }
+
         let data = SCKYCUserDataModel()
 
         DispatchQueue.main.async {

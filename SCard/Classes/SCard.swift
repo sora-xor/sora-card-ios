@@ -126,4 +126,25 @@ public class SCard {
     public func xOneViewController(address: String) -> UIViewController {
         return SCXOneViewController(viewModel: .init(address: address, service: service))
     }
+
+    public var configuration: String {
+        config.debugDescription
+    }
+}
+
+extension SCard.Config: CustomDebugStringConvertible {
+    public var debugDescription: String {
+
+        """
+        SCard.Config
+        backendUrl: \(backendUrl)
+        pwAuthDomain: \(pwAuthDomain)
+        pwApiKey: \(pwApiKey)
+        kycUrl: \(kycUrl)
+        kycUsername: \(kycUsername)
+        kycPassword: \(kycPassword)
+        environmentType: \(environmentType)
+        themeMode: \(themeMode)
+        """
+    }
 }
