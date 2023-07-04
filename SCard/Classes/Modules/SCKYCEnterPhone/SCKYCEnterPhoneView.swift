@@ -3,7 +3,8 @@ import SoraUIKit
 
 final class SCKYCEnterPhoneView: UIView {
 
-    var onContinueButton: ((String) -> Void)?
+    var onInput: ((String) -> Void)?
+    var onContinueButton: (() -> Void)?
 
     private let textLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
@@ -18,12 +19,12 @@ final class SCKYCEnterPhoneView: UIView {
     private(set) lazy var inputField: InputField = {
         let view = InputField()
         view.sora.titleLabelText = R.string.soraCard.enterPhoneNumberPhoneInputFieldLabel(preferredLanguages: .currentLocale)
-        view.sora.textFieldPlaceholder = "+12345678901" // R.string.soraCard.enterPhoneNumberPhoneInputFieldLabel(preferredLanguages: .currentLocale)
+        view.sora.textFieldPlaceholder = "+12345678901"
         view.sora.descriptionLabelText = R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale)
         view.sora.keyboardType = .phonePad
         view.sora.textContentType = .telephoneNumber
         view.sora.addHandler(for: .editingChanged) { [weak self] in
-            self?.continueButton.sora.isEnabled = !(view.sora.text?.isEmpty ?? true)
+            self?.onInput?(self?.inputField.sora.text ?? "")
         }
         view.sora.addHandler(for: .editingDidBegin) { [weak self] in
             if view.sora.text?.isEmpty ?? true {
@@ -38,8 +39,7 @@ final class SCKYCEnterPhoneView: UIView {
         button.sora.isEnabled = false
         button.sora.cornerRadius = .custom(28)
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.continueButton.sora.isEnabled = false
-            self?.onContinueButton?(self?.inputField.sora.text ?? "")
+            self?.onContinueButton?()
         }
         button.sora.title = R.string.soraCard.commonSendCode(preferredLanguages: .currentLocale)
         return button
@@ -55,9 +55,10 @@ final class SCKYCEnterPhoneView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(errorMessage: String) {
+    func configure(errorMessage: String, isContinueEnabled: Bool) {
         inputField.sora.state = errorMessage.isEmpty ? .success : .fail
         inputField.sora.descriptionLabelText = errorMessage
+        continueButton.sora.isEnabled = isContinueEnabled
     }
 
     private func setupInitialLayout() {

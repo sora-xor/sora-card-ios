@@ -31,12 +31,16 @@ final class SCKYCEnterPhoneViewController: UIViewController {
     }
 
     private func binding() {
-        rootView.onContinueButton = { [unowned viewModel] phoneNumber in
-            viewModel.set(phoneNumber: phoneNumber)
+        rootView.onContinueButton = { [unowned viewModel] in
+            viewModel.signIn()
         }
 
-        viewModel.onError = { [unowned self] errorMessage in
-            rootView.configure(errorMessage: errorMessage)
+        rootView.onInput = { [unowned viewModel] text in
+            viewModel.onInput(text: text)
+        }
+
+        viewModel.onUpdateUI = { [unowned self] errorMessage, isContinueEnabled in
+            rootView.configure(errorMessage: errorMessage, isContinueEnabled: isContinueEnabled)
         }
     }
 }
