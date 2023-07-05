@@ -36,6 +36,7 @@ final class SCKYCEnterPhoneViewModel {
     }
 
     func signIn() {
+        onUpdateUI?("", false)
         data.phoneNumber = phoneNumber 
         data.lastPhoneOTPSentDate = Date()
 
@@ -49,8 +50,8 @@ final class SCKYCEnterPhoneViewModel {
 extension SCKYCEnterPhoneViewModel: SignInWithPhoneNumberRequestOtpCallbackDelegate {
     func onShowOtpInputScreen(otpLength: Int) {
         data.otpLength = otpLength
-        onUpdateUI?("", true)
         onContinue?()
+        onUpdateUI?("", true)
     }
 
     func onError(error: PayWingsOAuthSDK.OAuthErrorCode, errorMessage: String?) {
