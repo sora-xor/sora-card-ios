@@ -105,7 +105,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 9 images.
+  /// This `R.image` struct is generated, and contains static references to 10 images.
   struct image {
     /// Image `arrowDown`.
     static let arrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowDown")
@@ -125,6 +125,8 @@ struct R: Rswift.Validatable {
     static let kycSuccessful = Rswift.ImageResource(bundle: R.hostingBundle, name: "kycSuccessful")
     /// Image `scFront`.
     static let scFront = Rswift.ImageResource(bundle: R.hostingBundle, name: "scFront")
+    /// Image `xOneBlocked`.
+    static let xOneBlocked = Rswift.ImageResource(bundle: R.hostingBundle, name: "xOneBlocked")
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "arrowDown", bundle: ..., traitCollection: ...)`
@@ -186,6 +188,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "scFront", bundle: ..., traitCollection: ...)`
     static func scFront(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.scFront, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "xOneBlocked", bundle: ..., traitCollection: ...)`
+    static func xOneBlocked(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.xOneBlocked, compatibleWith: traitCollection)
     }
     #endif
 

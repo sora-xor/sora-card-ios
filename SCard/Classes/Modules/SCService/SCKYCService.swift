@@ -8,6 +8,7 @@ enum SCEndpoint: Endpoint {
     case kycAttemptCount
     case xOneStatus(paymentId: String)
     case price(pair: String)
+    case empty
 
     var path: String {
 
@@ -24,6 +25,8 @@ enum SCEndpoint: Endpoint {
             return "x1-payment-status/\(paymentId)"
         case .price(let pair):
             return "prices/\(pair)"
+        case .empty:
+            return ""
         }
     }
 }

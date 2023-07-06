@@ -69,8 +69,29 @@ final class SCKYCCoordinator {
     }
 
     private func showXOne() {
-        let viewController = SCXOneViewController(viewModel: .init(address: address, service: service))
-        navigationController.pushViewController(viewController, animated: true)
+        Task { [weak self] in
+            guard let self = self else { return }
+            let isXOneWidgetAailable = await self.service.isXOneWidgetAailable()
+
+            await MainActor.run {
+                if isXOneWidgetAailable {
+                    let viewController = SCXOneViewController(viewModel:
+                            .init(address: self.address, service: self.service)
+                    )
+                    self.navigationController.pushViewController(viewController, animated: true)
+                } else {
+                    let viewController = SCXOneBlockedViewController()
+                    viewController.onAction = { [weak self] in
+                        self?.navigationController.popViewController(animated: true)
+                    }
+
+                    viewController.onUnsupportedCountries = { [weak self] in
+                        self?.showUnsupportedCountries()
+                    }
+                    self.navigationController.pushViewController(viewController, animated: true)
+                }
+            }
+        }
     }
 
     private func showLogin(data: SCKYCUserDataModel) {
@@ -78,7 +99,7 @@ final class SCKYCCoordinator {
         let viewController = SCKYCLoginViewController()
 
         viewController.onUnsupportedCountries = { [weak self] in
-            self?.show(url: URL(string: "https://soracard.com/blacklist")!)
+            self?.showUnsupportedCountries()
         }
 
         viewController.onLogin = { [weak self] in
@@ -86,6 +107,10 @@ final class SCKYCCoordinator {
         }
 
         navigationController.pushViewController(viewController, animated: true)
+    }
+
+    private func showUnsupportedCountries() {
+        show(url: URL(string: "https://soracard.com/blacklist")!)
     }
 
     private func showCardDetails(data: SCKYCUserDataModel) {
@@ -336,8 +361,13 @@ final class SCKYCCoordinator {
     }
 
     private func retryKYC() async {
-        await resetKYC()
         storage.set(isRety: true)
+
+        await MainActor.run { [weak self] in
+            guard let self = self else { return }
+            self.showCardDetails(data: SCKYCUserDataModel())
+            self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
+        }
     }
 
     private func resetKYC() async {
