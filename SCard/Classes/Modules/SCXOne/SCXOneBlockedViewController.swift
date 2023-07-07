@@ -110,7 +110,7 @@ final class SCXOneBlockedView: UIView {
             unsupportedCountriesButton
         ])
         stackView.axis = .vertical
-        stackView.spacing = UIScreen.shared.isSmallSizeScreen ? 8 : 24
+        stackView.spacing = UIScreen.main.isSmallSizeScreen ? 8 : 24
 
         addSubview(stackView) {
             $0.leading.trailing.equalToSuperview().inset(24)
