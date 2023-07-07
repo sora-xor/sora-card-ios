@@ -44,6 +44,7 @@ final class SCXOneBlockedView: UIView {
         label.sora.text = R.string.soraCard.paymentWidgetUnavailableMessage(preferredLanguages: .currentLocale)
         label.sora.font = FontType.headline1
         label.sora.textColor = .fgPrimary
+        label.sora.alignment = .center
         label.sora.numberOfLines = 0
         return label
     }()
@@ -54,6 +55,7 @@ final class SCXOneBlockedView: UIView {
         label.sora.text = R.string.soraCard.paymentWidgetUnavailableDescription(preferredLanguages: .currentLocale)
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgPrimary
+        label.sora.alignment = .center
         label.sora.numberOfLines = 0
         return label
     }()
