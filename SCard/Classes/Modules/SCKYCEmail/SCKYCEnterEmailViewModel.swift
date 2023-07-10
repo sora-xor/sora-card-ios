@@ -23,7 +23,7 @@ final class SCKYCEnterEmailViewModel {
 
     func register(email: String) {
 
-        guard data.email.isEmpty else {
+        guard !data.isEmailSent else {
             changeEmail(email: email)
             return
         }

@@ -51,20 +51,20 @@ final class SCKYCCoordinator {
             await rootViewController.present(navigationController, animated: true)
         }
 
-        //begin TODO: remove it, only fore debugind xOne https://github.com/sora-xor/sora-card-ios/issues/11
-        await MainActor.run { [weak self] in
-            let viewController = SCXOneBlockedViewController()
-            viewController.onAction = { [weak self] in
-                self?.navigationController.popViewController(animated: true)
-            }
-
-            viewController.onUnsupportedCountries = { [weak self] in
-                self?.showUnsupportedCountries()
-            }
-            self?.navigationController.pushViewController(viewController, animated: true)
-        }
-        return
-        //end TODO: remove it, only fore debugind xOne https://github.com/sora-xor/sora-card-ios/issues/11
+//begin TODO: remove it, only fore debugind xOne https://github.com/sora-xor/sora-card-ios/issues/11
+//        await MainActor.run { [weak self] in
+//            let viewController = SCXOneBlockedViewController()
+//            viewController.onAction = { [weak self] in
+//                self?.navigationController.popViewController(animated: true)
+//            }
+//
+//            viewController.onUnsupportedCountries = { [weak self] in
+//                self?.showUnsupportedCountries()
+//            }
+//            self?.navigationController.pushViewController(viewController, animated: true)
+//        }
+//        return
+//end TODO: remove it, only fore debugind xOne https://github.com/sora-xor/sora-card-ios/issues/11
 
         let data = SCKYCUserDataModel()
 
@@ -249,8 +249,11 @@ final class SCKYCCoordinator {
         }
 
         viewModel.onChangeEmail = { [unowned self] in
-            // TODO: SC add change email api
-            navigationController.popViewController(animated: true)
+            if data.isEmailSent {
+                self.showEnterEmail(data: data)
+            } else {
+                navigationController.popViewController(animated: true)
+            }
         }
         
         let viewController = SCKYCEnterEmailCodeViewController(viewModel: viewModel)

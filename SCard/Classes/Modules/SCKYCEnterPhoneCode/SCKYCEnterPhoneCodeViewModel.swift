@@ -49,6 +49,7 @@ final class SCKYCEnterPhoneCodeViewModel {
 extension SCKYCEnterPhoneCodeViewModel: SignInWithPhoneNumberVerifyOtpCallbackDelegate {
     func onShowEmailConfirmationScreen(email: String, autoEmailSent: Bool) {
         data.email = email
+        data.isEmailSent = true
         codeState = .succeed
         onEmailVerification?(data)
     }

@@ -6,6 +6,7 @@ final class SCKYCUserDataModel {
     var lastname = ""
     var phoneNumber = ""
     var email = ""
+    var isEmailSent = false
 
     var lastPhoneOTPSentDate = Date()
     var lastEmailOTPSentDate = Date()
