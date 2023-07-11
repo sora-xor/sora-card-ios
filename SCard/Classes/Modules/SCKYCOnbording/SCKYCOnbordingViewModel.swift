@@ -55,7 +55,7 @@ final class SCKYCOnbordingViewModel {
             let referenceId = data.referenceId
             let token = await SCStorage.shared.token()
 
-            let language = UserDefaults.standard.string(forKey: "language_preference") ?? ""
+            let language = UserDefaults.standard.string(forKey: "selectedLocalization") ?? ""
             let settings = KycSettings(referenceID: referenceId, referenceNumber: referenceNumber, language: language)
 
             let credentials = KycCredentials(
