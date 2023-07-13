@@ -49,11 +49,10 @@ final class SCKYCEnterPhoneCodeViewController: UIViewController {
     }
 
     private func configure() {
-        let secondsLeft = abs(Int(Date().timeIntervalSince(viewModel.data.lastPhoneOTPSentDate + 60)))
         DispatchQueue.main.async {
             self.rootView.configure(
                 phoneNumber: self.viewModel.data.phoneNumber,
-                secondsLeft: secondsLeft,
+                secondsLeft: self.viewModel.data.secondsLeftForPhoneOTP,
                 codeState: self.viewModel.codeState
             )
         }
