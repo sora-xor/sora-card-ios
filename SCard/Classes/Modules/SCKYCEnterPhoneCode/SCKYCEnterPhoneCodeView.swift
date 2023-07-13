@@ -28,7 +28,7 @@ final class SCKYCEnterPhoneCodeView: UIView {
 
     private lazy var resendButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
-        button.sora.title = R.string.soraCard.verifyEmailResend(String(60), preferredLanguages: .currentLocale)
+        button.sora.title = R.string.soraCard.verifyEmailResend("...", preferredLanguages: .currentLocale)
         button.sora.cornerRadius = .custom(28)
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onResendButton?()
