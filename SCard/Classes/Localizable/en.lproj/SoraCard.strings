@@ -16,7 +16,7 @@
 "get.prepared.personal.info.title" = "Submit your personal info";
 "get.prepared.personal.info.description" = "Fill in the form with your name and address";
 "get.prepared.ok.title" = "OK, I am ready";
-"verify.email.description" = "Follow the magic link that has been sent\nto %@";
+"verify.email.description" = "Follow the magic link that has been sent\nto %@ \nThe email might take several minutes to arrive. Please verify your spam folder if you haven't received the email after 5 minutes.";
 "common.resend.timer" = "Resend in %02d:%02d";
 "common.cancel" = "Cancel";
 "enter.email.description" = "Magic link will be sent\nto your email";
@@ -95,3 +95,4 @@
 "card.hub.settings.logout.button" = "Log out";
 "card.hub.settings.title" = "Card settings";
 "card.hub.settings.logout" = "Log out SORA Card";
+"common.back" = "Back";

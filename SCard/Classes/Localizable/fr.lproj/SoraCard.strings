@@ -16,7 +16,7 @@
 "get.prepared.personal.info.title" = "Soumettez vos informations personnelles";
 "get.prepared.personal.info.description" = "Remplissez le formulaire avec votre nom et adresse";
 "get.prepared.ok.title" = "OK, je suis prêt(e)";
-"verify.email.description" = "Suivez le lien magique envoyé à %@";
+"verify.email.description" = "Suivez le lien magique envoyé à \n%@\nL'e-mail peut prendre plusieurs minutes pour arriver. Pensez à vérifier votre dossier Spam si vous n'avez toujours pas reçu l'e-mail après 5 minutes.";
 "common.resend.timer" = "Renvoyer dans %02d:%02d";
 "common.cancel" = "Annuler";
 "enter.email.description" = "Un lien magique va être envoyé à votre e-mail";
@@ -95,3 +95,4 @@
 "card.hub.settings.logout.button" = "Se déconnecter";
 "card.hub.settings.title" = "Paramètres de la carte";
 "card.hub.settings.logout" = "Se déconnecter de SORA Card";
+"common.back" = "Back";

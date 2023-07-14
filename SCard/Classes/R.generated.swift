@@ -223,7 +223,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 97 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 98 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -269,6 +269,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let logOut = Rswift.StringResource(key: "log.out", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Back
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let commonBack = Rswift.StringResource(key: "common.back", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Bereite dich vor
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -777,6 +781,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("log.out", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Back
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func commonBack(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("common.back", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "common.back"
+        }
+
+        return NSLocalizedString("common.back", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Bereite dich vor

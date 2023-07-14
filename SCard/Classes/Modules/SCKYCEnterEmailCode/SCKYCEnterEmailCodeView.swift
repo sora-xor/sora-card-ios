@@ -52,7 +52,7 @@ final class SCKYCEnterEmailCodeView: UIView {
 
     func configure(email: String, secondsLeft: Int) {
         self.secondsLeft = secondsLeft
-        textLabel.sora.text = R.string.soraCard.verifyEmailDescription(email)
+        textLabel.sora.text = R.string.soraCard.verifyEmailDescription(email, preferredLanguages: .currentLocale)
 
         timer.invalidate()
         timer = Timer.scheduledTimer(

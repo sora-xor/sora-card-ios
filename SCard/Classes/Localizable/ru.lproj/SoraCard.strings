@@ -16,7 +16,7 @@
 "get.prepared.personal.info.title" = "Отправьте свою личную информацию";
 "get.prepared.personal.info.description" = "Заполните форму, указав свое имя и адрес";
 "get.prepared.ok.title" = "Хорошо, я готов";
-"verify.email.description" = "Перейдите по отправленной волшебной ссылке\n %@";
+"verify.email.description" = "Перейдите по волшебной ссылке, которая была отправлена\nна %@ \nДоставка письма может занять несколько минут. Пожалуйста, проверьте папку со спамом, если вы не получили письмо в течение 5 минут.";
 "common.resend.timer" = "Отправить повторно в %02d:% 02d";
 "common.cancel" = "Отмена";
 "enter.email.description" = "Волшебная ссылка будет отправлена\nна ваш email";
@@ -95,3 +95,4 @@
 "card.hub.settings.logout.button" = "Выйти";
 "card.hub.settings.title" = "Настройки карты";
 "card.hub.settings.logout" = "Выйти из SORA Card";
+"common.back" = "Back";

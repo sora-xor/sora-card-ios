@@ -29,6 +29,11 @@ final class SCTermsConditionsViewController: UIViewController {
         binding()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.navigationBar.backItem?.backButtonTitle = R.string.soraCard.commonBack(preferredLanguages: .currentLocale)
+    }
+
     private func binding() {
         rootView.onBlacklistedCountriesButton = { [unowned viewModel] in
             viewModel.onBlacklistedCountries?()
