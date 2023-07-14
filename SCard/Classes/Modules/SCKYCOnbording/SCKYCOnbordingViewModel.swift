@@ -159,7 +159,10 @@ final class SCKYCOnbordingViewModel {
             message: message,
             preferredStyle: .alert
         )
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alertController.addAction(UIAlertAction(
+            title: R.string.soraCard.commonCancel(preferredLanguages: .currentLocale),
+            style: .default)
+        )
         viewController?.present(alertController, animated: true)
     }
 }
@@ -172,7 +175,20 @@ extension SCKYCOnbordingViewModel: VerificationResultDelegate {
     }
 
     func error(result: PayWingsOnboardingKYC.ErrorEvent) {
-        onContinue?(data)
+
+        let alertController = UIAlertController(
+            title: R.string.soraCard.commonErrorGeneralTitle(preferredLanguages: .currentLocale),
+            message: result.StatusDescription,
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(
+            title: R.string.soraCard.commonClose(preferredLanguages: .currentLocale),
+            style: .cancel, handler: { [weak self] action in
+                guard let self = self else { return }
+                self.onContinue?(self.data)
+            })
+        )
+        viewController?.present(alertController, animated: true)
     }
 }
 

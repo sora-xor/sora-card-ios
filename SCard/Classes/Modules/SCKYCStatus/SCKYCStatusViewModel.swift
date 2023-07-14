@@ -2,8 +2,8 @@ import Foundation
 import PayWingsOAuthSDK
 
 final class SCKYCStatusViewModel {
-    var onStatus: ((SCKYCUserStatus, Bool) -> Void)?
-    var onError: ((String) -> Void)?
+    @MainActor var onStatus: ((SCKYCUserStatus, Bool) -> Void)?
+    @MainActor var onError: ((String) -> Void)?
     var onClose: (() -> Void)?
     var onRetry: (() -> Void)?
     var onLogout: (() -> Void)?
@@ -21,7 +21,7 @@ final class SCKYCStatusViewModel {
 
     func getKYCStatus() async {
         guard await service.refreshAccessTokenIfNeeded() else {
-            onError?("PayWings Login required!")
+            await onError?("PayWings Login required!")
             return
         }
 
@@ -33,14 +33,14 @@ final class SCKYCStatusViewModel {
                 await getKYCAttempts()
             }
             guard let hasFreeAttempts = self.hasFreeAttempts else { return }
-            onStatus?(status, hasFreeAttempts)
+            await onStatus?(status, hasFreeAttempts)
         }
     }
 
     private func getKYCAttempts() async {
         switch await service.kycAttempts() {
         case .failure(let error):
-            onError?(error.errorDescription ?? "error")
+            await onError?(error.errorDescription ?? "error")
         case .success(let kycAttempts):
             self.hasFreeAttempts = kycAttempts.hasFreeAttempts
         }
