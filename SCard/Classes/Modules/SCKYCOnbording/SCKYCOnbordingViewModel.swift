@@ -116,7 +116,7 @@ final class SCKYCOnbordingViewModel {
         case .restricted:
             return
         default:
-            fatalError(NSLocalizedString("Camera Authorization Status not handled!", comment: ""))
+            error(message: "Camera Authorization Status not handled!")
         }
     }
 
@@ -134,7 +134,7 @@ final class SCKYCOnbordingViewModel {
                 }
             })
         default:
-            fatalError(NSLocalizedString("Microphone Authorization Status not handled!", comment: ""))
+            error(message: "Microphone Authorization Status not handled!")
         }
     }
 
@@ -175,10 +175,14 @@ extension SCKYCOnbordingViewModel: VerificationResultDelegate {
     }
 
     func error(result: PayWingsOnboardingKYC.ErrorEvent) {
+        error(message: result.StatusDescription)
+    }
+
+    func error(message: String) {
 
         let alertController = UIAlertController(
             title: R.string.soraCard.commonErrorGeneralTitle(preferredLanguages: .currentLocale),
-            message: result.StatusDescription,
+            message: message,
             preferredStyle: .alert
         )
         alertController.addAction(UIAlertAction(

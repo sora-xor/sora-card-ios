@@ -29,6 +29,7 @@ final class SCKYCEnterEmailViewModel {
         }
 
         data.lastEmailOTPSentDate = Date()
+        data.isEmailSent = true
         data.email = email
 
         service.registerUser(data: data, callback: registerUserCallback)
