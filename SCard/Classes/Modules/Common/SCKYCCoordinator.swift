@@ -27,7 +27,7 @@ final class SCKYCCoordinator {
 
     private weak var rootViewController: UIViewController?
     private let navigationController: UINavigationController = {
-        let navigationVC = UINavigationController()
+        let navigationVC = SCNavigationViewController()
         navigationVC.navigationBar.backgroundColor = .white
         navigationVC.navigationBar.tintColor = .black
         navigationVC.view.backgroundColor = .white
