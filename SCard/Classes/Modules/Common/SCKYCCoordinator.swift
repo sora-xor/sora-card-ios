@@ -285,7 +285,8 @@ final class SCKYCCoordinator {
                     }
                     if statusesToShow.sorted.last?.userStatus == .successful {
                         // TODO: dismiss login flow
-                        self.showCardHub()
+                        // TODO: impl on phase 2 self.showCardHub() 
+                        self.showStatus(data: data)
                     } else {
                         self.showStatus(data: data)
                     }
