@@ -38,7 +38,6 @@ final class SCKYCStatusView: UIView {
         return view
     }()
 
-
     private let actionDescriptionLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphM

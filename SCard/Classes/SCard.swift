@@ -102,6 +102,10 @@ public class SCard {
         Task { await coordinator.start(in: vc) }
     }
 
+    func set(token: SCToken) {
+        client.set(token: token)
+    }
+
     public func accessToken() async -> String? {
         await storage.token()?.accessToken
     }

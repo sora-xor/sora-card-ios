@@ -51,7 +51,7 @@ extension SCKYCEnterEmailViewModel: RegisterUserCallbackDelegate, ChangeUnverifi
 
     func onSignInSuccessful(refreshToken: String, accessToken: String, accessTokenExpirationTime: Int64) {
         let token = SCToken(refreshToken: refreshToken, accessToken: accessToken, accessTokenExpirationTime: accessTokenExpirationTime)
-        SCAPIClient.shared.set(token: token)
+        SCard.shared?.set(token: token)
         Task { await SCStorage.shared.add(token: token) }
     }
 

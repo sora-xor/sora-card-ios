@@ -27,6 +27,12 @@ final class SCKYCStatusViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationItem.rightBarButtonItem = .init(
+            image: R.image.close(),
+            style: .done,
+            target: self,
+            action: #selector(onCloseButton)
+        )
         binding()
 
         Task {
@@ -69,6 +75,12 @@ final class SCKYCStatusViewController: UIViewController {
             DispatchQueue.main.async {
                 rootView.configure(state: status, hasFreeAttemts: hasFreeAttemts)
             }
+        }
+    }
+
+    @objc func onCloseButton() {
+        DispatchQueue.main.async { [weak self] in
+            self?.viewModel.onClose?()
         }
     }
 }

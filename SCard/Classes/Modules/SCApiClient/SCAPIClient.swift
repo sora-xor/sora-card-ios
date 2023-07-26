@@ -1,5 +1,4 @@
 import Foundation
-//import SoraKeystore
 
 enum HTTPMethod: String {
     case get = "GET"
@@ -39,13 +38,6 @@ final class APIRequest {
 }
 
 public class SCAPIClient {
-
-    public static let shared = SCAPIClient(
-        baseURL: URL(string: "https://backend.dev.sora-card.tachi.soramitsu.co.jp/")!, 
-        baseAuth: "",
-        token: .empty, // TODO: check keychain. SCStorage.shared.accessToken() ?? "",
-        logLevels: .debug
-    )
 
     init(
         baseURL: URL,
