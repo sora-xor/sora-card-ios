@@ -42,7 +42,8 @@ final class SCKYCCoordinator {
 
         guard await self.service.userStatus() != .successful else {
             await MainActor.run {
-                self.showCardHub()
+                let data = SCKYCUserDataModel()
+                self.showStatus(data: data)
             }
             return
         }
