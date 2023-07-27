@@ -40,14 +40,6 @@ final class SCKYCCoordinator {
             navigationController.viewControllers = []
         }
 
-        guard await self.service.userStatus() != .successful else {
-            await MainActor.run {
-                let data = SCKYCUserDataModel()
-                self.showStatus(data: data)
-            }
-            return
-        }
-
         if await navigationController.presentingViewController == nil {
             await rootViewController.present(navigationController, animated: true)
         }
