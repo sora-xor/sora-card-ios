@@ -15,7 +15,7 @@ public class SCard {
     private let client: SCAPIClient
     private let service: SCKYCService
     private let storage: SCStorage = .shared
-    private let address: String
+    private let addressProvider: () -> String
 
     public struct Config {
         public let backendUrl: String
@@ -63,18 +63,18 @@ public class SCard {
     }
 
     public init(
-        address: String,
+        addressProvider: @escaping () -> String,
         config: Config,
         balanceStream: SCStream<Decimal>,
         onSwapController: @escaping (UIViewController) -> Void
     ) {
         self.config = config
-        self.address = address
+        self.addressProvider = addressProvider
 
         client = .init(baseURL: URL(string: config.backendUrl)!, baseAuth: "", token: .empty, logLevels: .debug)
         service = .init(client: client, config: config)
         coordinator = .init(
-            address: address,
+            addressProvider: addressProvider,
             service: service,
             storage: storage,
             balanceStream: balanceStream,

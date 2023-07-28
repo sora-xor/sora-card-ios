@@ -5,20 +5,20 @@ import SoraUIKit
 
 final class SCKYCCoordinator {
 
-    private let address: String
+    private let addressProvider: () -> String
     private let service: SCKYCService
     private let storage: SCStorage
     private let balanceStream: SCStream<Decimal>
     private let onSwapController: (UIViewController) -> Void
 
     init(
-        address: String,
+        addressProvider: @escaping () -> String,
         service: SCKYCService,
         storage: SCStorage,
         balanceStream: SCStream<Decimal>,
         onSwapController: @escaping (UIViewController) -> Void
     ) {
-        self.address = address
+        self.addressProvider = addressProvider
         self.service = service
         self.storage = storage
         self.balanceStream = balanceStream
@@ -91,7 +91,7 @@ final class SCKYCCoordinator {
             await MainActor.run {
                 if isXOneWidgetAailable {
                     let viewController = SCXOneViewController(viewModel:
-                            .init(address: self.address, service: self.service)
+                            .init(address: self.addressProvider(), service: self.service)
                     )
                     self.navigationController.pushViewController(viewController, animated: true)
                 } else {
