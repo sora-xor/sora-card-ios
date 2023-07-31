@@ -45,7 +45,7 @@ public final class SCXOneViewModel {
 
         <body>
         <div
-            id="sprkwdgt-WYL6QBNC"
+            id="\(service.config.xOneId)"
             data-from-currency="EUR"
 
             data-from-amount="\(SCKYCDetailsViewModel.requiredAmountOfEuro)"
@@ -55,14 +55,11 @@ public final class SCXOneViewModel {
             data-payload="\(paymentId)"
             data-address="\(address)"
         ></div>
-        <script async src="https://dev.x1ex.com/widgets/sdk.js"></script>
+        <script async src="\(service.config.xOneEndpoint)"></script>
 
         </body>
         </html>
         """
-// prod
-//        id="sprkwdgt-WUQBA5U2"
-//        <script async src="https://x1ex.com/widgets/sdk.js"></script>
     }
 
     private let service: SCKYCService

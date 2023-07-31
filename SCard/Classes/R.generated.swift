@@ -337,7 +337,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let paymentWidgetUnavailableDescription = Rswift.StringResource(key: "payment.widget.unavailable.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Erhalten Sie ein Euro-IBAN Konto und eine Mastercard Debitkarte, auf die Sie mit Ihrem SORA Wallet zugreifen können.
+      /// de translation: Erhalten Sie ein Euro-IBAN Konto und eine Debitkarte, auf die Sie mit Ihrem SORA Wallet zugreifen können.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let detailsDescription = Rswift.StringResource(key: "details.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -1040,7 +1040,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("payment.widget.unavailable.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: Erhalten Sie ein Euro-IBAN Konto und eine Mastercard Debitkarte, auf die Sie mit Ihrem SORA Wallet zugreifen können.
+      /// de translation: Erhalten Sie ein Euro-IBAN Konto und eine Debitkarte, auf die Sie mit Ihrem SORA Wallet zugreifen können.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static func detailsDescription(preferredLanguages: [String]? = nil) -> String {

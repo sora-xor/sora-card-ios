@@ -147,6 +147,7 @@ final class SCKYCStatusView: UIView {
 
             actionButton.sora.isHidden = false
 
+            // TODO: Phase 2, use disclaimer
             let disclaimer = SoramitsuTextItem(
                 text:  "\n\(R.string.soraCard.verificationRejectedScreenAttemptsPriceDisclaimer(SCard.attemptsPrice, preferredLanguages: .currentLocale))",
                 fontData: ScreenSizeMapper.value(small: FontType.paragraphS, medium: FontType.paragraphM, large: FontType.paragraphM),
@@ -162,7 +163,7 @@ final class SCKYCStatusView: UIView {
                     textColor: .fgPrimary,
                     alignment: .center
                 )
-                actionDescriptionLabel.sora.attributedText =  [attemptsLeft, disclaimer]
+                actionDescriptionLabel.sora.attributedText =  [attemptsLeft]
                 actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForFree(preferredLanguages: .currentLocale)
 
                 // TODO: impl in phase 2
@@ -175,7 +176,7 @@ final class SCKYCStatusView: UIView {
                     textColor: .fgPrimary,
                     alignment: .center
                 )
-                actionDescriptionLabel.sora.attributedText =  [attemptsLeft, disclaimer]
+                actionDescriptionLabel.sora.attributedText =  [attemptsLeft]
                 actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForEuros(SCard.attemptsPrice, preferredLanguages: .currentLocale)
 
                 // TODO: impl in phase 2

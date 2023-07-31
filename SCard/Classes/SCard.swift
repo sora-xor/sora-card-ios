@@ -24,6 +24,8 @@ public class SCard {
         public let kycUrl: String
         public let kycUsername: String
         public let kycPassword: String
+        public let xOneEndpoint: String
+        public let xOneId: String
         public let environmentType: EnvironmentType
         public let themeMode: SoramitsuThemeMode
 
@@ -34,6 +36,8 @@ public class SCard {
             kycUrl: String,
             kycUsername: String,
             kycPassword: String,
+            xOneEndpoint: String,
+            xOneId: String,
             environmentType: EnvironmentType,
             themeMode: SoramitsuThemeMode
         ) {
@@ -43,6 +47,8 @@ public class SCard {
             self.kycUrl = kycUrl
             self.kycUsername = kycUsername
             self.kycPassword = kycPassword
+            self.xOneEndpoint = xOneEndpoint
+            self.xOneId = xOneId
             self.environmentType = environmentType
             self.themeMode = themeMode
         }
