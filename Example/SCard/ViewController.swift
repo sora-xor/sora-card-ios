@@ -60,7 +60,7 @@ class ViewController: UIViewController {
         )
 
         soraCard = SCard(
-            address: "123",
+            addressProvider: { "123" },
             config: scConfig,
             balanceStream: xorBalanceStream,
             onSwapController: { vc in
