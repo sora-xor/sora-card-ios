@@ -18,7 +18,7 @@ final class SCKYCEnterPhoneCodeView: UIView {
     private(set) lazy var inputField: InputField = {
         let view = InputField()
         view.sora.titleLabelText = R.string.soraCard.verifyPhoneNumberCodeInputFieldLabel(preferredLanguages: .currentLocale)
-        view.sora.textFieldPlaceholder = "123456" // R.string.soraCard.verifyPhoneNumberCodeInputFieldLabel(preferredLanguages: .currentLocale)
+        view.sora.textFieldPlaceholder = R.string.soraCard.verifyPhoneNumberCodeInputFieldLabel(preferredLanguages: .currentLocale)
         view.sora.keyboardType = .numberPad
         view.sora.addHandler(for: .editingChanged) { [weak self] in
             self?.onCode?(self?.inputField.sora.text ?? "")

@@ -19,7 +19,7 @@ final class SCKYCEnterPhoneView: UIView {
     private(set) lazy var inputField: InputField = {
         let view = InputField()
         view.sora.titleLabelText = R.string.soraCard.enterPhoneNumberPhoneInputFieldLabel(preferredLanguages: .currentLocale)
-        view.sora.textFieldPlaceholder = "+12345678901"
+        view.sora.textFieldPlaceholder = R.string.soraCard.enterPhoneNumberPhoneInputFieldLabel(preferredLanguages: .currentLocale)
         view.sora.descriptionLabelText = R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale)
         view.sora.keyboardType = .phonePad
         view.sora.textContentType = .telephoneNumber

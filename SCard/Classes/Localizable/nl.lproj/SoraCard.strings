@@ -68,7 +68,7 @@
 "unsupported.countries.disclaimer" = "Inwoners uit bepaalde landen kunnen op dit moment geen SORA Card aanvragen";
 "common.user.not.found" = "Geen mobiel nummer gevonden, controleer het opnieuw en probeer het opnieuw.";
 "details.title" = "Top up SORA Card with fiat or crypto and pay online, in-store or withdraw from an ATM";
-"details.description" = "Krijg een Euro IBAN-account en Mastercard-betaalpas die toegankelijk zijn in uw SORA-portemonnee";
+"details.description" = "Krijg een Euro IBAN-rekening en betaalpas die toegankelijk zijn in uw SORA Wallet";
 "details.annual.service.fee" = "€0 annual service fee";
 "details.free.card.issuance" = "Free card issuance";
 "details.free.card.issuance.conditions.xor" = "If you hold, stake or provide liquidity for at least €%@ worth of XOR in your SORA account";

@@ -68,7 +68,7 @@
 "unsupported.countries.disclaimer" = "Einwohner bestimmter Länder können derzeit keine SORA Card beantragen";
 "common.user.not.found" = "Keine Handynummer gefunden, bitte überprüfen Sie sie erneut und versuchen Sie es erneut.";
 "details.title" = "Laden Sie die SORA Card mit Fiat- oder Kryptowährungen auf und zahlen Sie online, in Geschäften oder an Geldautomaten.";
-"details.description" = "Erhalten Sie ein Euro-IBAN Konto und eine Mastercard Debitkarte, auf die Sie mit Ihrem SORA Wallet zugreifen können.";
+"details.description" = "Erhalten Sie ein Euro-IBAN Konto und eine Debitkarte, auf die Sie mit Ihrem SORA Wallet zugreifen können.";
 "details.annual.service.fee" = "0 € jährliche Servicegebühr";
 "details.free.card.issuance" = "Kostenlose Kartenausgabe";
 "details.free.card.issuance.conditions.xor" = "Wenn Sie XOR im Wert von mindestens €%@ auf Ihrem SORA Card halten, staken oder Liquidität bereitstellen";

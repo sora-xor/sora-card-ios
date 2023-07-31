@@ -68,7 +68,7 @@
 "unsupported.countries.disclaimer" = "Los residentes de ciertos países no pueden solicitar la Tarjeta SORA en este momento";
 "common.user.not.found" = "No se ha encontrado ningún número de móvil, vuelva a comprobarlo e inténtelo de nuevo.";
 "details.title" = "Recarga tu Tarjeta SORA con fiat o cripto y paga online, en la tienda o retira dinero del cajero";
-"details.description" = "Consigue una cuenta Euro IBAN y Tarjeta de Débito Mastercard conectadas a tu billetera SORA";
+"details.description" = "Consigue una cuenta Euro IBAN y Tarjeta de Débito conectadas a tu billetera SORA";
 "details.annual.service.fee" = "Cuota anual de servicio 0 €";
 "details.free.card.issuance" = "Emisión gratuita de la tarjeta";
 "details.free.card.issuance.conditions.xor" = "Si tienes al menos %@ € de XOR en la billetera, en staking o liquidez en tu cuenta SORA";

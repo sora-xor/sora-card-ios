@@ -68,7 +68,7 @@
 "unsupported.countries.disclaimer" = "Residents from certain countries can not apply for SORA Card at this moment";
 "common.user.not.found" = "No mobile number found, please recheck it and try again.";
 "details.title" = "Top up SORA Card with fiat or crypto and pay online, in-store or withdraw from an ATM";
-"details.description" = "Get a Euro IBAN account and Mastercard Debit Card accessible within your SORA Wallet";
+"details.description" = "Get a Euro IBAN account and debit card accessible within your SORA Wallet";
 "details.annual.service.fee" = "€0 annual service fee";
 "details.free.card.issuance" = "Free card issuance";
 "details.free.card.issuance.conditions.xor" = "If you hold, stake or provide liquidity for at least €%@ worth of XOR in your SORA account";
