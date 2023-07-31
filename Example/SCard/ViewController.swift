@@ -55,6 +55,8 @@ class ViewController: UIViewController {
             kycUrl: "",
             kycUsername: "",
             kycPassword: "",
+            xOneEndpoint: "",
+            xOneId: "",
             environmentType: .test,
             themeMode: .manual(.dark)
         )
