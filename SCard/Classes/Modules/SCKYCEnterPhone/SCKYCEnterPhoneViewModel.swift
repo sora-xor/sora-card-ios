@@ -3,7 +3,7 @@ import PayWingsOAuthSDK
 
 final class SCKYCEnterPhoneViewModel {
 
-    static let phoneNumberRegex = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{3,6}$"
+    static let phoneNumberRegex = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{3,9}$"
     var onContinue: (() -> Void)?
     var onUpdateUI: ((String, Bool) -> Void)?
 
