@@ -8,7 +8,7 @@ extension SCKYCService {
 
     func isXOneWidgetAailable() async -> Bool {
         let client = SCAPIClient(
-            baseURL: URL(string: "https://dev.x1ex.com")!,
+            baseURL: URL(string: "https://\(URL(string: config.xOneEndpoint)!.host!)")!,
             baseAuth: "",
             token: .empty
         )

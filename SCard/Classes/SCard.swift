@@ -144,7 +144,6 @@ public class SCard {
 
 extension SCard.Config: CustomDebugStringConvertible {
     public var debugDescription: String {
-
         """
         SCard.Config
         backendUrl: \(backendUrl)
@@ -153,6 +152,8 @@ extension SCard.Config: CustomDebugStringConvertible {
         kycUrl: \(kycUrl)
         kycUsername: \(kycUsername)
         kycPassword: \(kycPassword)
+        xOneEndpoint: \(xOneEndpoint)
+        xOneId: \(xOneId)
         environmentType: \(environmentType)
         themeMode: \(themeMode)
         """
