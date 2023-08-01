@@ -3,7 +3,7 @@ import PayWingsOAuthSDK
 
 enum SCEndpoint: Endpoint {
     case getReferenceNumber
-    case kycStatus
+    // case kycStatus
     case kycStatuses
     case kycAttemptCount
     case xOneStatus(paymentId: String)
@@ -15,8 +15,8 @@ enum SCEndpoint: Endpoint {
         switch self {
         case .getReferenceNumber:
             return "get-reference-number"
-        case .kycStatus:
-            return "kyc-last-status"
+        // case .kycStatus:
+        //    return "kyc-last-status"
         case .kycStatuses:
             return "kyc-status"
         case .kycAttemptCount:
@@ -57,10 +57,7 @@ public final class SCKYCService {
     func startKYCStatusRefresher() {
         guard kycStatusRefresherTimer == nil else { return }
         kycStatusRefresherTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] _ in
-            Task { [weak self] in
-                let status  = await self?.userStatus()
-                print("### status:\(status)")
-            }
+            Task { [weak self] in let status  = await self?.userStatus() }
         }
     }
 
@@ -148,13 +145,4 @@ public final class SCKYCService {
     func checkEmailVerified(callback: CheckEmailVerifiedCallback) {
         payWingsOAuthClient.checkEmailVerified(callback: callback)
     }
-
-//    // https://api.coingecko.com/api/v3/simple/price?ids=sora&vs_currencies=eur
-//    func xorPriceInEuro() async -> Float? {
-//        let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=sora&vs_currencies=eur")!
-//        guard let (data, _) = try? await URLSession.shared.data(from: url) else { return nil }
-//        let decoder = JSONDecoder()
-//        guard let fiatData = try? decoder.decode([String: [String: Float]].self, from: data) else { return nil }
-//        return fiatData["sora"]?["eur"] as? Float
-//    }
 }

@@ -36,17 +36,16 @@ final class SCKYCEnterPhoneViewModel {
     }
 
     func signIn() {
-        if data.secondsLeftForPhoneOTP == 0 {
-            onUpdateUI?("", false)
-            data.phoneNumber = phoneNumber
-            data.lastPhoneOTPSentDate = Date()
+        onUpdateUI?("", false)
+        data.phoneNumber = phoneNumber
 
+        if data.secondsLeftForPhoneOTP == 0 {
+            data.lastPhoneOTPSentDate = Date()
             service.signInWithPhoneNumberRequestOtp(
                 phoneNumber: phoneNumber,
                 callback: callback
             )
         } else {
-            onUpdateUI?("", false)
             onContinue?()
         }
     }
