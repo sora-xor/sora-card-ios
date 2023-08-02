@@ -16,7 +16,7 @@
 "get.prepared.personal.info.title" = "Voeg uw persoonlijke gegevens in";
 "get.prepared.personal.info.description" = "Vul het formulier in met uw naam en adres";
 "get.prepared.ok.title" = "OK, ik ben klaar";
-"verify.email.description" = "Volg een magische link die is verzonden naar %@";
+"verify.email.description" = "Volg de magische link die \n is verzonden naar %@ \n Het kan enkele minuten duren voordat de e-mail aankomt. Controleer uw spam folder als u de e-mail na 5 minuten nog niet heeft ontvangen.";
 "common.resend.timer" = "Opnieuw verzenden in %02d:%02d";
 "common.cancel" = "Annuleren";
 "enter.email.description" = "Magische link wordt naar je e-mail gestuurd.";
@@ -67,11 +67,11 @@
 "unsupported.countries.link" = "Zie de lijst";
 "unsupported.countries.disclaimer" = "Inwoners uit bepaalde landen kunnen op dit moment geen SORA Card aanvragen";
 "common.user.not.found" = "Geen mobiel nummer gevonden, controleer het opnieuw en probeer het opnieuw.";
-"details.title" = "Top up SORA Card with fiat or crypto and pay online, in-store or withdraw from an ATM";
+"details.title" = "Laad SORA Card op met fiat of crypto en betaal online, in de winkel of neem geld op bij een geldautomaat";
 "details.description" = "Krijg een Euro IBAN-rekening en betaalpas die toegankelijk zijn in uw SORA Wallet";
-"details.annual.service.fee" = "€0 annual service fee";
-"details.free.card.issuance" = "Free card issuance";
-"details.free.card.issuance.conditions.xor" = "If you hold, stake or provide liquidity for at least €%@ worth of XOR in your SORA account";
+"details.annual.service.fee" = "€0 jaarlijkse service kosten";
+"details.free.card.issuance" = "Gratis kaartuitgifte";
+"details.free.card.issuance.conditions.xor" = "Als u ten minste €%@ aan XOR houdt, staket of liquiditeit verstrekt voor ten minste €%@ op uw SORA-account";
 "details.free.card.issuance.conditions.euro" = "of %@ € aanvraagkosten";
 "common.error.general.title" = "Fout";
 "status.not.started" = "Verkrijg SORA Card";
