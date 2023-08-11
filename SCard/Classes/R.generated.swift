@@ -1987,10 +1987,10 @@ struct R: Rswift.Validatable {
       /// de translation: Wenn Sie XOR im Wert von mindestens €%@ auf Ihrem SORA Card halten, staken oder Liquidität bereitstellen
       ///
       /// Locales: de, en, es, ru, fr, nl
-      static func detailsFreeCardIssuanceConditionsXor(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+      static func detailsFreeCardIssuanceConditionsXor(_ value1: String, _ value2: String, preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           let format = NSLocalizedString("details.free.card.issuance.conditions.xor", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-          return String(format: format, locale: applicationLocale, value1)
+          return String(format: format, locale: applicationLocale, value1, value2)
         }
 
         guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
@@ -1998,7 +1998,7 @@ struct R: Rswift.Validatable {
         }
 
         let format = NSLocalizedString("details.free.card.issuance.conditions.xor", tableName: "SoraCard", bundle: bundle, comment: "")
-        return String(format: format, locale: locale, value1)
+        return String(format: format, locale: locale, value1, value2)
       }
 
       /// de translation: Widget nicht verfügbar

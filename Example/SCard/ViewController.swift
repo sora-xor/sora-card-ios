@@ -44,7 +44,7 @@ class ViewController: UIViewController {
 
         refreshBalanceTimer.invalidate()
         refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            let balane = Decimal(UInt.random(in: 190...300))
+            let balane = Decimal(UInt.random(in: 1000...3000))
             xorBalanceStream.wrappedValue = balane
         }
 

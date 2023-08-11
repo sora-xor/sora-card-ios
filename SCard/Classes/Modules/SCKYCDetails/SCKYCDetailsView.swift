@@ -98,7 +98,7 @@ final class SCKYCDetailsView: UIView {
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
-        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsXor(SCard.minXorAmount, preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsXor(SCard.minXorAmount, "", preferredLanguages: .currentLocale)
         return label
     }()
 
