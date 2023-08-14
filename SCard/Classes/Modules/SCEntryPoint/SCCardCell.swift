@@ -48,6 +48,7 @@ public final class SCCardCell: SoramitsuTableViewCell {
         let view = SoramitsuView()
         view.sora.cornerRadius = .circle
         view.sora.backgroundColor = .custom(uiColor: .white)
+        view.sora.isHidden = true
         return view
     }()
 
