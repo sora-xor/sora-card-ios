@@ -95,4 +95,11 @@
 "card.hub.settings.logout.button" = "退出登录";
 "card.hub.settings.title" = "卡片设置";
 "card.hub.settings.logout" = "注销SORA卡";
-"common.back" = "Back";
+"common.back" = "后退";
+"entry.card.info" = "Card info";
+"cardhub.top.up" = "Top up";
+"cardhub.transfer" = "Transfer";
+"cardhub.exchange" = "Exchange";
+"cardhub.freeze" = "Freeze";
+"cardhub.coming.soon" = "Card management is coming soon";
+"cardhub.iban.title" = "IBAN account details";

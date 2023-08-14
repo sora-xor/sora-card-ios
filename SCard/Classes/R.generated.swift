@@ -105,7 +105,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 10 images.
+  /// This `R.image` struct is generated, and contains static references to 14 images.
   struct image {
     /// Image `arrowDown`.
     static let arrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowDown")
@@ -117,12 +117,20 @@ struct R: Rswift.Validatable {
     static let close = Rswift.ImageResource(bundle: R.hostingBundle, name: "close")
     /// Image `crossSmall`.
     static let crossSmall = Rswift.ImageResource(bundle: R.hostingBundle, name: "crossSmall")
+    /// Image `exchange`.
+    static let exchange = Rswift.ImageResource(bundle: R.hostingBundle, name: "exchange")
+    /// Image `freeze`.
+    static let freeze = Rswift.ImageResource(bundle: R.hostingBundle, name: "freeze")
     /// Image `kycPending`.
     static let kycPending = Rswift.ImageResource(bundle: R.hostingBundle, name: "kycPending")
     /// Image `kycRejected`.
     static let kycRejected = Rswift.ImageResource(bundle: R.hostingBundle, name: "kycRejected")
     /// Image `kycSuccessful`.
     static let kycSuccessful = Rswift.ImageResource(bundle: R.hostingBundle, name: "kycSuccessful")
+    /// Image `newArrowDown`.
+    static let newArrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "newArrowDown")
+    /// Image `newArrowUp`.
+    static let newArrowUp = Rswift.ImageResource(bundle: R.hostingBundle, name: "newArrowUp")
     /// Image `scFront`.
     static let scFront = Rswift.ImageResource(bundle: R.hostingBundle, name: "scFront")
     /// Image `xOneBlocked`.
@@ -164,6 +172,20 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "exchange", bundle: ..., traitCollection: ...)`
+    static func exchange(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.exchange, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "freeze", bundle: ..., traitCollection: ...)`
+    static func freeze(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.freeze, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "kycPending", bundle: ..., traitCollection: ...)`
     static func kycPending(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.kycPending, compatibleWith: traitCollection)
@@ -181,6 +203,20 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "kycSuccessful", bundle: ..., traitCollection: ...)`
     static func kycSuccessful(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.kycSuccessful, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "newArrowDown", bundle: ..., traitCollection: ...)`
+    static func newArrowDown(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.newArrowDown, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "newArrowUp", bundle: ..., traitCollection: ...)`
+    static func newArrowUp(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.newArrowUp, compatibleWith: traitCollection)
     }
     #endif
 
@@ -223,7 +259,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 98 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 105 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -281,6 +317,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let verifyPhoneNumberSendCode = Rswift.StringResource(key: "verify.phone.number.send.code", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Card info
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let entryCardInfo = Rswift.StringResource(key: "entry.card.info", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Card management is coming soon
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubComingSoon = Rswift.StringResource(key: "cardhub.coming.soon", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Code erneut senden
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -353,6 +397,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonTryAgain = Rswift.StringResource(key: "common.try.again", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Exchange
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubExchange = Rswift.StringResource(key: "cardhub.exchange", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Familienname, Nachname
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -369,6 +417,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonContinue = Rswift.StringResource(key: "common.continue", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Freeze
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubFreeze = Rswift.StringResource(key: "cardhub.freeze", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Füllen Sie das Formular mit Ihrem Namen und Ihrer Adresse aus
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -381,6 +433,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let statusNotStarted = Rswift.StringResource(key: "status.not.started", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: IBAN account details
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubIbanTitle = Rswift.StringResource(key: "cardhub.iban.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Ich habe bereits eine Karte
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -557,6 +613,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let enterPhoneNumberPhoneInputFieldLabel = Rswift.StringResource(key: "enter.phone.number.phone.input.field.label", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Top up
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubTopUp = Rswift.StringResource(key: "cardhub.top.up", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Transfer
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubTransfer = Rswift.StringResource(key: "cardhub.transfer", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Um die Identitätsverifizierung abzuschließen, müssen Sie Folgendes tun:
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -826,6 +890,36 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("verify.phone.number.send.code", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Card info
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func entryCardInfo(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("entry.card.info", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "entry.card.info"
+        }
+
+        return NSLocalizedString("entry.card.info", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Card management is coming soon
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubComingSoon(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.coming.soon", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.coming.soon"
+        }
+
+        return NSLocalizedString("cardhub.coming.soon", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Code erneut senden
@@ -1102,6 +1196,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common.try.again", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Exchange
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubExchange(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.exchange", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.exchange"
+        }
+
+        return NSLocalizedString("cardhub.exchange", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Familienname, Nachname
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -1164,6 +1273,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common.continue", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Freeze
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubFreeze(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.freeze", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.freeze"
+        }
+
+        return NSLocalizedString("cardhub.freeze", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Füllen Sie das Formular mit Ihrem Namen und Ihrer Adresse aus
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -1207,6 +1331,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("status.not.started", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: IBAN account details
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubIbanTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.iban.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.iban.title"
+        }
+
+        return NSLocalizedString("cardhub.iban.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Ich habe bereits eine Karte
@@ -1875,6 +2014,36 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("enter.phone.number.phone.input.field.label", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Top up
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubTopUp(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.top.up", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.top.up"
+        }
+
+        return NSLocalizedString("cardhub.top.up", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Transfer
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubTransfer(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.transfer", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.transfer"
+        }
+
+        return NSLocalizedString("cardhub.transfer", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Um die Identitätsverifizierung abzuschließen, müssen Sie Folgendes tun:

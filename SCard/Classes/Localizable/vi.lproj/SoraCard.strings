@@ -16,7 +16,7 @@
 "get.prepared.personal.info.title" = "Gửi thông tin cá nhân của bạn";
 "get.prepared.personal.info.description" = "Điền vào biểu mẫu với tên và địa chỉ của bạn";
 "get.prepared.ok.title" = "OK, tôi đã sẵn sàng";
-"verify.email.description" = "Theo liên kết kỳ diệu đã được gửi\ntới %@";
+"verify.email.description" = "Đi theo liên kết ma thuật đã được gửi \n tới %@ \n Có thể mất vài phút để email đến nơi. Vui lòng kiểm thư mục thư rác nếu bạn không nhận được email sau 5 phút.";
 "common.resend.timer" = "Gửi lại sau %02d:%02d";
 "common.cancel" = "Hủy";
 "enter.email.description" = "Liên kết ma thuật sẽ được gửi\nđến email của bạn";
@@ -96,3 +96,10 @@
 "card.hub.settings.title" = "Cài đặt thẻ";
 "card.hub.settings.logout" = "Đăng xuất khỏi SORA Card";
 "common.back" = "Trở lại";
+"entry.card.info" = "Card info";
+"cardhub.top.up" = "Top up";
+"cardhub.transfer" = "Transfer";
+"cardhub.exchange" = "Exchange";
+"cardhub.freeze" = "Freeze";
+"cardhub.coming.soon" = "Card management is coming soon";
+"cardhub.iban.title" = "IBAN account details";

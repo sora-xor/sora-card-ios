@@ -96,3 +96,10 @@
 "card.hub.settings.title" = "Definições do cartão";
 "card.hub.settings.logout" = "Terminar sessão no cartão SORA";
 "common.back" = "Back";
+"entry.card.info" = "Card info";
+"cardhub.top.up" = "Top up";
+"cardhub.transfer" = "Transfer";
+"cardhub.exchange" = "Exchange";
+"cardhub.freeze" = "Freeze";
+"cardhub.coming.soon" = "Card management is coming soon";
+"cardhub.iban.title" = "IBAN account details";

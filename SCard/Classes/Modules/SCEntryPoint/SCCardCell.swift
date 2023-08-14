@@ -41,10 +41,23 @@ public final class SCCardCell: SoramitsuTableViewCell {
         view.sora.text = SCKYCUserStatus.notStarted.text
         view.sora.textColor = .bgSurface
         view.sora.alignment = .center
-
         return view
     }()
 
+    private lazy var cardInfoContainer: SoramitsuView = {
+        let view = SoramitsuView()
+        view.sora.cornerRadius = .circle
+        view.sora.backgroundColor = .custom(uiColor: .white)
+        return view
+    }()
+
+    private lazy var cardInfoLabel: SoramitsuLabel = {
+        let view = SoramitsuLabel()
+        view.sora.text = R.string.soraCard.entryCardInfo(preferredLanguages: .currentLocale)
+        view.sora.textColor = .custom(uiColor: .black)
+        view.sora.alignment = .center
+        return view
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -84,6 +97,15 @@ public final class SCCardCell: SoramitsuTableViewCell {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(24)
             $0.width.lessThanOrEqualToSuperview().multipliedBy(0.90)
+        }
+
+        cardInfoContainer.addSubview(self.cardInfoLabel) {
+            $0.top.bottom.equalToSuperview().inset(8)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+
+        bgImage.addSubview(self.cardInfoContainer) {
+            $0.bottom.trailing.equalToSuperview().inset(8)
         }
     }
 }
