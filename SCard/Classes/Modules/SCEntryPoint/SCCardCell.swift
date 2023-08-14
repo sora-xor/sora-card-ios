@@ -131,6 +131,7 @@ extension SCCardCell: SoramitsuTableViewCellProtocol {
     private func update(status: SCKYCUserStatus) {
         self.closeButton.isHidden = status == .successful
         self.getCardContainer.isHidden = status == .successful
+        self.cardInfoContainer.sora.isHidden = status != .successful
         self.getCardLabel.sora.text = status.text
         self.getCardLabel.sora.textColor = (status == .notStarted || status == .userCanceled) ? .bgSurface : .accentTertiary
         self.getCardContainer.sora.backgroundColor = (status == .notStarted || status == .userCanceled) ? .accentSecondary : .accentTertiaryContainer
