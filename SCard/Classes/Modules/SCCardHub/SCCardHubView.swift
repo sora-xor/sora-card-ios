@@ -217,11 +217,11 @@ final class SCCardHubView: UIView {
         scrollView.addSubview(containerView)
 
         scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(24)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
 
         containerView.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(24)
             $0.top.bottom.equalToSuperview()
             $0.leading.trailing.equalTo(self).inset(16)
         }
