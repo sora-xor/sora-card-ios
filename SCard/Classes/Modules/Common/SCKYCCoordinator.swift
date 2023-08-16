@@ -337,7 +337,7 @@ final class SCKYCCoordinator {
 
     private func showCardHub() {
 
-        let viewController = SCCardHubViewController()
+        let viewController = SCCardHubViewController(model: .init(service: service))
 
         viewController.onLogout = { [weak self] in
             self?.showLogoutAlert(in: viewController)

@@ -6,8 +6,19 @@ final class SCCardHubViewController: UIViewController {
 
     var onLogout: (() -> Void)?
 
+    private let model: SCCardHubViewModel
+
     private var rootView: SCCardHubView {
         view as! SCCardHubView
+    }
+
+    init(model: SCCardHubViewModel) {
+        self.model = model
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func loadView() {
@@ -19,6 +30,13 @@ final class SCCardHubViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         binding()
+
+        Task {
+            let iban = await model.iban()
+            await MainActor.run {
+                rootView.configure(iban: iban)
+            }
+        }
     }
 
     private func binding() {

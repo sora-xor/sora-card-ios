@@ -136,7 +136,7 @@ final class SCCardHubView: UIView {
         label.sora.font = FontType.textM
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
-        label.sora.text = "LT61 3250 0467 7252 5583" // TODO: hardcode
+        label.sora.text = ""
         return label
     }()
 
@@ -179,6 +179,10 @@ final class SCCardHubView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(iban: String?) {
+        ibanLabel.sora.text = iban
     }
 
     private func setupInitialLayout() {

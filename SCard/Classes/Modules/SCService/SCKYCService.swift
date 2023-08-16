@@ -9,6 +9,7 @@ enum SCEndpoint: Endpoint {
     case xOneStatus(paymentId: String)
     case price(pair: String)
     case xOneWidget
+    case ibans
 
     var path: String {
 
@@ -27,6 +28,8 @@ enum SCEndpoint: Endpoint {
             return "prices/\(pair)"
         case .xOneWidget:
             return "widgets/sdk.js"
+        case .ibans:
+            return "ibans"
         }
     }
 }
