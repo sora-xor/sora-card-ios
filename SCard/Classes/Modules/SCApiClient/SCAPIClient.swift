@@ -178,7 +178,7 @@ struct SCToken: Codable, SecretDataRepresentable {
     }
 
     init?(secretData: SecretDataRepresentable?) {
-        guard let secretUTF8String = secretData?.toUTF8String() else { return nil }
+        guard let secretUTF8String = secretData?.asUTF8String() else { return nil }
         let secretPrts = secretUTF8String.split(separator: "@").map { String($0) }
         guard secretPrts.count == 3  else { return nil }
 
