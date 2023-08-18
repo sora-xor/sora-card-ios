@@ -131,6 +131,17 @@ final class SCCardHubView: UIView {
         return label
     }()
 
+    private lazy var ibanCopyButton: SoramitsuButton = {
+        let button = SoramitsuButton(size: .large, type: .bleached(.tertiary))
+        button.sora.tintColor = .accentTertiary
+        button.sora.backgroundColor = .custom(uiColor: .clear)
+        button.sora.leftImage = R.image.upload()
+        button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            UIPasteboard.general.string = self?.ibanLabel.text
+        }
+        return button
+    }()
+
     private let ibanLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.textM
@@ -202,10 +213,15 @@ final class SCCardHubView: UIView {
             actionButtonsView
         ])
 
+        let stackView = UIStackView(arrangedSubviews: [ibanTitleLabel, ibanCopyButton])
         ibanContainerView.addArrangedSubviews([
-            ibanTitleLabel,
+            stackView,
             ibanLabel
         ])
+
+        ibanCopyButton.snp.makeConstraints {
+            $0.width.equalTo(24)
+        }
 
         settingsContainerView.addArrangedSubviews([
             settingsTitleLabel,

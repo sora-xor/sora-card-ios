@@ -105,7 +105,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 14 images.
+  /// This `R.image` struct is generated, and contains static references to 15 images.
   struct image {
     /// Image `arrowDown`.
     static let arrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowDown")
@@ -133,6 +133,8 @@ struct R: Rswift.Validatable {
     static let newArrowUp = Rswift.ImageResource(bundle: R.hostingBundle, name: "newArrowUp")
     /// Image `scFront`.
     static let scFront = Rswift.ImageResource(bundle: R.hostingBundle, name: "scFront")
+    /// Image `upload`.
+    static let upload = Rswift.ImageResource(bundle: R.hostingBundle, name: "upload")
     /// Image `xOneBlocked`.
     static let xOneBlocked = Rswift.ImageResource(bundle: R.hostingBundle, name: "xOneBlocked")
 
@@ -224,6 +226,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "scFront", bundle: ..., traitCollection: ...)`
     static func scFront(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.scFront, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "upload", bundle: ..., traitCollection: ...)`
+    static func upload(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.upload, compatibleWith: traitCollection)
     }
     #endif
 
