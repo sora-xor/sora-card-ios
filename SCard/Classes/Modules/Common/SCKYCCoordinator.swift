@@ -327,7 +327,7 @@ final class SCKYCCoordinator {
         }
 
         viewModel.onSupport = { [weak self] in
-            let url = URL(string: "https://t.me/SORAhappiness")!
+            let url = URL(string: "https://t.me/soracardofficial")!
             let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
             self?.navigationController.pushViewController(webViewController, animated: true)
         }
