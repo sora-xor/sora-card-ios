@@ -94,7 +94,6 @@
 "card.hub.settings.logout.description" = "You are about to log out of SORA Card. You will still have access to the SORA Card standalone app, but the balance will no longer be available to you in the SORA Wallet.";
 "card.hub.settings.logout.button" = "Log out";
 "card.hub.settings.title" = "Card settings";
-"card.hub.settings.logout" = "Log out SORA Card";
 "common.back" = "Back";
 "entry.card.info" = "Card info";
 "cardhub.top.up" = "Top up";

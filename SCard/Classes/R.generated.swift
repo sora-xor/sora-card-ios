@@ -268,7 +268,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 105 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 104 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -546,10 +546,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let verifyPhoneNumberDescription = Rswift.StringResource(key: "verify.phone.number.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: SORA Card abmelden
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static let cardHubSettingsLogout = Rswift.StringResource(key: "card.hub.settings.logout", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Schließen
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -1734,21 +1730,6 @@ struct R: Rswift.Validatable {
 
         let format = NSLocalizedString("verify.phone.number.description", tableName: "SoraCard", bundle: bundle, comment: "")
         return String(format: format, locale: locale, value1)
-      }
-
-      /// de translation: SORA Card abmelden
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static func cardHubSettingsLogout(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("card.hub.settings.logout", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "card.hub.settings.logout"
-        }
-
-        return NSLocalizedString("card.hub.settings.logout", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Schließen

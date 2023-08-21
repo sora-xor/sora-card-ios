@@ -94,7 +94,6 @@
 "card.hub.settings.logout.description" = "Sie sind dabei, sich bei SORA Card abzumelden. Sie haben weiterhin Zugriff auf die eigenständige SORA Card App, aber Ihr Guthaben wird nicht mehr in der SORA Wallet verfügbar sein.";
 "card.hub.settings.logout.button" = "Abmelden";
 "card.hub.settings.title" = "Karteneinstellungen";
-"card.hub.settings.logout" = "SORA Card abmelden";
 "common.back" = "Back";
 "entry.card.info" = "Card info";
 "cardhub.top.up" = "Top up";

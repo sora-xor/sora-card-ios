@@ -94,7 +94,6 @@
 "card.hub.settings.logout.description" = "Вы собираетесь выйти из SORA Card. У вас по-прежнему будет доступ непосредственно в приложении SORA Card, но баланс больше не будет доступен для вас в кошельке SORA.";
 "card.hub.settings.logout.button" = "Выйти";
 "card.hub.settings.title" = "Настройки карты";
-"card.hub.settings.logout" = "Выйти из SORA Card";
 "common.back" = "Назад";
 "entry.card.info" = "Card info";
 "cardhub.top.up" = "Top up";

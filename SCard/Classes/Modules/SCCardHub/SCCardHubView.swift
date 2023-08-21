@@ -178,7 +178,7 @@ final class SCCardHubView: UIView {
         view.addTapGesture { [weak self] _ in
             self?.onLogout?()
         }
-        view.configure(title: R.string.soraCard.cardHubSettingsLogout(preferredLanguages: .currentLocale), titleColor: .statusError)
+        view.configure(title: R.string.soraCard.cardHubSettingsLogoutTitle(preferredLanguages: .currentLocale), titleColor: .statusError)
 
         return view
     }()

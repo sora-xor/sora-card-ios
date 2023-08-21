@@ -7,7 +7,7 @@ PODS:
   - R.swift (6.1.0):
     - R.swift.Library (~> 5.3.0)
   - R.swift.Library (5.3.0)
-  - SCard (1.0.0):
+  - SCard (1.1.0):
     - IdensicMobileSDK
     - PayWingsOAuthSDK (= 1.2.2)
     - PayWingsOnboardingKYC (= 5.1.13)
@@ -58,7 +58,7 @@ SPEC CHECKSUMS:
   PayWingsOnboardingKYC: abff20d772e9b87e9315b4999feb7401d6557eee
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
-  SCard: 75b8f01b87f7a52e581e9c0ebb5d65fedbefddd0
+  SCard: 0f3a1fe782ac1624c92f57df4c029e35c3f8c15b
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SoraUIKit: d23f2c122974e5700c8c646ba4d314fa3db12f6f
   VideoID: d48d4f30f79f12229421a09e65692561960dc5b5

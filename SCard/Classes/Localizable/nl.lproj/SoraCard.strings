@@ -94,7 +94,6 @@
 "card.hub.settings.logout.description" = "U staat op het punt om uit te loggen bij SORA Card. U hebt nog steeds toegang tot de zelfstandige SORA Card-app, maar het saldo is niet langer voor u beschikbaar in de SORA Wallet.";
 "card.hub.settings.logout.button" = "Uitloggen";
 "card.hub.settings.title" = "Kaartinstellingen";
-"card.hub.settings.logout" = "SORA Card uitloggen";
 "common.back" = "Terug";
 "entry.card.info" = "Card info";
 "cardhub.top.up" = "Top up";

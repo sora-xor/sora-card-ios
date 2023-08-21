@@ -94,7 +94,6 @@
 "card.hub.settings.logout.description" = "Está prestes a terminar a sessão no Cartão SORA. Continuará a ter acesso à aplicação autónoma do Cartão SORA, mas o saldo deixará de estar disponível na Carteira SORA.";
 "card.hub.settings.logout.button" = "Terminar sessão";
 "card.hub.settings.title" = "Definições do cartão";
-"card.hub.settings.logout" = "Terminar sessão no cartão SORA";
 "common.back" = "Back";
 "entry.card.info" = "Card info";
 "cardhub.top.up" = "Top up";
