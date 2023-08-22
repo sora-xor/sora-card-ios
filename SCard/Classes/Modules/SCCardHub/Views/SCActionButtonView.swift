@@ -5,8 +5,6 @@ public final class SCActionButtonView: SoramitsuView {
 
     public let button: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .bleached(.tertiary))
-        button.sora.tintColor = .accentTertiary
-        button.sora.backgroundColor = .bgSurface
         button.sora.cornerRadius = .circle
         button.sora.shadow = .small
         button.sora.clipsToBounds = false
