@@ -4,6 +4,7 @@ import SoraUIKit
 final class SCCardHubView: UIView {
 
     var onLogout: (() -> Void)?
+    var onIban: ((String) -> Void)?
 
     private let scrollView = UIScrollView()
 
@@ -137,7 +138,7 @@ final class SCCardHubView: UIView {
         button.sora.backgroundColor = .custom(uiColor: .clear)
         button.sora.leftImage = R.image.upload()
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            UIPasteboard.general.string = self?.ibanLabel.text
+            self?.onIban?(self?.ibanLabel.sora.text ?? "")
         }
         return button
     }()
@@ -175,11 +176,12 @@ final class SCCardHubView: UIView {
 
     private lazy var logoutView: SCTitleIconView = {
         let view = SCTitleIconView()
+        view.rightImageView.image = R.image.arrowRightSmall()
+        view.titleLabel.sora.text = R.string.soraCard.cardHubSettingsLogoutTitle(preferredLanguages: .currentLocale)
+        view.titleLabel.sora.textColor = .statusError
         view.addTapGesture { [weak self] _ in
             self?.onLogout?()
         }
-        view.configure(title: R.string.soraCard.cardHubSettingsLogoutTitle(preferredLanguages: .currentLocale), titleColor: .statusError)
-
         return view
     }()
 
@@ -213,10 +215,22 @@ final class SCCardHubView: UIView {
             actionButtonsView
         ])
 
+        let ibanLabelView = SoramitsuView()
+        ibanLabelView.addTapGesture { [weak self] _ in
+            UIPasteboard.general.string = self?.ibanLabel.sora.text
+            self?.showToast(
+                message: R.string.soraCard.commonCopied(preferredLanguages: .currentLocale),
+                font: FontType.textM.font
+            )
+        }
+        ibanLabelView.addSubview(ibanLabel) {
+            $0.edges.equalToSuperview()
+        }
+
         let stackView = UIStackView(arrangedSubviews: [ibanTitleLabel, ibanCopyButton])
         ibanContainerView.addArrangedSubviews([
             stackView,
-            ibanLabel
+            ibanLabelView
         ])
 
         ibanCopyButton.snp.makeConstraints {
@@ -245,5 +259,39 @@ final class SCCardHubView: UIView {
             $0.top.bottom.equalToSuperview()
             $0.leading.trailing.equalTo(self).inset(16)
         }
+    }
+
+    @objc private func onCopy() {
+        UIPasteboard.general.string = ibanLabel.sora.text
+        showToast(message: "Copied", font: FontType.textM.font)
+    }
+
+    private func showToast(message : String, font: UIFont) {
+        let toastLabel = UILabel()
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+
+        let toastView = UIView()
+        toastView.backgroundColor = .black.withAlphaComponent(0.8)
+        toastView.layer.cornerRadius = 10;
+        toastView.clipsToBounds  =  true
+        toastView.addSubview(toastLabel) {
+            $0.top.bottom.equalToSuperview().inset(5)
+            $0.leading.trailing.equalToSuperview().inset(8)
+        }
+
+        self.addSubview(toastView) {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().multipliedBy(0.8)
+        }
+
+        UIView.animate(withDuration: 1.0, delay: 0.5, options: .curveEaseOut,
+        animations: {
+            toastView.alpha = 0.0
+        }, completion: { _ in
+            toastView.removeFromSuperview()
+        })
     }
 }

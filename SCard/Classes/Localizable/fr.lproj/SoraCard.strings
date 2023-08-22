@@ -102,3 +102,4 @@
 "cardhub.freeze" = "Geler";
 "cardhub.coming.soon" = "Gestion de la carte bientôt disponible";
 "cardhub.iban.title" = "Détails de l'IBAN";
+"common.copied" = "Copied to Clipboard";

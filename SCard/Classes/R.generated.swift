@@ -268,7 +268,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 104 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 105 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -342,6 +342,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let otpErrorMessageWrongCode = Rswift.StringResource(key: "otp.error.message.wrong.code", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Copied to Clipboard
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let commonCopied = Rswift.StringResource(key: "common.copied", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Das Zahlungs-Widget ist derzeit nicht verfügbar
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -955,6 +959,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("otp.error.message.wrong.code", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Copied to Clipboard
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func commonCopied(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("common.copied", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "common.copied"
+        }
+
+        return NSLocalizedString("common.copied", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Das Zahlungs-Widget ist derzeit nicht verfügbar

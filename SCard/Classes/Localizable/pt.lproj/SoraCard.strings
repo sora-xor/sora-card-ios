@@ -102,3 +102,4 @@
 "cardhub.freeze" = "Freeze";
 "cardhub.coming.soon" = "Card management is coming soon";
 "cardhub.iban.title" = "IBAN account details";
+"common.copied" = "Copied to Clipboard";

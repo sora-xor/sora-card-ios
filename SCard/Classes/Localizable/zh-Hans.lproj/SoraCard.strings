@@ -102,3 +102,4 @@
 "cardhub.freeze" = "冻结";
 "cardhub.coming.soon" = "即将推出卡片管理功能";
 "cardhub.iban.title" = "IBAN账户详情";
+"common.copied" = "Copied to Clipboard";

@@ -8,7 +8,7 @@ final class SCKYCCoordinator {
     private let addressProvider: () -> String
     private let service: SCKYCService
     private let storage: SCStorage
-    private let balanceStream: SCStream<Decimal>
+    internal var balanceStream: SCStream<Decimal>
     private let onSwapController: (UIViewController) -> Void
 
     init(

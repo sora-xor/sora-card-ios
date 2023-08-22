@@ -104,6 +104,10 @@ public class SCard {
         }
     }
 
+    public func updateBalance(stream: SCStream<Decimal>) {
+        coordinator.balanceStream = stream
+    }
+
     public func start(in vc: UIViewController) {
         Task { await coordinator.start(in: vc) }
     }

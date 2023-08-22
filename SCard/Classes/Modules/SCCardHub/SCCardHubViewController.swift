@@ -43,5 +43,17 @@ final class SCCardHubViewController: UIViewController {
         rootView.onLogout = { [unowned self] in
             self.onLogout?()
         }
+
+        rootView.onIban = { [unowned self] iban in
+            self.share(text: iban)
+        }
+    }
+
+    private func share(text: String) {
+        let activityController = UIActivityViewController(
+            activityItems: [text],
+            applicationActivities: nil
+        )
+        present(activityController, animated: true, completion: nil)
     }
 }

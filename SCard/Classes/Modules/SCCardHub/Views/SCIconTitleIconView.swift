@@ -3,9 +3,7 @@ import SoraUIKit
 
 class SCTitleIconView: SoramitsuView {
 
-    var onTap: (()->())?
-
-    private let titleLabel: SoramitsuLabel = {
+    let titleLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.numberOfLines = 1
         label.textAlignment = .left
@@ -15,25 +13,14 @@ class SCTitleIconView: SoramitsuView {
         return label
     }()
 
-    private let rightImageView: SoramitsuImageView = {
+    let rightImageView: SoramitsuImageView = {
         let imageView = SoramitsuImageView()
-        imageView.image = R.image.arrowRightSmall()
         return imageView
     }()
 
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
-
         setupInitialLayout()
-
-        self.addTapGesture { [weak self] _ in
-            self?.onTap?()
-        }
-    }
-
-    func configure(title: String, titleColor: SoramitsuColor = .fgPrimary) {
-        titleLabel.sora.text = title
-        titleLabel.sora.textColor = titleColor
     }
 
     private func setupInitialLayout() {
