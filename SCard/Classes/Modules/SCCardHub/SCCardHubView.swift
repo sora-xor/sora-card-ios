@@ -25,15 +25,17 @@ final class SCCardHubView: UIView {
         view.spacing = 16
         view.sora.cornerRadius = .max
         view.sora.distribution = .fill
-        view.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
+        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         view.isLayoutMarginsRelativeArrangement = true
         return view
     }()
 
     private let iconView: SoramitsuImageView = {
         let view = SoramitsuImageView()
-        let icon = R.image.scFront()
         view.sora.picture = .logo(image: R.image.scFront()!)
+        view.snp.makeConstraints {
+            $0.width.equalTo(view.snp.height).multipliedBy(1.66)
+        }
         return view
     }()
 
