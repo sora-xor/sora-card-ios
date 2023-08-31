@@ -6,7 +6,7 @@
 "terms.and.conditions.confirm.description" = "Al continuar confirma que ha leído, entendido y aceptado estas políticas";
 "terms.and.conditions.accept.and.continue" = "Aceptar y Continuar";
 "get.prepared.title" = "Prepárate";
-"get.prepared.alert" = "ATENCIÓN: Sólo dispone de 2 intentos gratuitos para pasar el proceso de KYC. Cualquier otro intento posterior tendrá un coste de 3.8 €. Los intentos con pago estarán disponibles después de la próxima actualización de la App.";
+"get.prepared.alert" = "ATENCIÓN: Sólo dispone de 4 intentos gratuitos para pasar el proceso de KYC. Cualquier otro intento posterior tendrá un coste de 3.8 €. Los intentos con pago estarán disponibles después de la próxima actualización de la App.";
 "get.prepared.submit.id.photo.title" = "Envía una foto de tu documento de identidad";
 "get.prepared.submit.id.photo.description" = "Pasaporte, Permiso de Conducir, Documento de Identidad o Permiso de Residencia";
 "get.prepared.take.selfie.title" = "Hazte un selfie";

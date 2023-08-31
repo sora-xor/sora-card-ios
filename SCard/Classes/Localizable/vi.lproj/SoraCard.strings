@@ -6,7 +6,7 @@
 "terms.and.conditions.confirm.description" = "Bằng cách tiếp tục, bạn xác nhận rằng bạn đã đọc, hiểu và chấp nhận các chính sách này";
 "terms.and.conditions.accept.and.continue" = "Chấp nhận & Tiếp tục";
 "get.prepared.title" = "Chuẩn bị sẵn sàng";
-"get.prepared.alert" = "CHÚ Ý: Bạn chỉ có 2 lần thử miễn phí để vượt qua quy trình KYC. Mọi nỗ lực khác sau đó sẽ có giá € 3,8. Các lần thử trả phí sẽ có sẵn sau bản cập nhật tiếp theo của ứng dụng.";
+"get.prepared.alert" = "CHÚ Ý: Bạn chỉ có 4 lần thử miễn phí để vượt qua quy trình KYC. Mọi nỗ lực khác sau đó sẽ có giá € 3,8. Các lần thử trả phí sẽ có sẵn sau bản cập nhật tiếp theo của ứng dụng.";
 "get.prepared.submit.id.photo.title" = "Gửi ảnh giấy tờ tùy thân của bạn";
 "get.prepared.submit.id.photo.description" = "Hộ chiếu, Giấy phép lái xe, Chứng minh nhân dân hoặc Giấy phép cư trú";
 "get.prepared.take.selfie.title" = "Chụp ảnh selfie";
@@ -102,4 +102,4 @@
 "cardhub.freeze" = "Đông lạnh";
 "cardhub.coming.soon" = "Quản lý thẻ sắp ra mắt";
 "cardhub.iban.title" = "Chi tiết tài khoản IBAN";
-"common.copied" = "Copied to Clipboard";
+"common.copied" = "Đã sao chép vào bảng tạm";

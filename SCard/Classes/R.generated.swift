@@ -274,7 +274,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let detailsAnnualServiceFee = Rswift.StringResource(key: "details.annual.service.fee", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: ACHTUNG: Sie haben nur 2 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
+      /// de translation: ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let getPreparedAlert = Rswift.StringResource(key: "get.prepared.alert", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -706,7 +706,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("details.annual.service.fee", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: ACHTUNG: Sie haben nur 2 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
+      /// de translation: ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static func getPreparedAlert(preferredLanguages: [String]? = nil) -> String {

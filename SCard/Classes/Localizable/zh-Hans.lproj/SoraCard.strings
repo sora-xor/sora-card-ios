@@ -6,7 +6,7 @@
 "terms.and.conditions.confirm.description" = "继续操作即表示您已阅读、理解并接受这些政策。";
 "terms.and.conditions.accept.and.continue" = "接受并继续";
 "get.prepared.title" = "做好准备";
-"get.prepared.alert" = "注意：您只有2次免费尝试通过KYC过程。之后的每一次尝试都将花费3.8欧元。付费尝试将在应用程序的下一个更新后提供。";
+"get.prepared.alert" = "注意：您只有4次免费尝试通过KYC过程。之后的每一次尝试都将花费3.8欧元。付费尝试将在应用程序的下一个更新后提供。";
 "get.prepared.submit.id.photo.title" = "提交您的身份证明照片";
 "get.prepared.submit.id.photo.description" = "护照、驾照、身份证或居住许可证";
 "get.prepared.take.selfie.title" = "自拍";
@@ -102,4 +102,4 @@
 "cardhub.freeze" = "冻结";
 "cardhub.coming.soon" = "即将推出卡片管理功能";
 "cardhub.iban.title" = "IBAN账户详情";
-"common.copied" = "Copied to Clipboard";
+"common.copied" = "已复制到剪贴板";
