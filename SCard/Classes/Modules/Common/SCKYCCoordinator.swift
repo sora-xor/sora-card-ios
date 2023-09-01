@@ -40,24 +40,15 @@ final class SCKYCCoordinator {
             navigationController.viewControllers = []
         }
 
-        if await navigationController.presentingViewController == nil {
+        if await canShowHardhub() {
+            await MainActor.run {
+                showCardHub()
+            }
+            return
+
+        } else if await navigationController.presentingViewController == nil {
             await rootViewController.present(navigationController, animated: true)
         }
-
-//begin TODO: remove it, only fore debugind xOne https://github.com/sora-xor/sora-card-ios/issues/11
-//        await MainActor.run { [weak self] in
-//            let viewController = SCXOneBlockedViewController()
-//            viewController.onAction = { [weak self] in
-//                self?.navigationController.popViewController(animated: true)
-//            }
-//
-//            viewController.onUnsupportedCountries = { [weak self] in
-//                self?.showUnsupportedCountries()
-//            }
-//            self?.navigationController.pushViewController(viewController, animated: true)
-//        }
-//        return
-//end TODO: remove it, only fore debugind xOne https://github.com/sora-xor/sora-card-ios/issues/11
 
         let data = SCKYCUserDataModel()
 
@@ -113,7 +104,6 @@ final class SCKYCCoordinator {
         viewController.onLogin = { [weak self] in
             self?.showTermsAndConditions(data: data)
         }
-
         navigationController.pushViewController(viewController, animated: true)
     }
 
@@ -290,6 +280,22 @@ final class SCKYCCoordinator {
         }
     }
 
+    private func canShowHardhub() async -> Bool {
+        _ = await self.service.refreshAccessTokenIfNeeded()
+        switch await service.kycStatuses() {
+        case .success(let statuses):
+            let statusesToShow = statuses.filter({ $0.userStatus != .userCanceled })
+            if statusesToShow.sorted.last?.userStatus == .successful {
+                return true
+            } else {
+                return false
+            }
+        case .failure(let error):
+            print(error)
+            return false
+        }
+    }
+
     private func showGetPrepared(data: SCKYCUserDataModel){
         let viewModel = SCKYCSummaryViewModel()
         viewModel.onContinue = { [unowned self] in
@@ -347,8 +353,12 @@ final class SCKYCCoordinator {
         containerView.modalPresentationStyle = .overFullScreen
         containerView.add(viewController)
 
-        self.navigationController.dismiss(animated: true) { [weak self] in
-            self?.rootViewController?.present(containerView, animated: true)
+        if self.navigationController.presentationController != nil {
+            self.navigationController.dismiss(animated: true) { [weak self] in
+                self?.rootViewController?.present(containerView, animated: true)
+            }
+        } else {
+            rootViewController?.present(containerView, animated: true)
         }
     }
 
