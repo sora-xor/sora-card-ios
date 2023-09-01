@@ -17,100 +17,7 @@ final class SCCardHubView: UIView {
         return view
     }()
 
-    private var cardContainerView: SoramitsuStackView = {
-        var view = SoramitsuStackView()
-        view.sora.backgroundColor = .bgSurface
-        view.sora.axis = .vertical
-        view.sora.shadow = .default
-        view.spacing = 16
-        view.sora.cornerRadius = .max
-        view.sora.distribution = .fill
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        view.isLayoutMarginsRelativeArrangement = true
-        return view
-    }()
-
-    private let iconView: SoramitsuImageView = {
-        let view = SoramitsuImageView()
-        view.sora.picture = .logo(image: R.image.scFront()!)
-        view.snp.makeConstraints {
-            $0.width.equalTo(view.snp.height).multipliedBy(1.66)
-        }
-        return view
-    }()
-
-    private let titleLabel: SoramitsuLabel = {
-        let label = SoramitsuLabel()
-        label.sora.font = FontType.textS
-        label.sora.textColor = .fgSecondary
-        label.sora.alignment = .center
-        label.sora.text = R.string.soraCard.cardhubComingSoon(preferredLanguages: .currentLocale)
-        return label
-    }()
-
-    private let actionButtonsView: SoramitsuStackView = {
-        var view = SoramitsuStackView()
-        view.sora.backgroundColor = .custom(uiColor: .clear)
-        view.sora.axis = .horizontal
-        view.sora.distribution = .equalSpacing
-        view.sora.alignment = .center
-        view.sora.shadow = .small
-        view.spacing = 20
-        view.clipsToBounds = false
-        return view
-    }()
-
-    private let topUpButton: SCActionButtonView = {
-        let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubTopUp(preferredLanguages: .currentLocale)
-        view.button.sora.leftImage = R.image.newArrowDown()
-        view.button.sora.horizontalOffset = 16
-        view.button.sora.addHandler(for: .touchUpInside) {
-            // TODO:
-            print("### Top up")
-        }
-        view.button.isEnabled = false
-        return view
-    }()
-
-    private let transferButton: SCActionButtonView = {
-        let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubTransfer(preferredLanguages: .currentLocale)
-        view.button.sora.leftImage = R.image.newArrowUp()
-        view.button.sora.horizontalOffset = 16
-        view.button.sora.addHandler(for: .touchUpInside) {
-            // TODO:
-            print("### Transfer")
-        }
-        view.button.isEnabled = false
-        return view
-    }()
-
-    private let exchangeButton: SCActionButtonView = {
-        let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubExchange(preferredLanguages: .currentLocale)
-        view.button.sora.leftImage = R.image.exchange()
-        view.button.sora.horizontalOffset = 16
-        view.button.sora.addHandler(for: .touchUpInside) {
-            // TODO:
-            print("### Exchange")
-        }
-        view.button.isEnabled = false
-        return view
-    }()
-
-    private let freezeButton: SCActionButtonView = {
-        let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubFreeze(preferredLanguages: .currentLocale)
-        view.button.sora.leftImage = R.image.freeze()
-        view.button.sora.horizontalOffset = 16
-        view.button.sora.addHandler(for: .touchUpInside) {
-            // TODO:
-            print("### Freeze")
-        }
-        view.button.isEnabled = false
-        return view
-    }()
+    private var cardHubHeaderView = SCCardHubHeaderView()
 
     private var ibanContainerView: SoramitsuStackView = {
         var view = SoramitsuStackView()
@@ -189,6 +96,7 @@ final class SCCardHubView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.clipsToBounds = false
         setupInitialLayout()
     }
 
@@ -199,23 +107,10 @@ final class SCCardHubView: UIView {
     func configure(iban: String?) {
         ibanLabel.sora.text = iban
     }
-
+    
     private func setupInitialLayout() {
 
         addSubview(scrollView)
-
-        actionButtonsView.addArrangedSubviews([
-            topUpButton,
-            transferButton,
-            exchangeButton,
-            freezeButton
-        ])
-
-        cardContainerView.addArrangedSubviews([
-            iconView,
-            titleLabel,
-            actionButtonsView
-        ])
 
         let ibanLabelView = SoramitsuView()
         ibanLabelView.addTapGesture { [weak self] _ in
@@ -245,7 +140,7 @@ final class SCCardHubView: UIView {
         ])
 
         containerView.addArrangedSubviews([
-            cardContainerView,
+            cardHubHeaderView,
             ibanContainerView,
             settingsContainerView
         ])

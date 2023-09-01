@@ -6,7 +6,7 @@ public final class SCActionButtonView: SoramitsuView {
     public let button: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .bleached(.tertiary))
         button.sora.cornerRadius = .circle
-        button.sora.shadow = .small
+        button.sora.shadow = .none
         button.sora.clipsToBounds = false
         return button
     }()
@@ -19,15 +19,6 @@ public final class SCActionButtonView: SoramitsuView {
         return label
     }()
 
-    private let stackView: SoramitsuStackView = {
-        let stackView = SoramitsuStackView()
-        stackView.sora.axis = .vertical
-        stackView.spacing = 8
-        stackView.clipsToBounds = false
-        return stackView
-    }()
-
-
     init() {
         super.init(frame: .zero)
         setup()
@@ -38,16 +29,15 @@ public final class SCActionButtonView: SoramitsuView {
     }
 
     func setup() {
-        clipsToBounds = false
-        addSubview(stackView)
-        stackView.addArrangedSubviews(button, titleLabel)
-
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.heightAnchor.constraint(equalToConstant: 76),
-        ])
+        addSubview(button) {
+            $0.top.centerX.equalToSuperview()
+            $0.leading.greaterThanOrEqualToSuperview()
+            $0.trailing.lessThanOrEqualToSuperview()
+            $0.size.equalTo(56)
+        }
+        addSubview(titleLabel) {
+            $0.top.equalTo(button.snp.bottom).offset(8)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
     }
 }
