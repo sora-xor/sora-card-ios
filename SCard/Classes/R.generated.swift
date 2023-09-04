@@ -268,7 +268,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 105 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 106 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -278,6 +278,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let getPreparedAlert = Rswift.StringResource(key: "get.prepared.alert", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let getPreparedAlertDynamic = Rswift.StringResource(key: "get.prepared.alert.dynamic", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Abbrechen
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -314,6 +318,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let logOut = Rswift.StringResource(key: "log.out", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Austausch
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubExchange = Rswift.StringResource(key: "cardhub.exchange", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Back
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -330,10 +338,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let entryCardInfo = Rswift.StringResource(key: "entry.card.info", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Card management is coming soon
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static let cardhubComingSoon = Rswift.StringResource(key: "cardhub.coming.soon", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Code erneut senden
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -370,6 +374,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let verificationFailedDescription = Rswift.StringResource(key: "verification.failed.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Die Kartenverwaltung kommt bald
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubComingSoon = Rswift.StringResource(key: "cardhub.coming.soon", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Die SORA-Community sammelt keine personenbezogenen Daten, um die SORA Card und das IBAN-Konto zu erhalten, müssen Sie einen Identitätsverifizierungs-Prozess direkt beim Kartenaussteller durchführen.
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -386,6 +394,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let getPreparedProofAddressDescription = Rswift.StringResource(key: "get.prepared.proof.address.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Einfrieren
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubFreeze = Rswift.StringResource(key: "cardhub.freeze", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Einwohner bestimmter Länder können derzeit keine SORA Card beantragen
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -410,10 +422,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonTryAgain = Rswift.StringResource(key: "common.try.again", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Exchange
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static let cardhubExchange = Rswift.StringResource(key: "cardhub.exchange", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Familienname, Nachname
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -430,10 +438,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let commonContinue = Rswift.StringResource(key: "common.continue", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Freeze
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static let cardhubFreeze = Rswift.StringResource(key: "cardhub.freeze", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Füllen Sie das Formular mit Ihrem Namen und Ihrer Adresse aus
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -446,7 +450,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let statusNotStarted = Rswift.StringResource(key: "status.not.started", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: IBAN account details
+      /// de translation: IBAN-Kontodaten
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let cardhubIbanTitle = Rswift.StringResource(key: "cardhub.iban.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -522,6 +526,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let getPreparedTakeSelfieTitle = Rswift.StringResource(key: "get.prepared.take.selfie.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Nachfüllen
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubTopUp = Rswift.StringResource(key: "cardhub.top.up", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: OK, ich bin bereit
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -622,14 +630,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let enterPhoneNumberPhoneInputFieldLabel = Rswift.StringResource(key: "enter.phone.number.phone.input.field.label", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Top up
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static let cardhubTopUp = Rswift.StringResource(key: "cardhub.top.up", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Transfer
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static let cardhubTransfer = Rswift.StringResource(key: "cardhub.transfer", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Um die Identitätsverifizierung abzuschließen, müssen Sie Folgendes tun:
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -690,6 +690,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let kycResultVerificationInProgress = Rswift.StringResource(key: "kyc.result.verification.in.progress", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Überweisen
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let cardhubTransfer = Rswift.StringResource(key: "cardhub.transfer", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
 
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -719,6 +723,23 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("get.prepared.alert", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func getPreparedAlertDynamic(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("get.prepared.alert.dynamic", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "get.prepared.alert.dynamic"
+        }
+
+        let format = NSLocalizedString("get.prepared.alert.dynamic", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// de translation: Abbrechen
@@ -856,6 +877,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("log.out", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Austausch
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubExchange(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.exchange", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.exchange"
+        }
+
+        return NSLocalizedString("cardhub.exchange", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Back
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -914,21 +950,6 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("entry.card.info", tableName: "SoraCard", bundle: bundle, comment: "")
-      }
-
-      /// de translation: Card management is coming soon
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static func cardhubComingSoon(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("cardhub.coming.soon", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "cardhub.coming.soon"
-        }
-
-        return NSLocalizedString("cardhub.coming.soon", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Code erneut senden
@@ -1066,6 +1087,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("verification.failed.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Die Kartenverwaltung kommt bald
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubComingSoon(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.coming.soon", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.coming.soon"
+        }
+
+        return NSLocalizedString("cardhub.coming.soon", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Die SORA-Community sammelt keine personenbezogenen Daten, um die SORA Card und das IBAN-Konto zu erhalten, müssen Sie einen Identitätsverifizierungs-Prozess direkt beim Kartenaussteller durchführen.
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -1126,6 +1162,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("get.prepared.proof.address.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Einfrieren
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubFreeze(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.freeze", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.freeze"
+        }
+
+        return NSLocalizedString("cardhub.freeze", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Einwohner bestimmter Länder können derzeit keine SORA Card beantragen
@@ -1220,21 +1271,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common.try.again", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: Exchange
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static func cardhubExchange(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("cardhub.exchange", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "cardhub.exchange"
-        }
-
-        return NSLocalizedString("cardhub.exchange", tableName: "SoraCard", bundle: bundle, comment: "")
-      }
-
       /// de translation: Familienname, Nachname
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -1297,21 +1333,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common.continue", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: Freeze
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static func cardhubFreeze(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("cardhub.freeze", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "cardhub.freeze"
-        }
-
-        return NSLocalizedString("cardhub.freeze", tableName: "SoraCard", bundle: bundle, comment: "")
-      }
-
       /// de translation: Füllen Sie das Formular mit Ihrem Namen und Ihrer Adresse aus
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -1357,7 +1378,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("status.not.started", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: IBAN account details
+      /// de translation: IBAN-Kontodaten
       ///
       /// Locales: de, en, es, ru, fr, nl
       static func cardhubIbanTitle(preferredLanguages: [String]? = nil) -> String {
@@ -1642,6 +1663,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("get.prepared.take.selfie.title", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Nachfüllen
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubTopUp(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.top.up", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.top.up"
+        }
+
+        return NSLocalizedString("cardhub.top.up", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: OK, ich bin bereit
@@ -2025,36 +2061,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("enter.phone.number.phone.input.field.label", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: Top up
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static func cardhubTopUp(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("cardhub.top.up", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "cardhub.top.up"
-        }
-
-        return NSLocalizedString("cardhub.top.up", tableName: "SoraCard", bundle: bundle, comment: "")
-      }
-
-      /// de translation: Transfer
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static func cardhubTransfer(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("cardhub.transfer", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "cardhub.transfer"
-        }
-
-        return NSLocalizedString("cardhub.transfer", tableName: "SoraCard", bundle: bundle, comment: "")
-      }
-
       /// de translation: Um die Identitätsverifizierung abzuschließen, müssen Sie Folgendes tun:
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -2284,6 +2290,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("kyc.result.verification.in.progress", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Überweisen
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func cardhubTransfer(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("cardhub.transfer", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "cardhub.transfer"
+        }
+
+        return NSLocalizedString("cardhub.transfer", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

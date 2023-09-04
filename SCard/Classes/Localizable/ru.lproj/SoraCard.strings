@@ -96,10 +96,11 @@
 "card.hub.settings.title" = "Настройки карты";
 "common.back" = "Назад";
 "entry.card.info" = "Card info";
-"cardhub.top.up" = "Top up";
-"cardhub.transfer" = "Transfer";
-"cardhub.exchange" = "Exchange";
-"cardhub.freeze" = "Freeze";
-"cardhub.coming.soon" = "Card management is coming soon";
-"cardhub.iban.title" = "IBAN account details";
+"cardhub.top.up" = "Пополнить";
+"cardhub.transfer" = "Передача";
+"cardhub.exchange" = "Обмен";
+"cardhub.freeze" = "Заморозить";
+"cardhub.coming.soon" = "Управление картами скоро появится";
+"cardhub.iban.title" = "Данные счета IBAN";
 "common.copied" = "Copied to Clipboard";
+"get.prepared.alert.dynamic" = "ВНИМАНИЕ: У вас имеется 4 бесплатные попытки пройти процедуру KYC. Каждая последующая попытка после этого будет стоить €3.8. Оплачиваемые попытки станут доступны после следующего обновления приложения.";

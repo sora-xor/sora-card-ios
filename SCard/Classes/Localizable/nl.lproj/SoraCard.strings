@@ -96,10 +96,11 @@
 "card.hub.settings.title" = "Kaartinstellingen";
 "common.back" = "Terug";
 "entry.card.info" = "Card info";
-"cardhub.top.up" = "Top up";
-"cardhub.transfer" = "Transfer";
-"cardhub.exchange" = "Exchange";
-"cardhub.freeze" = "Freeze";
-"cardhub.coming.soon" = "Card management is coming soon";
-"cardhub.iban.title" = "IBAN account details";
+"cardhub.top.up" = "Bijvullen";
+"cardhub.transfer" = "Overdracht";
+"cardhub.exchange" = "Aandelenbeurs";
+"cardhub.freeze" = "Bevriezen";
+"cardhub.coming.soon" = "Kaartbeheer komt binnenkort";
+"cardhub.iban.title" = "IBAN-rekeninggegevens";
 "common.copied" = "Copied to Clipboard";
+"get.prepared.alert.dynamic" = "LET OP:\nJe hebt slechts 4 gratis poging om het KYC-proces te doorlopen. Elke andere poging kost je €3,8. Om je kansen op succes te maximaliseren, volg je deze eenvoudige richtlijnen:";

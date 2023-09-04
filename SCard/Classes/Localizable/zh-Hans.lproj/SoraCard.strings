@@ -103,3 +103,4 @@
 "cardhub.coming.soon" = "即将推出卡片管理功能";
 "cardhub.iban.title" = "IBAN账户详情";
 "common.copied" = "已复制到剪贴板";
+"get.prepared.alert.dynamic" = "注意：您只有4次免费尝试通过KYC过程。之后的每一次尝试都将花费3.8欧元。付费尝试将在应用程序的下一个更新后提供。";

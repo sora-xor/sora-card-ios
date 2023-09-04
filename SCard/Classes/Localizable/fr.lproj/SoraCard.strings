@@ -103,3 +103,4 @@
 "cardhub.coming.soon" = "Gestion de la carte bientôt disponible";
 "cardhub.iban.title" = "Détails de l'IBAN";
 "common.copied" = "Copied to Clipboard";
+"get.prepared.alert.dynamic" = "ATTENTION: Seulement 4 essais gratuits sont fournis pour passer la procédure de KYC. Après ces deux essais, tout autre essai coûtera 3,8€. Les essais payants seront disponibles après la prochaine mise à jour de l'application.";

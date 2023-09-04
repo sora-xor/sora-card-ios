@@ -103,3 +103,4 @@
 "cardhub.coming.soon" = "Quản lý thẻ sắp ra mắt";
 "cardhub.iban.title" = "Chi tiết tài khoản IBAN";
 "common.copied" = "Đã sao chép vào bảng tạm";
+"get.prepared.alert.dynamic" = "CHÚ Ý: Bạn chỉ có 4 lần thử miễn phí để vượt qua quy trình KYC. Mọi nỗ lực khác sau đó sẽ có giá € 3,8. Các lần thử trả phí sẽ có sẵn sau bản cập nhật tiếp theo của ứng dụng.";

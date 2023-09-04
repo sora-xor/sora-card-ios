@@ -297,7 +297,7 @@ final class SCKYCCoordinator {
     }
 
     private func showGetPrepared(data: SCKYCUserDataModel){
-        let viewModel = SCKYCSummaryViewModel()
+        let viewModel = SCKYCSummaryViewModel(service: service)
         viewModel.onContinue = { [unowned self] in
             startKYC(data: data)
         }

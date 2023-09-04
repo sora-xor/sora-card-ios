@@ -103,3 +103,4 @@
 "cardhub.coming.soon" = "La Gestión de la Tarjeta llegará pronto";
 "cardhub.iban.title" = "Detalles cuenta IBAN";
 "common.copied" = "Copied to Clipboard";
+"get.prepared.alert.dynamic" = "ATENCIÓN: Sólo dispone de 4 intentos gratuitos para pasar el proceso de KYC. Cualquier otro intento posterior tendrá un coste de 3.8 €. Los intentos con pago estarán disponibles después de la próxima actualización de la App.";

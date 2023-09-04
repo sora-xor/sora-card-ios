@@ -26,26 +26,24 @@ final class SCKYCSummaryView: UIView {
         return view
     }()
 
-    private let warningLabel: SoramitsuView = {
+    private let warningLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphBoldM
         label.sora.textColor = .accentTertiary
         label.sora.numberOfLines = 0
         label.textAlignment = .center
-        label.sora.text = R.string.soraCard.getPreparedAlert(preferredLanguages: .currentLocale)
-        // TODO: fix SoramitsuLabel contentInsets
-        // label.sora.contentInsets = .init(all:  16)
-        // label.sora.backgroundColor = .accentTertiaryContainer
-        // label.sora.cornerRadius = .small
+        label.sora.text = R.string.soraCard.getPreparedAlertDynamic("4", preferredLanguages: .currentLocale)
+        return label
+    }()
 
+    private lazy var warningView: SoramitsuView = {
         let warningContainerView = SoramitsuView()
         warningContainerView.sora.backgroundColor = .accentTertiaryContainer
         warningContainerView.sora.cornerRadius = .medium
-        warningContainerView.addSubview(label)
-        label.snp.makeConstraints {
+        warningContainerView.addSubview(warningLabel)
+        warningLabel.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(16)
         }
-
         return warningContainerView
     }()
 
@@ -68,6 +66,10 @@ final class SCKYCSummaryView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(attempts: Int) {
+        warningLabel.sora.text = R.string.soraCard.getPreparedAlertDynamic(String(attempts), preferredLanguages: .currentLocale)
     }
 
     private func setupInitialLayout() {
@@ -98,7 +100,7 @@ final class SCKYCSummaryView: UIView {
 
     private func kycSteps() -> [UIView] {
         [
-            warningLabel,
+            warningView,
             SCKYSSummaryStepView(
                 step: "1",
                 title: R.string.soraCard.getPreparedSubmitIdPhotoTitle(preferredLanguages: .currentLocale),

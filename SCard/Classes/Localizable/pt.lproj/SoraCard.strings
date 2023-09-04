@@ -96,10 +96,11 @@
 "card.hub.settings.title" = "Definições do cartão";
 "common.back" = "Back";
 "entry.card.info" = "Card info";
-"cardhub.top.up" = "Top up";
-"cardhub.transfer" = "Transfer";
-"cardhub.exchange" = "Exchange";
-"cardhub.freeze" = "Freeze";
-"cardhub.coming.soon" = "Card management is coming soon";
-"cardhub.iban.title" = "IBAN account details";
+"cardhub.top.up" = "Completar";
+"cardhub.transfer" = "Transferir";
+"cardhub.exchange" = "Intercâmbio";
+"cardhub.freeze" = "Congelar";
+"cardhub.coming.soon" = "O gerenciamento de cartões estará disponível em breve";
+"cardhub.iban.title" = "Detalhes da conta IBAN";
 "common.copied" = "Copied to Clipboard";
+"get.prepared.alert.dynamic" = "ATENÇÃO: Tem apenas 4 tentativas gratuitas para passar o processo KYC. Todas as outras tentativas depois disso custarão 3,8 euros. As tentativas pagas estarão disponíveis após a próxima atualização da aplicação.";

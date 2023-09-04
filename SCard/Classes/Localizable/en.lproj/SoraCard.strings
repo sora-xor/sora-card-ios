@@ -103,3 +103,4 @@
 "cardhub.coming.soon" = "Card management is coming soon";
 "cardhub.iban.title" = "IBAN account details";
 "common.copied" = "Copied to Clipboard";
+"get.prepared.alert.dynamic" = "ATTENTION: You have only %@ free attempts to pass the KYC process. Every other attempt after that will cost €3.8. Paid attempts will be available after the next update of the app.";

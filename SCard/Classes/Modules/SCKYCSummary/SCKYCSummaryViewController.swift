@@ -29,11 +29,16 @@ final class SCKYCSummaryViewController: UIViewController {
         self.navigationItem.title = R.string.soraCard.getPreparedTitle(preferredLanguages: .currentLocale)
         self.navigationItem.setHidesBackButton(true, animated: false)
         binding()
+        Task { await viewModel.getKYCAttempts() }
     }
 
     private func binding() {
         rootView.onContinueButton = { [unowned viewModel] in
             viewModel.onContinue?()
+        }
+
+        viewModel.onAttempts = { [unowned self] attempts in
+            self.rootView.configure(attempts: Int(attempts))
         }
     }
 }

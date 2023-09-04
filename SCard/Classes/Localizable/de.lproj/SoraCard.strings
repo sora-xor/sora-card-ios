@@ -96,10 +96,11 @@
 "card.hub.settings.title" = "Karteneinstellungen";
 "common.back" = "Back";
 "entry.card.info" = "Card info";
-"cardhub.top.up" = "Top up";
-"cardhub.transfer" = "Transfer";
-"cardhub.exchange" = "Exchange";
-"cardhub.freeze" = "Freeze";
-"cardhub.coming.soon" = "Card management is coming soon";
-"cardhub.iban.title" = "IBAN account details";
+"cardhub.top.up" = "Nachfüllen";
+"cardhub.transfer" = "Überweisen";
+"cardhub.exchange" = "Austausch";
+"cardhub.freeze" = "Einfrieren";
+"cardhub.coming.soon" = "Die Kartenverwaltung kommt bald";
+"cardhub.iban.title" = "IBAN-Kontodaten";
 "common.copied" = "Copied to Clipboard";
+"get.prepared.alert.dynamic" = "ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.";
