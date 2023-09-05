@@ -97,7 +97,7 @@ final class SCKYCStatusView: UIView {
         iconView.sora.picture = .logo(image: R.image.kycRejected()!)
     }
 
-    func configure(state: SCKYCUserStatus, hasFreeAttemts: Bool) {
+    func configure(state: SCKYCUserStatus, freeAttemptsLeft: Int) {
         activityIndicatorView.stopAnimating()
         switch state {
         case .pending:
@@ -155,10 +155,13 @@ final class SCKYCStatusView: UIView {
                 alignment: .center
             )
 
-            if hasFreeAttemts {
+            if freeAttemptsLeft > 0 {
 
                 let attemptsLeft = SoramitsuTextItem(
-                    text:  R.string.soraCard.verificationRejectedScreenAttemptsLeft("1", preferredLanguages: .currentLocale),
+                    text:  R.string.soraCard.verificationRejectedScreenAttemptsLeft(
+                        String(freeAttemptsLeft),
+                        preferredLanguages: .currentLocale
+                    ),
                     fontData: ScreenSizeMapper.value(small: FontType.paragraphBoldS, medium: FontType.paragraphBoldM, large: FontType.paragraphBoldM),
                     textColor: .fgPrimary,
                     alignment: .center

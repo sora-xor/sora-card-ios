@@ -18,7 +18,7 @@ final class SCKYCSummaryViewModel {
             print("SCKYCSummaryViewModel failure:\(error)")
             return
         case .success(let kycAttempts):
-            onAttempts?(kycAttempts.freeAttempts)
+            onAttempts?(kycAttempts.totalFreeAttempts)
         }
     }
 }
