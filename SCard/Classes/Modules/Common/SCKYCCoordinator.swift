@@ -305,8 +305,17 @@ final class SCKYCCoordinator {
         viewModel.onContinue = { [unowned self] in
             startKYC(data: data)
         }
+
         let viewController = SCKYCSummaryViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+
+        viewModel.onClose = { [unowned viewController] in
+            viewController.navigationController?.dismiss(animated: true)
+        }
+
+        viewModel.onLogout = { [weak self, unowned viewController] in
+            self?.showLogoutAlert(in: viewController)
+        }
     }
 
     private func startKYC(data: SCKYCUserDataModel) {

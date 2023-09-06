@@ -2,6 +2,8 @@ import Foundation
 
 final class SCKYCSummaryViewModel {
 
+    var onLogout: (() -> Void)?
+    var onClose: (() -> Void)?
     var onContinue: (() -> Void)?
     var onAttempts: ((Int64) -> Void)?
 

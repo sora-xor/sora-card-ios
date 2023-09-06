@@ -58,7 +58,17 @@ final class SCKYCStatusView: UIView {
         return button
     }()
 
-    private lazy var secondButton: SoramitsuButton = {
+    private lazy var supportButton: SoramitsuButton = {
+        let button = SoramitsuButton(size: .large, type: .tonal(.secondary))
+        button.sora.cornerRadius = .custom(28)
+        button.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)
+        button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            self?.onSupportButton?()
+        }
+        return button
+    }()
+
+    private lazy var closeButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .tonal(.secondary))
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onCloseButton?()
@@ -106,23 +116,11 @@ final class SCKYCStatusView: UIView {
             iconView.sora.picture = .logo(image: R.image.kycPending()!)
             actionButton.sora.isHidden = true
 
-            secondButton.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)
-            secondButton.sora.removeAllHandlers(for: .touchUpInside)
-            secondButton.sora.addHandler(for: .touchUpInside) { [weak self] in
-                self?.onSupportButton?()
-            }
-
         case .successful:
             titleLabel.sora.text = R.string.soraCard.verificationSuccessfulTitle(preferredLanguages: .currentLocale)
             textLabel.sora.text = R.string.soraCard.verificationSuccessfulDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycSuccessful()!)
             actionButton.sora.isHidden = true
-
-            secondButton.sora.title = R.string.soraCard.commonClose(preferredLanguages: .currentLocale)
-            secondButton.sora.removeAllHandlers(for: .touchUpInside)
-            secondButton.sora.addHandler(for: .touchUpInside) { [weak self] in
-                self?.onCloseButton?()
-            }
 
         case .notStarted, .userCanceled:
             titleLabel.sora.text = R.string.soraCard.verificationFailedTitle(preferredLanguages: .currentLocale)
@@ -132,12 +130,6 @@ final class SCKYCStatusView: UIView {
             actionButton.sora.isHidden = false
             actionButton.sora.type = .filled(.secondary)
             actionButton.sora.title = R.string.soraCard.commonTryAgain(preferredLanguages: .currentLocale)
-
-            secondButton.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)
-            secondButton.sora.removeAllHandlers(for: .touchUpInside)
-            secondButton.sora.addHandler(for: .touchUpInside) { [weak self] in
-                self?.onSupportButton?()
-            }
 
         case .rejected:
 
@@ -185,12 +177,6 @@ final class SCKYCStatusView: UIView {
                 // TODO: impl in phase 2
                 actionButton.isHidden = true
             }
-
-            secondButton.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)
-            secondButton.sora.removeAllHandlers(for: .touchUpInside)
-            secondButton.sora.addHandler(for: .touchUpInside) { [weak self] in
-                self?.onSupportButton?()
-            }
         }
     }
 
@@ -214,7 +200,8 @@ final class SCKYCStatusView: UIView {
         let buttonsView = UIStackView(arrangedSubviews: [
             actionDescriptionLabel,
             actionButton,
-            secondButton,
+            supportButton,
+            closeButton,
             logoutButton
         ])
         buttonsView.axis = .vertical

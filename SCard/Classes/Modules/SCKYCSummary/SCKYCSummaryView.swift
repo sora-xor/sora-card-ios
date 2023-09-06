@@ -101,6 +101,7 @@ final class SCKYCSummaryView: UIView {
     private func kycSteps() -> [UIView] {
         [
             warningView,
+            textLabel,
             SCKYSSummaryStepView(
                 step: "1",
                 title: R.string.soraCard.getPreparedSubmitIdPhotoTitle(preferredLanguages: .currentLocale),

@@ -31,7 +31,7 @@ public final class SCCardCell: SoramitsuTableViewCell {
 
     private lazy var getCardContainer: SoramitsuView = {
         let view = SoramitsuView()
-        view.sora.cornerRadius = .custom(24)
+        view.sora.cornerRadius = .custom(28)
         view.sora.backgroundColor = .accentSecondary
         return view
     }()

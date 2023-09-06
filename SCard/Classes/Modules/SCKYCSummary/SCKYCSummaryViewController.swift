@@ -26,10 +26,36 @@ final class SCKYCSummaryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = R.string.soraCard.getPreparedTitle(preferredLanguages: .currentLocale)
-        self.navigationItem.setHidesBackButton(true, animated: false)
+        configure()
         binding()
         Task { await viewModel.getKYCAttempts() }
+    }
+
+    private func configure() {
+        self.navigationItem.title = R.string.soraCard.getPreparedTitle(preferredLanguages: .currentLocale)
+        self.navigationItem.setHidesBackButton(true, animated: false)
+
+        let logoutButton = UIBarButtonItem(
+            title: R.string.soraCard.logOut(preferredLanguages: .currentLocale),
+            style: .plain,
+            target: self,
+            action: #selector(onLogout)
+        )
+        logoutButton.setTitleTextAttributes(
+            [
+                .foregroundColor: SoramitsuUI.shared.theme.palette.color(.accentPrimary),
+                .font: FontType.textBoldS.font
+            ],
+            for: .normal
+        )
+        self.navigationItem.leftBarButtonItem = logoutButton
+
+        self.navigationItem.rightBarButtonItem = .init(
+            image: R.image.close(),
+            style: .done,
+            target: self,
+            action: #selector(onClose)
+        )
     }
 
     private func binding() {
@@ -38,7 +64,18 @@ final class SCKYCSummaryViewController: UIViewController {
         }
 
         viewModel.onAttempts = { [unowned self] attempts in
-            self.rootView.configure(attempts: Int(attempts))
+            DispatchQueue.main.async {
+                self.rootView.configure(attempts: Int(attempts))
+            }
         }
+    }
+
+    @objc func onClose() {
+        viewModel.onClose?()
+    }
+
+
+    @objc func onLogout() {
+        viewModel.onLogout?()
     }
 }
