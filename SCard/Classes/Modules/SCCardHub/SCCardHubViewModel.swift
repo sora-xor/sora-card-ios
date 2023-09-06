@@ -8,7 +8,11 @@ final class SCCardHubViewModel {
     func iban() async -> String? {
         switch await service.iban() {
         case .success(let iban):
-            return iban.ibans.first?.iban
+            if let iban = iban.ibans.first?.iban, !iban.isEmpty {
+                return iban
+            } else {
+                return nil
+            }
         case .failure(let error):
             print(error)
             return nil

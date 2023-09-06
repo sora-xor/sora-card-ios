@@ -6,13 +6,12 @@
 "terms.and.conditions.confirm.description" = "Ao continuar, o utilizador confirma que leu, compreendeu e aceitou estas políticas";
 "terms.and.conditions.accept.and.continue" = "Aceitar e continuar";
 "get.prepared.title" = "Preparar-se";
-"get.prepared.alert" = "ATENÇÃO: Tem apenas 4 tentativas gratuitas para passar o processo KYC. Todas as outras tentativas depois disso custarão 3,8 euros. As tentativas pagas estarão disponíveis após a próxima atualização da aplicação.";
 "get.prepared.submit.id.photo.title" = "Envie uma foto do seu documento de identificação";
 "get.prepared.submit.id.photo.description" = "Passaporte, carta de condução, bilhete de identidade ou autorização de residência";
 "get.prepared.take.selfie.title" = "Tirar uma selfie";
 "get.prepared.take.selfie.description" = "As orientações serão fornecidas durante o processo";
 "get.prepared.proof.address.title" = "Enviar uma fotografia do comprovativo de morada";
-"get.prepared.proof.address.description" = "Um documento oficial (fatura de serviços públicos, extrato bancário, declaração ou correspondência do governo) que contenha o seu nome completo e endereço e que não tenha mais de 3 meses";
+"get.prepared.proof.address.description" = "Um documento oficial (conta de luz, extrato bancário, extrato do governo ou correspondência) que contenha seu nome completo e endereço, e que não tenha mais de 3 meses.";
 "get.prepared.personal.info.title" = "Enviar as suas informações pessoais";
 "get.prepared.personal.info.description" = "Preencher o formulário com o seu nome e endereço";
 "get.prepared.ok.title" = "OK, estou pronto";
@@ -103,4 +102,7 @@
 "cardhub.coming.soon" = "O gerenciamento de cartões estará disponível em breve";
 "cardhub.iban.title" = "Detalhes da conta IBAN";
 "common.copied" = "Copied to Clipboard";
-"get.prepared.alert.dynamic" = "ATENÇÃO: Tem apenas 4 tentativas gratuitas para passar o processo KYC. Todas as outras tentativas depois disso custarão 3,8 euros. As tentativas pagas estarão disponíveis após a próxima atualização da aplicação.";
+"get.prepared.alert.dynamic" = "ATENÇÃO: Tem apenas %@ tentativas gratuitas para passar o processo KYC. Todas as outras tentativas depois disso custarão 3,8 euros. As tentativas pagas estarão disponíveis após a próxima atualização da aplicação.";
+"get.prepared.proof.address.note" = "Nota: Atualmente, extratos de neobancos como Revolut e N26 não são vistos como comprovante de endereço válido.";
+"common.wrong.format" = "Wrong format!";
+"enter.phone.number.wrong.format" = "Wrong phone number format!";

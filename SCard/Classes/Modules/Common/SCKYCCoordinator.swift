@@ -249,7 +249,10 @@ final class SCKYCCoordinator {
             if case .success(let atempts) = await service.kycAttempts() {
                 hasFreeAttempts = atempts.hasFreeAttempts
             }
+
             let response = await service.kycStatuses()
+            let hasIban = await service.hasIban()
+
             await MainActor.run { [weak self, hasFreeAttempts] in
                 guard let self else { return }
                 switch response {
@@ -266,7 +269,8 @@ final class SCKYCCoordinator {
                         }
                         return
                     }
-                    if statusesToShow.sorted.last?.userStatus == .successful {
+
+                    if statusesToShow.sorted.last?.userStatus == .successful, hasIban {
                         self.showCardHub()
                     } else {
                         self.showStatus(data: data)
@@ -286,7 +290,7 @@ final class SCKYCCoordinator {
         case .success(let statuses):
             let statusesToShow = statuses.filter({ $0.userStatus != .userCanceled })
             if statusesToShow.sorted.last?.userStatus == .successful {
-                return true
+                return await service.hasIban()
             } else {
                 return false
             }

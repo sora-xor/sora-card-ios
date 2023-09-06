@@ -51,7 +51,7 @@ final class SCKYCEnterPhoneCodeView: UIView {
     }
 
     func configure(phoneNumber: String, secondsLeft: Int, codeState: SCKYCPhoneCodeState) {
-        textLabel.sora.text =  R.string.soraCard.verifyPhoneNumberDescription(phoneNumber, preferredLanguages: .currentLocale) // "Enter SMS code that has been sent to\n\(phoneNumber)" //
+        textLabel.sora.text =  R.string.soraCard.verifyPhoneNumberDescription(phoneNumber, preferredLanguages: .currentLocale)
         self.secondsLeft = secondsLeft
 
         timer.invalidate()

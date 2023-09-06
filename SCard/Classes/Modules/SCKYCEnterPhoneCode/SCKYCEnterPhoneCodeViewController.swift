@@ -26,7 +26,8 @@ final class SCKYCEnterPhoneCodeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = R.string.soraCard.verifyPhoneNumberTitle(preferredLanguages: .currentLocale)
+        navigationItem.title = R.string.soraCard.verifyPhoneNumberTitle(preferredLanguages: .currentLocale)
+        rootView.inputField.textField.becomeFirstResponder()
         binding()
         configure()
     }

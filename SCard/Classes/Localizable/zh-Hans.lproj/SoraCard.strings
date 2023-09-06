@@ -6,13 +6,12 @@
 "terms.and.conditions.confirm.description" = "继续操作即表示您已阅读、理解并接受这些政策。";
 "terms.and.conditions.accept.and.continue" = "接受并继续";
 "get.prepared.title" = "做好准备";
-"get.prepared.alert" = "注意：您只有4次免费尝试通过KYC过程。之后的每一次尝试都将花费3.8欧元。付费尝试将在应用程序的下一个更新后提供。";
 "get.prepared.submit.id.photo.title" = "提交您的身份证明照片";
 "get.prepared.submit.id.photo.description" = "护照、驾照、身份证或居住许可证";
 "get.prepared.take.selfie.title" = "自拍";
 "get.prepared.take.selfie.description" = "在过程中将提供指导";
 "get.prepared.proof.address.title" = "提交地址证明照片";
-"get.prepared.proof.address.description" = "一份官方文件（水电费账单、银行对账单、政府声明或通信），上面包含您的全名和地址，并且不早于三个月前。";
+"get.prepared.proof.address.description" = "包含您的全名和地址且不超过 3 个月的正式文件（水电费账单、银行对账单、政府声明或信件）。";
 "get.prepared.personal.info.title" = "提交个人信息";
 "get.prepared.personal.info.description" = "请填写表格，包括您的姓名和地址。";
 "get.prepared.ok.title" = "好的，我准备好了";
@@ -103,4 +102,7 @@
 "cardhub.coming.soon" = "即将推出卡片管理功能";
 "cardhub.iban.title" = "IBAN账户详情";
 "common.copied" = "已复制到剪贴板";
-"get.prepared.alert.dynamic" = "注意：您只有4次免费尝试通过KYC过程。之后的每一次尝试都将花费3.8欧元。付费尝试将在应用程序的下一个更新后提供。";
+"get.prepared.alert.dynamic" = "注意：您只有%@次免费尝试通过KYC过程。之后的每一次尝试都将花费3.8欧元。付费尝试将在应用程序的下一个更新后提供。";
+"get.prepared.proof.address.note" = "注意：Revolut 和 N26 等新银行的声明目前不被视为有效的地址证明。";
+"common.wrong.format" = "Wrong format!";
+"enter.phone.number.wrong.format" = "Wrong phone number format!";

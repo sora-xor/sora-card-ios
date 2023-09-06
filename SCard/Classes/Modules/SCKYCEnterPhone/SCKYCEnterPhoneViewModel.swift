@@ -3,7 +3,8 @@ import PayWingsOAuthSDK
 
 final class SCKYCEnterPhoneViewModel {
 
-    static let phoneNumberRegex = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{3,9}$"
+    /// "^[\\+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{3,9}$"
+    static let phoneNumberRegex = "^[\\+][0-9]{8,16}$"
     var onContinue: (() -> Void)?
     var onUpdateUI: ((String, Bool) -> Void)?
 
@@ -26,10 +27,8 @@ final class SCKYCEnterPhoneViewModel {
             if text ~= Self.phoneNumberRegex {
                 onUpdateUI?("", true)
             } else {
-                if text.count > 13 {
-                    onUpdateUI?("Wrong phone number format!", false)
-                } else {
-                    onUpdateUI?("", false)
+                if text.count > 7 {
+                    onUpdateUI?(R.string.soraCard.enterPhoneNumberWrongFormat(preferredLanguages: .currentLocale), false)
                 }
             }
         }

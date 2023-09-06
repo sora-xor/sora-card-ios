@@ -6,13 +6,12 @@
 "terms.and.conditions.confirm.description" = "En continuant, vous confirmez avoir lu, compris et accepté les conditions d'utilisation";
 "terms.and.conditions.accept.and.continue" = "Accepter et continuer";
 "get.prepared.title" = "Préparez-vous";
-"get.prepared.alert" = "ATTENTION: Seulement 4 essais gratuits sont fournis pour passer la procédure de KYC. Après ces deux essais, tout autre essai coûtera 3,8€. Les essais payants seront disponibles après la prochaine mise à jour de l'application.";
 "get.prepared.submit.id.photo.title" = "Soumettez une photo de votre document d'identité";
 "get.prepared.submit.id.photo.description" = "Passeport, permis de conduire, pièce d'identité, permis de résidence";
 "get.prepared.take.selfie.title" = "Prenez un selfie";
 "get.prepared.take.selfie.description" = "Un guide sera fourni durant l'opération";
 "get.prepared.proof.address.title" = "Soumettre une photo de votre preuve d'adresse";
-"get.prepared.proof.address.description" = "Un document officiel (facture d'électricité, bancaire, gouvernemental) contenant votre nom/prénom officiel et adresse, datant de moins de 3 mois";
+"get.prepared.proof.address.description" = "Un document officiel (facture de services publics, relevé bancaire, relevé gouvernemental ou correspondance) contenant votre nom complet et votre adresse et datant de moins de 3 mois.";
 "get.prepared.personal.info.title" = "Soumettez vos informations personnelles";
 "get.prepared.personal.info.description" = "Remplissez le formulaire avec votre nom et adresse";
 "get.prepared.ok.title" = "OK, je suis prêt(e)";
@@ -103,4 +102,7 @@
 "cardhub.coming.soon" = "Gestion de la carte bientôt disponible";
 "cardhub.iban.title" = "Détails de l'IBAN";
 "common.copied" = "Copied to Clipboard";
-"get.prepared.alert.dynamic" = "ATTENTION: Seulement 4 essais gratuits sont fournis pour passer la procédure de KYC. Après ces deux essais, tout autre essai coûtera 3,8€. Les essais payants seront disponibles après la prochaine mise à jour de l'application.";
+"get.prepared.alert.dynamic" = "ATTENTION: Seulement %@ essais gratuits sont fournis pour passer la procédure de KYC. Après ces deux essais, tout autre essai coûtera 3,8€. Les essais payants seront disponibles après la prochaine mise à jour de l'application.";
+"get.prepared.proof.address.note" = "Remarque : les relevés de néobanques comme Revolut et N26 ne sont actuellement pas considérés comme un justificatif de domicile valide.";
+"common.wrong.format" = "Wrong format!";
+"enter.phone.number.wrong.format" = "Wrong phone number format!";

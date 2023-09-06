@@ -6,13 +6,12 @@
 "terms.and.conditions.confirm.description" = "Indem Sie fortfahren, bestätigen Sie, dass Sie diese Richtlinien gelesen, verstanden und akzeptiert haben";
 "terms.and.conditions.accept.and.continue" = "Akzeptieren und fortfahren";
 "get.prepared.title" = "Bereite dich vor";
-"get.prepared.alert" = "ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.";
 "get.prepared.submit.id.photo.title" = "Reichen Sie ein Foto Ihres Ausweises ein";
 "get.prepared.submit.id.photo.description" = "Reisepass, Führerschein, Personalausweis oder Aufenthaltsgenehmigung";
 "get.prepared.take.selfie.title" = "Machen Sie ein Selfie";
 "get.prepared.take.selfie.description" = "Der Leitfaden wird während des Prozesses zur Verfügung gestellt";
 "get.prepared.proof.address.title" = "Reichen Sie ein Foto des Adressnachweises ein";
-"get.prepared.proof.address.description" = "Ein offizielles Dokument (Rechnung eines Versorgungsunternehmens, Kontoauszug, Bescheinigung einer Behörde oder Korrespondenz), das Ihren vollständigen Namen und Ihre Adresse enthält und nicht älter als 3 Monate ist";
+"get.prepared.proof.address.description" = "Ein offizielles Dokument (Stromrechnung, Kontoauszug, Regierungsbescheinigung oder Korrespondenz), das Ihren vollständigen Namen und Ihre Adresse enthält und nicht älter als 3 Monate ist.";
 "get.prepared.personal.info.title" = "Senden Sie Ihre persönlichen Daten";
 "get.prepared.personal.info.description" = "Füllen Sie das Formular mit Ihrem Namen und Ihrer Adresse aus";
 "get.prepared.ok.title" = "OK, ich bin bereit";
@@ -103,4 +102,7 @@
 "cardhub.coming.soon" = "Die Kartenverwaltung kommt bald";
 "cardhub.iban.title" = "IBAN-Kontodaten";
 "common.copied" = "Copied to Clipboard";
-"get.prepared.alert.dynamic" = "ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.";
+"get.prepared.alert.dynamic" = "ACHTUNG: Sie haben nur %@ kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.";
+"get.prepared.proof.address.note" = "Hinweis: Kontoauszüge von Neobanken wie Revolut und N26 gelten derzeit nicht als gültiger Adressnachweis.";
+"common.wrong.format" = "Wrong format!";
+"enter.phone.number.wrong.format" = "Wrong phone number format!";

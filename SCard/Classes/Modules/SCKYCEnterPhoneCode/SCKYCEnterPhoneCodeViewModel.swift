@@ -10,6 +10,8 @@ enum SCKYCPhoneCodeState {
 
 final class SCKYCEnterPhoneCodeViewModel {
 
+    static let phoneCodeRegex = "[0-9]{4,6}$"
+
     var onEmailVerification: ((SCKYCUserDataModel) -> Void)?
     var onUserRegistration: ((SCKYCUserDataModel) -> Void)?
     var onSignInSuccessful: ((SCKYCUserDataModel) -> Void)?
@@ -39,10 +41,15 @@ final class SCKYCEnterPhoneCodeViewModel {
             return
         }
 
-        codeState = .sent
-        onUpdateUI?()
+        if code ~= Self.phoneCodeRegex {
+            codeState = .sent
+            onUpdateUI?()
+            service.signInWithPhoneNumberVerifyOtp(code: code, callback: callback)
+            return
+        }
 
-        service.signInWithPhoneNumberVerifyOtp(code: code, callback: callback)
+        codeState = .wrong(R.string.soraCard.commonWrongFormat(preferredLanguages: .currentLocale))
+        onUpdateUI?()
     }
 }
 

@@ -268,17 +268,13 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 106 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 108 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let detailsAnnualServiceFee = Rswift.StringResource(key: "details.annual.service.fee", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static let getPreparedAlert = Rswift.StringResource(key: "get.prepared.alert", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
+      /// de translation: ACHTUNG: Sie haben nur %@ kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let getPreparedAlertDynamic = Rswift.StringResource(key: "get.prepared.alert.dynamic", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -390,7 +386,7 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let verifyEmailResend = Rswift.StringResource(key: "verify.email.resend", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
-      /// de translation: Ein offizielles Dokument (Rechnung eines Versorgungsunternehmens, Kontoauszug, Bescheinigung einer Behörde oder Korrespondenz), das Ihren vollständigen Namen und Ihre Adresse enthält und nicht älter als 3 Monate ist
+      /// de translation: Ein offizielles Dokument (Stromrechnung, Kontoauszug, Regierungsbescheinigung oder Korrespondenz), das Ihren vollständigen Namen und Ihre Adresse enthält und nicht älter als 3 Monate ist.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let getPreparedProofAddressDescription = Rswift.StringResource(key: "get.prepared.proof.address.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
@@ -442,6 +438,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let getPreparedPersonalInfoDescription = Rswift.StringResource(key: "get.prepared.personal.info.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Hinweis: Kontoauszüge von Neobanken wie Revolut und N26 gelten derzeit nicht als gültiger Adressnachweis.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let getPreparedProofAddressNote = Rswift.StringResource(key: "get.prepared.proof.address.note", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: Hole mehr XOR
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -670,6 +670,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl
       static let termsAndConditionsDescription = Rswift.StringResource(key: "terms.and.conditions.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Wrong format!
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let commonWrongFormat = Rswift.StringResource(key: "common.wrong.format", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
+      /// de translation: Wrong phone number format!
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static let enterPhoneNumberWrongFormat = Rswift.StringResource(key: "enter.phone.number.wrong.format", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl"], comment: nil)
       /// de translation: oder %@ € Anmeldegebühr
       ///
       /// Locales: de, en, es, ru, fr, nl
@@ -710,22 +718,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("details.annual.service.fee", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
-      ///
-      /// Locales: de, en, es, ru, fr, nl
-      static func getPreparedAlert(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("get.prepared.alert", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "get.prepared.alert"
-        }
-
-        return NSLocalizedString("get.prepared.alert", tableName: "SoraCard", bundle: bundle, comment: "")
-      }
-
-      /// de translation: ACHTUNG: Sie haben nur 4 kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
+      /// de translation: ACHTUNG: Sie haben nur %@ kostenlose Versuche, den Identitätsverifizierungs-Prozess zu bestehen. Jeder weitere Versuch danach kostet 3,8 €. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static func getPreparedAlertDynamic(_ value1: String, preferredLanguages: [String]? = nil) -> String {
@@ -1149,7 +1142,7 @@ struct R: Rswift.Validatable {
         return String(format: format, locale: locale, value1)
       }
 
-      /// de translation: Ein offizielles Dokument (Rechnung eines Versorgungsunternehmens, Kontoauszug, Bescheinigung einer Behörde oder Korrespondenz), das Ihren vollständigen Namen und Ihre Adresse enthält und nicht älter als 3 Monate ist
+      /// de translation: Ein offizielles Dokument (Stromrechnung, Kontoauszug, Regierungsbescheinigung oder Korrespondenz), das Ihren vollständigen Namen und Ihre Adresse enthält und nicht älter als 3 Monate ist.
       ///
       /// Locales: de, en, es, ru, fr, nl
       static func getPreparedProofAddressDescription(preferredLanguages: [String]? = nil) -> String {
@@ -1346,6 +1339,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("get.prepared.personal.info.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Hinweis: Kontoauszüge von Neobanken wie Revolut und N26 gelten derzeit nicht als gültiger Adressnachweis.
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func getPreparedProofAddressNote(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("get.prepared.proof.address.note", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "get.prepared.proof.address.note"
+        }
+
+        return NSLocalizedString("get.prepared.proof.address.note", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Hole mehr XOR
@@ -2213,6 +2221,36 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("terms.and.conditions.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Wrong format!
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func commonWrongFormat(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("common.wrong.format", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "common.wrong.format"
+        }
+
+        return NSLocalizedString("common.wrong.format", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Wrong phone number format!
+      ///
+      /// Locales: de, en, es, ru, fr, nl
+      static func enterPhoneNumberWrongFormat(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("enter.phone.number.wrong.format", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "enter.phone.number.wrong.format"
+        }
+
+        return NSLocalizedString("enter.phone.number.wrong.format", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: oder %@ € Anmeldegebühr

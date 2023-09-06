@@ -23,13 +23,9 @@ final class SCKYCEnterPhoneView: UIView {
         view.sora.descriptionLabelText = R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale)
         view.sora.keyboardType = .phonePad
         view.sora.textContentType = .telephoneNumber
+        view.sora.text = "+"
         view.sora.addHandler(for: .editingChanged) { [weak self] in
             self?.onInput?(self?.inputField.sora.text ?? "")
-        }
-        view.sora.addHandler(for: .editingDidBegin) { [weak self] in
-            if view.sora.text?.isEmpty ?? true {
-                view.sora.text = "+"
-            }
         }
         return view
     }()

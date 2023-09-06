@@ -6,13 +6,12 @@
 "terms.and.conditions.confirm.description" = "Door verder te gaan, bevestigt u dat u dit beleid hebt gelezen en accepteert";
 "terms.and.conditions.accept.and.continue" = "Accepteren en doorgaan";
 "get.prepared.title" = "Bereid je voor.";
-"get.prepared.alert" = "LET OP:\nJe hebt slechts 4 gratis poging om het KYC-proces te doorlopen. Elke andere poging kost je €3,8. Om je kansen op succes te maximaliseren, volg je deze eenvoudige richtlijnen:";
 "get.prepared.submit.id.photo.title" = "Stuur een foto van uw identiteitsbewijs";
 "get.prepared.submit.id.photo.description" = "Paspoort, rijbewijs, identiteitskaart of verblijfsvergunning";
 "get.prepared.take.selfie.title" = "Neem een selfie";
 "get.prepared.take.selfie.description" = "Tijdens het proces wordt begeleiding verstrekt";
 "get.prepared.proof.address.title" = "Stuur een foto van een bewijs van adres in";
-"get.prepared.proof.address.description" = "Een officieel document (energierekening, bankafschrift, overheidsverklaring of correspondentie) met uw volledige naam en adres, en dat niet ouder is dan 3 maanden.";
+"get.prepared.proof.address.description" = "Een officieel document (energierekening, bankafschrift, overheidsverklaring of correspondentie) met je volledige naam en adres en dat niet ouder is dan 3 maanden.";
 "get.prepared.personal.info.title" = "Voeg uw persoonlijke gegevens in";
 "get.prepared.personal.info.description" = "Vul het formulier in met uw naam en adres";
 "get.prepared.ok.title" = "OK, ik ben klaar";
@@ -103,4 +102,7 @@
 "cardhub.coming.soon" = "Kaartbeheer komt binnenkort";
 "cardhub.iban.title" = "IBAN-rekeninggegevens";
 "common.copied" = "Copied to Clipboard";
-"get.prepared.alert.dynamic" = "LET OP:\nJe hebt slechts 4 gratis poging om het KYC-proces te doorlopen. Elke andere poging kost je €3,8. Om je kansen op succes te maximaliseren, volg je deze eenvoudige richtlijnen:";
+"get.prepared.alert.dynamic" = "LET OP:\nJe hebt slechts %@ gratis poging om het KYC-proces te doorlopen. Elke andere poging kost je €3,8. Om je kansen op succes te maximaliseren, volg je deze eenvoudige richtlijnen:";
+"get.prepared.proof.address.note" = "Let op: Verklaringen van neobanken als Revolut en N26 worden momenteel niet gezien als geldig bewijs van adres.";
+"common.wrong.format" = "Wrong format!";
+"enter.phone.number.wrong.format" = "Wrong phone number format!";

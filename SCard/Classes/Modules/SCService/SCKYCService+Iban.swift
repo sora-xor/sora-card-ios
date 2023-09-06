@@ -3,6 +3,20 @@ extension SCKYCService {
         let request = APIRequest(method: .get, endpoint: SCEndpoint.ibans)
         return await client.performDecodable(request: request)
     }
+
+    func hasIban() async -> Bool {
+        switch await iban() {
+        case .success(let result):
+            if let iban = result.ibans.first?.iban, !iban.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        case .failure(let error):
+            print(error)
+            return false
+        }
+    }
 }
 
 struct SCIbanResponse: Codable {
