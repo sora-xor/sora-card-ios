@@ -6,7 +6,6 @@ final class SCKYCStatusView: UIView {
     var onLogoutButton: (() -> Void)?
     var onRetryButton: (() -> Void)?
     var onSupportButton: (() -> Void)?
-    var onCloseButton: (() -> Void)?
 
     private lazy var logoutButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .extraSmall, type: .text(.primary))
@@ -65,16 +64,6 @@ final class SCKYCStatusView: UIView {
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onSupportButton?()
         }
-        return button
-    }()
-
-    private lazy var closeButton: SoramitsuButton = {
-        let button = SoramitsuButton(size: .large, type: .tonal(.secondary))
-        button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.onCloseButton?()
-        }
-        button.sora.cornerRadius = .custom(28)
-        button.sora.title = R.string.soraCard.commonClose(preferredLanguages: .currentLocale)
         return button
     }()
 
@@ -201,7 +190,6 @@ final class SCKYCStatusView: UIView {
             actionDescriptionLabel,
             actionButton,
             supportButton,
-            closeButton,
             logoutButton
         ])
         buttonsView.axis = .vertical

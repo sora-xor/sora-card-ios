@@ -41,11 +41,6 @@ final class SCKYCStatusViewController: UIViewController {
     }
 
     private func binding() {
-        rootView.onCloseButton = { [unowned viewModel] in
-            DispatchQueue.main.async {
-                viewModel.onClose?()
-            }
-        }
 
         rootView.onRetryButton = { [unowned viewModel] in
             DispatchQueue.main.async {

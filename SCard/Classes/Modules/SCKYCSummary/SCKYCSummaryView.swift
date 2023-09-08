@@ -115,7 +115,8 @@ final class SCKYCSummaryView: UIView {
             SCKYSSummaryStepView(
                 step: "3",
                 title: R.string.soraCard.getPreparedProofAddressTitle(preferredLanguages: .currentLocale),
-                subtitle: R.string.soraCard.getPreparedProofAddressDescription(preferredLanguages: .currentLocale)
+                subtitle: R.string.soraCard.getPreparedProofAddressDescription(preferredLanguages: .currentLocale) + "\n\n" +
+                    R.string.soraCard.getPreparedProofAddressNote(preferredLanguages: .currentLocale)
             ),
             SCKYSSummaryStepView(
                 step: "4",
