@@ -83,7 +83,6 @@
 "verification.rejected.screen.try.again.for.free" = "Tente novamente gratuitamente";
 "verification.rejected.screen.attempts.used" = "Utilizou as suas tentativas gratuitas de KYC.";
 "verification.rejected.screen.attempts.price.disclaimer" = "Todas as outras tentativas custarão € %@";
-"verification.rejected.screen.attempts.left" = "Tem %@ mais tentativas gratuitas de KYC.";
 "payment.widget.unavailable.title" = "Widget indisponível";
 "payment.widget.unavailable.message" = "O widget de pagamento está atualmente indisponível";
 "payment.widget.unavailable.description" = "Pedimos desculpa pelo incómodo.\nEstamos a trabalhar diligentemente para resolver o problema.\nPor favor, tente novamente mais tarde.";
@@ -102,7 +101,7 @@
 "cardhub.coming.soon" = "O gerenciamento de cartões estará disponível em breve";
 "cardhub.iban.title" = "Detalhes da conta IBAN";
 "common.copied" = "Copied to Clipboard";
-"get.prepared.alert.dynamic" = "ATENÇÃO: Tem apenas %@ tentativas gratuitas para passar o processo KYC. Todas as outras tentativas depois disso custarão 3,8 euros. As tentativas pagas estarão disponíveis após a próxima atualização da aplicação.";
 "get.prepared.proof.address.note" = "Nota: Atualmente, extratos de neobancos como Revolut e N26 não são vistos como comprovante de endereço válido.";
 "common.wrong.format" = "Wrong format!";
 "enter.phone.number.wrong.format" = "Wrong phone number format!";
+"get.prepared.alert" = "Você tem apenas %@ tentativas gratuitas para passar no processo KYC. Todas as outras tentativas depois disso custarão € %@ . As tentativas pagas estarão disponíveis após a próxima atualização do aplicativo.";

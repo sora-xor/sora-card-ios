@@ -32,7 +32,7 @@ final class SCKYCSummaryView: UIView {
         label.sora.textColor = .accentTertiary
         label.sora.numberOfLines = 0
         label.textAlignment = .center
-        label.sora.text = R.string.soraCard.getPreparedAlertDynamic("4", preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.getPreparedAlert("4", "3.8", preferredLanguages: .currentLocale)
         return label
     }()
 
@@ -69,7 +69,7 @@ final class SCKYCSummaryView: UIView {
     }
 
     func configure(attempts: Int) {
-        warningLabel.sora.text = R.string.soraCard.getPreparedAlertDynamic(String(attempts), preferredLanguages: .currentLocale)
+        warningLabel.sora.text = R.string.soraCard.getPreparedAlert(String(attempts), "3.8", preferredLanguages: .currentLocale)
     }
 
     private func setupInitialLayout() {

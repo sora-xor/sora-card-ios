@@ -51,7 +51,7 @@
 "no.free.kyc.attempts.title" = "Geen gratis KYC pogingen meer";
 "get.prepared.need" = "Om de KYC te voltooien, dient u:";
 "otp.error.message.wrong.code" = "Code onjuist. Probeer het opnieuw.";
-"details.need.xor.desription" = "Je hebt %@ meer XOR nodig (€%@)";
+"details.need.xor.desription" = "U hebt %@ meer XOR nodig (€%@)";
 "details.enough.xor.desription" = "Je hebt genoeg XOR";
 "verification.rejected.support" = "Support";
 "verify.email.resend" = "OPNIEUW VERZENDEN BINNEN %@";
@@ -83,7 +83,6 @@
 "verification.rejected.screen.try.again.for.free" = "Probeer het gratis opnieuw";
 "verification.rejected.screen.attempts.used" = "Je hebt je gratis KYC-pogingen gebruikt.";
 "verification.rejected.screen.attempts.price.disclaimer" = "Elke andere poging kost u € %@";
-"verification.rejected.screen.attempts.left" = "Je hebt nog %@ gratis KYC-pogingen.";
 "payment.widget.unavailable.title" = "Widget niet beschikbaar";
 "payment.widget.unavailable.message" = "De betalingswidget is momenteel niet beschikbaar";
 "payment.widget.unavailable.description" = "Excuses voor het ongemak. We werken er hard aan om dit op te lossen. Probeer het later opnieuw.";
@@ -102,7 +101,7 @@
 "cardhub.coming.soon" = "Kaartbeheer komt binnenkort";
 "cardhub.iban.title" = "IBAN-rekeninggegevens";
 "common.copied" = "Copied to Clipboard";
-"get.prepared.alert.dynamic" = "LET OP:\nJe hebt slechts %@ gratis poging om het KYC-proces te doorlopen. Elke andere poging kost je €3,8. Om je kansen op succes te maximaliseren, volg je deze eenvoudige richtlijnen:";
 "get.prepared.proof.address.note" = "Let op: Verklaringen van neobanken als Revolut en N26 worden momenteel niet gezien als geldig bewijs van adres.";
 "common.wrong.format" = "Wrong format!";
 "enter.phone.number.wrong.format" = "Wrong phone number format!";
+"get.prepared.alert" = "U heeft slechts %@ gratis pogingen om het KYC-proces te doorlopen. Elke andere poging daarna kost € %@ . Betaalde pogingen zijn beschikbaar na de volgende update van de app.";

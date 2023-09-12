@@ -83,7 +83,6 @@
 "verification.rejected.screen.try.again.for.free" = "Try again for free";
 "verification.rejected.screen.attempts.used" = "You have used your free KYC attempts.";
 "verification.rejected.screen.attempts.price.disclaimer" = "Every other attempt will cost you €%@";
-"verification.rejected.screen.attempts.left" = "You have %@ more free KYC attempt.";
 "payment.widget.unavailable.title" = "Widget unavailable";
 "payment.widget.unavailable.message" = "The payment widget is currently unavailable";
 "payment.widget.unavailable.description" = "Apologies for the inconvenience.\nWe’re working diligently to resolve this.\nPlease, try again later.";
@@ -102,7 +101,7 @@
 "cardhub.coming.soon" = "Card management is coming soon";
 "cardhub.iban.title" = "IBAN account details";
 "common.copied" = "Copied to Clipboard";
-"get.prepared.alert.dynamic" = "ATTENTION: You have only %@ free attempts to pass the KYC process. Every other attempt after that will cost €3.8. Paid attempts will be available after the next update of the app.";
 "get.prepared.proof.address.note" = "Note: Statements from neobanks like Revolut and N26 are currently not seen as valid proof of address.";
 "common.wrong.format" = "Wrong format!";
 "enter.phone.number.wrong.format" = "Wrong phone number format!";
+"get.prepared.alert" = "You have only %@ free attempts to pass the KYC process. Every other attempt after that will cost €%@. Paid attempts will be available after the next update of the app.";

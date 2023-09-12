@@ -138,11 +138,13 @@ final class SCKYCStatusView: UIView {
 
             if freeAttemptsLeft > 0 {
 
+                let text = R.string.soraCard.verificationRejectedScreenAttemptsLeft(
+                    format: freeAttemptsLeft,
+                    preferredLanguages: .currentLocale
+                )
+
                 let attemptsLeft = SoramitsuTextItem(
-                    text:  R.string.soraCard.verificationRejectedScreenAttemptsLeft(
-                        String(freeAttemptsLeft),
-                        preferredLanguages: .currentLocale
-                    ),
+                    text:  text,
                     fontData: ScreenSizeMapper.value(small: FontType.paragraphBoldS, medium: FontType.paragraphBoldM, large: FontType.paragraphBoldM),
                     textColor: .fgPrimary,
                     alignment: .center

@@ -51,7 +51,7 @@
 "no.free.kyc.attempts.title" = "Nombre d'essais gratuits épuisé";
 "get.prepared.need" = "Pour compléter la procédure de KYC vous aurez besoin de:";
 "otp.error.message.wrong.code" = "Code erroné. Veuillez réessayer.";
-"details.need.xor.desription" = "Vous avez besoin de %@ XOR (%@€) supplémentaire";
+"details.need.xor.desription" = "Vous avez besoin de %@ plus XOR (€%@)";
 "details.enough.xor.desription" = "Vous avez assez de XOR";
 "verification.rejected.support" = "Support";
 "verify.email.resend" = "Renvoyer dans %@";
@@ -83,7 +83,6 @@
 "verification.rejected.screen.try.again.for.free" = "Réessayer gratuitement";
 "verification.rejected.screen.attempts.used" = "Vous avez utilisé toutes vos tentatives gratuites pour la vérification KYC";
 "verification.rejected.screen.attempts.price.disclaimer" = "Toute autre tentative coûtera %@€";
-"verification.rejected.screen.attempts.left" = "Vous avez encore %@ tentative(s) de KYC gratuite(s)";
 "payment.widget.unavailable.title" = "Widget indisponible";
 "payment.widget.unavailable.message" = "Le widget de paiement est actuellement indisponible";
 "payment.widget.unavailable.description" = "Veuillez nous excuser du désagrément. Nous travaillons actuellement à résoudre le problème. Veuillez réessayer plus tard.";
@@ -102,7 +101,7 @@
 "cardhub.coming.soon" = "Gestion de la carte bientôt disponible";
 "cardhub.iban.title" = "Détails de l'IBAN";
 "common.copied" = "Copied to Clipboard";
-"get.prepared.alert.dynamic" = "ATTENTION: Seulement %@ essais gratuits sont fournis pour passer la procédure de KYC. Après ces deux essais, tout autre essai coûtera 3,8€. Les essais payants seront disponibles après la prochaine mise à jour de l'application.";
 "get.prepared.proof.address.note" = "Remarque : les relevés de néobanques comme Revolut et N26 ne sont actuellement pas considérés comme un justificatif de domicile valide.";
 "common.wrong.format" = "Wrong format!";
 "enter.phone.number.wrong.format" = "Wrong phone number format!";
+"get.prepared.alert" = "Vous ne disposez que de %@ tentatives gratuites pour réussir le processus KYC. Par la suite, toute autre tentative coûtera %@ €. Les tentatives payantes seront disponibles après la prochaine mise à jour de l'application.";

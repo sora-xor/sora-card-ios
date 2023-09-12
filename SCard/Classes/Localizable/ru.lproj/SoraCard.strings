@@ -51,7 +51,7 @@
 "no.free.kyc.attempts.title" = "Нет больше бесплатных попыток";
 "get.prepared.need" = "Для завершения KYC вам необходимо:";
 "otp.error.message.wrong.code" = "Неверный код. Пожалуйста, попробуйте еще раз.";
-"details.need.xor.desription" = "Вам нужно %@ больше XOR (€%@)";
+"details.need.xor.desription" = "Вам нужно еще %@ XOR (€ %@ )";
 "details.enough.xor.desription" = "У вас достаточно XOR";
 "verification.rejected.support" = "Поддержка";
 "verify.email.resend" = "ПОВТОРНО ОТПРАВИТЬ В %@";
@@ -83,7 +83,6 @@
 "verification.rejected.screen.try.again.for.free" = "Попробуйте еще раз бесплатно";
 "verification.rejected.screen.attempts.used" = "Вы использовали свои бесплатные попытки KYC.";
 "verification.rejected.screen.attempts.price.disclaimer" = "Любая другая попытка будет стоить вам €%@";
-"verification.rejected.screen.attempts.left" = "У вас еще %@ бесплатная попытка пройти KYC.";
 "payment.widget.unavailable.title" = "Виджет недоступен";
 "payment.widget.unavailable.message" = "Виджет оплаты в настоящее время недоступен";
 "payment.widget.unavailable.description" = "Приносим извинения за неудобства. Мы прилагаем все усилия для решения данной проблемы. Пожалуйста, повторите попытку позже.";
@@ -102,7 +101,7 @@
 "cardhub.coming.soon" = "Управление картами скоро появится";
 "cardhub.iban.title" = "Данные счета IBAN";
 "common.copied" = "Copied to Clipboard";
-"get.prepared.alert.dynamic" = "ВНИМАНИЕ: У вас имеется %@ бесплатные попытки пройти процедуру KYC. Каждая последующая попытка после этого будет стоить €3.8. Оплачиваемые попытки станут доступны после следующего обновления приложения.";
 "get.prepared.proof.address.note" = "Примечание. Заявления таких необанков, как Revolut и N26, в настоящее время не считаются действительным подтверждением адреса.";
 "common.wrong.format" = "Wrong format!";
 "enter.phone.number.wrong.format" = "Wrong phone number format!";
+"get.prepared.alert" = "У вас есть только %@ бесплатных попыток пройти процедуру KYC. Каждая следующая попытка после этого будет стоить € %@ . Платные попытки станут доступны после следующего обновления приложения.";

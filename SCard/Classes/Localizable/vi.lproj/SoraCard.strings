@@ -83,7 +83,6 @@
 "verification.rejected.screen.try.again.for.free" = "Thử lại miễn phí";
 "verification.rejected.screen.attempts.used" = "Bạn đã sử dụng các lần thử KYC miễn phí của mình.";
 "verification.rejected.screen.attempts.price.disclaimer" = "Mọi nỗ lực khác sẽ khiến bạn mất €%@";
-"verification.rejected.screen.attempts.left" = "Bạn có thêm %@ lần thử KYC miễn phí.";
 "payment.widget.unavailable.title" = "Tiện ích không khả dụng";
 "payment.widget.unavailable.message" = "Tiện ích thanh toán hiện không khả dụng";
 "payment.widget.unavailable.description" = "Xin lỗi vì sự bất tiện. \n Chúng tôi đang nỗ lực làm việc để giải quyết vấn đề này. \n Vui lòng thử lại sau.";
@@ -102,7 +101,7 @@
 "cardhub.coming.soon" = "Quản lý thẻ sắp ra mắt";
 "cardhub.iban.title" = "Chi tiết tài khoản IBAN";
 "common.copied" = "Đã sao chép vào bảng tạm";
-"get.prepared.alert.dynamic" = "CHÚ Ý: Bạn chỉ có %@ lần thử miễn phí để vượt qua quy trình KYC. Mọi nỗ lực khác sau đó sẽ có giá € 3,8. Các lần thử trả phí sẽ có sẵn sau bản cập nhật tiếp theo của ứng dụng.";
 "get.prepared.proof.address.note" = "Lưu ý: Các báo cáo từ các neobank như Revolut và N26 hiện không được coi là bằng chứng địa chỉ hợp lệ.";
 "common.wrong.format" = "Wrong format!";
 "enter.phone.number.wrong.format" = "Wrong phone number format!";
+"get.prepared.alert" = "Bạn chỉ có %@ lần thử miễn phí để vượt qua quy trình KYC. Mọi lần thử khác sau đó sẽ có giá € %@ . Các nỗ lực trả phí sẽ khả dụng sau lần cập nhật tiếp theo của ứng dụng.";
