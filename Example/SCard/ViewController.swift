@@ -44,21 +44,21 @@ class ViewController: UIViewController {
 
         refreshBalanceTimer.invalidate()
         refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            let balane = Decimal(UInt.random(in: 1000...3000))
+            let balane = Decimal(UInt.random(in: 2500...5000))
             xorBalanceStream.wrappedValue = balane
         }
 
         let scConfig = SCard.Config(
-            backendUrl: "",
-            pwAuthDomain: "",
-            pwApiKey: "",
-            kycUrl: "",
-            kycUsername: "",
-            kycPassword: "",
-            xOneEndpoint: "",
-            xOneId: "",
+            backendUrl: "https://backend.dev.sora-card.tachi.soramitsu.co.jp/",
+            pwAuthDomain: "soracard.com",
+            pwApiKey: "6974528a-ee11-4509-b549-a8d02c1aec0d",
+            kycUrl: "https://kyc-test.soracard.com/mobile",
+            kycUsername: "E7A6CB83-630E-4D24-88C5-18AAF96032A4",
+            kycPassword: "75A55B7E-A18F-4498-9092-58C7D6BDB333",
+            xOneEndpoint: "https://dev.x1ex.com/widgets/sdk.js",
+            xOneId: "sprkwdgt-WYL6QBNC",
             environmentType: .test,
-            themeMode: .manual(.dark)
+            themeMode: SoramitsuUI.shared.themeMode
         )
 
         soraCard = SCard(
