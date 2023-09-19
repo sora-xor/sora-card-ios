@@ -4,7 +4,10 @@ public final class SCCardItem: NSObject {
 
     var onClose: (() -> Void)?
     var onCard: (() -> Void)?
-    let userStatusStream: AsyncStream<SCKYCUserStatus>
+
+    var userStatusStream: AsyncStream<SCKYCUserStatus> {
+        service.userStatusStream
+    }
 
     public init(
         service: SCard,
@@ -13,7 +16,6 @@ public final class SCCardItem: NSObject {
     ) {
         self.onClose = onClose
         self.onCard = onCard
-        self.userStatusStream = service.userStatusStream
         self.service = service
     }
 
