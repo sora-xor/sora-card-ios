@@ -104,8 +104,9 @@ final class SCCardHubView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(iban: String?) {
+    func configure(iban: String?, balance: Int) {
         ibanLabel.sora.text = iban
+        cardHubHeaderView.configure(balance: balance)
     }
     
     private func setupInitialLayout() {

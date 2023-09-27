@@ -25,6 +25,7 @@ extension SCKYCService {
         let response: Result<[SCKYCStatusResponse], NetworkingError> = await client.performDecodable(request: request)
         if case .success(let statuses) = response, let userStatus = statuses.sorted.last?.userStatus {
             self._userStatusStream.wrappedValue = userStatus
+            self.currentUserStatus = userStatus
         } else {
             self._userStatusStream.wrappedValue = .notStarted
         }

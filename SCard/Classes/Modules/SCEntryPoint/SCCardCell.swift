@@ -6,8 +6,6 @@ public final class SCCardCell: SoramitsuTableViewCell {
     var onClose: (() -> Void)?
     var onCard: (() -> Void)?
 
-    private var userStatusUpdateTask: Task<(), Never>?
-
     private lazy var bgImage: SoramitsuImageView = {
         let view = SoramitsuImageView()
         view.sora.picture = .logo(image: R.image.scFront()!)
@@ -117,25 +115,22 @@ extension SCCardCell: SoramitsuTableViewCellProtocol {
         sora.backgroundColor = .custom(uiColor: .clear)
         self.onClose = item.onClose
         self.onCard = item.onCard
-
-        self.userStatusUpdateTask?.cancel()
-
-        self.userStatusUpdateTask = Task { [weak self] in
-            for await userStatus in item.userStatusStream {
-              await MainActor.run { [weak self] in
-                  self?.update(status: userStatus)
-              }
-            }
+        item.onUpdate = { status, availableBalance in
+            self.update(status: status, availableBalance: availableBalance)
         }
     }
 
-    private func update(status: SCKYCUserStatus) {
-        self.closeButton.isHidden = status == .successful
-        self.getCardContainer.isHidden = status == .successful
-        self.cardInfoContainer.sora.isHidden = status != .successful
-        self.getCardLabel.sora.text = status.text
-        self.getCardLabel.sora.textColor = (status == .notStarted || status == .userCanceled) ? .bgSurface : .accentTertiary
-        self.getCardContainer.sora.backgroundColor = (status == .notStarted || status == .userCanceled) ? .accentSecondary : .accentTertiaryContainer
+    private func update(status: SCKYCUserStatus, availableBalance: Int?) {
+        closeButton.isHidden = status == .successful
+        getCardContainer.isHidden = status == .successful
+        cardInfoContainer.sora.isHidden = status != .successful
+        getCardLabel.sora.text = status.text
+        getCardLabel.sora.textColor = (status == .notStarted || status == .userCanceled) ? .bgSurface : .accentTertiary
+        getCardContainer.sora.backgroundColor = (status == .notStarted || status == .userCanceled) ? .accentSecondary : .accentTertiaryContainer
+
+        if status == .successful, let availableBalance = availableBalance {
+            cardInfoLabel.sora.text = SCBalanceConverter.formatedBalance(balance: availableBalance)
+        }
     }
 }
 

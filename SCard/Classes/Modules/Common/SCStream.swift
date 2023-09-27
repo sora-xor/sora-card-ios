@@ -5,6 +5,7 @@ public class SCStream<Value> {
 
     public var stream: AsyncStream<Value> {
         let (stream, continuation) = AsyncStream<Value>.streamWithContinuation()
+        continuation.yield(wrappedValue)
         continuations.append(continuation)
         return stream
     }

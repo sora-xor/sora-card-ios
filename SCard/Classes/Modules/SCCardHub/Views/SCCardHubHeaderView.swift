@@ -21,12 +21,50 @@ final class SCCardHubHeaderView: SoramitsuView {
         return view
     }()
 
-    private let titleLabel: SoramitsuLabel = {
+    private let cardLabelView: SoramitsuView = {
+        let view = SoramitsuView()
+        view.sora.cornerRadius = .custom(20)
+        view.sora.backgroundColor = .bgSurface
+        return view
+    }()
+
+    private let cardLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
-        label.sora.font = FontType.textS
-        label.sora.textColor = .fgSecondary
+        label.sora.font = FontType.headline2
+        label.sora.textColor = .fgPrimary
         label.sora.alignment = .center
-        label.sora.text = R.string.soraCard.cardhubComingSoon(preferredLanguages: .currentLocale)
+        label.sora.text = "Show details" // TODO: localize
+        return label
+    }()
+
+    private let titleLabel: SoramitsuLabel = {
+
+        let sora = SoramitsuTextItem(
+            text: "SORA ",
+            fontData: FontType.textBoldL,
+            textColor: .fgPrimary
+        )
+
+        let card = SoramitsuTextItem(
+            text: "Card",
+            fontData: FontType.textL,
+            textColor: .fgPrimary
+        )
+
+        let label = SoramitsuLabel()
+        label.sora.font = FontType.headline2
+        label.sora.textColor = .fgPrimary
+        label.sora.alignment = .left
+        label.sora.attributedText = [sora, card]
+        return label
+    }()
+
+    private let balanceLabel: SoramitsuLabel = {
+        let label = SoramitsuLabel()
+        label.sora.font = FontType.headline2
+        label.sora.textColor = .fgPrimary
+        label.sora.alignment = .right
+        label.sora.text = "€0"
         return label
     }()
 
@@ -114,15 +152,34 @@ final class SCCardHubHeaderView: SoramitsuView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func configure(balance: Int) {
+        balanceLabel.text = SCBalanceConverter.formatedBalance(balance: balance)
+    }
+
     private func setupInitialLayout() {
 
         addSubview(iconView) {
             $0.top.leading.trailing.equalToSuperview().inset(16)
         }
 
+        cardLabelView.addSubview(cardLabel) {
+            $0.top.bottom.equalToSuperview().inset(8)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+
+        iconView.addSubview(cardLabelView) {
+            $0.trailing.bottom.equalToSuperview().inset(8)
+        }
+
         addSubview(titleLabel) {
             $0.top.equalTo(iconView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview().inset(24)
+        }
+
+        addSubview(balanceLabel) {
+            $0.centerY.equalTo(titleLabel)
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(8)
+            $0.trailing.equalToSuperview().inset(24)
         }
 
         actionButtonsView.addArrangedSubviews([

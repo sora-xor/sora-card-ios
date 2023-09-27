@@ -10,10 +10,10 @@ public class SCard {
 
     public static var shared: SCard?
 
+    internal let service: SCKYCService
     private let config: Config
     private let coordinator: SCKYCCoordinator
     private let client: SCAPIClient
-    private let service: SCKYCService
     private let storage: SCStorage = .shared
     private let addressProvider: () -> String
 

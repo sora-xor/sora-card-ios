@@ -37,6 +37,7 @@ enum SCEndpoint: Endpoint {
 public final class SCKYCService {
 
     internal let client: SCAPIClient
+    internal var currentUserStatus: SCKYCUserStatus?
     let config: SCard.Config
     private let payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol
     private var isRefreshAccessTokenInProgress = false
