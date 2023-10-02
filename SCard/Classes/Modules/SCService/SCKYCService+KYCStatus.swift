@@ -72,20 +72,25 @@ struct SCKYCStatusResponse: Codable {
 
     var userStatus: SCKYCUserStatus {
 
-        if kycStatus == .completed && verificationStatus == .pending {
-            return .pending
-        }
-
-        if kycStatus == .rejected || verificationStatus == .rejected {
-            return .rejected
-        }
-        
-        if kycStatus == .failed {
-            return .userCanceled
-        }
-
+        // do not use kycStatus, it may be any state:
+        // kycStatus == .Successful or kycStatus == completed or kycStatus == failed
         if verificationStatus == .accepted {
             return .successful
+        }
+
+        switch kycStatus {
+
+        // KYC docs were sent, waiting for KYC verification
+        case .completed:
+            return .pending
+
+        // KYC was rejected, start a new one with a new reference_number
+        case .retry, .rejected:
+            return .rejected
+
+        // KYC wasn't completed, reuse reference_number from KYC
+        case .started, .failed, .successful:
+            return .userCanceled // TODO: check
         }
 
         return .notStarted
@@ -106,6 +111,7 @@ enum SCKYCStatus: String, Codable {
     case successful = "Successful"
     case failed = "Failed"
     case rejected = "Rejected"
+    case retry = "Retry"
 }
 
 enum SCVerificationStatus: String, Codable {
