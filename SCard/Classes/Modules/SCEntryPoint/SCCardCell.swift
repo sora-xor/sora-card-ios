@@ -30,14 +30,14 @@ public final class SCCardCell: SoramitsuTableViewCell {
     private lazy var getCardContainer: SoramitsuView = {
         let view = SoramitsuView()
         view.sora.cornerRadius = .custom(28)
-        view.sora.backgroundColor = .accentSecondary
+        view.sora.backgroundColor = .bgPage
         return view
     }()
 
     private lazy var getCardLabel: SoramitsuLabel = {
         let view = SoramitsuLabel()
         view.sora.text = SCKYCUserStatus.notStarted.text
-        view.sora.textColor = .bgSurface
+        view.sora.textColor = .fgPrimary
         view.sora.alignment = .center
         return view
     }()
