@@ -26,6 +26,7 @@ final class SCKYCStatusViewModel {
         }
 
         await getKYCAttempts()
+        _ = await service.userStatus()
 
         for await status in service.userStatusStream {
 
