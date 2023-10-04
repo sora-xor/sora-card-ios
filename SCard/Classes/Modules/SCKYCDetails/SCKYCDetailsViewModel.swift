@@ -3,7 +3,7 @@ final class SCKYCDetailsViewModel {
     static let requiredAmountOfEuro = 100
     static let minAmountOfEuroProcentage: Float = 0.95
 
-    var onBalanceUpdate: ((Float, String, Bool) -> Void)?
+    var onBalanceUpdate: ((Float, String, Bool, String) -> Void)?
     var onIssueCardForFree: (() -> Void)?
     var onIssueCard: (() -> Void)?
     var onSwapXor: (() -> Void)?
@@ -39,13 +39,15 @@ final class SCKYCDetailsViewModel {
     private func getData() {
 
         Task { [weak self] in
-            switch await service.kycAttempts() {
+            guard let self = self else { return }
+            await self.service.updateFees()
+            switch await self.service.kycAttempts() {
             case .failure(_): ()
             case .success(let kycAttempts):
-                self?.kycAttempts = kycAttempts
+                self.kycAttempts = kycAttempts
             }
 
-            await self?.fetchFiat()
+            await self.fetchFiat()
         }
     }
 
@@ -105,7 +107,12 @@ final class SCKYCDetailsViewModel {
         }
 
         DispatchQueue.main.async  {
-            self.onBalanceUpdate?(haveEnoughXor ? 1 : percentage, balanceText, isKYCFree)
+            self.onBalanceUpdate?(
+                haveEnoughXor ? 1 : percentage,
+                balanceText,
+                isKYCFree,
+                self.service.applicationFeeCach
+            )
         }
     }
 }

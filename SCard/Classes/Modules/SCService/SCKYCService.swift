@@ -10,6 +10,7 @@ enum SCEndpoint: Endpoint {
     case price(pair: String)
     case xOneWidget
     case ibans
+    case retryFee
 
     var path: String {
 
@@ -30,15 +31,19 @@ enum SCEndpoint: Endpoint {
             return "widgets/sdk.js"
         case .ibans:
             return "ibans"
+        case .retryFee:
+            return "fees" // "retry-fee"
         }
     }
 }
 
 public final class SCKYCService {
 
+    let config: SCard.Config
     internal let client: SCAPIClient
     internal var currentUserStatus: SCKYCUserStatus?
-    let config: SCard.Config
+    internal var retryFeeCache: String = "3.80"
+    internal var applicationFeeCach: String = "20"
     private let payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol
     private var isRefreshAccessTokenInProgress = false
     private var kycStatusRefresherTimer: Timer?

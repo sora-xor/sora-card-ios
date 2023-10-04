@@ -56,8 +56,13 @@ final class SCKYCDetailsViewController: UIViewController {
             viewModel.onUnsupportedCountries?()
         }
 
-        viewModel.onBalanceUpdate = { [weak rootView] (percentage, title, isKYCFree) in
-            rootView?.updateBalance(percentage: percentage, title: title, isKYCFree: isKYCFree)
+        viewModel.onBalanceUpdate = { [weak rootView] (percentage, title, isKYCFree, issuanceFee) in
+            rootView?.updateBalance(
+                percentage: percentage,
+                title: title,
+                isKYCFree: isKYCFree,
+                issuanceFee: issuanceFee
+            )
         }
     }
 

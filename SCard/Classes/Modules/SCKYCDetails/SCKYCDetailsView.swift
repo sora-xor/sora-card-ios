@@ -166,9 +166,14 @@ final class SCKYCDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func updateBalance(percentage: Float, title: String, isKYCFree: Bool) {
+    func updateBalance(percentage: Float, title: String, isKYCFree: Bool, issuanceFee: String) {
 
         balanceProgressView.configure(progressPercentage: percentage, title: title)
+
+        detailsFeeLabel.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsEuro(
+            issuanceFee,
+            preferredLanguages: .currentLocale
+        )
 
         if isKYCFree {
             if percentage >= SCKYCDetailsViewModel.minAmountOfEuroProcentage {

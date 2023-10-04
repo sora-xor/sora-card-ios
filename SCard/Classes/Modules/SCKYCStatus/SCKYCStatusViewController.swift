@@ -66,9 +66,9 @@ final class SCKYCStatusViewController: UIViewController {
             }
         }
 
-        viewModel.onStatus = { [unowned rootView] status, freeAttemptsLeft in
+        viewModel.onStatus = { [unowned rootView] status, freeAttemptsLeft, retryFee in
             DispatchQueue.main.async {
-                rootView.configure(state: status, freeAttemptsLeft: freeAttemptsLeft)
+                rootView.configure(state: status, freeAttemptsLeft: freeAttemptsLeft, retryFee: retryFee)
             }
         }
     }

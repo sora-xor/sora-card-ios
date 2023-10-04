@@ -2,7 +2,7 @@ import Foundation
 import PayWingsOAuthSDK
 
 final class SCKYCStatusViewModel {
-    @MainActor var onStatus: ((SCKYCUserStatus, Int) -> Void)?
+    @MainActor var onStatus: ((SCKYCUserStatus, Int, String) -> Void)?
     @MainActor var onError: ((String) -> Void)?
     var onClose: (() -> Void)?
     var onRetry: (() -> Void)?
@@ -27,6 +27,7 @@ final class SCKYCStatusViewModel {
 
         await getKYCAttempts()
         _ = await service.userStatus()
+        await service.updateFees()
 
         for await status in service.userStatusStream {
 
@@ -34,7 +35,7 @@ final class SCKYCStatusViewModel {
                 await getKYCAttempts()
             }
             guard let freeAttemptsLeft = self.freeAttemptsLeft else { return }
-            await onStatus?(status, freeAttemptsLeft)
+            await onStatus?(status, freeAttemptsLeft, service.retryFeeCache)
         }
     }
 

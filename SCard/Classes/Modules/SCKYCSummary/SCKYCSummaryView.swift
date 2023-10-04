@@ -32,7 +32,7 @@ final class SCKYCSummaryView: UIView {
         label.sora.textColor = .accentTertiary
         label.sora.numberOfLines = 0
         label.textAlignment = .center
-        label.sora.text = R.string.soraCard.getPreparedAlert("4", SCard.attemptsPrice, preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.getPreparedAlert("4", "3.80", preferredLanguages: .currentLocale)
         return label
     }()
 
@@ -68,8 +68,8 @@ final class SCKYCSummaryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(attempts: Int) {
-        warningLabel.sora.text = R.string.soraCard.getPreparedAlert(String(attempts), SCard.attemptsPrice, preferredLanguages: .currentLocale)
+    func configure(attempts: Int, retryFee: String) {
+        warningLabel.sora.text = R.string.soraCard.getPreparedAlert(String(attempts), retryFee, preferredLanguages: .currentLocale)
     }
 
     private func setupInitialLayout() {

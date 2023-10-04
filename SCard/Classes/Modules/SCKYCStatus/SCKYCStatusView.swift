@@ -96,7 +96,7 @@ final class SCKYCStatusView: UIView {
         iconView.sora.picture = .logo(image: R.image.kycRejected()!)
     }
 
-    func configure(state: SCKYCUserStatus, freeAttemptsLeft: Int) {
+    func configure(state: SCKYCUserStatus, freeAttemptsLeft: Int, retryFee: String) {
         activityIndicatorView.stopAnimating()
         switch state {
         case .pending:
@@ -129,8 +129,12 @@ final class SCKYCStatusView: UIView {
             actionButton.sora.isHidden = false
 
             // TODO: Phase 2, use disclaimer
+            let disclaimerText = "\n" + R.string.soraCard.verificationRejectedScreenAttemptsPriceDisclaimer(
+                String(retryFee),
+                preferredLanguages: .currentLocale
+            )
             let disclaimer = SoramitsuTextItem(
-                text:  "\n\(R.string.soraCard.verificationRejectedScreenAttemptsPriceDisclaimer(SCard.attemptsPrice, preferredLanguages: .currentLocale))",
+                text:  disclaimerText,
                 fontData: ScreenSizeMapper.value(small: FontType.paragraphS, medium: FontType.paragraphM, large: FontType.paragraphM),
                 textColor: .fgPrimary,
                 alignment: .center
@@ -163,7 +167,7 @@ final class SCKYCStatusView: UIView {
                     alignment: .center
                 )
                 actionDescriptionLabel.sora.attributedText =  [attemptsLeft]
-                actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForEuros(SCard.attemptsPrice, preferredLanguages: .currentLocale)
+                actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForEuros(String(retryFee), preferredLanguages: .currentLocale)
 
                 // TODO: impl in phase 2
                 actionButton.isHidden = true

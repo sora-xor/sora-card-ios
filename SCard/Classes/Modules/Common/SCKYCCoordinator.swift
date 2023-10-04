@@ -28,9 +28,9 @@ final class SCKYCCoordinator {
     private weak var rootViewController: UIViewController?
     private let navigationController: UINavigationController = {
         let navigationVC = SCNavigationViewController()
-        navigationVC.navigationBar.backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
+        navigationVC.navigationBar.backgroundColor = .white
         navigationVC.navigationBar.tintColor = .black
-        navigationVC.view.backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
+        navigationVC.view.backgroundColor = .white
         return navigationVC
     }()
 

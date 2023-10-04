@@ -63,9 +63,9 @@ final class SCKYCSummaryViewController: UIViewController {
             viewModel.onContinue?()
         }
 
-        viewModel.onAttempts = { [unowned self] attempts in
+        viewModel.onAttempts = { [unowned self] attempts, retryFee in
             DispatchQueue.main.async {
-                self.rootView.configure(attempts: Int(attempts))
+                self.rootView.configure(attempts: Int(attempts), retryFee: retryFee)
             }
         }
     }
@@ -73,7 +73,6 @@ final class SCKYCSummaryViewController: UIViewController {
     @objc func onClose() {
         viewModel.onClose?()
     }
-
 
     @objc func onLogout() {
         viewModel.onLogout?()
