@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.frameworks = 'UIKit'
   s.dependency 'R.swift', '~> 6.1.0'
   s.dependency 'SnapKit'
-  s.dependency 'SoraUIKit', '~> 1.0.1'
+  s.dependency 'SoraUIKit', '~> 1.1.0'
   s.dependency 'PayWingsOAuthSDK', '1.2.2'
   s.dependency 'PayWingsOnboardingKYC', '5.2.0'
   s.dependency 'IdensicMobileSDK' #, '2.2.2'
