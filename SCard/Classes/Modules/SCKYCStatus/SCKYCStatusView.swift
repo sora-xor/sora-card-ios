@@ -23,6 +23,14 @@ final class SCKYCStatusView: UIView {
         return label
     }()
 
+    private let descriptionLabel: SoramitsuLabel = {
+        let label = SoramitsuLabel()
+        label.sora.font = FontType.paragraphM
+        label.sora.textColor = .fgPrimary
+        label.sora.numberOfLines = 3
+        return label
+    }()
+
     private let textLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphM
@@ -87,7 +95,7 @@ final class SCKYCStatusView: UIView {
     func configure(error: String) {
         activityIndicatorView.stopAnimating()
         titleLabel.sora.text = R.string.soraCard.commonErrorGeneralTitle(preferredLanguages: .currentLocale)
-        textLabel.sora.text = "\(error)"
+        descriptionLabel.sora.text = "\(error)"
         actionButton.sora.title = R.string.soraCard.commonTryAgain(preferredLanguages: .currentLocale)
         actionButton.sora.removeAllHandlers(for: .touchUpInside)
         actionButton.sora.addHandler(for: .touchUpInside) { [weak self] in
@@ -101,29 +109,32 @@ final class SCKYCStatusView: UIView {
         switch state {
         case .pending:
             titleLabel.sora.text = R.string.soraCard.kycResultVerificationInProgress(preferredLanguages: .currentLocale)
-            textLabel.sora.text = R.string.soraCard.kycResultVerificationInProgressDescription(preferredLanguages: .currentLocale)
+            descriptionLabel.sora.text = R.string.soraCard.kycResultVerificationInProgressDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycPending()!)
             actionButton.sora.isHidden = true
 
         case .successful:
             titleLabel.sora.text = R.string.soraCard.verificationSuccessfulTitle(preferredLanguages: .currentLocale)
-            textLabel.sora.text = R.string.soraCard.verificationSuccessfulDescription(preferredLanguages: .currentLocale)
+            descriptionLabel.sora.text = R.string.soraCard.verificationSuccessfulDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycSuccessful()!)
             actionButton.sora.isHidden = true
 
         case .notStarted, .userCanceled:
             titleLabel.sora.text = R.string.soraCard.verificationFailedTitle(preferredLanguages: .currentLocale)
-            textLabel.sora.text = R.string.soraCard.verificationFailedDescription(preferredLanguages: .currentLocale)
+            descriptionLabel.sora.text = R.string.soraCard.verificationFailedDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycRejected()!)
 
             actionButton.sora.isHidden = false
             actionButton.sora.type = .filled(.secondary)
             actionButton.sora.title = R.string.soraCard.commonTryAgain(preferredLanguages: .currentLocale)
 
-        case .rejected:
+        case .rejected(let rejection):
 
             titleLabel.sora.text = R.string.soraCard.verificationRejectedTitle(preferredLanguages: .currentLocale)
-            textLabel.sora.text = R.string.soraCard.verificationRejectedDescription(preferredLanguages: .currentLocale)
+            descriptionLabel.sora.text = rejection.additionalDescription ?? R.string.soraCard.verificationRejectedDescription(preferredLanguages: .currentLocale)
+
+            textLabel.sora.text = rejection.reasons.map { "• \($0)" }.joined(separator: "\n")
+
             iconView.sora.picture = .logo(image: R.image.kycRejected()!)
 
             actionButton.sora.isHidden = false
@@ -178,19 +189,12 @@ final class SCKYCStatusView: UIView {
     private func setupInitialLayout() {
 
         addSubview(titleLabel)
-        addSubview(textLabel)
+        addSubview(descriptionLabel)
 
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview().inset(24)
-        }
-
-        textLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.leading.trailing.equalToSuperview().inset(24)
-        }
-
-        addSubview(iconView)
+        let textScrollView = UIScrollView()
+        textScrollView.addSubview(textLabel)
+        textScrollView.addSubview(iconView)
+        addSubview(textScrollView)
 
         let buttonsView = UIStackView(arrangedSubviews: [
             actionDescriptionLabel,
@@ -206,13 +210,32 @@ final class SCKYCStatusView: UIView {
             $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-24)
         }
 
-        iconView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview().inset(24)
+        }
+
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+            $0.leading.trailing.equalToSuperview().inset(24)
+        }
+
+        textScrollView.snp.makeConstraints {
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.bottom.equalTo(buttonsView.snp.top).offset(-16)
+        }
+
+        textLabel.snp.makeConstraints {
+            $0.top.equalTo(textScrollView)
+            $0.leading.trailing.equalTo(self).inset(24)
+        }
+
         iconView.snp.makeConstraints {
-            $0.top.equalTo(textLabel.snp.bottom)
-            $0.leading.greaterThanOrEqualToSuperview().inset(30)
-            $0.trailing.lessThanOrEqualToSuperview().inset(30)
-            $0.centerX.equalToSuperview()
-            $0.bottom.lessThanOrEqualTo(buttonsView.snp.top)
+            $0.top.equalTo(textLabel.snp.bottom).offset(16)
+            $0.centerX.equalTo(self)
+            $0.size.equalTo(self.snp.width).multipliedBy(0.7)
+            $0.bottom.equalTo(textScrollView).offset(16)
         }
 
         addSubview(activityIndicatorView) {

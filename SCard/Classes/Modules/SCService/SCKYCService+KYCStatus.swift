@@ -48,6 +48,7 @@ struct SCKYCStatusResponse: Codable {
     private let verificationStatus: SCVerificationStatus
     let ibanStatus: SCIbanStatus
     let additionalDescription: String?
+    let rejectionReasons: [SCKYCRejectionReason]?
     let updateTime: Int64
 
     enum CodingKeys: String, CodingKey {
@@ -59,6 +60,7 @@ struct SCKYCStatusResponse: Codable {
         case verificationStatus = "verification_status"
         case ibanStatus = "iban_status"
         case additionalDescription = "additional_description"
+        case rejectionReasons = "rejection_reasons"
         case updateTime = "update_time"
     }
 
@@ -78,23 +80,29 @@ struct SCKYCStatusResponse: Codable {
 
         // KYC was rejected, start a new one with a new reference_number
         case .retry, .rejected:
-            return .rejected
+            return .rejected(.init(
+                additionalDescription: additionalDescription,
+                reasons: rejectionReasons?.compactMap { $0.description } ?? []
+            ))
 
         // KYC wasn't completed, reuse reference_number from KYC
         case .started, .failed, .successful:
             return .userCanceled // TODO: check
         }
-
-        return .notStarted
     }
 }
 
-public enum SCKYCUserStatus {
+public enum SCKYCUserStatus: Equatable {
     case notStarted
     case pending
-    case rejected
+    case rejected(SCKYCRejection)
     case successful
     case userCanceled
+}
+
+public struct SCKYCRejection: Equatable {
+    let additionalDescription: String?
+    let reasons: [String]
 }
 
 enum SCKYCStatus: String, Codable {
@@ -119,20 +127,10 @@ enum SCIbanStatus: String, Codable {
     case rejected = "Rejected"
 }
 
-struct SCKYCAtempts: Codable {
-    let total: Int64
-    let completed: Int64
-    let rejected: Int64
-    let totalFreeAttempts: Int64
-    let freeAttemptsLeft: Int64
-    let hasFreeAttempts: Bool
+struct SCKYCRejectionReason: Codable {
+    let description: String
 
     enum CodingKeys: String, CodingKey {
-        case total
-        case completed
-        case rejected
-        case totalFreeAttempts = "total_free_attempts"
-        case freeAttemptsLeft = "free_attempts_left"
-        case hasFreeAttempts = "free_attempt"
+        case description = "Description"
     }
 }

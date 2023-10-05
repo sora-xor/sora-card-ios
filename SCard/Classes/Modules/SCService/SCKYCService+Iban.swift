@@ -7,7 +7,7 @@ extension SCKYCService {
     func hasIban() async -> Bool {
         switch await iban() {
         case .success(let result):
-            if let iban = result.ibans.first?.iban, !iban.isEmpty {
+            if let iban = result.ibans?.first?.iban, !iban.isEmpty {
                 return true
             } else {
                 return false
@@ -21,7 +21,7 @@ extension SCKYCService {
 
 struct SCIbanResponse: Codable {
     let callerReferenceId: String
-    let ibans: [Iban]
+    let ibans: [Iban]?
     let referenceId: String
     let statusCode: Int
     let statusDescription: String
