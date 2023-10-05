@@ -25,6 +25,7 @@ final class SCCardHubHeaderView: SoramitsuView {
         let view = SoramitsuView()
         view.sora.cornerRadius = .custom(20)
         view.sora.backgroundColor = .bgSurface
+        view.isHidden = true // TODO: impl
         return view
     }()
 
