@@ -78,7 +78,7 @@
 "login.title" = "Войдите или зарегистрируйтесь";
 "get.more.xor.dialog.description" = "Вы можете обменять на XOR или купить за евро";
 "get.more.xor.dialog.swap.option" = "Обменять криптовалюту на XOR";
-"get.more.xor.dialog.buy.option" = "Купить XOR за EUR";
+"get.more.xor.dialog.buy.option" = "Купить XOR с помощью карты";
 "verification.rejected.screen.try.again.for.euros" = "Повторить снова за €%@";
 "verification.rejected.screen.try.again.for.free" = "Попробуйте еще раз бесплатно";
 "verification.rejected.screen.attempts.used" = "Вы использовали свои бесплатные попытки KYC.";
@@ -93,7 +93,7 @@
 "card.hub.settings.logout.button" = "Выйти";
 "card.hub.settings.title" = "Настройки карты";
 "common.back" = "Назад";
-"entry.card.info" = "Card info";
+"entry.card.info" = "Информация о карте";
 "cardhub.top.up" = "Пополнить";
 "cardhub.transfer" = "Передача";
 "cardhub.exchange" = "Обмен";
@@ -101,7 +101,6 @@
 "cardhub.coming.soon" = "Управление картами скоро появится";
 "cardhub.iban.title" = "Данные счета IBAN";
 "common.copied" = "Copied to Clipboard";
+"card.attention.text" = "Внимание";
 "get.prepared.proof.address.note" = "Примечание. Заявления таких необанков, как Revolut и N26, в настоящее время не считаются действительным подтверждением адреса.";
-"common.wrong.format" = "Wrong format!";
-"enter.phone.number.wrong.format" = "Wrong phone number format!";
 "get.prepared.alert" = "У вас есть только %@ бесплатных попыток пройти процедуру KYC. Каждая следующая попытка после этого будет стоить € %@ . Платные попытки станут доступны после следующего обновления приложения.";

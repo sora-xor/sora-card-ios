@@ -101,7 +101,6 @@
 "cardhub.coming.soon" = "La Gestión de la Tarjeta llegará pronto";
 "cardhub.iban.title" = "Detalles cuenta IBAN";
 "common.copied" = "Copied to Clipboard";
+"card.attention.text" = "Atención";
 "get.prepared.proof.address.note" = "Nota: Los extractos de neobancos como Revolut y N26 actualmente no se consideran prueba de domicilio válida.";
-"common.wrong.format" = "Wrong format!";
-"enter.phone.number.wrong.format" = "Wrong phone number format!";
 "get.prepared.alert" = "Solo tienes %@ intentos gratuitos para pasar el proceso KYC. Cualquier otro intento posterior costará € %@ . Los intentos pagos estarán disponibles después de la próxima actualización de la aplicación.";

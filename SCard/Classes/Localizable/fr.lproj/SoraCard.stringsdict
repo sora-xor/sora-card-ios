@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>li</string>
         <key>one</key>
-        <string>Vous avez 1 autre tentative de KYC gratuite</string>
+        <string>Vous avez %li autre tentative de KYC gratuite</string>
         <key>other</key>
         <string>Vous avez %li autres tentatives de KYC gratuites</string>
       </dict>
