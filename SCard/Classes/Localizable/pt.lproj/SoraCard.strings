@@ -103,4 +103,6 @@
 "common.copied" = "Copied to Clipboard";
 "card.attention.text" = "Atenção";
 "get.prepared.proof.address.note" = "Nota: Atualmente, extratos de neobancos como Revolut e N26 não são vistos como comprovante de endereço válido.";
+"common.wrong.format" = "Wrong format!";
+"enter.phone.number.wrong.format" = "Wrong phone number format!";
 "get.prepared.alert" = "Você tem apenas %@ tentativas gratuitas para passar no processo KYC. Todas as outras tentativas depois disso custarão € %@ . As tentativas pagas estarão disponíveis após a próxima atualização do aplicativo.";

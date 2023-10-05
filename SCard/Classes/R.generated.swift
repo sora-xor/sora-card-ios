@@ -268,7 +268,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 107 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 109 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -670,6 +670,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let termsAndConditionsDescription = Rswift.StringResource(key: "terms.and.conditions.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Wrong format!
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let commonWrongFormat = Rswift.StringResource(key: "common.wrong.format", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Wrong phone number format!
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let enterPhoneNumberWrongFormat = Rswift.StringResource(key: "enter.phone.number.wrong.format", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: oder %@ € Anmeldegebühr
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2215,6 +2223,36 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("terms.and.conditions.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Wrong format!
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func commonWrongFormat(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("common.wrong.format", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "common.wrong.format"
+        }
+
+        return NSLocalizedString("common.wrong.format", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Wrong phone number format!
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func enterPhoneNumberWrongFormat(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("enter.phone.number.wrong.format", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "enter.phone.number.wrong.format"
+        }
+
+        return NSLocalizedString("enter.phone.number.wrong.format", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: oder %@ € Anmeldegebühr

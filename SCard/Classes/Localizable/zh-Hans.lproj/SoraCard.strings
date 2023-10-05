@@ -103,4 +103,6 @@
 "common.copied" = "已复制到剪贴板";
 "card.attention.text" = "注意";
 "get.prepared.proof.address.note" = "请注意：像Revolut和N26这样的新型银行的声明目前不被视为有效的地址证明。";
+"common.wrong.format" = "格式错误！";
+"enter.phone.number.wrong.format" = "电话号码格式错误！";
 "get.prepared.alert" = "您只有%@免费尝试机会通过 KYC 流程。此后的所有其他尝试都将花费 € %@ 。下次更新应用程序后将提供付费尝试。";

@@ -103,4 +103,6 @@
 "common.copied" = "Copied to Clipboard";
 "card.attention.text" = "Внимание";
 "get.prepared.proof.address.note" = "Примечание. Заявления таких необанков, как Revolut и N26, в настоящее время не считаются действительным подтверждением адреса.";
+"common.wrong.format" = "Wrong format!";
+"enter.phone.number.wrong.format" = "Wrong phone number format!";
 "get.prepared.alert" = "У вас есть только %@ бесплатных попыток пройти процедуру KYC. Каждая следующая попытка после этого будет стоить € %@ . Платные попытки станут доступны после следующего обновления приложения.";
