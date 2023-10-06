@@ -1,35 +1,27 @@
 import Foundation
 
 extension SCKYCService {
-    //    func kycStatus() async -> Result<SCKYCStatusResponse?, NetworkingError> {
-    //        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycStatus)
-    //        return await client.performDecodable(request: request)
-    //    }
-
-    var userStatusStream: AsyncStream<SCKYCUserStatus> {
-        _userStatusStream.stream
-    }
-
-    func userStatus() async -> SCKYCUserStatus? {
-        guard case .success(let statuses) = await kycStatuses(),
-              let userStatus = statuses.sorted.last?.userStatus
-        else { return nil }
-        return userStatus
-    }
-
-    func kycStatuses() async -> Result<[SCUserState], NetworkingError> {
-        guard await refreshAccessTokenIfNeeded() else {
-            return .failure(.unauthorized)
-        }
-        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycStatuses)
-        let response: Result<[SCUserState], NetworkingError> = await client.performDecodable(request: request)
-        if case .success(let statuses) = response, let kycState = statuses.sorted.last {
+    func kycLastStatus() async -> Result<SCUserState?, NetworkingError> {
+        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycLastStatus)
+        let response: Result<SCUserState?, NetworkingError> = await client.performDecodable(request: request)
+        if case .success(let kycState) = response, let kycState = kycState {
             self._userStatusStream.wrappedValue = kycState.userStatus
             self.currentUserState = kycState
         } else {
             self.clearUserKYCState()
         }
         return response
+    }
+
+    var userStatusStream: AsyncStream<SCKYCUserStatus> {
+        _userStatusStream.stream
+    }
+
+    func userStatus() async -> SCKYCUserStatus? {
+        guard case .success(let status) = await kycLastStatus(),
+              let userStatus = status?.userStatus
+        else { return nil }
+        return userStatus
     }
 
     func clearUserKYCState() {

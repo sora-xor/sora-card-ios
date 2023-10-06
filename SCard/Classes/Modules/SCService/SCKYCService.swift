@@ -3,8 +3,7 @@ import PayWingsOAuthSDK
 
 enum SCEndpoint: Endpoint {
     case getReferenceNumber
-    // case kycStatus
-    case kycStatuses
+    case kycLastStatus
     case kycAttemptCount
     case xOneStatus(paymentId: String)
     case price(pair: String)
@@ -17,10 +16,8 @@ enum SCEndpoint: Endpoint {
         switch self {
         case .getReferenceNumber:
             return "get-reference-number"
-        // case .kycStatus:
-        //    return "kyc-last-status"
-        case .kycStatuses:
-            return "kyc-status"
+         case .kycLastStatus:
+            return "kyc-last-status"
         case .kycAttemptCount:
             return "kyc-attempt-count"
         case .xOneStatus(let paymentId):
