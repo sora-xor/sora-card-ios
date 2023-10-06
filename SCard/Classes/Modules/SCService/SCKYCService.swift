@@ -41,9 +41,9 @@ public final class SCKYCService {
 
     let config: SCard.Config
     internal let client: SCAPIClient
-    internal var currentUserStatus: SCKYCUserStatus?
+    internal var currentUserState: SCUserState = .notStarted
     internal var retryFeeCache: String = "3.80"
-    internal var applicationFeeCach: String = "20"
+    internal var applicationFeeCache: String = "20"
     private let payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol
     private var isRefreshAccessTokenInProgress = false
     private var kycStatusRefresherTimer: Timer?
@@ -66,7 +66,7 @@ public final class SCKYCService {
     func startKYCStatusRefresher() {
         guard kycStatusRefresherTimer == nil else { return }
         kycStatusRefresherTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] _ in
-            Task { [weak self] in let status  = await self?.userStatus() }
+            Task { [weak self] in _ = await self?.userStatus() }
         }
     }
 

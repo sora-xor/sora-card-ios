@@ -17,7 +17,16 @@ final class SCKYCOnbordingViewModel {
         self.result.delegate = self
     }
 
-    func referenceNumber() async -> String? {
+    func fetchReferenceNumber() async -> Bool {
+        if !service.currentUserState.userReferenceNumber.isEmpty,
+           !service.currentUserState.referenceId.isEmpty,
+           service.currentUserState.kycStatus != .rejected
+        {
+            data.referenceNumber = service.currentUserState.userReferenceNumber
+            data.referenceId = service.currentUserState.referenceId
+            return true
+        }
+
         let result = await service.referenceNumber(
             phone: data.phoneNumber,
             email: data.email
@@ -27,11 +36,11 @@ final class SCKYCOnbordingViewModel {
         case .success(let respons):
             data.referenceNumber = respons.referenceNumber
             data.referenceId = respons.referenceID
-            return data.referenceNumber
+            return true
         case .failure(let error):
             print(error)
             showErrorAlert(title: "Error", message: error.errorDescription ?? error.localizedDescription)
-            return nil
+            return false
         }
     }
 
@@ -51,7 +60,8 @@ final class SCKYCOnbordingViewModel {
     private func goToKyc() {
 
         Task {
-            let referenceNumber = await referenceNumber()
+            guard await fetchReferenceNumber() else { return }
+            let referenceNumber = data.referenceNumber
             let referenceId = data.referenceId
             let token = await SCStorage.shared.token()
 

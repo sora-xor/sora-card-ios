@@ -90,7 +90,7 @@ public class SCard {
             if SCStorage.shared.isFirstLaunch() {
                 await SCStorage.shared.removeToken()
                 SCStorage.shared.setAppLaunched()
-                service._userStatusStream.wrappedValue = .notStarted
+                service.clearUserKYCState()
             } else {
                 _ = await service.kycStatuses()
             }

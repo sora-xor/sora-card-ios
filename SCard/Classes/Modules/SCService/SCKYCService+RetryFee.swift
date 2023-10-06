@@ -11,7 +11,7 @@ extension SCKYCService {
         switch await retryFees() {
         case .success(let respose):
             self.retryFeeCache = respose.retryFee
-            self.applicationFeeCach = respose.applicationFee
+            self.applicationFeeCache = respose.applicationFee
         case .failure(let error):
             print(error)
         }

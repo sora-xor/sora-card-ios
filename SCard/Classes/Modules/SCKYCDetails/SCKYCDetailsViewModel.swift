@@ -111,7 +111,7 @@ final class SCKYCDetailsViewModel {
                 haveEnoughXor ? 1 : percentage,
                 balanceText,
                 isKYCFree,
-                self.service.applicationFeeCach
+                self.service.applicationFeeCache
             )
         }
     }

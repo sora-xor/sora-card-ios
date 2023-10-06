@@ -17,35 +17,34 @@ extension SCKYCService {
         return userStatus
     }
 
-    func kycStatuses() async -> Result<[SCKYCStatusResponse], NetworkingError> {
+    func kycStatuses() async -> Result<[SCUserState], NetworkingError> {
         guard await refreshAccessTokenIfNeeded() else {
             return .failure(.unauthorized)
         }
         let request = APIRequest(method: .get, endpoint: SCEndpoint.kycStatuses)
-        let response: Result<[SCKYCStatusResponse], NetworkingError> = await client.performDecodable(request: request)
-        if case .success(let statuses) = response, let userStatus = statuses.sorted.last?.userStatus {
-            self._userStatusStream.wrappedValue = userStatus
-            self.currentUserStatus = userStatus
+        let response: Result<[SCUserState], NetworkingError> = await client.performDecodable(request: request)
+        if case .success(let statuses) = response, let kycState = statuses.sorted.last {
+            self._userStatusStream.wrappedValue = kycState.userStatus
+            self.currentUserState = kycState
         } else {
-            self._userStatusStream.wrappedValue = .notStarted
+            self.clearUserKYCState()
         }
         return response
     }
-}
 
-extension Array where Element == SCKYCStatusResponse {
-    var sorted: [Element] {
-        self.sorted(by: { $0.updateTime < $1.updateTime })
+    func clearUserKYCState() {
+        _userStatusStream.wrappedValue = .notStarted
+        currentUserState = .notStarted
     }
 }
 
-struct SCKYCStatusResponse: Codable {
+struct SCUserState: Codable {
     let kycId: String
     let personId: String
     let userReferenceNumber: String
     let referenceId: String
-    private let kycStatus: SCKYCStatus
-    private let verificationStatus: SCVerificationStatus
+    internal let kycStatus: SCKYCStatus
+    internal let verificationStatus: SCVerificationStatus
     let ibanStatus: SCIbanStatus
     let additionalDescription: String?
     let rejectionReasons: [SCKYCRejectionReason]?
@@ -88,8 +87,26 @@ struct SCKYCStatusResponse: Codable {
         // KYC wasn't completed, reuse reference_number from KYC
         case .started, .failed, .successful:
             return .userCanceled // TODO: check
+
+        case .notStarted:
+            return .notStarted
         }
     }
+}
+
+extension SCUserState {
+    static let notStarted: SCUserState = .init(
+        kycId: "",
+        personId: "",
+        userReferenceNumber: "",
+        referenceId: "",
+        kycStatus: .notStarted,
+        verificationStatus: .none,
+        ibanStatus: .none,
+        additionalDescription: nil,
+        rejectionReasons: nil,
+        updateTime: .init()
+    )
 }
 
 public enum SCKYCUserStatus: Equatable {
@@ -106,6 +123,7 @@ public struct SCKYCRejection: Equatable {
 }
 
 enum SCKYCStatus: String, Codable {
+    case notStarted
     case started = "Started"
     case completed = "Completed"
     case successful = "Successful"
@@ -132,5 +150,11 @@ struct SCKYCRejectionReason: Codable {
 
     enum CodingKeys: String, CodingKey {
         case description = "Description"
+    }
+}
+
+extension Array where Element == SCUserState {
+    var sorted: [Element] {
+        self.sorted(by: { $0.updateTime < $1.updateTime })
     }
 }

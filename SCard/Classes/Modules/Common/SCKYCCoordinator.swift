@@ -387,7 +387,7 @@ final class SCKYCCoordinator {
         ) { [weak self, viewController] _ in
             Task { [weak self] in await self?.storage.removeToken() }
             self?.storage.set(isRety: false)
-            self?.service._userStatusStream.wrappedValue = .notStarted
+            self?.service.clearUserKYCState()
             viewController.dismiss(animated: true)
         })
         viewController.present(alertController, animated: true)
