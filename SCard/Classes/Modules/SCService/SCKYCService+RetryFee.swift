@@ -1,14 +1,14 @@
 extension SCKYCService {
-    func retryFees() async -> Result<SCKYCRetryFee, NetworkingError> {
+    func fees() async -> Result<SCKYCRetryFee, NetworkingError> {
         guard await refreshAccessTokenIfNeeded() else {
             return .failure(.unauthorized)
         }
-        let request = APIRequest(method: .get, endpoint: SCEndpoint.retryFee)
+        let request = APIRequest(method: .get, endpoint: SCEndpoint.fees)
         return await client.performDecodable(request: request)
     }
 
     func updateFees() async {
-        switch await retryFees() {
+        switch await fees() {
         case .success(let respose):
             self.retryFeeCache = respose.retryFee
             self.applicationFeeCache = respose.applicationFee

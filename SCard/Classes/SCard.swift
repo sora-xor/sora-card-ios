@@ -92,7 +92,7 @@ public class SCard {
                 SCStorage.shared.setAppLaunched()
                 service.clearUserKYCState()
             } else {
-                _ = await service.kycLastStatus()
+                await service.updateKycState()
             }
         }
     }

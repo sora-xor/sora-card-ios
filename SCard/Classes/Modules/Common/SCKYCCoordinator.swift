@@ -35,10 +35,15 @@ final class SCKYCCoordinator {
     }()
 
     func start(in rootViewController: UIViewController) async {
+
         self.rootViewController = rootViewController
         await MainActor.run {
             navigationController.viewControllers = []
         }
+
+        // TODO: present loading creeen
+
+        _ = await self.service.refreshAccessTokenIfNeeded()
 
         if await canShowHardhub() {
             await MainActor.run {
@@ -51,6 +56,8 @@ final class SCKYCCoordinator {
         }
 
         let data = SCKYCUserDataModel()
+
+        await service.updateFees()
 
         DispatchQueue.main.async {
             self.service.startKYCStatusRefresher()
@@ -245,55 +252,45 @@ final class SCKYCCoordinator {
 
     private func checkUserStatus(data: SCKYCUserDataModel) {
         Task {
-            var hasFreeAttempts = false
-            if case .success(let atempts) = await service.kycAttempts() {
-                hasFreeAttempts = atempts.hasFreeAttempts
-            }
 
-            let response = await service.kycLastStatus()
+            await service.updateKycState()
             let hasIban = await service.hasIban()
+            let isEnoughXor = await SCKYCDetailsViewModel.isEnoughXor(
+                xorBalance: self.balanceStream.wrappedValue,
+                service: service
+            )
 
-            await MainActor.run { [weak self, hasFreeAttempts] in
+            await MainActor.run { [weak self, isEnoughXor] in
                 guard let self else { return }
-                switch response {
-                case .success(let kycLastState):
 
-                    if let kycLastState = kycLastState {
-
-                        if kycLastState.verificationStatus == .accepted {
-                            if hasIban {
-                                self.showCardHub()
-                            } else {
-                                self.showStatus(data: data)
-                            }
-                        }
-
-                        switch kycLastState.kycStatus {
-                        case .started, .failed:
-                            self.showGetPrepared(data: data)
-
-                        case .completed, .retry:
-                            if self.storage.isKYCRety() {
-                                self.showStatus(data: data)
-                            } else {
-                                self.showGetPrepared(data: data)
-                            }
-
-                        case .rejected:
-                            if hasFreeAttempts {
-                                self.showGetPrepared(data: data)
-                            } else {
-                                self.showStatus(data: data)
-                            }
-
-                        case .notStarted, .successful:
-                            return
-                        }
+                let kycLastState = self.service.currentUserState
+                if kycLastState.verificationStatus == .accepted {
+                    if hasIban {
+                        self.showCardHub()
                     } else {
-                        Task { [weak self] in await self?.resetKYC() }
+                        self.showStatus(data: data)
                     }
-                case .failure(let error):
-                    print(error)
+                }
+
+                switch kycLastState.kycStatus {
+
+                case .notStarted:
+                    if isEnoughXor {
+                        self.showGetPrepared(data: data)
+                    } else {
+                        self.showCardDetails(data: data)
+                    }
+                case .started, .failed:
+                    self.showGetPrepared(data: data)
+
+                case .completed, .retry, .rejected:
+                    if self.storage.isKYCRety() {
+                        self.showGetPrepared(data: data)
+                    } else {
+                        self.showStatus(data: data)
+                    }
+
+                case .successful:
                     Task { [weak self] in await self?.resetKYC() }
                 }
             }
@@ -301,18 +298,12 @@ final class SCKYCCoordinator {
     }
 
     private func canShowHardhub() async -> Bool {
-        _ = await self.service.refreshAccessTokenIfNeeded()
-        switch await service.kycLastStatus() {
-        case .success(let kycLastStatus):
-            if kycLastStatus?.userStatus == .successful {
-                return await service.hasIban()
-            } else {
-                return false
-            }
-        case .failure(let error):
-            print(error)
-            return false
+        await service.updateKycState()
+
+        if service.currentUserState.userStatus == .successful {
+            return await service.hasIban()
         }
+        return false
     }
 
     private func showGetPrepared(data: SCKYCUserDataModel){
@@ -413,7 +404,7 @@ final class SCKYCCoordinator {
 
         await MainActor.run { [weak self] in
             guard let self = self else { return }
-            self.showCardDetails(data: SCKYCUserDataModel())
+            self.showGetPrepared(data: .init())
             self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
         }
     }
@@ -425,7 +416,7 @@ final class SCKYCCoordinator {
 
         await MainActor.run { [weak self] in
             guard let self = self else { return }
-            self.showCardDetails(data: SCKYCUserDataModel())
+            self.showGetPrepared(data: .init())
             self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
         }
     }

@@ -1,32 +1,38 @@
 import Foundation
 
 extension SCKYCService {
-    func kycLastStatus() async -> Result<SCUserState?, NetworkingError> {
+
+    func updateKycState() async {
         let request = APIRequest(method: .get, endpoint: SCEndpoint.kycLastStatus)
-        let response: Result<SCUserState?, NetworkingError> = await client.performDecodable(request: request)
-        if case .success(let kycState) = response, let kycState = kycState {
-            self._userStatusStream.wrappedValue = kycState.userStatus
-            self.currentUserState = kycState
-        } else {
+        let response = await kycLastState()
+
+        switch response {
+        case .success(let kycState):
+            self.currentUserState = kycState ?? .notStarted
+            self._userStatusStream.wrappedValue = kycState?.userStatus ?? .notStarted
+        case .failure(let error):
+            print("UpdateKycState error:\(error)")
             self.clearUserKYCState()
         }
-        return response
     }
 
     var userStatusStream: AsyncStream<SCKYCUserStatus> {
         _userStatusStream.stream
     }
 
-    func userStatus() async -> SCKYCUserStatus? {
-        guard case .success(let status) = await kycLastStatus(),
-              let userStatus = status?.userStatus
-        else { return nil }
-        return userStatus
+    func userStatus() async -> SCKYCUserStatus {
+        await updateKycState()
+        return currentUserState.userStatus
     }
 
     func clearUserKYCState() {
-        _userStatusStream.wrappedValue = .notStarted
         currentUserState = .notStarted
+        _userStatusStream.wrappedValue = .notStarted
+    }
+
+    private func kycLastState() async -> Result<SCUserState?, NetworkingError> {
+        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycLastStatus)
+        return await client.performDecodable(request: request)
     }
 }
 
@@ -55,6 +61,7 @@ struct SCUserState: Codable {
         case updateTime = "update_time"
     }
 
+    /// Local combination of verificationStatus with kycStatus
     var userStatus: SCKYCUserStatus {
 
         // do not use kycStatus, it may be any state:
@@ -115,7 +122,7 @@ public struct SCKYCRejection: Equatable {
 }
 
 enum SCKYCStatus: String, Codable {
-    case notStarted
+    case notStarted // Local
     case started = "Started"
     case completed = "Completed"
     case successful = "Successful"

@@ -16,12 +16,10 @@ final class SCKYCSummaryViewModel {
     func getKYCAttempts() async {
         await service.updateFees()
         switch await service.kycAttempts() {
-        case .failure(let error):
-            // TODO: no design
-            print("SCKYCSummaryViewModel failure:\(error)")
-            return
         case .success(let kycAttempts):
             onAttempts?(kycAttempts.totalFreeAttempts, service.retryFeeCache)
+        case .failure(let error):
+            print("SCKYCSummaryViewModel failure:\(error)")
         }
     }
 }
