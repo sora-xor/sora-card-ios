@@ -270,6 +270,7 @@ final class SCKYCCoordinator {
                     } else {
                         self.showStatus(data: data)
                     }
+                    return
                 }
 
                 switch kycLastState.kycStatus {
@@ -291,7 +292,7 @@ final class SCKYCCoordinator {
                     }
 
                 case .successful:
-                    Task { [weak self] in await self?.resetKYC() }
+                    () // handled earyer verificationStatus == .accepted
                 }
             }
         }
