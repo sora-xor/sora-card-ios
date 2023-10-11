@@ -3,10 +3,7 @@ import Foundation
 extension SCKYCService {
 
     func updateKycState() async {
-        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycLastStatus)
-        let response = await kycLastState()
-
-        switch response {
+        switch await kycLastState() {
         case .success(let kycState):
             self.currentUserState = kycState ?? .notStarted
             self._userStatusStream.wrappedValue = kycState?.userStatus ?? .notStarted
@@ -31,6 +28,9 @@ extension SCKYCService {
     }
 
     private func kycLastState() async -> Result<SCUserState?, NetworkingError> {
+        guard await refreshAccessTokenIfNeeded() else {
+            return .failure(.unauthorized)
+        }
         let request = APIRequest(method: .get, endpoint: SCEndpoint.kycLastStatus)
         return await client.performDecodable(request: request)
     }

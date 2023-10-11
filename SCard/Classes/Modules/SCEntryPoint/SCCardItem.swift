@@ -34,12 +34,7 @@ public final class SCCardItem: NSObject {
     private func updateBalance() async {
         switch await service.iban() {
         case .success(let ibanResponse):
-            guard let availableBalance = ibanResponse.ibans?.first?.availableBalance else { return }
-            self.availableBalance = availableBalance
-            await MainActor.run { [weak self] in
-                guard let self = self else { return }
-                self.onUpdate?(self.userStatus, availableBalance)
-            }
+            self.availableBalance = ibanResponse.ibans?.first?.availableBalance
         case .failure(let error):
             print(error)
         }
