@@ -150,7 +150,7 @@ final class SCKYCLoginView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
+        backgroundColor = .white
         setupInitialLayout()
     }
 
