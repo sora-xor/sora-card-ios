@@ -115,9 +115,10 @@ extension SCCardCell: SoramitsuTableViewCellProtocol {
         sora.backgroundColor = .custom(uiColor: .clear)
         self.onClose = item.onClose
         self.onCard = item.onCard
-        item.onUpdate = { status, availableBalance in
-            self.update(status: status, availableBalance: availableBalance)
+        item.onUpdate = { [weak self] status, availableBalance in
+            self?.update(status: status, availableBalance: availableBalance)
         }
+        self.update(status: item.userStatus, availableBalance: item.availableBalance)
     }
 
     private func update(status: SCKYCUserStatus, availableBalance: Int?) {
