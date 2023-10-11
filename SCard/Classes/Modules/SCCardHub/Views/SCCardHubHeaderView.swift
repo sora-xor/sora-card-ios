@@ -71,7 +71,6 @@ final class SCCardHubHeaderView: SoramitsuView {
 
     private let actionButtonsScrollView: SoramitsuScrollView = {
         let view = SoramitsuScrollView()
-        view.alwaysBounceHorizontal = true
         view.contentMode = .center
         view.contentInset = .init(top: 0, left: 24, bottom: 0, right: 24)
         return view
