@@ -5,7 +5,10 @@ import SoraUIKit
 public class SCard {
 
     static let minXorAmount = "100"
-    static let issuanceFee = "20"
+
+    internal var issuanceFee: String {
+        service.applicationFeeCache
+    }
 
     public static var shared: SCard?
 

@@ -1,5 +1,8 @@
 extension SCKYCService {
     func iban() async -> Result<SCIbanResponse, NetworkingError> {
+        guard await refreshAccessTokenIfNeeded() else {
+            return .failure(.unauthorized)
+        }
         let request = APIRequest(method: .get, endpoint: SCEndpoint.ibans)
         return await client.performDecodable(request: request)
     }

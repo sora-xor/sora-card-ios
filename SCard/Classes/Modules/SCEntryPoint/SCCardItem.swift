@@ -7,6 +7,7 @@ public final class SCCardItem: NSObject {
     var onUpdate: ((SCKYCUserStatus, Int?) -> Void)?
     var userStatus: SCKYCUserStatus = .notStarted
     var availableBalance: Int?
+    private let service: SCKYCService
 
     public init(
         service: SCard,
@@ -19,35 +20,30 @@ public final class SCCardItem: NSObject {
         super.init()
 
         Task { [weak self] in
-
             for await userStatus in service.userStatusStream {
                 self?.userStatus = userStatus
+                await self?.updateBalance()
                 await MainActor.run { [weak self] in
                     guard let self = self else { return }
                     self.onUpdate?(self.userStatus, self.availableBalance)
                 }
             }
         }
-        
-        Task { [weak self] in
-
-            switch await self?.service.iban() {
-            case .success(let ibanResponse):
-                guard let availableBalance = ibanResponse.ibans?.first?.availableBalance else { return }
-                self?.availableBalance = availableBalance
-                await MainActor.run { [weak self] in
-                    guard let self = self else { return }
-                    self.onUpdate?(self.userStatus, availableBalance)
-                }
-            case .failure(let error):
-                print(error)
-            case .none:
-                return
-            }
-        }
     }
 
-    private let service: SCKYCService
+    private func updateBalance() async {
+        switch await service.iban() {
+        case .success(let ibanResponse):
+            guard let availableBalance = ibanResponse.ibans?.first?.availableBalance else { return }
+            self.availableBalance = availableBalance
+            await MainActor.run { [weak self] in
+                guard let self = self else { return }
+                self.onUpdate?(self.userStatus, availableBalance)
+            }
+        case .failure(let error):
+            print(error)
+        }
+    }
 }
 
 extension SCCardItem: SoramitsuTableViewItemProtocol {

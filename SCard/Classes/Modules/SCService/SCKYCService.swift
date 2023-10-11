@@ -40,7 +40,7 @@ public final class SCKYCService {
     internal let client: SCAPIClient
     internal var currentUserState: SCUserState = .notStarted
     internal var retryFeeCache: String = "3.80"
-    internal var applicationFeeCache: String = "20"
+    internal var applicationFeeCache: String = "29"
     private let payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol
     private var isRefreshAccessTokenInProgress = false
     private var kycStatusRefresherTimer: Timer?
