@@ -71,7 +71,7 @@
 "details.annual.service.fee" = "€0 annual service fee";
 "details.free.card.issuance" = "Free card issuance";
 "details.free.card.issuance.conditions.xor" = "If you hold, stake or provide liquidity for at least €%@ worth of XOR in your SORA account";
-"details.free.card.issuance.conditions.euro" = "or %@ € application fee";
+"details.free.card.issuance.conditions.euro" = "or €%@ application fee";
 "common.error.general.title" = "Error";
 "status.not.started" = "Get SORA Card";
 "cant.fetch.refresh" = "Can't fetch data, tap to refresh.";
@@ -103,6 +103,10 @@
 "common.copied" = "Copied to Clipboard";
 "card.attention.text" = "Attention";
 "get.prepared.proof.address.note" = "Note: Statements from neobanks like Revolut and N26 are currently not seen as valid proof of address.";
-"common.wrong.format" = "Wrong format!";
-"enter.phone.number.wrong.format" = "Wrong phone number format!";
 "get.prepared.alert" = "You have only %@ free attempts to pass the KYC process. Every other attempt after that will cost €%@. Paid attempts will be available after the next update of the app.";
+"paid.attempts.available.later" = "Paid attempts will be available at a later stage";
+"card.hub.update.title" = "Update app to latest version";
+"card.hub.update.button" = "Update now";
+"card.update.title" = "Update app to latest version to access SORA Card";
+"card.update.button" = "Update app";
+"card.hub.update.description" = "You are using an outdated version or the app, some part might not be working as intended.";

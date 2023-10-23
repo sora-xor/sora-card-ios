@@ -49,6 +49,7 @@ class ViewController: UIViewController {
         }
 
         let scConfig = SCard.Config(
+            appStoreUrl: "https://apps.apple.com/us/app/sora-wallet-polkaswap/id1457566711",
             backendUrl: "https://backend.dev.sora-card.tachi.soramitsu.co.jp/",
             pwAuthDomain: "soracard.com",
             pwApiKey: "6974528a-ee11-4509-b549-a8d02c1aec0d",

@@ -103,6 +103,10 @@
 "common.copied" = "Copied to Clipboard";
 "card.attention.text" = "Atención";
 "get.prepared.proof.address.note" = "Nota: Los extractos de neobancos como Revolut y N26 actualmente no se consideran prueba de domicilio válida.";
-"common.wrong.format" = "Wrong format!";
-"enter.phone.number.wrong.format" = "Wrong phone number format!";
 "get.prepared.alert" = "Solo tienes %@ intentos gratuitos para pasar el proceso KYC. Cualquier otro intento posterior costará € %@ . Los intentos pagos estarán disponibles después de la próxima actualización de la aplicación.";
+"paid.attempts.available.later" = "Paid attempts will be available at a later stage";
+"card.hub.update.title" = "Update app to latest version";
+"card.hub.update.button" = "Update now";
+"card.update.title" = "Update app to latest version to access SORA Card";
+"card.update.button" = "Update app";
+"card.hub.update.description" = "You are using an outdated version or the app, some part might not be working as intended.";

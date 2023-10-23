@@ -7,6 +7,7 @@ public final class SCCardItem: NSObject {
     var onUpdate: ((SCKYCUserStatus, Int?) -> Void)?
     var userStatus: SCKYCUserStatus = .notStarted
     var availableBalance: Int?
+    var needUpdate = false
     private let service: SCKYCService
 
     public init(
@@ -18,6 +19,8 @@ public final class SCCardItem: NSObject {
         self.onCard = onCard
         self.service = service.service
         super.init()
+
+        self.needUpdate = service.service.verionsChangesNeeded() == .major
 
         Task { [weak self] in
             for await userStatus in service.userStatusStream {

@@ -28,7 +28,7 @@ final class SCKYCEnterPhoneViewModel {
                 onUpdateUI?("", true)
             } else {
                 if text.count > 7 {
-                    onUpdateUI?(R.string.soraCard.enterPhoneNumberWrongFormat(preferredLanguages: .currentLocale), false)
+                    onUpdateUI?("Wrong phone number format!", false) // TODO: localize
                 }
             }
         }

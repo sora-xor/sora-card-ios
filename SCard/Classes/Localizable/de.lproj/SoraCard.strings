@@ -103,6 +103,10 @@
 "common.copied" = "Copied to Clipboard";
 "card.attention.text" = "Aufmerksamkeit";
 "get.prepared.proof.address.note" = "Hinweis: Kontoauszüge von Neobanken wie Revolut und N26 gelten derzeit nicht als gültiger Adressnachweis.";
-"common.wrong.format" = "Wrong format!";
-"enter.phone.number.wrong.format" = "Wrong phone number format!";
 "get.prepared.alert" = "Sie haben nur %@ freie Versuche, den KYC-Prozess zu bestehen. Jeder weitere Versuch kostet danach €%@. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.";
+"paid.attempts.available.later" = "Paid attempts will be available at a later stage";
+"card.hub.update.title" = "Update app to latest version";
+"card.hub.update.button" = "Update now";
+"card.update.title" = "Update app to latest version to access SORA Card";
+"card.update.button" = "Update app";
+"card.hub.update.description" = "You are using an outdated version or the app, some part might not be working as intended.";

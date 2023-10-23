@@ -103,6 +103,10 @@
 "common.copied" = "Copied to Clipboard";
 "card.attention.text" = "Attention";
 "get.prepared.proof.address.note" = "Remarque : les relevés de néobanques comme Revolut et N26 ne sont actuellement pas considérés comme un justificatif de domicile valide.";
-"common.wrong.format" = "Wrong format!";
-"enter.phone.number.wrong.format" = "Wrong phone number format!";
 "get.prepared.alert" = "Vous ne disposez que de %@ tentatives gratuites pour réussir le processus KYC. Par la suite, toute autre tentative coûtera %@ €. Les tentatives payantes seront disponibles après la prochaine mise à jour de l'application.";
+"paid.attempts.available.later" = "Paid attempts will be available at a later stage";
+"card.hub.update.title" = "Update app to latest version";
+"card.hub.update.button" = "Update now";
+"card.update.title" = "Update app to latest version to access SORA Card";
+"card.update.button" = "Update app";
+"card.hub.update.description" = "You are using an outdated version or the app, some part might not be working as intended.";

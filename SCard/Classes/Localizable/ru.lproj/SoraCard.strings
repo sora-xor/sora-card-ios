@@ -71,7 +71,7 @@
 "details.annual.service.fee" = "€0 годовая плата за обслуживание";
 "details.free.card.issuance" = "Бесплатный выпуск карты";
 "details.free.card.issuance.conditions.xor" = "Если вы храните, стейкаете или предоставляете ликвидность в XOR стоимостью не менее €%@ на вашем аккаунте SORA";
-"details.free.card.issuance.conditions.euro" = "или %@ € регистрационный взнос";
+"details.free.card.issuance.conditions.euro" = "или €%@ регистрационный взнос";
 "common.error.general.title" = "Ошибка";
 "status.not.started" = "Получить SORA Card";
 "cant.fetch.refresh" = "Не удается получить данные, нажмите, чтобы обновить.";
@@ -103,6 +103,10 @@
 "common.copied" = "Copied to Clipboard";
 "card.attention.text" = "Внимание";
 "get.prepared.proof.address.note" = "Примечание. Заявления таких необанков, как Revolut и N26, в настоящее время не считаются действительным подтверждением адреса.";
-"common.wrong.format" = "Wrong format!";
-"enter.phone.number.wrong.format" = "Wrong phone number format!";
 "get.prepared.alert" = "У вас есть только %@ бесплатных попыток пройти процедуру KYC. Каждая следующая попытка после этого будет стоить € %@ . Платные попытки станут доступны после следующего обновления приложения.";
+"paid.attempts.available.later" = "Платные попытки будут доступны позднее";
+"card.hub.update.title" = "Update app to latest version";
+"card.hub.update.button" = "Update now";
+"card.update.title" = "Update app to latest version to access SORA Card";
+"card.update.button" = "Update app";
+"card.hub.update.description" = "You are using an outdated version or the app, some part might not be working as intended.";

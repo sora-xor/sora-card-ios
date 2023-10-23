@@ -48,7 +48,7 @@ final class SCKYCEnterPhoneCodeViewModel {
             return
         }
 
-        codeState = .wrong(R.string.soraCard.commonWrongFormat(preferredLanguages: .currentLocale))
+        codeState = .wrong("Wrong format!") // TODO: localize
         onUpdateUI?()
     }
 }

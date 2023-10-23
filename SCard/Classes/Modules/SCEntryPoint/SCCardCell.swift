@@ -16,6 +16,12 @@ public final class SCCardCell: SoramitsuTableViewCell {
         return view
     }()
 
+    private lazy var bgImageTintView: SoramitsuView = {
+        let view = SoramitsuView()
+        view.sora.backgroundColor = .custom(uiColor: .white.withAlphaComponent(0.8))
+        return view
+    }()
+
     private lazy var closeButton: ImageButton = {
         let button = ImageButton(size: .init(width: 32, height: 32))
         button.setImage(R.image.close(), for: .normal)
@@ -31,6 +37,16 @@ public final class SCCardCell: SoramitsuTableViewCell {
         let view = SoramitsuView()
         view.sora.cornerRadius = .custom(28)
         view.sora.backgroundColor = .bgPage
+        return view
+    }()
+
+    private lazy var updateAppLabel: SoramitsuLabel = {
+        let view = SoramitsuLabel()
+        view.sora.textColor = .fgPrimary
+        view.sora.font = FontType.headline2
+        view.sora.alignment = .center
+        view.sora.numberOfLines = 0
+        view.sora.text = R.string.soraCard.cardUpdateTitle(preferredLanguages: .currentLocale)
         return view
     }()
 
@@ -76,34 +92,43 @@ public final class SCCardCell: SoramitsuTableViewCell {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     private func setupConstraints() {
-        let ratio = self.bgImage.image!.size.height / self.bgImage.image!.size.width
-        contentView.addSubview(self.bgImage) {
+        let ratio = bgImage.image!.size.height / bgImage.image!.size.width
+        contentView.addSubview(bgImage) {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(self.bgImage.snp.width).multipliedBy(ratio)
+            $0.height.equalTo(bgImage.snp.width).multipliedBy(ratio)
         }
 
-        bgImage.addSubview(self.closeButton) {
+        bgImage.addSubview(bgImageTintView) {
+            $0.edges.equalToSuperview()
+        }
+
+        bgImage.addSubview(closeButton) {
             $0.top.trailing.equalToSuperview().inset(10)
         }
 
-        getCardContainer.addSubview(self.getCardLabel) {
+        getCardContainer.addSubview(getCardLabel) {
             $0.top.bottom.equalToSuperview().inset(20)
             $0.leading.trailing.equalToSuperview().inset(30)
         }
 
-        bgImage.addSubview(self.getCardContainer) {
+        bgImage.addSubview(getCardContainer) {
             $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview().inset(24)
             $0.width.lessThanOrEqualToSuperview().multipliedBy(0.90)
         }
 
-        cardInfoContainer.addSubview(self.cardInfoLabel) {
+        bgImageTintView.addSubview(updateAppLabel) {
+            $0.bottom.equalTo(getCardContainer.snp.top).offset(-16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+
+        cardInfoContainer.addSubview(cardInfoLabel) {
             $0.top.bottom.equalToSuperview().inset(8)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
 
-        bgImage.addSubview(self.cardInfoContainer) {
+        bgImage.addSubview(cardInfoContainer) {
             $0.bottom.trailing.equalToSuperview().inset(8)
         }
     }
@@ -115,13 +140,26 @@ extension SCCardCell: SoramitsuTableViewCellProtocol {
         sora.backgroundColor = .custom(uiColor: .clear)
         self.onClose = item.onClose
         self.onCard = item.onCard
+
         item.onUpdate = { [weak self] status, availableBalance in
-            self?.update(status: status, availableBalance: availableBalance)
+            self?.update(status: status, availableBalance: availableBalance, needUpdate: item.needUpdate)
         }
-        self.update(status: item.userStatus, availableBalance: item.availableBalance)
+        self.update(status: item.userStatus, availableBalance: item.availableBalance, needUpdate: item.needUpdate)
     }
 
-    private func update(status: SCKYCUserStatus, availableBalance: Int?) {
+    private func update(status: SCKYCUserStatus, availableBalance: Int?, needUpdate: Bool) {
+
+        guard !needUpdate else {
+            bgImageTintView.sora.isHidden = false
+            closeButton.isHidden = false
+            cardInfoContainer.sora.isHidden = true
+            getCardContainer.isHidden = false
+            getCardLabel.sora.text = R.string.soraCard.cardUpdateButton(preferredLanguages: .currentLocale)
+            getCardLabel.sora.textColor = .bgSurface
+            getCardContainer.sora.backgroundColor = .accentSecondary
+            return
+        }
+        bgImageTintView.sora.isHidden = true
         closeButton.isHidden = status == .successful
         getCardContainer.isHidden = status == .successful
         cardInfoContainer.sora.isHidden = status != .successful

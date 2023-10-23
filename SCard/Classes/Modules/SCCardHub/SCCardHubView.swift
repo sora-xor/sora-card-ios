@@ -4,61 +4,42 @@ import SoraUIKit
 final class SCCardHubView: UIView {
 
     var onLogout: (() -> Void)?
-    var onIban: ((String) -> Void)?
+    var onIbanShare: ((String) -> Void)?
+    var onUpdateApp: (() -> Void)?
 
     private let scrollView = UIScrollView()
 
-    // TODO: use table if needed
-    private var containerView: SoramitsuStackView = {
-        var view = SoramitsuStackView()
-        view.sora.axis = .vertical
-        view.sora.backgroundColor = .custom(uiColor: .clear)
+    private var containerView: UIStackView = {
+        var view = UIStackView()
+        view.axis = .vertical
         view.spacing = 16
         return view
     }()
 
     private var cardHubHeaderView = SCCardHubHeaderView()
 
-    private var ibanContainerView: SoramitsuStackView = {
-        var view = SoramitsuStackView()
-        view.sora.backgroundColor = .bgSurface
-        view.sora.axis = .vertical
-        view.sora.shadow = .default
-        view.spacing = 16
-        view.sora.cornerRadius = .medium
-        view.sora.distribution = .fill
-        view.layoutMargins = UIEdgeInsets(top: 16, left: 24, bottom: 16, right: 24)
-        view.isLayoutMarginsRelativeArrangement = true
+
+    private lazy var updateView: SCCardHubUpdateAppView = {
+        let view = SCCardHubUpdateAppView()
+        view.onUpdate = { [weak self] in
+            self?.onUpdateApp?()
+        }
         return view
     }()
 
-    private let ibanTitleLabel: SoramitsuLabel = {
-        let label = SoramitsuLabel()
-        label.sora.font = FontType.headline2
-        label.sora.textColor = .fgPrimary
-        label.sora.numberOfLines = 0
-        label.sora.text = R.string.soraCard.cardhubIbanTitle(preferredLanguages: .currentLocale)
-        return label
-    }()
-
-    private lazy var ibanCopyButton: SoramitsuButton = {
-        let button = SoramitsuButton(size: .large, type: .bleached(.tertiary))
-        button.sora.tintColor = .accentTertiary
-        button.sora.backgroundColor = .custom(uiColor: .clear)
-        button.sora.leftImage = R.image.upload()
-        button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.onIban?(self?.ibanLabel.sora.text ?? "")
+    private lazy var ibanView: SCCardHubIbanView = {
+        let view = SCCardHubIbanView()
+        view.onIbanShare = { [weak self] iban in
+            self?.onIbanShare?(iban)
         }
-        return button
-    }()
-
-    private let ibanLabel: SoramitsuLabel = {
-        let label = SoramitsuLabel()
-        label.sora.font = FontType.textM
-        label.sora.textColor = .fgPrimary
-        label.sora.numberOfLines = 0
-        label.sora.text = ""
-        return label
+        view.onIbanCopy = { [weak self] iban in
+            UIPasteboard.general.string = iban
+            self?.showToast(
+                message: R.string.soraCard.commonCopied(preferredLanguages: .currentLocale),
+                font: FontType.textM.font
+            )
+        }
+        return view
     }()
 
     private var settingsContainerView: SoramitsuStackView = {
@@ -104,36 +85,15 @@ final class SCCardHubView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(iban: String?, balance: Int) {
-        ibanLabel.sora.text = iban
+    func configure(iban: String?, balance: Int, needUpdateApp: Bool) {
+        ibanView.configure(iban: iban)
         cardHubHeaderView.configure(balance: balance)
+        updateView.sora.isHidden = !needUpdateApp
     }
     
     private func setupInitialLayout() {
 
         addSubview(scrollView)
-
-        let ibanLabelView = SoramitsuView()
-        ibanLabelView.addTapGesture { [weak self] _ in
-            UIPasteboard.general.string = self?.ibanLabel.sora.text
-            self?.showToast(
-                message: R.string.soraCard.commonCopied(preferredLanguages: .currentLocale),
-                font: FontType.textM.font
-            )
-        }
-        ibanLabelView.addSubview(ibanLabel) {
-            $0.edges.equalToSuperview()
-        }
-
-        let stackView = UIStackView(arrangedSubviews: [ibanTitleLabel, ibanCopyButton])
-        ibanContainerView.addArrangedSubviews([
-            stackView,
-            ibanLabelView
-        ])
-
-        ibanCopyButton.snp.makeConstraints {
-            $0.width.equalTo(24)
-        }
 
         settingsContainerView.addArrangedSubviews([
             settingsTitleLabel,
@@ -142,7 +102,8 @@ final class SCCardHubView: UIView {
 
         containerView.addArrangedSubviews([
             cardHubHeaderView,
-            ibanContainerView,
+            updateView,
+            ibanView,
             settingsContainerView
         ])
 
@@ -157,11 +118,6 @@ final class SCCardHubView: UIView {
             $0.top.bottom.equalToSuperview()
             $0.leading.trailing.equalTo(self).inset(16)
         }
-    }
-
-    @objc private func onCopy() {
-        UIPasteboard.general.string = ibanLabel.sora.text
-        showToast(message: "Copied", font: FontType.textM.font)
     }
 
     private func showToast(message : String, font: UIFont) {

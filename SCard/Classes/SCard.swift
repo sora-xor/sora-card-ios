@@ -20,6 +20,7 @@ public class SCard {
     private let addressProvider: () -> String
 
     public struct Config {
+        public let appStoreUrl: String
         public let backendUrl: String
         public let pwAuthDomain: String
         public let pwApiKey: String
@@ -32,6 +33,7 @@ public class SCard {
         public let themeMode: SoramitsuThemeMode
 
         public init(
+            appStoreUrl: String,
             backendUrl: String,
             pwAuthDomain: String,
             pwApiKey: String,
@@ -43,6 +45,7 @@ public class SCard {
             environmentType: EnvironmentType,
             themeMode: SoramitsuThemeMode
         ) {
+            self.appStoreUrl = appStoreUrl
             self.backendUrl = backendUrl
             self.pwAuthDomain = pwAuthDomain
             self.pwApiKey = pwApiKey
@@ -90,6 +93,7 @@ public class SCard {
         )
 
         Task {
+            await service.updateVersion()
             if SCStorage.shared.isFirstLaunch() {
                 await SCStorage.shared.removeToken()
                 SCStorage.shared.setAppLaunched()
@@ -145,6 +149,10 @@ public class SCard {
 
     public var configuration: String {
         config.debugDescription
+    }
+
+    public var iosClientVersion: String {
+        service.iosClientVersion
     }
 }
 

@@ -105,12 +105,14 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 15 images.
+  /// This `R.image` struct is generated, and contains static references to 16 images.
   struct image {
     /// Image `arrowDown`.
     static let arrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowDown")
     /// Image `arrowRightSmall`.
     static let arrowRightSmall = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowRightSmall")
+    /// Image `attention`.
+    static let attention = Rswift.ImageResource(bundle: R.hostingBundle, name: "attention")
     /// Image `checkSmall`.
     static let checkSmall = Rswift.ImageResource(bundle: R.hostingBundle, name: "checkSmall")
     /// Image `close`.
@@ -149,6 +151,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "arrowRightSmall", bundle: ..., traitCollection: ...)`
     static func arrowRightSmall(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.arrowRightSmall, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "attention", bundle: ..., traitCollection: ...)`
+    static func attention(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.attention, compatibleWith: traitCollection)
     }
     #endif
 
@@ -268,7 +277,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 109 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 113 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -534,6 +543,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let getPreparedOkTitle = Rswift.StringResource(key: "get.prepared.ok.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Paid attempts will be available at a later stage
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let paidAttemptsAvailableLater = Rswift.StringResource(key: "paid.attempts.available.later", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Reichen Sie ein Foto Ihres Ausweises ein
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -634,6 +647,22 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let getPreparedNeed = Rswift.StringResource(key: "get.prepared.need", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Update app
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardUpdateButton = Rswift.StringResource(key: "card.update.button", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Update app to latest version
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardHubUpdateTitle = Rswift.StringResource(key: "card.hub.update.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Update app to latest version to access SORA Card
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardUpdateTitle = Rswift.StringResource(key: "card.update.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Update now
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardHubUpdateButton = Rswift.StringResource(key: "card.hub.update.button", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Verifizieren Sie Ihre Telefonnummer
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -670,14 +699,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let termsAndConditionsDescription = Rswift.StringResource(key: "terms.and.conditions.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
-      /// de translation: Wrong format!
+      /// de translation: You are using an outdated version or the app, some part might not be working as intended.
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static let commonWrongFormat = Rswift.StringResource(key: "common.wrong.format", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
-      /// de translation: Wrong phone number format!
-      ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static let enterPhoneNumberWrongFormat = Rswift.StringResource(key: "enter.phone.number.wrong.format", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      static let cardHubUpdateDescription = Rswift.StringResource(key: "card.hub.update.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: oder %@ € Anmeldegebühr
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -1705,6 +1730,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("get.prepared.ok.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Paid attempts will be available at a later stage
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func paidAttemptsAvailableLater(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("paid.attempts.available.later", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "paid.attempts.available.later"
+        }
+
+        return NSLocalizedString("paid.attempts.available.later", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Reichen Sie ein Foto Ihres Ausweises ein
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2086,6 +2126,66 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("get.prepared.need", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Update app
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardUpdateButton(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.update.button", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.update.button"
+        }
+
+        return NSLocalizedString("card.update.button", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Update app to latest version
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardHubUpdateTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.update.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.update.title"
+        }
+
+        return NSLocalizedString("card.hub.update.title", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Update app to latest version to access SORA Card
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardUpdateTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.update.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.update.title"
+        }
+
+        return NSLocalizedString("card.update.title", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Update now
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardHubUpdateButton(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.update.button", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.update.button"
+        }
+
+        return NSLocalizedString("card.hub.update.button", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Verifizieren Sie Ihre Telefonnummer
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2225,34 +2325,19 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("terms.and.conditions.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: Wrong format!
+      /// de translation: You are using an outdated version or the app, some part might not be working as intended.
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static func commonWrongFormat(preferredLanguages: [String]? = nil) -> String {
+      static func cardHubUpdateDescription(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("common.wrong.format", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("card.hub.update.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "common.wrong.format"
+          return "card.hub.update.description"
         }
 
-        return NSLocalizedString("common.wrong.format", tableName: "SoraCard", bundle: bundle, comment: "")
-      }
-
-      /// de translation: Wrong phone number format!
-      ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static func enterPhoneNumberWrongFormat(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("enter.phone.number.wrong.format", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "enter.phone.number.wrong.format"
-        }
-
-        return NSLocalizedString("enter.phone.number.wrong.format", tableName: "SoraCard", bundle: bundle, comment: "")
+        return NSLocalizedString("card.hub.update.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: oder %@ € Anmeldegebühr

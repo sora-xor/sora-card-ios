@@ -5,6 +5,7 @@ import SoraUIKit
 final class SCCardHubViewController: UIViewController {
 
     var onLogout: (() -> Void)?
+    var onUpdateApp: (() -> Void)?
 
     private let model: SCCardHubViewModel
 
@@ -35,7 +36,11 @@ final class SCCardHubViewController: UIViewController {
             let iban = await model.iban()
             await MainActor.run {
                 guard let iban = iban else { return }
-                rootView.configure(iban: iban.iban, balance: iban.availableBalance)
+                rootView.configure(
+                    iban: iban.iban,
+                    balance: iban.availableBalance,
+                    needUpdateApp: model.needUpdateApp
+                )
             }
         }
     }
@@ -45,9 +50,11 @@ final class SCCardHubViewController: UIViewController {
             self.onLogout?()
         }
 
-        rootView.onIban = { [unowned self] iban in
+        rootView.onIbanShare = { [unowned self] iban in
             self.share(text: iban)
         }
+
+        rootView.onUpdateApp = onUpdateApp
     }
 
     private func share(text: String) {

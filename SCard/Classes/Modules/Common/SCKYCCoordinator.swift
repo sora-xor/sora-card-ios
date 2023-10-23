@@ -35,12 +35,21 @@ final class SCKYCCoordinator {
     }()
 
     func start(in rootViewController: UIViewController) async {
-
+        storage.set(isHidden: false)
         self.rootViewController = rootViewController
         await MainActor.run {
             navigationController.viewControllers = []
         }
 
+        switch service.verionsChangesNeeded() {
+        case .none, .patch, .minor:
+            await openSCard()
+        case .major:
+            await showUpdateVersion()
+        }
+    }
+
+    private func openSCard() async {
         // TODO: present loading creeen
 
         _ = await self.service.refreshAccessTokenIfNeeded()
@@ -52,7 +61,7 @@ final class SCKYCCoordinator {
             return
 
         } else if await navigationController.presentingViewController == nil {
-            await rootViewController.present(navigationController, animated: true)
+            await rootViewController?.present(navigationController, animated: true)
         }
 
         let data = SCKYCUserDataModel()
@@ -72,6 +81,12 @@ final class SCKYCCoordinator {
                 self?.showLogin(data: data)
             }
         }
+    }
+
+    private func showUpdateVersion() async {
+        let url = URL(string: service.config.appStoreUrl)!
+        let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
+        await rootViewController?.present(webViewController, animated: true)
     }
 
     private func showXOne() {
@@ -367,6 +382,12 @@ final class SCKYCCoordinator {
 
         viewController.onLogout = { [weak self] in
             self?.showLogoutAlert(in: viewController)
+        }
+        viewController.onUpdateApp = { [weak self, weak viewController] in
+            guard let self = self else { return }
+            let url = URL(string: self.service.config.appStoreUrl)!
+            let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
+            viewController?.present(webViewController, animated: true)
         }
 
         let containerView = BlurViewController()
