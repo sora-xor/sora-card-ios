@@ -31,7 +31,7 @@ extension SCKYCService {
 
     func verionsChangesNeeded() -> VersionChanges {
 
-//        return .major //TODO: remove this !!!
+        return .major //TODO: remove this !!!
 
         let neededVersionParts = iosClientVersion.split(separator: ".").map { Int($0) ?? 0 }
         let currentVersionParts = Bundle.main.appVersionLong.split(separator: ".").map { Int($0) ?? 0 }
