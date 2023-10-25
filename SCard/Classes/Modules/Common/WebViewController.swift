@@ -119,7 +119,7 @@ final class WKWebViewController: UIViewController {
         super.viewDidLoad()
 
         rootView.loadHTMLString(viewModel.xOneHtmlString, baseURL: nil)
-        viewModel.checkStatus()
+        // viewModel.checkStatus()
     }
 }
 

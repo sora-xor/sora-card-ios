@@ -30,7 +30,7 @@ final class SCXOneViewController: UIViewController {
         super.viewDidLoad()
         rootView.loadHTMLString(viewModel.xOneHtmlString, baseURL: nil)
         rootView.navigationDelegate = self
-        viewModel.checkStatus()
+        // viewModel.checkStatus()
     }
 }
 
