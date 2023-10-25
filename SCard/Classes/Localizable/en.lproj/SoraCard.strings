@@ -77,6 +77,7 @@
 "cant.fetch.refresh" = "Can't fetch data, tap to refresh.";
 "login.title" = "Log in or Sign up";
 "get.more.xor.dialog.description" = "You can swap for XOR or buy with Euro";
+"get.more.xor.dialog.deposit.option" = "Receive XOR";
 "get.more.xor.dialog.swap.option" = "Swap crypto for XOR";
 "get.more.xor.dialog.buy.option" = "Buy XOR with card";
 "verification.rejected.screen.try.again.for.euros" = "Try again for €%@";

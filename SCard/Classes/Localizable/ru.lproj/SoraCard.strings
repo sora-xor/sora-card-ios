@@ -77,6 +77,7 @@
 "cant.fetch.refresh" = "Не удается получить данные, нажмите, чтобы обновить.";
 "login.title" = "Войдите или зарегистрируйтесь";
 "get.more.xor.dialog.description" = "Вы можете обменять на XOR или купить за евро";
+"get.more.xor.dialog.deposit.option" = "Получить XOR";
 "get.more.xor.dialog.swap.option" = "Обменять криптовалюту на XOR";
 "get.more.xor.dialog.buy.option" = "Купить XOR с помощью карты";
 "verification.rejected.screen.try.again.for.euros" = "Повторить снова за €%@";

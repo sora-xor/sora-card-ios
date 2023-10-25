@@ -77,6 +77,7 @@
 "cant.fetch.refresh" = "No se pueden obtener datos, pulse para actualizar.";
 "login.title" = "Iniciar sesión o Registrarse";
 "get.more.xor.dialog.description" = "Puedes cambiar por XOR o comprar con euros";
+"get.more.xor.dialog.deposit.option" = "Depositar XOR";
 "get.more.xor.dialog.swap.option" = "Cambiar cripto por XOR";
 "get.more.xor.dialog.buy.option" = "Comprar XOR con EUR";
 "verification.rejected.screen.try.again.for.euros" = "Intente otra vez por €%@";

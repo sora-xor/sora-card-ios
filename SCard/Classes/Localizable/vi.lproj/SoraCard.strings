@@ -77,6 +77,7 @@
 "cant.fetch.refresh" = "Không thể tìm nạp dữ liệu, nhấn để làm mới.";
 "login.title" = "Đăng nhập hoặc đăng ký";
 "get.more.xor.dialog.description" = "Bạn có thể đổi lấy XOR hoặc mua bằng Euro";
+"get.more.xor.dialog.deposit.option" = "Nạp XOR";
 "get.more.xor.dialog.swap.option" = "Hoán đổi tiền điện tử lấy XOR";
 "get.more.xor.dialog.buy.option" = "Mua XOR bằng EUR";
 "verification.rejected.screen.try.again.for.euros" = "Hãy thử lại với giá €%@";

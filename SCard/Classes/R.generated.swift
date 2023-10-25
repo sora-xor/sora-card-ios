@@ -277,7 +277,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 115 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 116 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -703,6 +703,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let termsAndConditionsDescription = Rswift.StringResource(key: "terms.and.conditions.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: XOR einzahlen
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let getMoreXorDialogDepositOption = Rswift.StringResource(key: "get.more.xor.dialog.deposit.option", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: You are using an outdated version of the app, some part might not be working as intended.
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2346,6 +2350,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("terms.and.conditions.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: XOR einzahlen
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func getMoreXorDialogDepositOption(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("get.more.xor.dialog.deposit.option", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "get.more.xor.dialog.deposit.option"
+        }
+
+        return NSLocalizedString("get.more.xor.dialog.deposit.option", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: You are using an outdated version of the app, some part might not be working as intended.

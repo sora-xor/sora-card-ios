@@ -69,7 +69,7 @@ final class SCKYCDetailsViewController: UIViewController {
     private func showGetMoreAlert() {
         let alertController = UIAlertController(
             title: R.string.soraCard.detailsGetMoreXor(preferredLanguages: .currentLocale),
-            message: R.string.soraCard.getMoreXorDialogDescription(preferredLanguages: .currentLocale),
+            message: R.string.soraCard.getMoreXorDialogDepositOption(preferredLanguages: .currentLocale),
             preferredStyle: .actionSheet
         )
 
