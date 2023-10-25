@@ -23,10 +23,7 @@ class SCResultsTableController: UITableViewController {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellIdentifier, for: indexPath) as? SCCountryCell
         let country = filteredCountries[indexPath.row]
-        cell?.icon.image = country.flag
-        cell?.title.text = country.name
-        // TODO: Localize cell?.subtitle.text = country.name
-        cell?.value.text = country.dialCode
+        cell?.configure(model: country)
         return cell ?? .init()
     }
 }

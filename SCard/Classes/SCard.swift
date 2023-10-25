@@ -5,6 +5,7 @@ import SoraUIKit
 public class SCard {
 
     static let minXorAmount = "100"
+    static let techSupportLink = "techsupport@soracard.com"
 
     internal var issuanceFee: String {
         service.applicationFeeCache

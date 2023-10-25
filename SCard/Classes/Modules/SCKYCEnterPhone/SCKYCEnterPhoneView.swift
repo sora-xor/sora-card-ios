@@ -30,7 +30,6 @@ final class SCKYCEnterPhoneView: UIView {
         view.sora.textFieldPlaceholder = R.string.soraCard.enterPhoneNumberPhoneInputFieldLabel(preferredLanguages: .currentLocale)
         view.sora.descriptionLabelText = R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale)
         view.sora.keyboardType = .phonePad
-        view.sora.textContentType = .telephoneNumber
         view.sora.addHandler(for: .editingChanged) { [weak self] in
             self?.onInput?(self?.inputField.sora.text ?? "")
         }
@@ -75,7 +74,7 @@ final class SCKYCEnterPhoneView: UIView {
 
     func configure(country: SCCountry) {
         countryView.leftImageView.image = country.flag
-        countryView.titleLabel.text = country.name
+        countryView.titleLabel.text = country.localizedName
         codeField.sora.text = country.dialCode
     }
 

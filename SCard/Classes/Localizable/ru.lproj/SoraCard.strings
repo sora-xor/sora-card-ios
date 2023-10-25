@@ -105,8 +105,10 @@
 "get.prepared.proof.address.note" = "Примечание. Заявления таких необанков, как Revolut и N26, в настоящее время не считаются действительным подтверждением адреса.";
 "get.prepared.alert" = "У вас есть только %@ бесплатных попыток пройти процедуру KYC. Каждая следующая попытка после этого будет стоить € %@ . Платные попытки станут доступны после следующего обновления приложения.";
 "paid.attempts.available.later" = "Платные попытки будут доступны позднее";
-"card.hub.update.title" = "Update app to latest version";
-"card.hub.update.button" = "Update now";
-"card.update.title" = "Update app to latest version to access SORA Card";
-"card.update.button" = "Update app";
-"card.hub.update.description" = "You are using an outdated version or the app, some part might not be working as intended.";
+"card.hub.update.title" = "Обновите приложение до последней версии";
+"card.hub.update.button" = "Обновите сейчас";
+"card.update.title" = "Обновите приложение до последней версии, чтобы получить доступ к SORA Card";
+"card.update.button" = "Обновите приложение";
+"card.hub.update.description" = "Вы используете устаревшую версию приложения, некоторые части могут работать не так, как задумано.";
+"select.country.title" = "Выберите свою страну";
+"iban.pending.description" = "Выдача вашего IBAN ожидается.\nВ случае ожидания более 72 часов свяжитесь с нами по адресу techsupport@soracard.com.";

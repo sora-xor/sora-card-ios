@@ -285,7 +285,6 @@ final class SCKYCCoordinator {
         Task {
 
             await service.updateKycState()
-            let hasIban = await service.hasIban()
             let isEnoughXor = await SCKYCDetailsViewModel.isEnoughXor(
                 xorBalance: self.balanceStream.wrappedValue,
                 service: service
@@ -296,11 +295,7 @@ final class SCKYCCoordinator {
 
                 let kycLastState = self.service.currentUserState
                 if kycLastState.verificationStatus == .accepted {
-                    if hasIban {
-                        self.showCardHub()
-                    } else {
-                        self.showStatus(data: data)
-                    }
+                    self.showCardHub()
                     return
                 }
 

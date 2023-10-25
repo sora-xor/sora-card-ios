@@ -105,8 +105,10 @@
 "get.prepared.proof.address.note" = "请注意：像Revolut和N26这样的新型银行的声明目前不被视为有效的地址证明。";
 "get.prepared.alert" = "您只有%@免费尝试机会通过 KYC 流程。此后的所有其他尝试都将花费 € %@ 。下次更新应用程序后将提供付费尝试。";
 "paid.attempts.available.later" = "付费尝试将在后期提供";
-"card.hub.update.title" = "Update app to latest version";
-"card.hub.update.button" = "Update now";
-"card.update.title" = "Update app to latest version to access SORA Card";
-"card.update.button" = "Update app";
-"card.hub.update.description" = "You are using an outdated version or the app, some part might not be working as intended.";
+"card.hub.update.title" = "更新应用至最新版本";
+"card.hub.update.button" = "立即更新";
+"card.update.title" = "请更新应用程序至最新版本以使用SORA卡";
+"card.update.button" = "更新应用程序";
+"card.hub.update.description" = "您使用的是过时的版本或应用程序，某些部分可能无法按预期工作。";
+"select.country.title" = "Select your country";
+"iban.pending.description" = "Your IBAN issuance is pending.\nIn case the wait longer than 72h contact us via techsupport@soracard.com";

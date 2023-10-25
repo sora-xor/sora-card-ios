@@ -109,4 +109,6 @@
 "card.hub.update.button" = "Update now";
 "card.update.title" = "Update app to latest version to access SORA Card";
 "card.update.button" = "Update app";
-"card.hub.update.description" = "You are using an outdated version or the app, some part might not be working as intended.";
+"card.hub.update.description" = "You are using an outdated version of the app, some part might not be working as intended.";
+"select.country.title" = "Select your country";
+"iban.pending.description" = "Your IBAN issuance is pending.\nIn case the wait longer than 72h contact us via techsupport@soracard.com";

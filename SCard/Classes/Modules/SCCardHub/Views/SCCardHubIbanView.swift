@@ -6,6 +6,8 @@ final class SCCardHubIbanView: SoramitsuView {
     var onIbanShare: ((String) -> Void)?
     var onIbanCopy: ((String) -> Void)?
 
+    private let supportLink = SCard.techSupportLink
+
     private let titleLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.headline2
@@ -15,6 +17,8 @@ final class SCCardHubIbanView: SoramitsuView {
         return label
     }()
 
+
+    var tapGesture: SoramitsuTapGestureRecognizer?
     private lazy var subtitleLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.textM
@@ -22,9 +26,6 @@ final class SCCardHubIbanView: SoramitsuView {
         label.sora.numberOfLines = 0
         label.sora.text = ""
         label.isUserInteractionEnabled = true
-        label.addTapGesture { [weak self] _ in
-            self?.onIbanCopy?(self?.subtitleLabel.sora.text ?? "")
-        }
         return label
     }()
 
@@ -57,7 +58,34 @@ final class SCCardHubIbanView: SoramitsuView {
     }
 
     func configure(iban: String?) {
-        subtitleLabel.sora.text = iban
+
+        if let tapGesture = tapGesture {
+            subtitleLabel.removeGestureRecognizer(tapGesture)
+        }
+
+        if let iban = iban {
+            shareButton.sora.isHidden = false
+            subtitleLabel.sora.text = iban
+            subtitleLabel.sora.textColor = .fgPrimary
+            tapGesture = subtitleLabel.addTapGesture { [weak self] _ in
+                self?.onIbanCopy?(self?.subtitleLabel.sora.text ?? "")
+            }
+        } else {
+            shareButton.sora.isHidden = true
+            subtitleLabel.sora.textColor = .fgSecondary
+            let attributedString = NSMutableAttributedString(
+                string: R.string.soraCard.ibanPendingDescription(preferredLanguages: .currentLocale)
+            )
+            _ = attributedString.addUrl(link: "mailto:\(supportLink)", to: supportLink)
+            subtitleLabel.sora.attributedText = attributedString
+            tapGesture = subtitleLabel.addTapGesture { [weak self] _ in
+                guard
+                    let mail = self?.supportLink,
+                    let url = URL(string: "mailto:\(mail)")
+                else { return }
+                UIApplication.shared.open(url)
+            }
+        }
     }
 
     private func setupInitialLayout() {
@@ -76,5 +104,14 @@ final class SCCardHubIbanView: SoramitsuView {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.bottom.leading.trailing.equalToSuperview().inset(24)
         }
+    }
+}
+
+extension NSMutableAttributedString {
+    public func addUrl(link: String, to text: String) -> Bool {
+        let range = self.mutableString.range(of: text)
+        guard range.location != NSNotFound else { return false }
+        self.addAttribute(.link, value: link, range: range)
+        return true
     }
 }

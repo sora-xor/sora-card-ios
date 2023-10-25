@@ -28,6 +28,8 @@ class SCCountryList: UITableViewController, UISearchControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = R.string.soraCard.selectCountryTitle(preferredLanguages: .currentLocale)
+
         tableView.register(SCCountryCell.self, forCellReuseIdentifier: tableViewCellIdentifier)
 
         resultsTableController = SCResultsTableController()
@@ -100,10 +102,7 @@ extension SCCountryList {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: tableViewCellIdentifier, for: indexPath) as? SCCountryCell
         let country = countries[indexPath.row]
-        cell?.icon.image = country.flag
-        cell?.title.text = country.name
-        cell?.value.text = country.dialCode
-        // TODO: localise ?cell?.subtitle.text = country.name
+        cell?.configure(model: country)
         return cell ?? .init()
     }
 }

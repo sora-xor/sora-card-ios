@@ -26,6 +26,17 @@ struct SCCountry {
     let code: String
     let dialCode: String
 
+    var originalName: String {
+        let localeId = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+        return NSLocale(localeIdentifier: code).displayName(forKey: NSLocale.Key.identifier, value: localeId) ?? name
+    }
+
+    var localizedName: String {
+        let currentLocaleID = NSLocale.current.identifier
+        let localeId = NSLocale.localeIdentifier(fromComponents: [NSLocale.Key.countryCode.rawValue: code])
+        return NSLocale(localeIdentifier: currentLocaleID).displayName(forKey: NSLocale.Key.identifier, value: localeId) ?? name
+    }
+
     var flagEmoji: String {
         func isLowercaseASCIIScalar(_ scalar: Unicode.Scalar) -> Bool {
             return scalar.value >= 0x61 && scalar.value <= 0x7A

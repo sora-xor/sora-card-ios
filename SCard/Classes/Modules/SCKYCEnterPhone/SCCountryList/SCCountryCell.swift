@@ -5,7 +5,7 @@ class SCCountryCell: UITableViewCell {
 
     private static let iconSize: CGFloat = 24
 
-    let icon: UIImageView = {
+    private let icon: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .gray
         imageView.contentMode = .center
@@ -14,7 +14,7 @@ class SCCountryCell: UITableViewCell {
         return imageView
     }()
 
-    let title: SoramitsuLabel = {
+    private let title: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.textM
         label.sora.textColor = .fgPrimary
@@ -23,7 +23,7 @@ class SCCountryCell: UITableViewCell {
         return label
     }()
 
-    let subtitle: SoramitsuLabel = {
+    private let subtitle: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.textBoldXS
         label.sora.textColor = .fgSecondary
@@ -32,7 +32,7 @@ class SCCountryCell: UITableViewCell {
         return label
     }()
 
-    let value: SoramitsuLabel = {
+    private let value: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.setContentCompressionResistancePriority(.required, for: .horizontal)
         label.sora.font = FontType.textM
@@ -41,7 +41,6 @@ class SCCountryCell: UITableViewCell {
         return label
     }()
 
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupInitialLayout()
@@ -49,6 +48,13 @@ class SCCountryCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(model: SCCountry) {
+        icon.image = model.flag
+        title.text = model.localizedName
+        subtitle.text = model.originalName
+        value.text = model.dialCode
     }
     
     private func setupInitialLayout() {
