@@ -202,11 +202,27 @@ final class SCKYCCoordinator {
 
     private func showEnterPhone(data: SCKYCUserDataModel) {
         let viewModel = SCKYCEnterPhoneViewModel(service: service, data: data)
+
+        viewModel.onCountry = { [unowned self, unowned viewModel] in
+            showCountryList() { selectedCountry in
+                viewModel.onCountrySelected(selectedCountry)
+            }
+        }
+
         viewModel.onContinue = { [unowned self] in
             showEnterPhoneCode(data: data)
 
         }
         let viewController = SCKYCEnterPhoneViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    private func showCountryList(_ onCountrySelected: @escaping (SCCountry) -> Void) {
+        let viewController = SCCountryList(service: service)
+        viewController.onCountrySelected = { [unowned self] selectedCountry in
+            navigationController.popViewController(animated: true)
+            onCountrySelected(selectedCountry)
+        }
         navigationController.pushViewController(viewController, animated: true)
     }
 

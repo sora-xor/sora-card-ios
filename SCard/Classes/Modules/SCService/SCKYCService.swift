@@ -11,9 +11,9 @@ enum SCEndpoint: Endpoint {
     case ibans
     case fees
     case version
+    case countryCodes
 
     var path: String {
-
         switch self {
         case .getReferenceNumber:
             return "get-reference-number"
@@ -33,6 +33,8 @@ enum SCEndpoint: Endpoint {
             return "fees"
         case .version:
             return "version"
+        case .countryCodes:
+            return "country-codes"
         }
     }
 }
@@ -45,6 +47,7 @@ public final class SCKYCService {
     internal var retryFeeCache: String = "3.80"
     internal var applicationFeeCache: String = "29"
     internal var iosClientVersion: String = "3.5.0"
+    internal var countries: [SCCountry] = []
     private let payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol
     private var isRefreshAccessTokenInProgress = false
     private var kycStatusRefresherTimer: Timer?

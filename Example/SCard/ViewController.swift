@@ -52,12 +52,12 @@ class ViewController: UIViewController {
             appStoreUrl: "https://apps.apple.com/us/app/sora-wallet-polkaswap/id1457566711",
             backendUrl: "https://backend.dev.sora-card.tachi.soramitsu.co.jp/",
             pwAuthDomain: "soracard.com",
-            pwApiKey: "6974528a-ee11-4509-b549-a8d02c1aec0d",
+            pwApiKey: "",
             kycUrl: "https://kyc-test.soracard.com/mobile",
-            kycUsername: "E7A6CB83-630E-4D24-88C5-18AAF96032A4",
-            kycPassword: "75A55B7E-A18F-4498-9092-58C7D6BDB333",
+            kycUsername: "",
+            kycPassword: "",
             xOneEndpoint: "https://dev.x1ex.com/widgets/sdk.js",
-            xOneId: "sprkwdgt-WYL6QBNC",
+            xOneId: "",
             environmentType: .test,
             themeMode: SoramitsuUI.shared.themeMode
         )

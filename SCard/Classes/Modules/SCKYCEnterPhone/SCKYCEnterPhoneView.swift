@@ -3,6 +3,7 @@ import SoraUIKit
 
 final class SCKYCEnterPhoneView: UIView {
 
+    var onCountry: (() -> Void)?
     var onInput: ((String) -> Void)?
     var onContinueButton: (() -> Void)?
 
@@ -16,6 +17,13 @@ final class SCKYCEnterPhoneView: UIView {
         return label
     }()
 
+    private(set) lazy var codeField: InputField = {
+        let view = InputField()
+        view.sora.state = .default // Filled
+        view.sora.isEnabled = false
+        return view
+    }()
+
     private(set) lazy var inputField: InputField = {
         let view = InputField()
         view.sora.titleLabelText = R.string.soraCard.enterPhoneNumberPhoneInputFieldLabel(preferredLanguages: .currentLocale)
@@ -23,9 +31,17 @@ final class SCKYCEnterPhoneView: UIView {
         view.sora.descriptionLabelText = R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale)
         view.sora.keyboardType = .phonePad
         view.sora.textContentType = .telephoneNumber
-        view.sora.text = "+"
         view.sora.addHandler(for: .editingChanged) { [weak self] in
             self?.onInput?(self?.inputField.sora.text ?? "")
+        }
+        return view
+    }()
+
+    private lazy var countryView: SCIconTitleIconView = {
+        let view = SCIconTitleIconView()
+        view.rightImageView.sora.picture = .logo(image: R.image.arrowRightSmall() ?? .init())
+        view.addTapGesture { [weak self] _ in
+            self?.onCountry?()
         }
         return view
     }()
@@ -57,25 +73,54 @@ final class SCKYCEnterPhoneView: UIView {
         continueButton.sora.isEnabled = isContinueEnabled
     }
 
-    private func setupInitialLayout() {
-        addSubview(textLabel)
-        addSubview(inputField)
-        addSubview(continueButton)
+    func configure(country: SCCountry) {
+        countryView.leftImageView.image = country.flag
+        countryView.titleLabel.text = country.name
+        codeField.sora.text = country.dialCode
+    }
 
-        textLabel.snp.makeConstraints {
+    private func setupInitialLayout() {
+
+        addSubview(textLabel) {
             $0.top.equalTo(self.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
 
-        inputField.snp.makeConstraints {
+        addSubview(countryView) {
             $0.top.equalTo(textLabel.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(76) // TODO: Ivan fix InputField constraints to have min content size
+            $0.leading.trailing.equalToSuperview()
         }
 
-        continueButton.snp.makeConstraints {
+        addSubview(codeField) {
+            $0.top.equalTo(countryView.snp.bottom).offset(24)
+            $0.leading.equalToSuperview().inset(24)
+            $0.width.equalTo(112)
+        }
+
+        addSubview(inputField) {
+            $0.top.equalTo(countryView.snp.bottom).offset(24)
+            $0.leading.equalTo(codeField.snp.trailing).offset(8)
+            $0.trailing.equalToSuperview().inset(24)
+        }
+
+        addSubview(continueButton) {
             $0.top.equalTo(inputField.snp.bottom).offset(28)
             $0.leading.trailing.equalToSuperview().inset(24)
+        }
+    }
+}
+
+extension String {
+    func image(
+        withAttributes attributes: [NSAttributedString.Key: Any]? = nil,
+        size: CGSize? = nil
+    ) -> UIImage? {
+        let size = size ?? (self as NSString).size(withAttributes: attributes)
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            (self as NSString).draw(
+                in: CGRect(origin: .zero, size: size),
+                withAttributes: attributes
+            )
         }
     }
 }

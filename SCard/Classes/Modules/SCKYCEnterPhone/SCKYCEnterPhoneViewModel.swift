@@ -1,37 +1,63 @@
-import Foundation
 import PayWingsOAuthSDK
 
 final class SCKYCEnterPhoneViewModel {
 
     /// "^[\\+]?[(]?[0-9]{3}[)]?[-\\s.]?[0-9]{3}[-\\s.]?[0-9]{3,9}$"
     static let phoneNumberRegex = "^[\\+][0-9]{8,16}$"
+    var onCountry: (() -> Void)?
     var onContinue: (() -> Void)?
     var onUpdateUI: ((String, Bool) -> Void)?
+    var onUpdateCountry: ((SCCountry) -> Void)?
 
     private let service: SCKYCService
     private let data: SCKYCUserDataModel
+    private var selectedCountry: SCCountry
     private let callback = SignInWithPhoneNumberRequestOtpCallback()
     private var phoneNumber = ""
 
     init(service: SCKYCService, data: SCKYCUserDataModel) {
         self.service = service
         self.data = data
+        self.selectedCountry = .init(name: "Test", code: "TT", dialCode: "+1")
         callback.delegate = self
+
+    }
+
+    func setupCrrentCountry() {
+        Task {
+            let response = await service.updateCountries()
+            switch response {
+            case .success(let counties):
+                let regionCode = Locale.current.regionCode
+                if let country = counties.first(where: { $0.code.lowercased() == regionCode?.lowercased() }) ?? counties.first {
+                    await MainActor.run {
+                        onUpdateCountry?(country)
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     func onInput(text: String) {
-        phoneNumber = text
+        phoneNumber = selectedCountry.dialCode + text
         if text.isEmpty {
             onUpdateUI?(R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale), false)
         } else {
-            if text ~= Self.phoneNumberRegex {
+            if phoneNumber ~= Self.phoneNumberRegex {
                 onUpdateUI?("", true)
             } else {
-                if text.count > 7 {
+                if phoneNumber.count > 7 {
                     onUpdateUI?("Wrong phone number format!", false) // TODO: localize
                 }
             }
         }
+    }
+
+    func onCountrySelected(_ selectedCountry: SCCountry) {
+        self.selectedCountry = selectedCountry
+        onUpdateCountry?(selectedCountry)
     }
 
     func signIn() {
