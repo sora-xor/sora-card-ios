@@ -39,13 +39,6 @@ final class SCKYCCoordinator {
         self.rootViewController = rootViewController
         await MainActor.run {
             navigationController.viewControllers = []
-
-            // TODO: tmp
-
-            showXOne()
-//            showCardDetails(data: .init())
-//            showEnterPhone(data: .init())
-            return
         }
 
         switch await service.verionsChangesNeeded() {
