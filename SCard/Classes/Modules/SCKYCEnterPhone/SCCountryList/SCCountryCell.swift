@@ -34,6 +34,7 @@ class SCCountryCell: UITableViewCell {
 
     let value: SoramitsuLabel = {
         let label = SoramitsuLabel()
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         label.sora.font = FontType.textM
         label.sora.textColor = .fgPrimary
         label.sora.alignment = .right

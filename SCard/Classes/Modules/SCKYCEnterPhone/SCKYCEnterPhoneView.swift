@@ -20,7 +20,7 @@ final class SCKYCEnterPhoneView: UIView {
     private(set) lazy var codeField: InputField = {
         let view = InputField()
         view.sora.state = .default // Filled
-        view.sora.isEnabled = false
+        view.isUserInteractionEnabled = false
         return view
     }()
 
@@ -94,7 +94,7 @@ final class SCKYCEnterPhoneView: UIView {
         addSubview(codeField) {
             $0.top.equalTo(countryView.snp.bottom).offset(24)
             $0.leading.equalToSuperview().inset(24)
-            $0.width.equalTo(112)
+            $0.width.equalTo(85)
         }
 
         addSubview(inputField) {
