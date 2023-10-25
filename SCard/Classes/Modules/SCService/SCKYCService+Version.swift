@@ -16,25 +16,19 @@ extension SCKYCService {
         switch await version() {
         case .success(let respose):
             iosClientVersion = respose.iosClientVersion
-// TODO: implement if needed
-//            #if F_DEV
-//            iosClientVersion = debugIosClientVersion.isEmpty ?
-//                respose.iosClientVersion :
-//                debugIosClientVersion
-//            #else
-//            iosClientVersion = respose.iosClientVersion
-//            #endif
         case .failure(let error):
             print(error)
         }
     }
 
-    func verionsChangesNeeded() -> VersionChanges {
+    func verionsChangesNeeded() async -> VersionChanges {
 
-//        return .major //TODO: remove this !!!
+        if iosClientVersion == nil {
+            await updateVersion()
+        }
 
-        let neededVersionParts = iosClientVersion.split(separator: ".").map { Int($0) ?? 0 }
-        let currentVersionParts = Bundle.main.appVersionLong.split(separator: ".").map { Int($0) ?? 0 }
+        let neededVersionParts = iosClientVersion?.split(separator: ".").map { Int($0) ?? 0 } ?? []
+        let currentVersionParts = SCard.currentSDKVersion.split(separator: ".").map { Int($0) ?? 0 }
         guard neededVersionParts.count == 3, currentVersionParts.count == 3 else { return .none }
 
         if neededVersionParts[0] > currentVersionParts[0] {
@@ -53,17 +47,18 @@ extension SCKYCService {
     }
 }
 
-
 struct SCVersion: Codable {
     let iosClientVersion: String
-    let androidClientVersion: String
+    let androidSoraClientVersion: String
+    let androidFearlessClientVersion: String
     let apiVersion: String
     let buildTimestamp: String
     let gitPretty: String
 
     enum CodingKeys: String, CodingKey {
         case iosClientVersion = "ios_client_version"
-        case androidClientVersion = "android_client_version"
+        case androidSoraClientVersion = "android_sora_client_version"
+        case androidFearlessClientVersion = "android_fearless_client_version"
         case apiVersion = "api_version"
         case buildTimestamp = "build_timestamp"
         case gitPretty = "git_pretty"

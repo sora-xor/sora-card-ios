@@ -34,12 +34,13 @@ final class SCCardHubViewController: UIViewController {
 
         Task {
             let iban = await model.iban()
+            let needUpdateApp = await model.needUpdateApp()
             await MainActor.run {
                 guard let iban = iban else { return }
                 rootView.configure(
                     iban: iban.iban,
                     balance: iban.availableBalance,
-                    needUpdateApp: model.needUpdateApp
+                    needUpdateApp: needUpdateApp
                 )
             }
         }

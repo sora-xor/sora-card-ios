@@ -20,9 +20,13 @@ public final class SCCardItem: NSObject {
         self.service = service.service
         super.init()
 
-        self.needUpdate = service.service.verionsChangesNeeded() == .major
-
         Task { [weak self] in
+            switch await self?.service.verionsChangesNeeded() ?? .none {
+            case .major:
+                self?.needUpdate = true
+            case .minor, .patch, .none:
+                self?.needUpdate = false
+            }
             for await userStatus in service.userStatusStream {
                 self?.userStatus = userStatus
                 await self?.updateBalance()

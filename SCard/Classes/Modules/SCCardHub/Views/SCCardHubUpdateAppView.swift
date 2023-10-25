@@ -7,6 +7,7 @@ final class SCCardHubUpdateAppView: SoramitsuView {
 
     private let titleLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
+        label.sora.numberOfLines = 2
         label.sora.font = FontType.headline2
         label.sora.textColor = .fgPrimary
         label.sora.text = R.string.soraCard.cardHubUpdateTitle(preferredLanguages: .currentLocale)

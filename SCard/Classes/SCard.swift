@@ -4,6 +4,7 @@ import SoraUIKit
 
 public class SCard {
 
+    public static let currentSDKVersion = "2.2.0"
     static let minXorAmount = "100"
     static let techSupportLink = "techsupport@soracard.com"
 
@@ -150,10 +151,6 @@ public class SCard {
 
     public var configuration: String {
         config.debugDescription
-    }
-
-    public var iosClientVersion: String {
-        service.iosClientVersion
     }
 }
 
