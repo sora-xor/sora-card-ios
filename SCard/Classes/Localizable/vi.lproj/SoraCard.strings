@@ -113,3 +113,4 @@
 "card.hub.update.description" = "Bạn đang sử dụng phiên bản hoặc ứng dụng lỗi thời, một số phần có thể không hoạt động như dự kiến.";
 "select.country.title" = "Select your country";
 "iban.pending.description" = "Your IBAN issuance is pending.\nIn case the wait longer than 72h contact us via techsupport@soracard.com";
+"card.hub.title" = "Card details";

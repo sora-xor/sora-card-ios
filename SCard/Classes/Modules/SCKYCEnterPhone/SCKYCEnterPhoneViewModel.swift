@@ -18,7 +18,7 @@ final class SCKYCEnterPhoneViewModel {
     init(service: SCKYCService, data: SCKYCUserDataModel) {
         self.service = service
         self.data = data
-        self.selectedCountry = .init(name: "Test", code: "TT", dialCode: "+1")
+        self.selectedCountry = .usa
         callback.delegate = self
 
     }
@@ -27,12 +27,13 @@ final class SCKYCEnterPhoneViewModel {
         Task {
             let response = await service.updateCountries()
             switch response {
-            case .success(let counties):
+            case .success(let countries):
                 let regionCode = Locale.current.regionCode
-                if let country = counties.first(where: { $0.code.lowercased() == regionCode?.lowercased() }) ?? counties.first {
-                    await MainActor.run {
-                        onUpdateCountry?(country)
-                    }
+                let country = countries
+                    .first(where: { $0.code.lowercased() == regionCode?.lowercased() }) ?? .usa
+                selectedCountry = country
+                await MainActor.run {
+                    onUpdateCountry?(country)
                 }
             case .failure(let error):
                 print(error)

@@ -21,6 +21,10 @@ extension SCKYCService {
     }
 }
 
+extension SCCountry {
+    static let usa = SCCountry(name: "United States", code: "US", dialCode: "+1")
+}
+
 struct SCCountry {
     let name: String
     let code: String

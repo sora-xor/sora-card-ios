@@ -7,7 +7,6 @@ class SCIconTitleIconView: SoramitsuView {
 
     let leftImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .gray
         imageView.contentMode = .center
         imageView.layer.cornerRadius = SCIconTitleIconView.iconSize / 2
         imageView.clipsToBounds = true

@@ -113,3 +113,4 @@
 "card.hub.update.description" = "Вы используете устаревшую версию приложения, некоторые части могут работать не так, как задумано.";
 "select.country.title" = "Выберите свою страну";
 "iban.pending.description" = "Выдача вашего IBAN ожидается.\nВ случае ожидания более 72 часов свяжитесь с нами по адресу techsupport@soracard.com.";
+"card.hub.title" = "Card details";

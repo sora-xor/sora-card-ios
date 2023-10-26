@@ -42,10 +42,10 @@ final class SCKYCCoordinator {
         }
 
         switch await service.verionsChangesNeeded() {
-        case .none, .patch, .minor:
-            await openSCard()
-        case .major:
+        case .major, .minor, .patch:
             await showUpdateVersion()
+        case .none:
+            await openSCard()
         }
     }
 

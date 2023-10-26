@@ -277,7 +277,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 116 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 117 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -339,6 +339,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let verifyPhoneNumberSendCode = Rswift.StringResource(key: "verify.phone.number.send.code", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Card details
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardHubTitle = Rswift.StringResource(key: "card.hub.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Card info
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -967,6 +971,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("verify.phone.number.send.code", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Card details
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardHubTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.title"
+        }
+
+        return NSLocalizedString("card.hub.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Card info

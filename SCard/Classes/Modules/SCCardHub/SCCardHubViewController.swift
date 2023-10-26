@@ -47,6 +47,11 @@ final class SCCardHubViewController: UIViewController {
     }
 
     private func binding() {
+
+        rootView.onClose = { [unowned self] in
+            self.dismiss(animated: true)
+        }
+
         rootView.onLogout = { [unowned self] in
             self.onLogout?()
         }

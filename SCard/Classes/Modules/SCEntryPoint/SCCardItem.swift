@@ -22,9 +22,9 @@ public final class SCCardItem: NSObject {
 
         Task { [weak self] in
             switch await self?.service.verionsChangesNeeded() ?? .none {
-            case .major:
+            case .major, .minor, .patch:
                 self?.needUpdate = true
-            case .minor, .patch, .none:
+            case .none:
                 self?.needUpdate = false
             }
             for await userStatus in service.userStatusStream {

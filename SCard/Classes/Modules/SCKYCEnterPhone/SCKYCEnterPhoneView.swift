@@ -60,6 +60,7 @@ final class SCKYCEnterPhoneView: UIView {
         super.init(frame: frame)
         backgroundColor = .white
         setupInitialLayout()
+        configure(country: .usa)
     }
 
     required init?(coder: NSCoder) {

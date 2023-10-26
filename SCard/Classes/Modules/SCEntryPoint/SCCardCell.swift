@@ -46,6 +46,8 @@ public final class SCCardCell: SoramitsuTableViewCell {
         view.sora.font = FontType.headline2
         view.sora.alignment = .center
         view.sora.numberOfLines = 0
+        view.adjustsFontSizeToFitWidth = true
+        view.minimumScaleFactor = 0.2
         view.sora.text = R.string.soraCard.cardUpdateTitle(preferredLanguages: .currentLocale)
         return view
     }()
@@ -107,6 +109,7 @@ public final class SCCardCell: SoramitsuTableViewCell {
             $0.top.trailing.equalToSuperview().inset(10)
         }
 
+        getCardLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         getCardContainer.addSubview(getCardLabel) {
             $0.top.bottom.equalToSuperview().inset(20)
             $0.leading.trailing.equalToSuperview().inset(30)
@@ -119,6 +122,7 @@ public final class SCCardCell: SoramitsuTableViewCell {
         }
 
         bgImageTintView.addSubview(updateAppLabel) {
+            $0.top.greaterThanOrEqualToSuperview().inset(16)
             $0.bottom.equalTo(getCardContainer.snp.top).offset(-16)
             $0.leading.trailing.equalToSuperview().inset(16)
         }

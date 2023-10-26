@@ -6,6 +6,27 @@ final class SCCardHubView: UIView {
     var onLogout: (() -> Void)?
     var onIbanShare: ((String) -> Void)?
     var onUpdateApp: (() -> Void)?
+    var onClose: (() -> Void)?
+
+    private let titleLabel: SoramitsuLabel = {
+        let label = SoramitsuLabel()
+        label.sora.font = FontType.headline2
+        label.sora.textColor = .fgPrimary
+        label.sora.numberOfLines = 0
+        label.sora.text = R.string.soraCard.cardHubTitle(preferredLanguages: .currentLocale)
+        return label
+    }()
+
+    private lazy var closeButton: ImageButton = {
+        let button = ImageButton(size: .init(width: 24, height: 24))
+        let image = R.image.close()?.withTintColor(SoramitsuUI.shared.theme.palette.color(.accentPrimary))
+        button.setImage(image, for: .normal)
+        button.sora.addHandler(for: .touchUpInside) { [unowned self] in
+            self.onClose?()
+        }
+        button.sora.backgroundColor = .custom(uiColor: .clear)
+        return button
+    }()
 
     private let scrollView = UIScrollView()
 
@@ -93,6 +114,18 @@ final class SCCardHubView: UIView {
     
     private func setupInitialLayout() {
 
+        addSubview(titleLabel) {
+            $0.top.equalTo(self.safeAreaLayoutGuide).offset(8)
+            $0.leading.greaterThanOrEqualToSuperview()
+            $0.centerX.equalToSuperview()
+        }
+
+        addSubview(closeButton) {
+            $0.centerY.equalTo(titleLabel)
+            $0.trailing.equalToSuperview().inset(24)
+            $0.leading.greaterThanOrEqualTo(titleLabel.snp.trailing)
+        }
+
         addSubview(scrollView)
 
         settingsContainerView.addArrangedSubviews([
@@ -110,7 +143,7 @@ final class SCCardHubView: UIView {
         scrollView.addSubview(containerView)
 
         scrollView.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide).offset(24)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 
