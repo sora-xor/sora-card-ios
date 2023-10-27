@@ -106,7 +106,7 @@ final class SCCardHubView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(iban: String?, balance: Int, needUpdateApp: Bool) {
+    func configure(iban: String?, balance: Int?, needUpdateApp: Bool) {
         ibanView.configure(iban: iban)
         cardHubHeaderView.configure(balance: balance)
         updateView.sora.isHidden = !needUpdateApp

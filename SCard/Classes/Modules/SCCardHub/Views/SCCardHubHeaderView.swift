@@ -152,8 +152,8 @@ final class SCCardHubHeaderView: SoramitsuView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(balance: Int) {
-        balanceLabel.text = SCBalanceConverter.formatedBalance(balance: balance)
+    func configure(balance: Int?) {
+        balanceLabel.text = balance != nil ? SCBalanceConverter.formatedBalance(balance: balance!) : ""
     }
 
     private func setupInitialLayout() {
