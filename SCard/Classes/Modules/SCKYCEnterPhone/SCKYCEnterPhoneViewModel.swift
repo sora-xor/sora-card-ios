@@ -42,8 +42,9 @@ final class SCKYCEnterPhoneViewModel {
     }
 
     func onInput(text: String) {
-        phoneNumber = selectedCountry.dialCode + text
-        if text.isEmpty {
+        let cleanText = text.first == "0" ? String(text.dropFirst(1)) : text
+        phoneNumber = selectedCountry.dialCode + cleanText
+        if cleanText.isEmpty {
             onUpdateUI?(R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale), false)
         } else {
             if phoneNumber ~= Self.phoneNumberRegex {
