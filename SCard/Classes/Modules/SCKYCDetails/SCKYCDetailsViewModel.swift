@@ -6,6 +6,7 @@ final class SCKYCDetailsViewModel {
     var onBalanceUpdate: ((Float, String, Bool, String) -> Void)?
     var onIssueCardForFree: (() -> Void)?
     var onIssueCard: (() -> Void)?
+    var onReceiveXor: (() -> Void)?
     var onSwapXor: (() -> Void)?
     var onGetXorWithFiat: (() -> Void)?
     var onUnsupportedCountries: (() -> Void)?

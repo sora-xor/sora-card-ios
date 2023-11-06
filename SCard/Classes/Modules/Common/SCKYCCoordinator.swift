@@ -9,6 +9,7 @@ final class SCKYCCoordinator {
     private let service: SCKYCService
     private let storage: SCStorage
     internal var balanceStream: SCStream<Decimal>
+    private let onReceiveController: (UIViewController) -> Void
     private let onSwapController: (UIViewController) -> Void
 
     init(
@@ -16,13 +17,15 @@ final class SCKYCCoordinator {
         service: SCKYCService,
         storage: SCStorage,
         balanceStream: SCStream<Decimal>,
-        onSwapController: @escaping (UIViewController) -> Void
+        onSwapController: @escaping (UIViewController) -> Void,
+        onReceiveController: @escaping (UIViewController) -> Void
     ) {
         self.addressProvider = addressProvider
         self.service = service
         self.storage = storage
         self.balanceStream = balanceStream
         self.onSwapController = onSwapController
+        self.onReceiveController = onReceiveController
     }
 
     private weak var rootViewController: UIViewController?
@@ -146,6 +149,10 @@ final class SCKYCCoordinator {
 
         viewModel.onIssueCard = {
             print("TODO: 12$ pay integration")
+        }
+
+        viewModel.onReceiveXor = { [weak self] in
+            self?.showReceiveController()
         }
 
         viewModel.onSwapXor = { [weak self] in
@@ -452,6 +459,10 @@ final class SCKYCCoordinator {
             self.showGetPrepared(data: .init())
             self.navigationController.viewControllers = [self.navigationController.viewControllers.last!]
         }
+    }
+
+    private func showReceiveController() {
+        onReceiveController(navigationController)
     }
 
     private func showSwapController() {

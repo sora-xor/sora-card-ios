@@ -79,6 +79,7 @@ public class SCard {
         addressProvider: @escaping () -> String,
         config: Config,
         balanceStream: SCStream<Decimal>,
+        onReceiveController: @escaping (UIViewController) -> Void,
         onSwapController: @escaping (UIViewController) -> Void
     ) {
         self.config = config
@@ -91,7 +92,8 @@ public class SCard {
             service: service,
             storage: storage,
             balanceStream: balanceStream,
-            onSwapController: onSwapController
+            onSwapController: onSwapController,
+            onReceiveController: onReceiveController
         )
 
         Task {

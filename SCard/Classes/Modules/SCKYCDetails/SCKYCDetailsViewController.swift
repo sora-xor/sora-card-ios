@@ -67,11 +67,17 @@ final class SCKYCDetailsViewController: UIViewController {
     }
 
     private func showGetMoreAlert() {
+        
         let alertController = UIAlertController(
             title: R.string.soraCard.detailsGetMoreXor(preferredLanguages: .currentLocale),
             message: R.string.soraCard.getMoreXorDialogDepositOption(preferredLanguages: .currentLocale),
             preferredStyle: .actionSheet
         )
+
+        let receiveTitle = R.string.soraCard.getMoreXorDialogDepositOption(preferredLanguages: .currentLocale)
+        alertController.addAction(UIAlertAction(title: receiveTitle, style: .default) { [unowned viewModel] _ in
+            viewModel.onReceiveXor?()
+        })
 
         let swapTitle = R.string.soraCard.getMoreXorDialogSwapOption(preferredLanguages: .currentLocale)
         alertController.addAction(UIAlertAction(title: swapTitle, style: .default) { [unowned viewModel] _ in
