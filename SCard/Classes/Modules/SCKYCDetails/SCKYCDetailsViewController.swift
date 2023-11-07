@@ -84,10 +84,11 @@ final class SCKYCDetailsViewController: UIViewController {
             viewModel.onSwapXor?()
         })
 
-        let buyTitle = R.string.soraCard.getMoreXorDialogBuyOption(preferredLanguages: .currentLocale)
-        alertController.addAction(UIAlertAction(title: buyTitle, style: .default) { [unowned viewModel] _ in
-            viewModel.onGetXorWithFiat?()
-        })
+// TODO: Temporary Removal of X1
+//        let buyTitle = R.string.soraCard.getMoreXorDialogBuyOption(preferredLanguages: .currentLocale)
+//        alertController.addAction(UIAlertAction(title: buyTitle, style: .default) { [unowned viewModel] _ in
+//            viewModel.onGetXorWithFiat?()
+//        })
 
         alertController.addAction(UIAlertAction(
             title: R.string.soraCard.commonCancel(preferredLanguages: .currentLocale),
