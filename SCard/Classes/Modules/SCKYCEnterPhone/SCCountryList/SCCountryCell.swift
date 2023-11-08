@@ -43,6 +43,7 @@ class SCCountryCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
         setupInitialLayout()
     }
 
@@ -52,9 +53,9 @@ class SCCountryCell: UITableViewCell {
 
     func configure(model: SCCountry) {
         icon.image = model.flag
-        title.text = model.localizedName
-        subtitle.text = model.originalName
-        value.text = model.dialCode
+        title.sora.text = model.localizedName
+        subtitle.sora.text = model.originalName
+        value.sora.text = model.dialCode
     }
     
     private func setupInitialLayout() {

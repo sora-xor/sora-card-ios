@@ -1,4 +1,5 @@
 import UIKit
+import SoraUIKit
 
 class SCCountryList: UITableViewController, UISearchControllerDelegate {
 
@@ -27,7 +28,7 @@ class SCCountryList: UITableViewController, UISearchControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         title = R.string.soraCard.selectCountryTitle(preferredLanguages: .currentLocale)
 
         tableView.register(SCCountryCell.self, forCellReuseIdentifier: tableViewCellIdentifier)

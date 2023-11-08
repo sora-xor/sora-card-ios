@@ -1,4 +1,5 @@
 import UIKit
+import SoraUIKit
 
 class SCResultsTableController: UITableViewController {
 
@@ -8,6 +9,7 @@ class SCResultsTableController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         tableView.register(SCCountryCell.self, forCellReuseIdentifier: tableViewCellIdentifier)
     }
 

@@ -49,18 +49,23 @@ final class SCKYCSummaryView: UIView {
 
     private lazy var continueButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
+        button.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.getPreparedOkTitle(preferredLanguages: .currentLocale),
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.continueButton.sora.isEnabled = false
             self?.onContinueButton?()
         }
-        button.sora.title = R.string.soraCard.getPreparedOkTitle(preferredLanguages: .currentLocale)
         button.sora.cornerRadius = .custom(28)
         return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
     }
 

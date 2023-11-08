@@ -132,19 +132,24 @@ final class SCVersionUpdateView: UIView {
 
     private lazy var skipButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
+        button.sora.attributedText = SoramitsuTextItem(
+            text: "Skip",
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.actionButton.sora.isEnabled = false
             self?.onSkip?()
             self?.actionButton.sora.isEnabled = true
         }
-        button.sora.title = "Skip"
         button.sora.cornerRadius = .custom(28)
         return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
     }
 

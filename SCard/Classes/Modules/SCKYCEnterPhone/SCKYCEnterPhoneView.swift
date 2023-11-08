@@ -47,18 +47,23 @@ final class SCKYCEnterPhoneView: UIView {
 
     private lazy var continueButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
+        button.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.commonSendCode(preferredLanguages: .currentLocale),
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.isEnabled = false
         button.sora.cornerRadius = .custom(28)
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onContinueButton?()
         }
-        button.sora.title = R.string.soraCard.commonSendCode(preferredLanguages: .currentLocale)
         return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
         configure(country: .usa)
     }
@@ -75,7 +80,7 @@ final class SCKYCEnterPhoneView: UIView {
 
     func configure(country: SCCountry) {
         countryView.leftImageView.image = country.flag
-        countryView.titleLabel.text = country.localizedName
+        countryView.titleLabel.sora.text = country.localizedName
         codeField.sora.text = country.dialCode
     }
 

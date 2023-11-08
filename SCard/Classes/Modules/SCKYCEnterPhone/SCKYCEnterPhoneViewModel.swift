@@ -20,7 +20,6 @@ final class SCKYCEnterPhoneViewModel {
         self.data = data
         self.selectedCountry = .usa
         callback.delegate = self
-
     }
 
     func setupCrrentCountry() {

@@ -56,11 +56,16 @@ final class SCKYCStatusView: UIView {
 
     private lazy var actionButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
+        button.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.verificationRejectedScreenTryAgainForFree(preferredLanguages: .currentLocale),
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onRetryButton?()
         }
         button.sora.cornerRadius = .custom(28)
-        button.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForFree(preferredLanguages: .currentLocale)
         button.sora.isHidden = true
         return button
     }()
@@ -83,7 +88,7 @@ final class SCKYCStatusView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
         activityIndicatorView.startAnimating()
     }

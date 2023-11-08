@@ -77,17 +77,23 @@ final class SCTermsConditionsView: UIView {
 
     private lazy var acceptButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
+        button.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.termsAndConditionsAcceptAndContinue(preferredLanguages: .currentLocale),
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onAcceptButton?()
         }
         button.sora.cornerRadius = .custom(28)
-        button.sora.title = R.string.soraCard.termsAndConditionsAcceptAndContinue(preferredLanguages: .currentLocale)
+
         return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
     }
 
@@ -111,8 +117,6 @@ final class SCTermsConditionsView: UIView {
         stackView.addArrangedSubviews([
             textLabel,
             warningLabel,
-//            countriesLabel,
-//            countriesButton,
             termsConditionsButtons
         ])
 

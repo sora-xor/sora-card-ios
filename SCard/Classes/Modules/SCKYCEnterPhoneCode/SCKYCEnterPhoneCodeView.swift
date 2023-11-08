@@ -28,7 +28,12 @@ final class SCKYCEnterPhoneCodeView: UIView {
 
     private lazy var resendButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
-        button.sora.title = R.string.soraCard.verifyEmailResend("...", preferredLanguages: .currentLocale)
+        button.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.verifyEmailResend("...", preferredLanguages: .currentLocale),
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.cornerRadius = .custom(28)
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onResendButton?()
@@ -42,7 +47,7 @@ final class SCKYCEnterPhoneCodeView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
     }
 
@@ -104,13 +109,26 @@ final class SCKYCEnterPhoneCodeView: UIView {
     @objc private func updateTimer() {
         guard secondsLeft > 1 else {
             resendButton.isEnabled = true
-            resendButton.sora.title = R.string.soraCard.verifyPhoneNumberSendCode(preferredLanguages: .currentLocale)
+            resendButton.sora.attributedText = SoramitsuTextItem(
+                text: R.string.soraCard.verifyPhoneNumberSendCode(preferredLanguages: .currentLocale),
+                fontData: FontType.buttonM,
+                textColor: .bgSurface,
+                alignment: .center
+            )
             secondsLeft = 0
             timer.invalidate()
             return
         }
         secondsLeft -= 1
         resendButton.isEnabled = false
-        resendButton.sora.title = R.string.soraCard.verifyEmailResend(String(secondsLeft), preferredLanguages: .currentLocale)
+        resendButton.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.verifyEmailResend(
+                String(secondsLeft),
+                preferredLanguages: .currentLocale
+            ),
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
     }
 }
