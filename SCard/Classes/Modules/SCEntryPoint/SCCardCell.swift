@@ -63,7 +63,7 @@ public final class SCCardCell: SoramitsuTableViewCell {
     private lazy var cardInfoContainer: SoramitsuView = {
         let view = SoramitsuView()
         view.sora.cornerRadius = .circle
-        view.sora.backgroundColor = .custom(uiColor: .white)
+        view.sora.backgroundColor = .custom(uiColor: .white) // TODO: design waiting
         view.sora.isHidden = true
         return view
     }()
