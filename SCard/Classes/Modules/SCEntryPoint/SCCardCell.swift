@@ -19,6 +19,7 @@ public final class SCCardCell: SoramitsuTableViewCell {
     private lazy var bgImageTintView: SoramitsuView = {
         let view = SoramitsuView()
         view.sora.backgroundColor = .custom(uiColor: .white.withAlphaComponent(0.8))
+        view.sora.isHidden = true
         return view
     }()
 
@@ -37,6 +38,7 @@ public final class SCCardCell: SoramitsuTableViewCell {
         let view = SoramitsuView()
         view.sora.cornerRadius = .custom(28)
         view.sora.backgroundColor = .bgPage
+        view.sora.isHidden = true
         return view
     }()
 
@@ -64,7 +66,8 @@ public final class SCCardCell: SoramitsuTableViewCell {
         let view = SoramitsuView()
         view.sora.cornerRadius = .circle
         view.sora.backgroundColor = .custom(uiColor: .white) // TODO: design waiting
-        view.sora.isHidden = true
+        view.sora.loadingPlaceholder.type = .shimmer
+        view.sora.loadingPlaceholder.shimmerview.sora.cornerRadius = .circle
         return view
     }()
 
@@ -153,16 +156,20 @@ extension SCCardCell: SoramitsuTableViewCellProtocol {
 
     private func update(status: SCKYCUserStatus, availableBalance: Int?, needUpdate: Bool) {
 
+        guard status != .none else { return }
+
         guard !needUpdate else {
             bgImageTintView.sora.isHidden = false
             closeButton.isHidden = false
             cardInfoContainer.sora.isHidden = true
             getCardContainer.isHidden = false
+            cardInfoContainer.sora.loadingPlaceholder.type = .none
             getCardLabel.sora.text = R.string.soraCard.cardUpdateButton(preferredLanguages: .currentLocale)
             getCardLabel.sora.textColor = .bgSurface
             getCardContainer.sora.backgroundColor = .accentSecondary
             return
         }
+
         bgImageTintView.sora.isHidden = true
         closeButton.isHidden = status == .successful
         getCardContainer.isHidden = status == .successful
@@ -171,9 +178,15 @@ extension SCCardCell: SoramitsuTableViewCellProtocol {
         getCardLabel.sora.textColor = (status == .notStarted || status == .userCanceled) ? .bgSurface : .accentTertiary
         getCardContainer.sora.backgroundColor = (status == .notStarted || status == .userCanceled) ? .accentSecondary : .accentTertiaryContainer
 
-        if status == .successful, let availableBalance = availableBalance {
-            cardInfoLabel.sora.text = SCBalanceConverter.formatedBalance(balance: availableBalance)
+        if status == .successful {
+            if  let availableBalance = availableBalance {
+                cardInfoLabel.sora.text = SCBalanceConverter.formatedBalance(balance: availableBalance)
+                cardInfoContainer.sora.loadingPlaceholder.type = .none
+            } else {
+                cardInfoLabel.sora.text = R.string.soraCard.entryCardInfo(preferredLanguages: .currentLocale)
+            }
         }
+        cardInfoContainer.sora.loadingPlaceholder.type = .none
     }
 }
 
@@ -181,7 +194,7 @@ extension SCKYCUserStatus {
 
     var text: String {
         switch self {
-        case .notStarted, .userCanceled: // TODO: use See the details
+        case .notStarted, .userCanceled, .none: // TODO: use See the details
             return R.string.soraCard.statusNotStarted(preferredLanguages: .currentLocale)
         case .pending:
             return R.string.soraCard.kycResultVerificationInProgress(preferredLanguages: .currentLocale)

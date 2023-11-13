@@ -6,7 +6,7 @@ extension SCKYCService {
         switch await kycLastState() {
         case .success(let kycState):
             self.currentUserState = kycState ?? .notStarted
-            self._userStatusStream.wrappedValue = kycState?.userStatus ?? .notStarted
+            self._userStatusStream.wrappedValue = kycState?.userStatus ?? .none
         case .failure(let error):
             print("UpdateKycState error:\(error)")
             self.clearUserKYCState()
@@ -109,6 +109,7 @@ extension SCUserState {
 }
 
 public enum SCKYCUserStatus: Equatable {
+    case none
     case notStarted
     case pending
     case rejected(SCKYCRejection)
