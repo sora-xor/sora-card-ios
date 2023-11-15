@@ -35,7 +35,6 @@ extension NumberFormatter {
         formatter.roundingMode = .floor
         formatter.minimumFractionDigits = 0
         formatter.maximumFractionDigits = 2
-        formatter.usesSignificantDigits = true
         formatter.locale = LocalizationManager.shared.selectedLocale
         return formatter
     }
@@ -43,8 +42,7 @@ extension NumberFormatter {
     static var polkaswapBalance: NumberFormatter {
         let formatter = NumberFormatter.amount
         formatter.roundingMode = .floor
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 4
+        formatter.maximumFractionDigits = 0
         formatter.locale = LocalizationManager.shared.selectedLocale
         return formatter
     }
