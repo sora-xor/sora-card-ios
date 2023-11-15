@@ -91,8 +91,8 @@ final class SCCardHubHeaderView: SoramitsuView {
         let view = SCActionButtonView()
         view.titleLabel.sora.text = R.string.soraCard.cardhubTopUp(preferredLanguages: .currentLocale)
         view.button.sora.leftImage = R.image.newArrowDown()
-        view.button.sora.addHandler(for: .touchUpInside) {
-            self.onAction?(.topUp)
+        view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            self?.onAction?(.topUp)
         }
         view.button.isEnabled = false
         view.button.sora.shadow = .none
@@ -103,8 +103,8 @@ final class SCCardHubHeaderView: SoramitsuView {
         let view = SCActionButtonView()
         view.titleLabel.sora.text = R.string.soraCard.cardhubTransfer(preferredLanguages: .currentLocale)
         view.button.sora.leftImage = R.image.newArrowUp()
-        view.button.sora.addHandler(for: .touchUpInside) {
-            self.onAction?(.transfer)
+        view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            self?.onAction?(.transfer)
         }
         view.button.isEnabled = false
         view.button.sora.shadow = .none
@@ -115,8 +115,8 @@ final class SCCardHubHeaderView: SoramitsuView {
         let view = SCActionButtonView()
         view.titleLabel.sora.text = R.string.soraCard.cardhubExchange(preferredLanguages: .currentLocale)
         view.button.sora.leftImage = R.image.exchange()
-        view.button.sora.addHandler(for: .touchUpInside) {
-            self.onAction?(.exchange)
+        view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            self?.onAction?(.exchange)
         }
         view.button.isEnabled = false
         view.button.sora.shadow = .none
@@ -127,8 +127,8 @@ final class SCCardHubHeaderView: SoramitsuView {
         let view = SCActionButtonView()
         view.titleLabel.sora.text = R.string.soraCard.cardhubFreeze(preferredLanguages: .currentLocale)
         view.button.sora.leftImage = R.image.freeze()
-        view.button.sora.addHandler(for: .touchUpInside) {
-            self.onAction?(.freeze)
+        view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            self?.onAction?(.freeze)
         }
         view.button.isEnabled = false
         view.button.sora.shadow = .none
