@@ -111,6 +111,7 @@
 "card.attention.text" = "Aandacht";
 "get.prepared.proof.address.note" = "Let op: Verklaringen van neobanken als Revolut en N26 worden momenteel niet gezien als geldig bewijs van adres.";
 "get.prepared.alert" = "U heeft slechts %@ gratis pogingen om het KYC-proces te doorlopen. Elke andere poging daarna kost € %@ . Betaalde pogingen zijn beschikbaar na de volgende update van de app.";
+"card.or" = "of";
 "card.issuance.screen.paid.card.note" = "Let op: de uitgifte van betaalde kaarten zal in een later stadium beschikbaar zijn.";
 "paid.attempts.available.later" = "Paid attempts will be available at a later stage";
 "card.hub.update.title" = "Update app to latest version";

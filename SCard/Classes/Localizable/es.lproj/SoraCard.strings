@@ -111,6 +111,7 @@
 "card.attention.text" = "Atención";
 "get.prepared.proof.address.note" = "Nota: Los extractos de neobancos como Revolut y N26 actualmente no se consideran prueba de domicilio válida.";
 "get.prepared.alert" = "Solo tienes %@ intentos gratuitos para pasar el proceso KYC. Cualquier otro intento posterior costará € %@ . Los intentos pagos estarán disponibles después de la próxima actualización de la aplicación.";
+"card.or" = "o";
 "card.issuance.screen.paid.card.note" = "Nota: la emisión de tarjetas pagas estará disponible en una etapa posterior.";
 "paid.attempts.available.later" = "Paid attempts will be available at a later stage";
 "card.hub.update.title" = "Update app to latest version";

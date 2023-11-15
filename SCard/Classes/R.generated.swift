@@ -277,7 +277,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 124 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 125 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -743,6 +743,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let cardIssuanceScreenPaidCardPayEuro = Rswift.StringResource(key: "card.issuance.screen.paid.card.pay.euro", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: oder
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardOr = Rswift.StringResource(key: "card.or", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: oder %@ € Anmeldegebühr
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2540,6 +2544,21 @@ struct R: Rswift.Validatable {
 
         let format = NSLocalizedString("card.issuance.screen.paid.card.pay.euro", tableName: "SoraCard", bundle: bundle, comment: "")
         return String(format: format, locale: locale, value1)
+      }
+
+      /// de translation: oder
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardOr(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.or", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.or"
+        }
+
+        return NSLocalizedString("card.or", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: oder %@ € Anmeldegebühr

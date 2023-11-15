@@ -111,6 +111,7 @@
 "card.attention.text" = "Aufmerksamkeit";
 "get.prepared.proof.address.note" = "Hinweis: Kontoauszüge von Neobanken wie Revolut und N26 gelten derzeit nicht als gültiger Adressnachweis.";
 "get.prepared.alert" = "Sie haben nur %@ freie Versuche, den KYC-Prozess zu bestehen. Jeder weitere Versuch kostet danach €%@. Bezahlte Versuche werden nach dem nächsten Update der App verfügbar sein.";
+"card.or" = "oder";
 "card.issuance.screen.paid.card.note" = "Hinweis: Die Ausstellung einer kostenpflichtigen Karte wird zu einem späteren Zeitpunkt verfügbar sein.";
 "paid.attempts.available.later" = "Paid attempts will be available at a later stage";
 "card.hub.update.title" = "Update app to latest version";

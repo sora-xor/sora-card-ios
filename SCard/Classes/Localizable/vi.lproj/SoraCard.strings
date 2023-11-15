@@ -111,6 +111,7 @@
 "card.attention.text" = "Chú ý";
 "get.prepared.proof.address.note" = "Lưu ý: Các báo cáo từ các neobank như Revolut và N26 hiện không được coi là bằng chứng địa chỉ hợp lệ.";
 "get.prepared.alert" = "Bạn chỉ có %@ lần thử miễn phí để vượt qua quy trình KYC. Mọi lần thử khác sau đó sẽ có giá € %@ . Các nỗ lực trả phí sẽ khả dụng sau lần cập nhật tiếp theo của ứng dụng.";
+"card.or" = "hoặc";
 "card.issuance.screen.paid.card.note" = "Lưu ý: việc phát hành thẻ trả phí sẽ được thực hiện ở giai đoạn sau.";
 "paid.attempts.available.later" = "Các nỗ lực trả phí sẽ có sẵn ở giai đoạn sau";
 "card.hub.update.title" = "Cập nhật ứng dụng lên phiên bản mới nhất";

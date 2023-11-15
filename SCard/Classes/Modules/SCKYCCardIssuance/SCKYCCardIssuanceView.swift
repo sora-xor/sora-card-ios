@@ -60,6 +60,8 @@ final class SCKYCCardIssuanceView: UIView {
 
     private let getCardView = SCKYCGetFreeCardView()
 
+    private let separatorView = SCTitleSeparatorView()
+
     private let payFeeView = SCKYCGetCardFeeView()
 
     override init(frame: CGRect) {
@@ -113,6 +115,7 @@ final class SCKYCCardIssuanceView: UIView {
             headerView,
             titleLabel,
             getCardView,
+            separatorView,
             payFeeView
         ])
 

@@ -111,6 +111,7 @@
 "card.attention.text" = "Attention";
 "get.prepared.proof.address.note" = "Remarque : les relevés de néobanques comme Revolut et N26 ne sont actuellement pas considérés comme un justificatif de domicile valide.";
 "get.prepared.alert" = "Vous ne disposez que de %@ tentatives gratuites pour réussir le processus KYC. Par la suite, toute autre tentative coûtera %@ €. Les tentatives payantes seront disponibles après la prochaine mise à jour de l'application.";
+"card.or" = "ou";
 "card.issuance.screen.paid.card.note" = "Remarque : l'émission de cartes payantes sera disponible ultérieurement.";
 "paid.attempts.available.later" = "Paid attempts will be available at a later stage";
 "card.hub.update.title" = "Update app to latest version";
