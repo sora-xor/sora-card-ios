@@ -2,16 +2,15 @@ import Foundation
 import UIKit
 import SoraUIKit
 
-// TODO: remove
-final class SCKYCDetailsViewController: UIViewController {
+final class SCKYCCardIssuanceViewController: UIViewController {
 
-    private let viewModel: SCKYCDetailsViewModel
+    private let viewModel: SCKYCCardIssuanceViewModel
 
-    private var rootView: SCKYCDetailsView {
-        view as! SCKYCDetailsView
+    private var rootView: SCKYCCardIssuanceView {
+        view as! SCKYCCardIssuanceView
     }
 
-    init(viewModel: SCKYCDetailsViewModel) {
+    init(viewModel: SCKYCCardIssuanceViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -22,7 +21,7 @@ final class SCKYCDetailsViewController: UIViewController {
 
     override func loadView() {
         super.loadView()
-        view = SCKYCDetailsView()
+        view = SCKYCCardIssuanceView()
     }
 
     override func viewDidLoad() {
@@ -41,34 +40,34 @@ final class SCKYCDetailsViewController: UIViewController {
     }
 
     private func binding() {
-        rootView.onIssueCard = { [unowned viewModel] in
-            viewModel.onIssueCard?()
+
+        rootView.onLogout = { [unowned viewModel] in
+            viewModel.onLogout?()
         }
 
-        rootView.onGetMoreXor = { [unowned self] in
+        rootView.onClose = { [unowned viewModel] in
+            viewModel.onClose?()
+        }
+
+        rootView.onFreeCard = { [unowned viewModel] in
+            viewModel.onFreeCard()
+        }
+
+        rootView.onPayForIssueCard = { [unowned self] in
+            viewModel.onPayForIssueCard?()
+        }
+
+        viewModel.onUpdate = { [weak rootView] data in
+            rootView?.configure(data: data)
+        }
+
+        viewModel.onGetMoreXor = { [unowned self] in
             self.showGetMoreAlert()
-        }
-
-        rootView.onIssueCardForFree = { [unowned self] in
-            viewModel.onIssueCardForFree?()
-        }
-
-        rootView.onUnsupportedCountries = { [unowned viewModel] in
-            viewModel.onUnsupportedCountries?()
-        }
-
-        viewModel.onBalanceUpdate = { [weak rootView] (percentage, title, isKYCFree, issuanceFee) in
-            rootView?.updateBalance(
-                percentage: percentage,
-                title: title,
-                isKYCFree: isKYCFree,
-                issuanceFee: issuanceFee
-            )
         }
     }
 
     private func showGetMoreAlert() {
-        
+
         let alertController = UIAlertController(
             title: R.string.soraCard.detailsGetMoreXor(preferredLanguages: .currentLocale),
             message: "", // TODO: fix design R.string.soraCard.getMoreXorDialogDescription(preferredLanguages: .currentLocale),

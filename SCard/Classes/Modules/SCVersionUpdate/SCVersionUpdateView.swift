@@ -95,7 +95,7 @@ final class SCVersionUpdateView: UIView {
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
-        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsXor(SCard.minXorAmount, "", preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsXor(String(SCard.minXorAmount), "", preferredLanguages: .currentLocale)
         return label
     }()
 
@@ -103,8 +103,7 @@ final class SCVersionUpdateView: UIView {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgSecondary
-        let issuanceFee = SCard.shared?.issuanceFee ?? "29"
-        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsEuro(issuanceFee, preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsEuro(SCard.issuanceFee, preferredLanguages: .currentLocale)
         return label
     }()
 
@@ -125,7 +124,7 @@ final class SCVersionUpdateView: UIView {
             self?.onUpdate?()
             self?.actionButton.sora.isEnabled = true
         }
-        button.sora.title = "Go to AppStore"
+        button.sora.title = "Go to AppStore" // TODO: localize
         button.sora.cornerRadius = .custom(28)
         return button
     }()
@@ -133,7 +132,7 @@ final class SCVersionUpdateView: UIView {
     private lazy var skipButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
         button.sora.attributedText = SoramitsuTextItem(
-            text: "Skip",
+            text: "Skip", // TODO: localize
             fontData: FontType.buttonM,
             textColor: .bgSurface,
             alignment: .center

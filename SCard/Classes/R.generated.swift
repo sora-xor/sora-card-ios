@@ -277,7 +277,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 117 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 124 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -323,6 +323,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let logOut = Rswift.StringResource(key: "log.out", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Ausstellung der Karte
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardIssuanceScreenTitle = Rswift.StringResource(key: "card.issuance.screen.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Austausch
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -379,6 +383,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let enterEmailDescription = Rswift.StringResource(key: "enter.email.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Die Ausstellung Ihrer IBAN steht noch aus.  Falls die Wartezeit länger als 72 Stunden dauert, kontaktieren Sie uns per %@
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let ibanPendingDescription = Rswift.StringResource(key: "iban.pending.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Die Identitätsverifizierung wurde abgebrochen oder er ist anderweitig gescheitert.
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -407,6 +415,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let cardhubFreeze = Rswift.StringResource(key: "cardhub.freeze", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Einmalige Gebühr für die Ausstellung einer Karte
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardIssuanceScreenPaidCardDescription = Rswift.StringResource(key: "card.issuance.screen.paid.card.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Einwohner bestimmter Länder können derzeit keine SORA Card beantragen
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -415,6 +427,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let paymentWidgetUnavailableDescription = Rswift.StringResource(key: "payment.widget.unavailable.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Erhalte %@ XOR
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardIssuanceScreenFreeCardGetXor = Rswift.StringResource(key: "card.issuance.screen.free.card.get.xor", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Erhalten Sie ein Euro-IBAN Konto und eine Debitkarte, auf die Sie mit Ihrem SORA Wallet zugreifen können.
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -451,6 +467,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let getPreparedPersonalInfoDescription = Rswift.StringResource(key: "get.prepared.personal.info.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Hinweis: Die Ausstellung einer kostenpflichtigen Karte wird zu einem späteren Zeitpunkt verfügbar sein.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardIssuanceScreenPaidCardNote = Rswift.StringResource(key: "card.issuance.screen.paid.card.note", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Hinweis: Kontoauszüge von Neobanken wie Revolut und N26 gelten derzeit nicht als gültiger Adressnachweis.
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -579,10 +599,6 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let commonClose = Rswift.StringResource(key: "common.close", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
-      /// de translation: Select your country
-      ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static let selectCountryTitle = Rswift.StringResource(key: "select.country.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Senden Sie Ihre persönlichen Daten
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -655,6 +671,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let getPreparedNeed = Rswift.StringResource(key: "get.prepared.need", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Um eine Karte kostenlos auszustellen:  Halten, staken oder stellen Sie Liquidität für XOR im Wert von mindestens €%@ auf Ihrem SORA Konto bereit
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardIssuanceScreenFreeCardDescription = Rswift.StringResource(key: "card.issuance.screen.free.card.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Update app
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -707,6 +727,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let termsAndConditionsDescription = Rswift.StringResource(key: "terms.and.conditions.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Wähle dein Land
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let selectCountryTitle = Rswift.StringResource(key: "select.country.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: XOR einzahlen
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -715,10 +739,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let cardHubUpdateDescription = Rswift.StringResource(key: "card.hub.update.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
-      /// de translation: Your IBAN issuance is pending. In case the wait longer than 72h contact us via techsupport@soracard.com
+      /// de translation: Zahlen Sie €%@ Ausstellungsgebühr
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static let ibanPendingDescription = Rswift.StringResource(key: "iban.pending.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      static let cardIssuanceScreenPaidCardPayEuro = Rswift.StringResource(key: "card.issuance.screen.paid.card.pay.euro", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: oder %@ € Anmeldegebühr
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -743,6 +767,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let cardhubTransfer = Rswift.StringResource(key: "cardhub.transfer", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: €%@ Ausstellungsgebühr
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardIssuanceScreenPaidCardTitle = Rswift.StringResource(key: "card.issuance.screen.paid.card.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// en translation: %#@format@
       ///
       /// Locales: en, fr, pt, zh-Hans, ru, de, vi, nl, es
@@ -911,6 +939,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("log.out", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Ausstellung der Karte
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardIssuanceScreenTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.issuance.screen.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.issuance.screen.title"
+        }
+
+        return NSLocalizedString("card.issuance.screen.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Austausch
@@ -1123,6 +1166,23 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("enter.email.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Die Ausstellung Ihrer IBAN steht noch aus.  Falls die Wartezeit länger als 72 Stunden dauert, kontaktieren Sie uns per %@
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func ibanPendingDescription(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("iban.pending.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "iban.pending.description"
+        }
+
+        let format = NSLocalizedString("iban.pending.description", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
+      }
+
       /// de translation: Die Identitätsverifizierung wurde abgebrochen oder er ist anderweitig gescheitert.
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -1230,6 +1290,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("cardhub.freeze", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Einmalige Gebühr für die Ausstellung einer Karte
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardIssuanceScreenPaidCardDescription(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.issuance.screen.paid.card.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.issuance.screen.paid.card.description"
+        }
+
+        return NSLocalizedString("card.issuance.screen.paid.card.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Einwohner bestimmter Länder können derzeit keine SORA Card beantragen
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -1258,6 +1333,23 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("payment.widget.unavailable.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Erhalte %@ XOR
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardIssuanceScreenFreeCardGetXor(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("card.issuance.screen.free.card.get.xor", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.issuance.screen.free.card.get.xor"
+        }
+
+        let format = NSLocalizedString("card.issuance.screen.free.card.get.xor", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// de translation: Erhalten Sie ein Euro-IBAN Konto und eine Debitkarte, auf die Sie mit Ihrem SORA Wallet zugreifen können.
@@ -1397,6 +1489,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("get.prepared.personal.info.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Hinweis: Die Ausstellung einer kostenpflichtigen Karte wird zu einem späteren Zeitpunkt verfügbar sein.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardIssuanceScreenPaidCardNote(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.issuance.screen.paid.card.note", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.issuance.screen.paid.card.note"
+        }
+
+        return NSLocalizedString("card.issuance.screen.paid.card.note", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Hinweis: Kontoauszüge von Neobanken wie Revolut und N26 gelten derzeit nicht als gültiger Adressnachweis.
@@ -1883,21 +1990,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("common.close", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: Select your country
-      ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static func selectCountryTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("select.country.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "select.country.title"
-        }
-
-        return NSLocalizedString("select.country.title", tableName: "SoraCard", bundle: bundle, comment: "")
-      }
-
       /// de translation: Senden Sie Ihre persönlichen Daten
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2172,6 +2264,23 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("get.prepared.need", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Um eine Karte kostenlos auszustellen:  Halten, staken oder stellen Sie Liquidität für XOR im Wert von mindestens €%@ auf Ihrem SORA Konto bereit
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardIssuanceScreenFreeCardDescription(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("card.issuance.screen.free.card.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.issuance.screen.free.card.description"
+        }
+
+        let format = NSLocalizedString("card.issuance.screen.free.card.description", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
+      }
+
       /// de translation: Update app
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2371,6 +2480,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("terms.and.conditions.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Wähle dein Land
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func selectCountryTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("select.country.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "select.country.title"
+        }
+
+        return NSLocalizedString("select.country.title", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: XOR einzahlen
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2401,19 +2525,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("card.hub.update.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
-      /// de translation: Your IBAN issuance is pending. In case the wait longer than 72h contact us via techsupport@soracard.com
+      /// de translation: Zahlen Sie €%@ Ausstellungsgebühr
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static func ibanPendingDescription(preferredLanguages: [String]? = nil) -> String {
+      static func cardIssuanceScreenPaidCardPayEuro(_ value1: String, preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("iban.pending.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          let format = NSLocalizedString("card.issuance.screen.paid.card.pay.euro", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
         }
 
-        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
-          return "iban.pending.description"
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.issuance.screen.paid.card.pay.euro"
         }
 
-        return NSLocalizedString("iban.pending.description", tableName: "SoraCard", bundle: bundle, comment: "")
+        let format = NSLocalizedString("card.issuance.screen.paid.card.pay.euro", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// de translation: oder %@ € Anmeldegebühr
@@ -2506,6 +2632,23 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("cardhub.transfer", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: €%@ Ausstellungsgebühr
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardIssuanceScreenPaidCardTitle(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("card.issuance.screen.paid.card.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.issuance.screen.paid.card.title"
+        }
+
+        let format = NSLocalizedString("card.issuance.screen.paid.card.title", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// en translation: %#@format@

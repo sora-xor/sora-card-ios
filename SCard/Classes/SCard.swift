@@ -5,11 +5,11 @@ import SoraUIKit
 public class SCard {
 
     public static let currentSDKVersion = "2.2.0"
-    static let minXorAmount = "100"
+    static let minXorAmount = 100
     static let techSupportLink = "techsupport@soracard.com"
 
-    internal var issuanceFee: String {
-        service.applicationFeeCache
+    static var issuanceFee: String {
+        SCard.shared?.service.applicationFeeCache ?? "29"
     }
 
     public static var shared: SCard?

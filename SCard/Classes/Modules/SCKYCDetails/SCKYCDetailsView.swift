@@ -98,13 +98,13 @@ final class SCKYCDetailsView: UIView {
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
-        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsXor(SCard.minXorAmount, "", preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsXor(String(SCard.minXorAmount), "", preferredLanguages: .currentLocale)
         return label
     }()
 
     private let balanceProgressView: SCBalanceProgressView = {
         let view = SCBalanceProgressView()
-        view.configure(progressPercentage: 0, title: "checking balance ...")
+//        view.configure(progressPercentage: 0, title: "checking balance ...")
         return view
     }()
 
@@ -167,7 +167,7 @@ final class SCKYCDetailsView: UIView {
 
     func updateBalance(percentage: Float, title: String, isKYCFree: Bool, issuanceFee: String) {
 
-        balanceProgressView.configure(progressPercentage: percentage, title: title)
+//        balanceProgressView.configure(progressPercentage: percentage, title: title)
 
         detailsFeeLabel.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsEuro(
             issuanceFee,

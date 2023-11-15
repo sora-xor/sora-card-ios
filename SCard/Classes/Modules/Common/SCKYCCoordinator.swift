@@ -38,6 +38,17 @@ final class SCKYCCoordinator {
     func start(in rootViewController: UIViewController) async {
         storage.set(isHidden: false)
         self.rootViewController = rootViewController
+
+// TODO: Testing showCardIssuance only
+//        if await navigationController.presentingViewController == nil {
+//            await rootViewController.present(navigationController, animated: true)
+//        }
+//        await MainActor.run {
+//            self.showCardIssuance(data: .init())
+//        }
+//
+//        return
+
         await MainActor.run {
             navigationController.viewControllers = []
         }
@@ -134,6 +145,7 @@ final class SCKYCCoordinator {
         show(url: URL(string: "https://soracard.com/blacklist")!)
     }
 
+    // TODO: remove
     private func showCardDetails(data: SCKYCUserDataModel) {
         let viewModel = SCKYCDetailsViewModel(
             data: data,
@@ -166,6 +178,46 @@ final class SCKYCCoordinator {
         }
 
         let viewController = SCKYCDetailsViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    private func showCardIssuance(data: SCKYCUserDataModel) {
+        let viewModel = SCKYCCardIssuanceViewModel(
+            data: data,
+            service: service,
+            balanceStream: balanceStream
+        )
+
+        viewModel.onIssueCardForFree = { [weak self] in
+            self?.showTermsAndConditions(data: data)
+        }
+
+        viewModel.onPayForIssueCard = {
+            print("TODO: impl 20$ pay integration")
+        }
+
+        viewModel.onReceiveXor = { [weak self] in
+            self?.showReceiveController()
+        }
+
+        viewModel.onSwapXor = { [weak self] in
+            self?.showSwapController()
+        }
+
+        viewModel.onGetXorWithFiat = { [weak self] in
+            self?.showXOne()
+        }
+
+        let viewController = SCKYCCardIssuanceViewController(viewModel: viewModel)
+
+        viewModel.onLogout = { [weak self, unowned viewController] in
+            self?.showLogoutAlert(in: viewController)
+        }
+
+        viewModel.onClose = { [weak self, unowned viewController] in
+            viewController.navigationController?.dismiss(animated: true)
+        }
+
         navigationController.pushViewController(viewController, animated: true)
     }
 
@@ -310,7 +362,7 @@ final class SCKYCCoordinator {
                     if isEnoughXor {
                         self.showGetPrepared(data: data)
                     } else {
-                        self.showCardDetails(data: data)
+                        self.showCardIssuance(data: data)
                     }
                 case .started, .failed:
                     self.showGetPrepared(data: data)
@@ -331,11 +383,7 @@ final class SCKYCCoordinator {
 
     private func canShowHardhub() async -> Bool {
         await service.updateKycState()
-
-        if service.currentUserState.userStatus == .successful {
-            return await service.hasIban()
-        }
-        return false
+        return service.currentUserState.userStatus == .successful
     }
 
     private func showGetPrepared(data: SCKYCUserDataModel){

@@ -96,7 +96,7 @@ final class SCKYCLoginView: UIView {
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
-        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsXor(SCard.minXorAmount, "", preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsXor(String(SCard.minXorAmount), "", preferredLanguages: .currentLocale)
         return label
     }()
 
@@ -104,8 +104,7 @@ final class SCKYCLoginView: UIView {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgSecondary
-        let issuanceFee = SCard.shared?.issuanceFee ?? "29"
-        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsEuro(issuanceFee, preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsEuro(SCard.issuanceFee, preferredLanguages: .currentLocale)
         return label
     }()
 
