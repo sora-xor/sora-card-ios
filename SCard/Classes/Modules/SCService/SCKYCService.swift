@@ -43,7 +43,7 @@ public final class SCKYCService {
 
     let config: SCard.Config
     internal let client: SCAPIClient
-    internal var currentUserState: SCUserState = .notStarted
+    internal var currentUserState: SCUserState = .none
     internal var retryFeeCache: String = "3.80"
     internal var applicationFeeCache: String = "29"
     internal var iosClientVersion: String?
@@ -65,7 +65,7 @@ public final class SCKYCService {
         self.payWingsOAuthClient = PayWingsOAuthClient.instance()!
     }
 
-    @SCStream internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.notStarted)
+    @SCStream internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.none)
 
     func startKYCStatusRefresher() {
         guard kycStatusRefresherTimer == nil else { return }

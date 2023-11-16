@@ -181,7 +181,7 @@ extension SCKYCUserStatus {
 
     var text: String {
         switch self {
-        case .notStarted, .userCanceled: // TODO: use See the details
+        case .notStarted, .userCanceled, .none: // TODO: use See the details
             return R.string.soraCard.statusNotStarted(preferredLanguages: .currentLocale)
         case .pending:
             return R.string.soraCard.kycResultVerificationInProgress(preferredLanguages: .currentLocale)

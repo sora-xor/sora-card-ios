@@ -306,7 +306,7 @@ final class SCKYCCoordinator {
 
                 switch kycLastState.kycStatus {
 
-                case .notStarted:
+                case .notStarted, .none:
                     if isEnoughXor {
                         self.showGetPrepared(data: data)
                     } else {
@@ -330,12 +330,10 @@ final class SCKYCCoordinator {
     }
 
     private func canShowHardhub() async -> Bool {
-        await service.updateKycState()
-
-        if service.currentUserState.userStatus == .successful {
-            return await service.hasIban()
+        if service.currentUserState.userStatus == .none {
+            await service.updateKycState()
         }
-        return false
+        return service.currentUserState.userStatus == .successful
     }
 
     private func showGetPrepared(data: SCKYCUserDataModel){

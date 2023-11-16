@@ -124,7 +124,7 @@ final class SCKYCStatusView: UIView {
             iconView.sora.picture = .logo(image: R.image.kycSuccessful()!)
             actionButton.sora.isHidden = true
 
-        case .notStarted, .userCanceled:
+        case .notStarted, .userCanceled, .none:
             titleLabel.sora.text = R.string.soraCard.verificationFailedTitle(preferredLanguages: .currentLocale)
             descriptionLabel.sora.text = R.string.soraCard.verificationFailedDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycRejected()!)
