@@ -5,7 +5,7 @@ extension SCKYCService {
     func updateKycState() async {
         switch await kycLastState() {
         case .success(let kycState):
-            self.currentUserState = kycState ?? .notStarted
+            self.currentUserState = kycState ?? .none
             self._userStatusStream.wrappedValue = kycState?.userStatus ?? .none
         case .failure(let error):
             print("UpdateKycState error:\(error)")
@@ -23,7 +23,7 @@ extension SCKYCService {
     }
 
     func clearUserKYCState() {
-        currentUserState = .notStarted
+        currentUserState = .none
         _userStatusStream.wrappedValue = .notStarted
     }
 
@@ -89,17 +89,19 @@ struct SCUserState: Codable {
 
         case .notStarted:
             return .notStarted
+        case .none:
+            return .none
         }
     }
 }
 
 extension SCUserState {
-    static let notStarted: SCUserState = .init(
+    static let none: SCUserState = .init(
         kycId: "",
         personId: "",
         userReferenceNumber: "",
         referenceId: "",
-        kycStatus: .notStarted,
+        kycStatus: .none,
         verificationStatus: .none,
         ibanStatus: .none,
         additionalDescription: nil,
@@ -123,6 +125,7 @@ public struct SCKYCRejection: Equatable {
 }
 
 enum SCKYCStatus: String, Codable {
+    case none // Local
     case notStarted // Local
     case started = "Started"
     case completed = "Completed"
