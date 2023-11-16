@@ -2,7 +2,8 @@ final class SCCardHubViewModel {
     private let service: SCKYCService
 
     func needUpdateApp() async -> Bool {
-        switch await service.verionsChangesNeeded() {
+        await service.updateVersion()
+        switch service.verionsChangesNeeded() {
         case .major, .minor:
             return true
         case .none, .patch:

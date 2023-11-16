@@ -36,7 +36,8 @@ final class SCVersionUpdateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Task {
-            rootView.configure(versionChange: await service.verionsChangesNeeded())
+            await service.updateVersion()
+            rootView.configure(versionChange: service.verionsChangesNeeded())
         }
         binding()
     }

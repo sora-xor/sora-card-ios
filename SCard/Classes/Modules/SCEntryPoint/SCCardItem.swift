@@ -21,7 +21,8 @@ public final class SCCardItem: NSObject {
         super.init()
 
         Task { [weak self] in
-            switch await self?.service.verionsChangesNeeded() ?? .none {
+
+            switch self?.service.verionsChangesNeeded() ?? .none {
             case .major, .minor, .patch:
                 self?.needUpdate = true
             case .none:
