@@ -56,7 +56,7 @@ final class SCCardHubHeaderView: SoramitsuView {
         label.sora.font = FontType.headline2
         label.sora.textColor = .fgPrimary
         label.sora.alignment = .left
-        label.sora.attributedText = [sora, card]
+//        label.sora.attributedText = [sora, card]
         return label
     }()
 
@@ -89,7 +89,7 @@ final class SCCardHubHeaderView: SoramitsuView {
 
     private lazy var topUpButton: SCActionButtonView = {
         let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubTopUp(preferredLanguages: .currentLocale)
+        view.titleLabel.sora.text = "cardhubTopUp" //R.string.soraCard.cardhubTopUp(preferredLanguages: .currentLocale)
         view.button.sora.leftImage = R.image.newArrowDown()
         view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onAction?(.topUp)
@@ -101,7 +101,7 @@ final class SCCardHubHeaderView: SoramitsuView {
 
     private lazy var transferButton: SCActionButtonView = {
         let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubTransfer(preferredLanguages: .currentLocale)
+        view.titleLabel.sora.text = "cardhubTransfer" //R.string.soraCard.cardhubTransfer(preferredLanguages: .currentLocale)
         view.button.sora.leftImage = R.image.newArrowUp()
         view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onAction?(.transfer)
@@ -113,7 +113,7 @@ final class SCCardHubHeaderView: SoramitsuView {
 
     private lazy var exchangeButton: SCActionButtonView = {
         let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubExchange(preferredLanguages: .currentLocale)
+        view.titleLabel.sora.text = "cardhubExchange"//R.string.soraCard.cardhubExchange(preferredLanguages: .currentLocale)
         view.button.sora.leftImage = R.image.exchange()
         view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onAction?(.exchange)
@@ -125,7 +125,7 @@ final class SCCardHubHeaderView: SoramitsuView {
 
     private lazy var freezeButton: SCActionButtonView = {
         let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubFreeze(preferredLanguages: .currentLocale)
+        view.titleLabel.sora.text = "cardhubFreeze"//R.string.soraCard.cardhubFreeze(preferredLanguages: .currentLocale)
         view.button.sora.leftImage = R.image.freeze()
         view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onAction?(.freeze)

@@ -10,7 +10,7 @@ final class SCCardHubUpdateAppView: SoramitsuView {
         label.sora.numberOfLines = 2
         label.sora.font = FontType.headline2
         label.sora.textColor = .fgPrimary
-        label.sora.text = R.string.soraCard.cardHubUpdateTitle(preferredLanguages: .currentLocale)
+        label.sora.text = "cardHubUpdateTitle"//R.string.soraCard.cardHubUpdateTitle(preferredLanguages: .currentLocale)
         return label
     }()
 
@@ -19,7 +19,7 @@ final class SCCardHubUpdateAppView: SoramitsuView {
         label.sora.font = FontType.paragraphS
         label.sora.textColor = .fgSecondary
         label.sora.numberOfLines = 0
-        label.sora.text = R.string.soraCard.cardHubUpdateDescription(preferredLanguages: .currentLocale)
+        label.sora.text = "cardHubUpdateDescription"//R.string.soraCard.cardHubUpdateDescription(preferredLanguages: .currentLocale)
         return label
     }()
 
@@ -43,7 +43,7 @@ final class SCCardHubUpdateAppView: SoramitsuView {
         let label = SoramitsuLabel()
         label.sora.font = FontType.textBoldS
         label.sora.textColor = .bgSurface
-        label.sora.text = R.string.soraCard.cardHubUpdateButton(preferredLanguages: .currentLocale)
+        label.sora.text = "cardHubUpdateButton"//R.string.soraCard.cardHubUpdateButton(preferredLanguages: .currentLocale)
         return label
     }()
 

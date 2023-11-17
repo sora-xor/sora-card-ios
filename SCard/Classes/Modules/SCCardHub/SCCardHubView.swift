@@ -13,7 +13,7 @@ final class SCCardHubView: UIView {
         label.sora.font = FontType.headline2
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
-        label.sora.text = R.string.soraCard.cardHubTitle(preferredLanguages: .currentLocale)
+        label.sora.text = "cardHubTitle"//R.string.soraCard.cardHubTitle(preferredLanguages: .currentLocale)
         return label
     }()
 
@@ -56,7 +56,7 @@ final class SCCardHubView: UIView {
         view.onIbanCopy = { [weak self] iban in
             UIPasteboard.general.string = iban
             self?.showToast(
-                message: R.string.soraCard.commonCopied(preferredLanguages: .currentLocale),
+                message: "commonCopied", //R.string.soraCard.commonCopied(preferredLanguages: .currentLocale),
                 font: FontType.textM.font
             )
         }
@@ -81,14 +81,14 @@ final class SCCardHubView: UIView {
         label.sora.font = FontType.headline2
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
-        label.sora.text = R.string.soraCard.cardHubSettingsTitle(preferredLanguages: .currentLocale)
+        label.sora.text = "cardHubSettingsTitle" //R.string.soraCard.cardHubSettingsTitle(preferredLanguages: .currentLocale)
         return label
     }()
 
     private lazy var logoutView: SCTitleIconView = {
         let view = SCTitleIconView()
         view.rightImageView.image = R.image.arrowRightSmall()
-        view.titleLabel.sora.text = R.string.soraCard.cardHubSettingsLogoutTitle(preferredLanguages: .currentLocale)
+        view.titleLabel.sora.text = "cardHubSettingsLogoutTitle" //R.string.soraCard.cardHubSettingsLogoutTitle(preferredLanguages: .currentLocale)
         view.titleLabel.sora.textColor = .statusError
         view.addTapGesture { [weak self] _ in
             self?.onLogout?()
