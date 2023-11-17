@@ -28,8 +28,25 @@ final class SCCardHubViewController: UIViewController {
         view = SCCardHubView()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        binding()
+//
+//        Task {
+//            let iban = await model.iban()
+//            let needUpdateApp = await model.needUpdateApp()
+//            await MainActor.run {
+//                rootView.configure(
+//                    iban: iban?.iban,
+//                    balance: iban?.availableBalance,
+//                    needUpdateApp: needUpdateApp
+//                )
+//            }
+//        }
+//    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         binding()
 
         Task {
