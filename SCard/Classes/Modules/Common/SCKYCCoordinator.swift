@@ -53,11 +53,11 @@ final class SCKYCCoordinator {
     private func openSCard() async {
         // TODO: present loading creeen
 
-//        _ = await self.service.refreshAccessTokenIfNeeded()
+        _ = await self.service.refreshAccessTokenIfNeeded()
 
         if await canShowHardhub() {
-            DispatchQueue.main.async {
-                self.showCardHub()
+            await MainActor.run {
+                showCardHub()
             }
             return
 

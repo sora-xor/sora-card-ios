@@ -23,23 +23,23 @@ extension SCKYCService {
 
     func verionsChangesNeeded() -> VersionChanges {
 
-//        guard let iosClientVersion = iosClientVersion else { return .none }
-//
-//        let neededVersionParts = iosClientVersion.split(separator: ".").map { Int($0) ?? 0 }
-//        let currentVersionParts = SCard.currentSDKVersion.split(separator: ".").map { Int($0) ?? 0 }
-//        guard neededVersionParts.count == 3, currentVersionParts.count == 3 else { return .none }
-//
-//        if neededVersionParts[0] > currentVersionParts[0] {
-//            return .major
-//        }
-//
-//        if neededVersionParts[1] > currentVersionParts[1] {
-//            return .minor
-//        }
-//
-//        if neededVersionParts[2] > currentVersionParts[2] {
-//            return .patch
-//        }
+        guard let iosClientVersion = iosClientVersion else { return .none }
+
+        let neededVersionParts = iosClientVersion.split(separator: ".").map { Int($0) ?? 0 }
+        let currentVersionParts = SCard.currentSDKVersion.split(separator: ".").map { Int($0) ?? 0 }
+        guard neededVersionParts.count == 3, currentVersionParts.count == 3 else { return .none }
+
+        if neededVersionParts[0] > currentVersionParts[0] {
+            return .major
+        }
+
+        if neededVersionParts[1] > currentVersionParts[1] {
+            return .minor
+        }
+
+        if neededVersionParts[2] > currentVersionParts[2] {
+            return .patch
+        }
 
         return .none
     }
