@@ -112,5 +112,6 @@
 "card.update.button" = "Update app";
 "card.hub.update.description" = "You are using an outdated version of the app, some part might not be working as intended.";
 "select.country.title" = "Select your country";
-"iban.pending.description" = "Your IBAN issuance is pending.\nIn case the wait longer than 72h contact us via techsupport@soracard.com";
+"iban.pending.description" = "Your IBAN issuance is pending.\nIn case the wait longer than 72h contact us via techsupport@soracard.com.";
 "card.hub.title" = "Card details";
+
