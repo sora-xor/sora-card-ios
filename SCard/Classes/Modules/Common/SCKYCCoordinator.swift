@@ -56,8 +56,8 @@ final class SCKYCCoordinator {
 //        _ = await self.service.refreshAccessTokenIfNeeded()
 
         if await canShowHardhub() {
-            await MainActor.run {
-                showCardHub()
+            DispatchQueue.main.async {
+                self.showCardHub()
             }
             return
 
