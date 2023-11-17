@@ -75,7 +75,8 @@ final class SCCardHubIbanView: SoramitsuView {
             let attributedString = NSMutableAttributedString(
                 string: R.string.soraCard.ibanPendingDescription(supportLink, preferredLanguages: .currentLocale)
             )
-            // TODO: fix crash on some geo locations _ = attributedString.addUrl(link: "mailto:\(supportLink)", to: supportLink)
+//             TODO: fix crash on some geo locations
+            _ = attributedString.addUrl(link: "mailto:\(supportLink)", to: supportLink)
             subtitleLabel.sora.attributedText = attributedString
             tapGesture = subtitleLabel.addTapGesture { [weak self] _ in
                 guard
