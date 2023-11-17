@@ -80,6 +80,12 @@
 "get.more.xor.dialog.deposit.option" = "Получить XOR";
 "get.more.xor.dialog.swap.option" = "Обменять криптовалюту на XOR";
 "get.more.xor.dialog.buy.option" = "Купить XOR с помощью карты";
+"card.issuance.screen.title" = "Выпуск карты";
+"card.issuance.screen.free.card.description" = "Чтобы выпустить карту БЕСПЛАТНО: \nХраните, стейкайте или предоставляйте ликвидность XOR на сумму не менее €%@ на своем счете SORA";
+"card.issuance.screen.free.card.get.xor" = "Получить %@ XOR";
+"card.issuance.screen.paid.card.title" = "€%@ комиссия за выпуск";
+"card.issuance.screen.paid.card.description" = "Единовременная плата за выпуск карты";
+"card.issuance.screen.paid.card.pay.euro" = "Оплатить €%@ комиссию за выпуск";
 "verification.rejected.screen.try.again.for.euros" = "Повторить снова за €%@";
 "verification.rejected.screen.try.again.for.free" = "Попробуйте еще раз бесплатно";
 "verification.rejected.screen.attempts.used" = "Вы использовали свои бесплатные попытки KYC.";
@@ -105,6 +111,8 @@
 "card.attention.text" = "Внимание";
 "get.prepared.proof.address.note" = "Примечание. Заявления таких необанков, как Revolut и N26, в настоящее время не считаются действительным подтверждением адреса.";
 "get.prepared.alert" = "У вас есть только %@ бесплатных попыток пройти процедуру KYC. Каждая следующая попытка после этого будет стоить € %@ . Платные попытки станут доступны после следующего обновления приложения.";
+"card.or" = "или";
+"card.issuance.screen.paid.card.note" = "Примечание: выпуск платной карты будет доступен позднее.";
 "paid.attempts.available.later" = "Платные попытки будут доступны позднее";
 "card.hub.update.title" = "Обновите приложение до последней версии";
 "card.hub.update.button" = "Обновите сейчас";
@@ -112,5 +120,5 @@
 "card.update.button" = "Обновите приложение";
 "card.hub.update.description" = "Вы используете устаревшую версию приложения, некоторые части могут работать не так, как задумано.";
 "select.country.title" = "Выберите свою страну";
-"iban.pending.description" = "Выдача вашего IBAN ожидается.\nВ случае ожидания более 72 часов свяжитесь с нами по адресу techsupport@soracard.com.";
+"iban.pending.description" = "Выдача вашего IBAN ожидается.\nВ случае ожидания более 72 часов свяжитесь с нами по адресу %@";
 "card.hub.title" = "Card details";

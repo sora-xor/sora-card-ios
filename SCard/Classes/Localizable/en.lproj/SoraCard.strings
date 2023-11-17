@@ -80,6 +80,12 @@
 "get.more.xor.dialog.deposit.option" = "Receive XOR";
 "get.more.xor.dialog.swap.option" = "Swap crypto for XOR";
 "get.more.xor.dialog.buy.option" = "Buy XOR with card";
+"card.issuance.screen.title" = "Card issuance";
+"card.issuance.screen.free.card.description" = "To issue a card for FREE: \nHold, stake or provide liquidity for at least €%@ worth of XOR in your SORA account";
+"card.issuance.screen.free.card.get.xor" = "Get %@ XOR";
+"card.issuance.screen.paid.card.title" = "€%@ Issuance fee";
+"card.issuance.screen.paid.card.description" = "One time fee to issue a card";
+"card.issuance.screen.paid.card.pay.euro" = "Pay €%@ issuance fee";
 "verification.rejected.screen.try.again.for.euros" = "Try again for €%@";
 "verification.rejected.screen.try.again.for.free" = "Try again for free";
 "verification.rejected.screen.attempts.used" = "You have used your free KYC attempts.";
@@ -105,6 +111,8 @@
 "card.attention.text" = "Attention";
 "get.prepared.proof.address.note" = "Note: Statements from neobanks like Revolut and N26 are currently not seen as valid proof of address.";
 "get.prepared.alert" = "You have only %@ free attempts to pass the KYC process. Every other attempt after that will cost €%@. Paid attempts will be available after the next update of the app.";
+"card.or" = "or";
+"card.issuance.screen.paid.card.note" = "Note: paid card issuance will be available at a later stage.";
 "paid.attempts.available.later" = "Paid attempts will be available at a later stage";
 "card.hub.update.title" = "Update app to latest version";
 "card.hub.update.button" = "Update now";
@@ -112,6 +120,5 @@
 "card.update.button" = "Update app";
 "card.hub.update.description" = "You are using an outdated version of the app, some part might not be working as intended.";
 "select.country.title" = "Select your country";
-"iban.pending.description" = "Your IBAN issuance is pending.\nIn case the wait longer than 72h contact us via techsupport@soracard.com.";
+"iban.pending.description" = "Your IBAN issuance is pending.\nIn case the wait longer than 72h contact us via %@";
 "card.hub.title" = "Card details";
-
