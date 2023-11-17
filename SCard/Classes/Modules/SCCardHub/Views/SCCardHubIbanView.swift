@@ -73,10 +73,10 @@ final class SCCardHubIbanView: SoramitsuView {
             shareButton.sora.isHidden = true
             subtitleLabel.sora.textColor = .fgSecondary
             let attributedString = NSMutableAttributedString(
-                string: "ibanPendingDescription"//R.string.soraCard.ibanPendingDescription(supportLink, preferredLanguages: .currentLocale)
+                string: R.string.soraCard.ibanPendingDescription(supportLink, preferredLanguages: .currentLocale)
             )
-//            _ = attributedString.addUrl(link: "mailto:\(supportLink)", to: supportLink)
-//            subtitleLabel.sora.attributedText = attributedString
+            _ = attributedString.addUrl(link: "mailto:\(supportLink)", to: supportLink)
+            subtitleLabel.sora.attributedText = attributedString
             tapGesture = subtitleLabel.addTapGesture { [weak self] _ in
                 guard
                     let mail = self?.supportLink,
