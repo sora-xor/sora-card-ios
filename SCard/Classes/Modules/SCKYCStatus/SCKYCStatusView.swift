@@ -144,7 +144,6 @@ final class SCKYCStatusView: UIView {
 
             actionButton.sora.isHidden = false
 
-            // TODO: Phase 2, use disclaimer
             let disclaimerText = "\n" + R.string.soraCard.verificationRejectedScreenAttemptsPriceDisclaimer(
                 String(retryFee),
                 preferredLanguages: .currentLocale

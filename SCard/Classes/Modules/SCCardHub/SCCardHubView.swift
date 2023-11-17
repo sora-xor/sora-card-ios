@@ -42,6 +42,7 @@ final class SCCardHubView: UIView {
 
     private lazy var updateView: SCCardHubUpdateAppView = {
         let view = SCCardHubUpdateAppView()
+        view.isHidden = true
         view.onUpdate = { [weak self] in
             self?.onUpdateApp?()
         }

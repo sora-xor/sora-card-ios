@@ -56,7 +56,7 @@ final class SCCardHubHeaderView: SoramitsuView {
         label.sora.font = FontType.headline2
         label.sora.textColor = .fgPrimary
         label.sora.alignment = .left
-//        label.sora.attributedText = [sora, card]
+        label.sora.attributedText = [sora, card]
         return label
     }()
 
@@ -183,10 +183,10 @@ final class SCCardHubHeaderView: SoramitsuView {
         }
 
         actionButtonsView.addArrangedSubviews([
-            topUpButton,
-            transferButton,
-            exchangeButton,
-            freezeButton
+//            topUpButton,
+//            transferButton,
+//            exchangeButton,
+//            freezeButton
         ])
 
         addSubview(actionButtonsScrollView) {
