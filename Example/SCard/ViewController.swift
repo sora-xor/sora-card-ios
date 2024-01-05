@@ -65,7 +65,8 @@ class ViewController: UIViewController {
         soraCard = SCard(
             addressProvider: { "123" },
             config: scConfig,
-            balanceStream: xorBalanceStream, onReceiveController: { vc in
+            balanceStream: xorBalanceStream,
+            onReceiveController: { vc in
                 print("show onReceiveController in \(vc)")
             },
             onSwapController: { vc in

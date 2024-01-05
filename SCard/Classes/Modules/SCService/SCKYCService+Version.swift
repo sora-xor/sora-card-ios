@@ -21,13 +21,11 @@ extension SCKYCService {
         }
     }
 
-    func verionsChangesNeeded() async -> VersionChanges {
+    func verionsChangesNeeded() -> VersionChanges {
 
-        if iosClientVersion == nil {
-            await updateVersion()
-        }
+        guard let iosClientVersion = iosClientVersion else { return .none }
 
-        let neededVersionParts = iosClientVersion?.split(separator: ".").map { Int($0) ?? 0 } ?? []
+        let neededVersionParts = iosClientVersion.split(separator: ".").map { Int($0) ?? 0 }
         let currentVersionParts = SCard.currentSDKVersion.split(separator: ".").map { Int($0) ?? 0 }
         guard neededVersionParts.count == 3, currentVersionParts.count == 3 else { return .none }
 

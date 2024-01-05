@@ -17,7 +17,6 @@ final class SCCardHubIbanView: SoramitsuView {
         return label
     }()
 
-
     var tapGesture: SoramitsuTapGestureRecognizer?
     private lazy var subtitleLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
@@ -83,6 +82,7 @@ final class SCCardHubIbanView: SoramitsuView {
                     NSAttributedString.Key.font: FontType.textM.font
                 ]
             )
+//             TODO: fix crash on some geo locations
             _ = attributedString.addUrl(link: "mailto:\(supportLink)", to: supportLink)
 
             subtitleLabel.sora.attributedText = attributedString

@@ -16,6 +16,7 @@ final class SCCardHubViewController: UIViewController {
     init(model: SCCardHubViewModel) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
+        modalPresentationStyle = .overFullScreen
     }
 
     required init?(coder: NSCoder) {
@@ -25,7 +26,6 @@ final class SCCardHubViewController: UIViewController {
     override func loadView() {
         super.loadView()
         view = SCCardHubView()
-        modalPresentationStyle = .overFullScreen
     }
 
     override func viewDidLoad() {

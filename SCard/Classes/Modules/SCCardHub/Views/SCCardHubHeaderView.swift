@@ -183,10 +183,10 @@ final class SCCardHubHeaderView: SoramitsuView {
         }
 
         actionButtonsView.addArrangedSubviews([
-            topUpButton,
-            transferButton,
-            exchangeButton,
-            freezeButton
+//            topUpButton,
+//            transferButton,
+//            exchangeButton,
+//            freezeButton
         ])
 
         addSubview(actionButtonsScrollView) {

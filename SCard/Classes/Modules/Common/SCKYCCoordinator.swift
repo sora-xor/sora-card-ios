@@ -53,7 +53,7 @@ final class SCKYCCoordinator {
             navigationController.viewControllers = []
         }
 
-        switch await service.verionsChangesNeeded() {
+        switch service.verionsChangesNeeded() {
         case .major, .minor, .patch:
             await showUpdateVersion()
         case .none:
