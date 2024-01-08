@@ -11,6 +11,8 @@ extension SCCountryList: UISearchResultsUpdating {
 
         let filteredResults = searchResults.filter {
             $0.name.lowercased().contains(searchString) ||
+            $0.localizedName.lowercased().contains(searchString) ||
+            $0.originalName.lowercased().contains(searchString) ||
             $0.code.lowercased().contains(searchString) ||
             $0.dialCode.lowercased().contains(searchString)
         }
