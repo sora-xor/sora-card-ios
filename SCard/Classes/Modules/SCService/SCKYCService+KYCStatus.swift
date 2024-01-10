@@ -11,6 +11,24 @@ extension SCKYCService {
             print("UpdateKycState error:\(error)")
             self.clearUserKYCState()
         }
+
+//TODO: statuses testing
+//        Task {
+//            while true {
+//                _userStatusStream.wrappedValue = .none
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .notStarted
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .pending
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .rejected(.init(additionalDescription: "test rej", reasons: ["reason 1"]))
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .userCanceled
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .successful
+//            }
+//        }
+//TODO: statuses testing
     }
 
     var userStatusStream: AsyncStream<SCKYCUserStatus> {
@@ -110,6 +128,7 @@ extension SCUserState {
     )
 }
 
+@frozen
 public enum SCKYCUserStatus: Equatable {
     case none
     case notStarted

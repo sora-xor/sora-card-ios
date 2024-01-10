@@ -142,6 +142,10 @@ public class SCard {
         await service.userStatus()
     }
 
+    public var currentUserState: SCKYCUserStatus {
+        service.currentUserState.userStatus
+    }
+
     public var isSCBannerHidden: Bool {
         get { storage.isSCBannerHidden() }
         set { storage.set(isHidden: newValue) }

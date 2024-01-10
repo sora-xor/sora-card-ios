@@ -46,8 +46,8 @@ final class SCKYCCoordinator {
 //        await MainActor.run {
 //            self.showCardIssuance(data: .init())
 //        }
-//
 //        return
+// TODO: Testing showCardIssuance only
 
         await MainActor.run {
             navigationController.viewControllers = []

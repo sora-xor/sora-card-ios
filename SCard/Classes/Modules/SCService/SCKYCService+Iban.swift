@@ -7,14 +7,15 @@ extension SCKYCService {
 
         var result: Result<SCIbanResponse, NetworkingError> = await client.performDecodable(request: request)
         
-        //TODO: iban pending status testing
-        //        switch result {
-        //        case .success(var scIbanResponse):
-        //            scIbanResponse.ibans = []
-        //            return .success(scIbanResponse)
-        //        case .failure(let error):
-        //            return .failure(error)
-        //        }
+//TODO: iban pending status testing
+//        switch result {
+//        case .success(var scIbanResponse):
+//            scIbanResponse.ibans = []
+//            return .success(scIbanResponse)
+//        case .failure(let error):
+//            return .failure(error)
+//        }
+//TODO: iban pending status testing
 
         return result
     }

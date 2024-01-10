@@ -190,7 +190,7 @@ extension SCCardCell: SoramitsuTableViewCellProtocol {
     }
 }
 
-extension SCKYCUserStatus {
+public extension SCKYCUserStatus {
 
     var text: String {
         switch self {
