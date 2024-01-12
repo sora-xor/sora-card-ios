@@ -158,6 +158,14 @@ public class SCard {
     public var configuration: String {
         config.debugDescription
     }
+
+    public func logout() {
+        Task {
+            await storage.removeToken()
+        }
+        storage.set(isRety: false)
+        service.clearUserKYCState()
+    }
 }
 
 extension SCard.Config: CustomDebugStringConvertible {

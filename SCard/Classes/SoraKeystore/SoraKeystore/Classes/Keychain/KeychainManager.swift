@@ -18,7 +18,7 @@ public class KeychainManager {
 }
 
 extension KeychainManager: SecretStoreManagerProtocol {
-    public func loadSecret(for identifier: String,
+    func loadSecret(for identifier: String,
                            completionQueue: DispatchQueue,
                            completionBlock: @escaping (SecretDataRepresentable?) -> Void) {
         concurentQueue.async {
@@ -30,7 +30,7 @@ extension KeychainManager: SecretStoreManagerProtocol {
         }
     }
 
-    public func saveSecret(_ secret: SecretDataRepresentable,
+    func saveSecret(_ secret: SecretDataRepresentable,
                            for identifier: String,
                            completionQueue: DispatchQueue, completionBlock: @escaping (Bool) -> Void) {
         concurentQueue.async {
