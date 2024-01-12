@@ -2,15 +2,15 @@ import Foundation
 import PayWingsOAuthSDK
 
 final class SCKYCStatusViewModel {
-    var onStatus: ((SCKYCUserStatus, Bool) -> Void)?
-    var onError: ((String) -> Void)?
+    @MainActor var onStatus: ((SCKYCUserStatus, Int, String) -> Void)?
+    @MainActor var onError: ((String) -> Void)?
     var onClose: (() -> Void)?
     var onRetry: (() -> Void)?
-    var onReset: (() -> Void)?
+    var onLogout: (() -> Void)?
     var onSupport: (() -> Void)?
 
     private let service: SCKYCService
-    private var hasFreeAttempts: Bool?
+    private var freeAttemptsLeft: Int?
 
     init(data: SCKYCUserDataModel, service: SCKYCService) {
         self.data = data
@@ -21,28 +21,30 @@ final class SCKYCStatusViewModel {
 
     func getKYCStatus() async {
         guard await service.refreshAccessTokenIfNeeded() else {
-            onError?("PayWings Login required!")
+            await onError?("PayWings Login required!")
             return
         }
 
         await getKYCAttempts()
+        _ = await service.userStatus()
+        await service.updateFees()
 
         for await status in service.userStatusStream {
 
-            if hasFreeAttempts == nil {
+            if freeAttemptsLeft == nil {
                 await getKYCAttempts()
             }
-            guard let hasFreeAttempts = self.hasFreeAttempts else { return }
-            onStatus?(status, hasFreeAttempts)
+            guard let freeAttemptsLeft = self.freeAttemptsLeft else { return }
+            await onStatus?(status, freeAttemptsLeft, service.retryFeeCache)
         }
     }
 
     private func getKYCAttempts() async {
         switch await service.kycAttempts() {
         case .failure(let error):
-            onError?(error.errorDescription ?? "error")
+            await onError?(error.errorDescription ?? "error")
         case .success(let kycAttempts):
-            self.hasFreeAttempts = kycAttempts.hasFreeAttempts
+            self.freeAttemptsLeft = Int(kycAttempts.freeAttemptsLeft)
         }
     }
 }

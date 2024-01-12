@@ -10,6 +10,8 @@ enum SCKYCPhoneCodeState {
 
 final class SCKYCEnterPhoneCodeViewModel {
 
+    static let phoneCodeRegex = "[0-9]{4,6}$"
+
     var onEmailVerification: ((SCKYCUserDataModel) -> Void)?
     var onUserRegistration: ((SCKYCUserDataModel) -> Void)?
     var onSignInSuccessful: ((SCKYCUserDataModel) -> Void)?
@@ -33,24 +35,28 @@ final class SCKYCEnterPhoneCodeViewModel {
     private let service: SCKYCService
 
     func check(code: String) {
-
-        // TODO: SC use codeLen
-        if code.count < 6 {
+        if code.count < data.otpLength {
             codeState = .editing
             onUpdateUI?()
             return
         }
 
-        codeState = .sent
-        onUpdateUI?()
+        if code ~= Self.phoneCodeRegex {
+            codeState = .sent
+            onUpdateUI?()
+            service.signInWithPhoneNumberVerifyOtp(code: code, callback: callback)
+            return
+        }
 
-        service.signInWithPhoneNumberVerifyOtp(code: code, callback: callback)
+        codeState = .wrong("Wrong format!") // TODO: localize
+        onUpdateUI?()
     }
 }
 
 extension SCKYCEnterPhoneCodeViewModel: SignInWithPhoneNumberVerifyOtpCallbackDelegate {
     func onShowEmailConfirmationScreen(email: String, autoEmailSent: Bool) {
         data.email = email
+        data.isEmailSent = true
         codeState = .succeed
         onEmailVerification?(data)
     }
@@ -61,12 +67,10 @@ extension SCKYCEnterPhoneCodeViewModel: SignInWithPhoneNumberVerifyOtpCallbackDe
         onUserRegistration?(data)
     }
 
-    func onUserSignInRequired() {
-        // TODO: needed?
-    }
+    func onUserSignInRequired() {}
 
     func onVerificationFailed() {
-        codeState = .wrong("Incorrect or expired OTP") // TODO: SC localize?
+        codeState = .wrong(R.string.soraCard.otpErrorMessageWrongCode(preferredLanguages: .currentLocale))
         onUpdateUI?()
     }
 

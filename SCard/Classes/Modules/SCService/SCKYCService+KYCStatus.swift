@@ -1,58 +1,69 @@
 import Foundation
 
 extension SCKYCService {
-    //    func kycStatus() async -> Result<SCKYCStatusResponse?, NetworkingError> {
-    //        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycStatus)
-    //        return await client.performDecodable(request: request)
-    //    }
+
+    func updateKycState() async {
+        switch await kycLastState() {
+        case .success(let kycState):
+            self.currentUserState = kycState ?? .none
+            self._userStatusStream.wrappedValue = kycState?.userStatus ?? .none
+        case .failure(let error):
+            print("UpdateKycState error:\(error)")
+            self.clearUserKYCState()
+        }
+
+//TODO: statuses testing
+//        Task {
+//            while true {
+//                _userStatusStream.wrappedValue = .none
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .notStarted
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .pending
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .rejected(.init(additionalDescription: "test rej", reasons: ["reason 1"]))
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .userCanceled
+//                sleep(3)
+//                _userStatusStream.wrappedValue = .successful
+//            }
+//        }
+//TODO: statuses testing
+    }
 
     var userStatusStream: AsyncStream<SCKYCUserStatus> {
         _userStatusStream.stream
     }
 
-    func userStatus() async -> SCKYCUserStatus? {
-        guard case .success(let statuses) = await kycStatuses(),
-              let userStatus = statuses.sorted.last?.userStatus
-        else { return nil }
-        return userStatus
+    func userStatus() async -> SCKYCUserStatus {
+        await updateKycState()
+        return currentUserState.userStatus
     }
 
-    func kycStatuses() async -> Result<[SCKYCStatusResponse], NetworkingError> {
+    func clearUserKYCState() {
+        currentUserState = .none
+        _userStatusStream.wrappedValue = .notStarted
+    }
+
+    private func kycLastState() async -> Result<SCUserState?, NetworkingError> {
         guard await refreshAccessTokenIfNeeded() else {
             return .failure(.unauthorized)
         }
-        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycStatuses)
-        let response: Result<[SCKYCStatusResponse], NetworkingError> = await client.performDecodable(request: request)
-        if case .success(let statuses) = response, let userStatus = statuses.sorted.last?.userStatus {
-            self._userStatusStream.wrappedValue = userStatus
-        }
-        return response
-    }
-
-    func kycAttempts() async -> Result<SCKYCAtempts, NetworkingError> {
-        guard await refreshAccessTokenIfNeeded() else {
-            return .failure(.unauthorized)
-        }
-        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycAttemptCount)
+        let request = APIRequest(method: .get, endpoint: SCEndpoint.kycLastStatus)
         return await client.performDecodable(request: request)
     }
 }
 
-extension Array where Element == SCKYCStatusResponse {
-    var sorted: [Element] {
-        self.sorted(by: { $0.updateTime < $1.updateTime })
-    }
-}
-
-struct SCKYCStatusResponse: Codable {
+struct SCUserState: Codable {
     let kycId: String
     let personId: String
     let userReferenceNumber: String
     let referenceId: String
-    private let kycStatus: SCKYCStatus
-    private let verificationStatus: SCVerificationStatus
+    internal let kycStatus: SCKYCStatus
+    internal let verificationStatus: SCVerificationStatus
     let ibanStatus: SCIbanStatus
     let additionalDescription: String?
+    let rejectionReasons: [SCKYCRejectionReason]?
     let updateTime: Int64
 
     enum CodingKeys: String, CodingKey {
@@ -64,45 +75,83 @@ struct SCKYCStatusResponse: Codable {
         case verificationStatus = "verification_status"
         case ibanStatus = "iban_status"
         case additionalDescription = "additional_description"
+        case rejectionReasons = "rejection_reasons"
         case updateTime = "update_time"
     }
 
+    /// Local combination of verificationStatus with kycStatus
     var userStatus: SCKYCUserStatus {
 
-        if kycStatus == .completed && verificationStatus == .pending {
-            return .pending
-        }
-
-        if kycStatus == .rejected || verificationStatus == .rejected {
-            return .rejected
-        }
-        
-        if kycStatus == .failed {
-            return .userCanceled
-        }
-
+        // do not use kycStatus, it may be any state:
+        // kycStatus == .Successful or kycStatus == completed or kycStatus == failed
         if verificationStatus == .accepted {
             return .successful
         }
 
-        return .notStarted
+        switch kycStatus {
+
+        // KYC docs were sent, waiting for KYC verification
+        case .completed:
+            return .pending
+
+        // KYC was rejected, start a new one with a new reference_number
+        case .retry, .rejected:
+            return .rejected(.init(
+                additionalDescription: additionalDescription,
+                reasons: rejectionReasons?.compactMap { $0.description } ?? []
+            ))
+
+        // KYC wasn't completed, reuse reference_number from KYC
+        case .started, .failed, .successful:
+            return .userCanceled // TODO: check
+
+        case .notStarted:
+            return .notStarted
+        case .none:
+            return .none
+        }
     }
 }
 
-public enum SCKYCUserStatus {
+extension SCUserState {
+    static let none: SCUserState = .init(
+        kycId: "",
+        personId: "",
+        userReferenceNumber: "",
+        referenceId: "",
+        kycStatus: .none,
+        verificationStatus: .none,
+        ibanStatus: .none,
+        additionalDescription: nil,
+        rejectionReasons: nil,
+        updateTime: .init()
+    )
+}
+
+@frozen
+public enum SCKYCUserStatus: Equatable {
+    case none
     case notStarted
     case pending
-    case rejected
+    case rejected(SCKYCRejection)
     case successful
     case userCanceled
 }
 
+public struct SCKYCRejection: Equatable {
+    let additionalDescription: String?
+    let reasons: [String]
+}
+
 enum SCKYCStatus: String, Codable {
+    case none // Local
+    case notStarted // Local
     case started = "Started"
     case completed = "Completed"
     case successful = "Successful"
     case failed = "Failed"
     case rejected = "Rejected"
+    case retry = "Retry"
 }
 
 enum SCVerificationStatus: String, Codable {
@@ -118,16 +167,16 @@ enum SCIbanStatus: String, Codable {
     case rejected = "Rejected"
 }
 
-struct SCKYCAtempts: Codable {
-    let total: Int64
-    let completed: Int64
-    let rejected: Int64
-    let hasFreeAttempts: Bool
+struct SCKYCRejectionReason: Codable {
+    let description: String
 
     enum CodingKeys: String, CodingKey {
-        case total
-        case completed
-        case rejected
-        case hasFreeAttempts = "free_attempt"
+        case description = "Description"
+    }
+}
+
+extension Array where Element == SCUserState {
+    var sorted: [Element] {
+        self.sorted(by: { $0.updateTime < $1.updateTime })
     }
 }

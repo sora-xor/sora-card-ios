@@ -24,6 +24,7 @@ final class SCBalanceProgressView: UIView {
         label.sora.textColor = .accentPrimary
         label.sora.numberOfLines = 0
         label.sora.alignment = .right
+        label.sora.text = "checking balance ..."
         return label
     }()
 
@@ -36,7 +37,7 @@ final class SCBalanceProgressView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(progressPercentage: Float, title: String) {
+    func configure(progressPercentage: Float, needMoreXor: Decimal, needMoreXorInFiat: Decimal) {
         UIView.animate(withDuration: 0.3) {
             self.progressView.snp.remakeConstraints {
                 $0.leading.top.bottom.equalToSuperview()
@@ -46,7 +47,18 @@ final class SCBalanceProgressView: UIView {
             self.layoutIfNeeded()
         }
 
-        titleLabel.sora.text = title
+        let needMoreXorText = NumberFormatter.polkaswapBalance.stringFromDecimal(needMoreXor) ?? ""
+        let needMoreXorInFiatText = NumberFormatter.fiat.stringFromDecimal(needMoreXorInFiat) ?? ""
+
+        if progressPercentage >= SCKYCCardIssuanceViewModel.minAmountOfEuroProcentage {
+            titleLabel.sora.text = R.string.soraCard.detailsEnoughXorDesription(preferredLanguages: .currentLocale)
+        } else {
+            titleLabel.sora.text = R.string.soraCard.detailsNeedXorDesription(
+                needMoreXorText,
+                needMoreXorInFiatText,
+                preferredLanguages: .currentLocale
+            )
+        }
     }
 
     private func setupInitialLayout() {

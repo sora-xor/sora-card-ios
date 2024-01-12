@@ -26,17 +26,36 @@ final class SCKYCEnterPhoneViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title =  "Verify your phone number"
+        navigationItem.title = R.string.soraCard.verifyPhoneNumberTitle(preferredLanguages: .currentLocale)
         binding()
+        viewModel.setupCrrentCountry()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        rootView.inputField.textField.becomeFirstResponder()
     }
 
     private func binding() {
-        rootView.onContinueButton = { [unowned viewModel] phoneNumber in
-            viewModel.set(phoneNumber: phoneNumber)
+
+        rootView.onCountry = { [unowned viewModel] in
+            viewModel.onCountry?()
         }
 
-        viewModel.onError = { [unowned self] errorMessage in
-            rootView.configure(errorMessage: errorMessage)
+        rootView.onContinueButton = { [unowned viewModel] in
+            viewModel.signIn()
+        }
+
+        rootView.onInput = { [unowned viewModel] text in
+            viewModel.onInput(text: text)
+        }
+
+        viewModel.onUpdateUI = { [unowned self] errorMessage, isContinueEnabled in
+            rootView.configure(errorMessage: errorMessage, isContinueEnabled: isContinueEnabled)
+        }
+
+        viewModel.onUpdateCountry = { [unowned self] country in
+            rootView.configure(country: country)
         }
     }
 }

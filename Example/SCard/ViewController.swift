@@ -44,27 +44,33 @@ class ViewController: UIViewController {
 
         refreshBalanceTimer.invalidate()
         refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            let balane = Decimal(UInt.random(in: 0...150))
+            let balane = Decimal(UInt.random(in: 2500...5000))
             xorBalanceStream.wrappedValue = balane
         }
 
         let scConfig = SCard.Config(
-            backendUrl: "",
-            pwAuthDomain: "",
+            appStoreUrl: "https://apps.apple.com/us/app/sora-wallet-polkaswap/id1457566711",
+            backendUrl: "https://backend.dev.sora-card.tachi.soramitsu.co.jp/",
+            pwAuthDomain: "soracard.com",
             pwApiKey: "",
-            kycUrl: "",
+            kycUrl: "https://kyc-test.soracard.com/mobile",
             kycUsername: "",
             kycPassword: "",
+            xOneEndpoint: "https://dev.x1ex.com/widgets/sdk.js",
+            xOneId: "",
             environmentType: .test,
-            themeMode: .manual(.dark)
+            themeMode: SoramitsuUI.shared.themeMode
         )
 
         soraCard = SCard(
-            address: "123",
+            addressProvider: { "123" },
             config: scConfig,
             balanceStream: xorBalanceStream,
+            onReceiveController: { vc in
+                print("show onReceiveController in \(vc)")
+            },
             onSwapController: { vc in
-                print("TODO: show SwapController in \(vc)")
+                print("show SwapController in \(vc)")
             }
         )
 

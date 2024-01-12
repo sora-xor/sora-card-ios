@@ -33,7 +33,12 @@ final class SCKYCEnterNameView: UIView {
 
     private lazy var continueButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
-        button.sora.title = "Continue"
+        button.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.commonContinue(preferredLanguages: .currentLocale).capitalized,
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.cornerRadius = .custom(28)
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.continueButton.sora.isEnabled = false
@@ -44,7 +49,7 @@ final class SCKYCEnterNameView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
     }
 

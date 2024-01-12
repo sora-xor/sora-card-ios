@@ -27,6 +27,12 @@ final class SCKYCStatusViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.setHidesBackButton(true, animated: false)
+        self.navigationItem.rightBarButtonItem = .init(
+            image: R.image.close(),
+            style: .done,
+            target: self,
+            action: #selector(onCloseButton)
+        )
         binding()
 
         Task {
@@ -35,11 +41,6 @@ final class SCKYCStatusViewController: UIViewController {
     }
 
     private func binding() {
-        rootView.onCloseButton = { [unowned viewModel] in
-            DispatchQueue.main.async {
-                viewModel.onClose?()
-            }
-        }
 
         rootView.onRetryButton = { [unowned viewModel] in
             DispatchQueue.main.async {
@@ -49,7 +50,7 @@ final class SCKYCStatusViewController: UIViewController {
 
         rootView.onLogoutButton = { [unowned viewModel] in
             DispatchQueue.main.async {
-                viewModel.onReset?()
+                viewModel.onLogout?()
             }
         }
 
@@ -65,10 +66,16 @@ final class SCKYCStatusViewController: UIViewController {
             }
         }
 
-        viewModel.onStatus = { [unowned rootView] status, hasFreeAttemts in
+        viewModel.onStatus = { [unowned rootView] status, freeAttemptsLeft, retryFee in
             DispatchQueue.main.async {
-                rootView.configure(state: status, hasFreeAttemts: hasFreeAttemts)
+                rootView.configure(state: status, freeAttemptsLeft: freeAttemptsLeft, retryFee: retryFee)
             }
+        }
+    }
+
+    @objc func onCloseButton() {
+        DispatchQueue.main.async { [weak self] in
+            self?.viewModel.onClose?()
         }
     }
 }

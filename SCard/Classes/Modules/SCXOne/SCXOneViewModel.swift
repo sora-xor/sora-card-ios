@@ -1,15 +1,28 @@
 import Foundation
 
 public final class SCXOneViewModel {
-    var onDone: (() -> Void)?
+
+    // var onDone: (() -> Void)?
+
+    private let service: SCKYCService
+    private let paymentId = UUID().uuidString
+    private let address: String
+    private var dataToBlockchain = "TXOR"
 
     public init(address: String, service: SCKYCService) {
         self.address = address
         self.service = service
+
+        #if F_DEV
+        dataToBlockchain = "TXOR"
+        #elseif F_TEST
+        dataToBlockchain = "TXOR"
+        #elseif F_STAGING
+        dataToBlockchain = "XOR"
+        #endif
     }
 
     func checkStatus() {
-
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] (timer) in
             guard let self = self else { return }
             Task {
@@ -20,7 +33,7 @@ public final class SCXOneViewModel {
 
                 case .success(let response):
                     if response.userStatus == .successful {
-                        self.onDone?()
+                        // self.onDone?()
                     } else {
                         self.checkStatus()
                     }
@@ -45,28 +58,22 @@ public final class SCXOneViewModel {
 
         <body>
         <div
-            id="sprkwdgt-WYL6QBNC"
+            id="\(service.config.xOneId)"
             data-from-currency="EUR"
 
             data-from-amount="\(SCKYCDetailsViewModel.requiredAmountOfEuro)"
             data-hide-buy-more-button="true"
             data-hide-try-again-button="false"
+            data-disable-to-blockchain="true"
             data-locale="en"
             data-payload="\(paymentId)"
             data-address="\(address)"
+            data-to-blockchain="\(dataToBlockchain)"
         ></div>
-        <script async src="https://dev.x1ex.com/widgets/sdk.js"></script>
+        <script async src="\(service.config.xOneEndpoint)"></script>
 
         </body>
         </html>
         """
-// prod
-//        id="sprkwdgt-WUQBA5U2"
-//        <script async src="https://x1ex.com/widgets/sdk.js"></script>
     }
-
-    private let service: SCKYCService
-
-    private let paymentId = UUID().uuidString
-    private let address: String
 }

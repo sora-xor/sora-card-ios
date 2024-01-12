@@ -28,10 +28,9 @@ final class SCXOneViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         rootView.loadHTMLString(viewModel.xOneHtmlString, baseURL: nil)
         rootView.navigationDelegate = self
-        viewModel.checkStatus()
+        // viewModel.checkStatus()
     }
 }
 

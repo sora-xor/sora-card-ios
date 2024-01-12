@@ -6,15 +6,13 @@ final class SCKYCStatusView: UIView {
     var onLogoutButton: (() -> Void)?
     var onRetryButton: (() -> Void)?
     var onSupportButton: (() -> Void)?
-    var onCloseButton: (() -> Void)?
 
     private lazy var logoutButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .extraSmall, type: .text(.primary))
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onLogoutButton?()
         }
-        button.sora.title = "Log out" // TODO:
-        button.sora.isHidden = true
+        button.sora.title = R.string.soraCard.logOut(preferredLanguages: .currentLocale)
         return button
     }()
 
@@ -22,6 +20,14 @@ final class SCKYCStatusView: UIView {
         let label = SoramitsuLabel()
         label.sora.font = FontType.headline1
         label.sora.textColor = .fgPrimary
+        return label
+    }()
+
+    private let descriptionLabel: SoramitsuLabel = {
+        let label = SoramitsuLabel()
+        label.sora.font = FontType.paragraphM
+        label.sora.textColor = .fgPrimary
+        label.sora.numberOfLines = 3
         return label
     }()
 
@@ -39,7 +45,6 @@ final class SCKYCStatusView: UIView {
         return view
     }()
 
-
     private let actionDescriptionLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphM
@@ -51,21 +56,27 @@ final class SCKYCStatusView: UIView {
 
     private lazy var actionButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
+        button.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.verificationRejectedScreenTryAgainForFree(preferredLanguages: .currentLocale),
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onRetryButton?()
         }
         button.sora.cornerRadius = .custom(28)
-        button.sora.title = "Try again for free" // TODO:
+        button.sora.isHidden = true
         return button
     }()
 
-    private lazy var secondButton: SoramitsuButton = {
+    private lazy var supportButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .tonal(.secondary))
-        button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.onCloseButton?()
-        }
         button.sora.cornerRadius = .custom(28)
-        button.sora.title = R.string.soraCard.commonClose(preferredLanguages: .currentLocale)
+        button.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)
+        button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            self?.onSupportButton?()
+        }
         return button
     }()
 
@@ -77,7 +88,7 @@ final class SCKYCStatusView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
         activityIndicatorView.startAnimating()
     }
@@ -89,7 +100,7 @@ final class SCKYCStatusView: UIView {
     func configure(error: String) {
         activityIndicatorView.stopAnimating()
         titleLabel.sora.text = R.string.soraCard.commonErrorGeneralTitle(preferredLanguages: .currentLocale)
-        textLabel.sora.text = "\(error)"
+        descriptionLabel.sora.text = "\(error)"
         actionButton.sora.title = R.string.soraCard.commonTryAgain(preferredLanguages: .currentLocale)
         actionButton.sora.removeAllHandlers(for: .touchUpInside)
         actionButton.sora.addHandler(for: .touchUpInside) { [weak self] in
@@ -98,115 +109,102 @@ final class SCKYCStatusView: UIView {
         iconView.sora.picture = .logo(image: R.image.kycRejected()!)
     }
 
-    func configure(state: SCKYCUserStatus, hasFreeAttemts: Bool) {
+    func configure(state: SCKYCUserStatus, freeAttemptsLeft: Int, retryFee: String) {
         activityIndicatorView.stopAnimating()
         switch state {
         case .pending:
-            titleLabel.sora.text = R.string.soraCard.kycResultVerificationInProgress()
-            textLabel.sora.text = R.string.soraCard.kycResultVerificationInProgressDescription(preferredLanguages: .currentLocale)
+            titleLabel.sora.text = R.string.soraCard.kycResultVerificationInProgress(preferredLanguages: .currentLocale)
+            descriptionLabel.sora.text = R.string.soraCard.kycResultVerificationInProgressDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycPending()!)
             actionButton.sora.isHidden = true
 
-            secondButton.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)
-            secondButton.sora.removeAllHandlers(for: .touchUpInside)
-            secondButton.sora.addHandler(for: .touchUpInside) { [weak self] in
-                self?.onSupportButton?()
-            }
-
         case .successful:
             titleLabel.sora.text = R.string.soraCard.verificationSuccessfulTitle(preferredLanguages: .currentLocale)
-            textLabel.sora.text = R.string.soraCard.verificationSuccessfulDescription(preferredLanguages: .currentLocale)
+            descriptionLabel.sora.text = R.string.soraCard.verificationSuccessfulDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycSuccessful()!)
             actionButton.sora.isHidden = true
 
-            secondButton.sora.title = "Close"
-            secondButton.sora.removeAllHandlers(for: .touchUpInside)
-            secondButton.sora.addHandler(for: .touchUpInside) { [weak self] in
-                self?.onCloseButton?()
-            }
-
-        case .notStarted, .userCanceled:
+        case .notStarted, .userCanceled, .none:
             titleLabel.sora.text = R.string.soraCard.verificationFailedTitle(preferredLanguages: .currentLocale)
-            textLabel.sora.text = R.string.soraCard.verificationFailedDescription(preferredLanguages: .currentLocale)
+            descriptionLabel.sora.text = R.string.soraCard.verificationFailedDescription(preferredLanguages: .currentLocale)
             iconView.sora.picture = .logo(image: R.image.kycRejected()!)
 
             actionButton.sora.isHidden = false
             actionButton.sora.type = .filled(.secondary)
             actionButton.sora.title = R.string.soraCard.commonTryAgain(preferredLanguages: .currentLocale)
 
-            secondButton.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)
-            secondButton.sora.removeAllHandlers(for: .touchUpInside)
-            secondButton.sora.addHandler(for: .touchUpInside) { [weak self] in
-                self?.onSupportButton?()
-            }
-
-        case .rejected:
+        case .rejected(let rejection):
 
             titleLabel.sora.text = R.string.soraCard.verificationRejectedTitle(preferredLanguages: .currentLocale)
-            textLabel.sora.text = "Your application has been rejected."
+            descriptionLabel.sora.text = rejection.additionalDescription ?? R.string.soraCard.verificationRejectedDescription(preferredLanguages: .currentLocale)
+
+            textLabel.sora.text = rejection.reasons.map { "• \($0)" }.joined(separator: "\n")
+
             iconView.sora.picture = .logo(image: R.image.kycRejected()!)
 
             actionButton.sora.isHidden = false
 
-            if hasFreeAttemts {
-                actionDescriptionLabel.sora.text = "You have 1 more free KYC attempt.\nEvery other attempt will cost you €3.80"
-                actionButton.sora.title = "Try again for free"
-            } else {
-                actionDescriptionLabel.sora.text = "You have used your free KYC attempts.\nEvery other attempt will cost you €3.80"
-                actionButton.sora.title = "Try again for €3.80"
-            }
+            let disclaimerText = "\n" + R.string.soraCard.verificationRejectedScreenAttemptsPriceDisclaimer(
+                String(retryFee),
+                preferredLanguages: .currentLocale
+            )
+            let disclaimer = SoramitsuTextItem(
+                text:  disclaimerText,
+                fontData: ScreenSizeMapper.value(small: FontType.paragraphS, medium: FontType.paragraphM, large: FontType.paragraphM),
+                textColor: .fgPrimary,
+                alignment: .center
+            )
 
-            secondButton.sora.title = R.string.soraCard.verificationRejectedSupport(preferredLanguages: .currentLocale)
-            secondButton.sora.removeAllHandlers(for: .touchUpInside)
-            secondButton.sora.addHandler(for: .touchUpInside) { [weak self] in
-                self?.onSupportButton?()
+            if freeAttemptsLeft > 0 {
+
+                let text = R.string.soraCard.verificationRejectedScreenAttemptsLeft(
+                    format: freeAttemptsLeft,
+                    preferredLanguages: .currentLocale
+                )
+
+                let attemptsLeft = SoramitsuTextItem(
+                    text:  text,
+                    fontData: ScreenSizeMapper.value(small: FontType.paragraphBoldS, medium: FontType.paragraphBoldM, large: FontType.paragraphBoldM),
+                    textColor: .fgPrimary,
+                    alignment: .center
+                )
+                actionDescriptionLabel.sora.attributedText =  [attemptsLeft]
+                actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForFree(preferredLanguages: .currentLocale)
+
+                // TODO: impl in phase 2
+                actionButton.isHidden = false
+
+            } else {
+                let attemptsLeft = SoramitsuTextItem(
+                    text:  R.string.soraCard.verificationRejectedScreenAttemptsUsed(preferredLanguages: .currentLocale),
+                    fontData: ScreenSizeMapper.value(small: FontType.paragraphBoldS, medium: FontType.paragraphBoldM, large: FontType.paragraphBoldM),
+                    textColor: .fgPrimary,
+                    alignment: .center
+                )
+                actionDescriptionLabel.sora.attributedText =  [attemptsLeft]
+                actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForEuros(String(retryFee), preferredLanguages: .currentLocale)
+
+                // TODO: impl in phase 2
+                actionButton.isHidden = true
             }
         }
     }
 
     private func setupInitialLayout() {
 
-        addSubview(logoutButton)
         addSubview(titleLabel)
-        addSubview(textLabel)
-        addSubview(actionButton)
+        addSubview(descriptionLabel)
 
-        logoutButton.snp.makeConstraints {
-            $0.top.equalTo(self.safeAreaLayoutGuide)
-            $0.leading.trailing.equalToSuperview().inset(24)
-        }
-
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(logoutButton.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(24)
-        }
-
-        textLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
-            $0.leading.trailing.equalToSuperview().inset(24)
-        }
-
-        let containerView = UIView()
-        addSubview(containerView)
-
-        containerView.snp.makeConstraints {
-            $0.top.equalTo(textLabel.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(actionButton.snp.top)
-        }
-
-        containerView.addSubview(iconView)
-
-        iconView.snp.makeConstraints {
-            $0.top.bottom.lessThanOrEqualToSuperview().inset(8)
-            $0.width.lessThanOrEqualToSuperview().multipliedBy(0.75)
-            $0.center.equalToSuperview()
-        }
+        let textScrollView = UIScrollView()
+        textScrollView.addSubview(textLabel)
+        textScrollView.addSubview(iconView)
+        addSubview(textScrollView)
 
         let buttonsView = UIStackView(arrangedSubviews: [
             actionDescriptionLabel,
             actionButton,
-            secondButton
+            supportButton,
+            logoutButton
         ])
         buttonsView.axis = .vertical
         buttonsView.spacing = 16
@@ -214,6 +212,34 @@ final class SCKYCStatusView: UIView {
         addSubview(buttonsView) {
             $0.leading.trailing.equalToSuperview().inset(24)
             $0.bottom.equalTo(self.safeAreaLayoutGuide).offset(-24)
+        }
+
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(self.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview().inset(24)
+        }
+
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+            $0.leading.trailing.equalToSuperview().inset(24)
+        }
+
+        textScrollView.snp.makeConstraints {
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(24)
+            $0.bottom.equalTo(buttonsView.snp.top).offset(-16)
+        }
+
+        textLabel.snp.makeConstraints {
+            $0.top.equalTo(textScrollView)
+            $0.leading.trailing.equalTo(self).inset(24)
+        }
+
+        iconView.snp.makeConstraints {
+            $0.top.equalTo(textLabel.snp.bottom).offset(16)
+            $0.centerX.equalTo(self)
+            $0.size.equalTo(self.snp.width).multipliedBy(0.7)
+            $0.bottom.equalTo(textScrollView).offset(16)
         }
 
         addSubview(activityIndicatorView) {

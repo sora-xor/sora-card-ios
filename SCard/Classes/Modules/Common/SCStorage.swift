@@ -7,13 +7,6 @@ final class SCStorage {
 
     init(secretManager: SecretStoreManagerProtocol) {
         self.secretManager = secretManager
-
-        Task {
-            if isFirstLaunch() {
-                await removeToken()
-                setAppLaunched()
-            }
-        }
     }
 
     private let secretManager: SecretStoreManagerProtocol
@@ -50,11 +43,11 @@ final class SCStorage {
         UserDefaults.standard.set(isRety, forKey: Key.isRety.rawValue)
     }
 
-    private func isFirstLaunch() -> Bool {
+    func isFirstLaunch() -> Bool {
         !UserDefaults.standard.bool(forKey: Key.isAppStarted.rawValue)
     }
 
-    private func setAppLaunched() {
+    func setAppLaunched() {
         UserDefaults.standard.set(true, forKey: Key.isAppStarted.rawValue)
     }
 

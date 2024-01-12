@@ -22,7 +22,7 @@ final class SCKYCOnbordingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.setHidesBackButton(true, animated: false)
-        title = "KYC Onbording"
+        title = "KYC Onboarding"
         
         viewModel.startKYC()
     }
