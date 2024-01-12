@@ -26,48 +26,55 @@ final class SCKYCSummaryView: UIView {
         return view
     }()
 
-    private let warningLabel: SoramitsuView = {
+    private let warningLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphBoldM
         label.sora.textColor = .accentTertiary
         label.sora.numberOfLines = 0
         label.textAlignment = .center
-        label.sora.text = R.string.soraCard.getPreparedAlert(preferredLanguages: .currentLocale)
-        // TODO: fix SoramitsuLabel contentInsets
-        // label.sora.contentInsets = .init(all:  16)
-        // label.sora.backgroundColor = .accentTertiaryContainer
-        // label.sora.cornerRadius = .small
+        label.sora.text = R.string.soraCard.getPreparedAlert("4", "3.80", preferredLanguages: .currentLocale)
+        return label
+    }()
 
+    private lazy var warningView: SoramitsuView = {
         let warningContainerView = SoramitsuView()
         warningContainerView.sora.backgroundColor = .accentTertiaryContainer
         warningContainerView.sora.cornerRadius = .medium
-        warningContainerView.addSubview(label)
-        label.snp.makeConstraints {
+        warningContainerView.addSubview(warningLabel)
+        warningLabel.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(16)
         }
-
         return warningContainerView
     }()
 
     private lazy var continueButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
+        button.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.getPreparedOkTitle(preferredLanguages: .currentLocale),
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.continueButton.sora.isEnabled = false
             self?.onContinueButton?()
         }
-        button.sora.title = R.string.soraCard.getPreparedOkTitle(preferredLanguages: .currentLocale)
         button.sora.cornerRadius = .custom(28)
         return button
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(attempts: Int, retryFee: String) {
+        warningLabel.sora.text = R.string.soraCard.getPreparedAlert(String(attempts), retryFee, preferredLanguages: .currentLocale)
     }
 
     private func setupInitialLayout() {
@@ -98,7 +105,8 @@ final class SCKYCSummaryView: UIView {
 
     private func kycSteps() -> [UIView] {
         [
-            warningLabel,
+            warningView,
+            textLabel,
             SCKYSSummaryStepView(
                 step: "1",
                 title: R.string.soraCard.getPreparedSubmitIdPhotoTitle(preferredLanguages: .currentLocale),
@@ -112,7 +120,8 @@ final class SCKYCSummaryView: UIView {
             SCKYSSummaryStepView(
                 step: "3",
                 title: R.string.soraCard.getPreparedProofAddressTitle(preferredLanguages: .currentLocale),
-                subtitle: R.string.soraCard.getPreparedProofAddressDescription(preferredLanguages: .currentLocale)
+                subtitle: R.string.soraCard.getPreparedProofAddressDescription(preferredLanguages: .currentLocale) + "\n\n" +
+                    R.string.soraCard.getPreparedProofAddressNote(preferredLanguages: .currentLocale)
             ),
             SCKYSSummaryStepView(
                 step: "4",

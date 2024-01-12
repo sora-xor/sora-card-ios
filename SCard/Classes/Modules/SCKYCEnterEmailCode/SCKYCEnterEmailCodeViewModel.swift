@@ -66,7 +66,6 @@ extension SCKYCEnterEmailCodeViewModel: CheckEmailVerifiedCallbackDelegate {
     }
 }
 
-
 extension SCKYCEnterEmailCodeViewModel: SendNewVerificationEmailCallbackDelegate {
     func onShowEmailConfirmationScreen(email: String, autoEmailSent: Bool) {
     }

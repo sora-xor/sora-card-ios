@@ -18,8 +18,13 @@ final class SCKYCEnterEmailCodeView: UIView {
 
     private lazy var resendButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
+        button.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.commonResendLink(preferredLanguages: .currentLocale).capitalized,
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
         button.sora.cornerRadius = .custom(28)
-        button.sora.title = R.string.soraCard.commonResendLink(preferredLanguages: .currentLocale).capitalized
         button.isEnabled = false
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onResendButton?()
@@ -42,7 +47,7 @@ final class SCKYCEnterEmailCodeView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .white
+        backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
     }
 
@@ -52,7 +57,7 @@ final class SCKYCEnterEmailCodeView: UIView {
 
     func configure(email: String, secondsLeft: Int) {
         self.secondsLeft = secondsLeft
-        textLabel.sora.text = R.string.soraCard.verifyEmailDescription(email)
+        textLabel.sora.text = R.string.soraCard.verifyEmailDescription(email, preferredLanguages: .currentLocale)
 
         timer.invalidate()
         timer = Timer.scheduledTimer(

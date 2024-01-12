@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         resetLabel.textColor = .blue
         resetLabel.isUserInteractionEnabled = true
         resetLabel.addTapGesture(with: { SoramitsuTapGestureRecognizer in
-            self.soraCard?.resetState()
+            Task { await self.soraCard?.removeToken() }
         })
 
         view.addSubview(resetLabel)
@@ -40,30 +40,37 @@ class ViewController: UIViewController {
     private var refreshBalanceTimer = Timer()
     func showSoraCard() {
 
-        let (balanceStream, balanceContinuation) = AsyncStream<Decimal>.streamWithContinuation()
+        @SCStream var xorBalanceStream = SCStream<Decimal>(wrappedValue: Decimal(0))
 
         refreshBalanceTimer.invalidate()
         refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            balanceContinuation.yield(Decimal(UInt.random(in: 0...150)))
+            let balane = Decimal(UInt.random(in: 2500...5000))
+            xorBalanceStream.wrappedValue = balane
         }
 
         let scConfig = SCard.Config(
-            backendUrl: "",
-            pwAuthDomain: "",
+            appStoreUrl: "https://apps.apple.com/us/app/sora-wallet-polkaswap/id1457566711",
+            backendUrl: "https://backend.dev.sora-card.tachi.soramitsu.co.jp/",
+            pwAuthDomain: "soracard.com",
             pwApiKey: "",
-            kycUrl: "",
+            kycUrl: "https://kyc-test.soracard.com/mobile",
             kycUsername: "",
             kycPassword: "",
+            xOneEndpoint: "https://dev.x1ex.com/widgets/sdk.js",
+            xOneId: "",
             environmentType: .test,
-            themeMode: .manual(.dark)
+            themeMode: SoramitsuUI.shared.themeMode
         )
 
         soraCard = SCard(
-            address: "123",
+            addressProvider: { "123" },
             config: scConfig,
-            balanceStream: balanceStream,
+            balanceStream: xorBalanceStream,
+            onReceiveController: { vc in
+                print("show onReceiveController in \(vc)")
+            },
             onSwapController: { vc in
-                print("TODO: show SwapController in \(vc)")
+                print("show SwapController in \(vc)")
             }
         )
 

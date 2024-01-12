@@ -5,6 +5,7 @@ public class SCStream<Value> {
 
     public var stream: AsyncStream<Value> {
         let (stream, continuation) = AsyncStream<Value>.streamWithContinuation()
+        continuation.yield(wrappedValue)
         continuations.append(continuation)
         return stream
     }
@@ -32,6 +33,31 @@ extension AsyncStream {
         let stream = self.init { innerContinuation in
             continuation = innerContinuation
         }
+        // TODO: AsyncStream.makeStream
         return (stream, continuation)
+    }
+}
+
+extension AsyncStream {
+    public func map<Transformed>(_ transform: @escaping (Self.Element) -> Transformed) -> AsyncStream<Transformed> {
+        return AsyncStream<Transformed> { continuation in
+            Task {
+                for await element in self {
+                    continuation.yield(transform(element))
+                }
+                continuation.finish()
+            }
+        }
+    }
+
+    public func map<Transformed>(_ transform: @escaping (Self.Element) async -> Transformed) -> AsyncStream<Transformed> {
+        return AsyncStream<Transformed> { continuation in
+            Task {
+                for await element in self {
+                    continuation.yield(await transform(element))
+                }
+                continuation.finish()
+            }
+        }
     }
 }

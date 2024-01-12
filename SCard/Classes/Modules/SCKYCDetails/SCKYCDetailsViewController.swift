@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import SoraUIKit
 
+// TODO: remove
 final class SCKYCDetailsViewController: UIViewController {
 
     private let viewModel: SCKYCDetailsViewModel
@@ -27,7 +28,6 @@ final class SCKYCDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         binding()
-        rootView.updateHaveCardButton(isHidden: SCStorage.shared.hasToken())
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -53,35 +53,48 @@ final class SCKYCDetailsViewController: UIViewController {
             viewModel.onIssueCardForFree?()
         }
 
-        rootView.onHaveCard = { [unowned viewModel] in
-            viewModel.onHaveCard?()
-        }
-
         rootView.onUnsupportedCountries = { [unowned viewModel] in
             viewModel.onUnsupportedCountries?()
         }
 
-        viewModel.onBalanceUpdate = { [weak rootView] (percentage, title, isKYCFree) in
-            rootView?.updateBalance(percentage: percentage, title: title, isKYCFree: isKYCFree)
+        viewModel.onBalanceUpdate = { [weak rootView] (percentage, title, isKYCFree, issuanceFee) in
+            rootView?.updateBalance(
+                percentage: percentage,
+                title: title,
+                isKYCFree: isKYCFree,
+                issuanceFee: issuanceFee
+            )
         }
     }
 
     private func showGetMoreAlert() {
+        
         let alertController = UIAlertController(
-            title: "Get more XOR",
-            message: "Select a way you want to get XOR",
+            title: R.string.soraCard.detailsGetMoreXor(preferredLanguages: .currentLocale),
+            message: "", // TODO: fix design R.string.soraCard.getMoreXorDialogDescription(preferredLanguages: .currentLocale),
             preferredStyle: .actionSheet
         )
 
-        alertController.addAction(UIAlertAction(title: "Swap for XOR", style: .default) { [unowned viewModel] _ in
+        let receiveTitle = R.string.soraCard.getMoreXorDialogDepositOption(preferredLanguages: .currentLocale)
+        alertController.addAction(UIAlertAction(title: receiveTitle, style: .default) { [unowned viewModel] _ in
+            viewModel.onReceiveXor?()
+        })
+
+        let swapTitle = R.string.soraCard.getMoreXorDialogSwapOption(preferredLanguages: .currentLocale)
+        alertController.addAction(UIAlertAction(title: swapTitle, style: .default) { [unowned viewModel] _ in
             viewModel.onSwapXor?()
         })
 
-        alertController.addAction(UIAlertAction(title: "Buy XOR with fiat", style: .default) { [unowned viewModel] _ in
-            viewModel.onGetXorWithFiat?()
-        })
+// TODO: Temporary Removal of X1
+//        let buyTitle = R.string.soraCard.getMoreXorDialogBuyOption(preferredLanguages: .currentLocale)
+//        alertController.addAction(UIAlertAction(title: buyTitle, style: .default) { [unowned viewModel] _ in
+//            viewModel.onGetXorWithFiat?()
+//        })
 
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alertController.addAction(UIAlertAction(
+            title: R.string.soraCard.commonCancel(preferredLanguages: .currentLocale),
+            style: .cancel)
+        )
         present(alertController, animated: true)
     }
 }

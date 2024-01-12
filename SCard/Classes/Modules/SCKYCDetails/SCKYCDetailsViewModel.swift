@@ -3,12 +3,12 @@ final class SCKYCDetailsViewModel {
     static let requiredAmountOfEuro = 100
     static let minAmountOfEuroProcentage: Float = 0.95
 
-    var onBalanceUpdate: ((Float, String, Bool) -> Void)?
+    var onBalanceUpdate: ((Float, String, Bool, String) -> Void)?
     var onIssueCardForFree: (() -> Void)?
     var onIssueCard: (() -> Void)?
+    var onReceiveXor: (() -> Void)?
     var onSwapXor: (() -> Void)?
     var onGetXorWithFiat: (() -> Void)?
-    var onHaveCard: (() -> Void)?
     var onUnsupportedCountries: (() -> Void)?
 
     private let data: SCKYCUserDataModel
@@ -16,7 +16,6 @@ final class SCKYCDetailsViewModel {
     private let service: SCKYCService
     private let balanceStream: SCStream<Decimal>
     private var xorPriceInEuro: Float?
-    private var kycAttempts: SCKYCAtempts?
 
     init(
         data: SCKYCUserDataModel,
@@ -38,14 +37,8 @@ final class SCKYCDetailsViewModel {
     }
 
     private func getData() {
-
         Task { [weak self] in
-            switch await service.kycAttempts() {
-            case .failure(_): ()
-            case .success(let kycAttempts):
-                self?.kycAttempts = kycAttempts
-            }
-
+            await self?.service.updateFees()
             await self?.fetchFiat()
         }
     }
@@ -73,6 +66,27 @@ final class SCKYCDetailsViewModel {
         }
     }
 
+    static func isEnoughXor(xorBalance: Decimal, service: SCKYCService) async -> Bool {
+
+        let xorPriceInEuro: Double
+        if case .success(let priceResponse) = await service.xorPriceInEuro() {
+            xorPriceInEuro = Double(priceResponse.price) ?? .zero
+        } else {
+            print("### fetchFiat error")
+            return false
+        }
+
+        let xorPriceInEuroDecimal = Decimal(xorPriceInEuro)
+        let requiredAmountOfXORInEuro = Decimal(Self.requiredAmountOfEuro) // 95€
+        let requiredAmountOfXOR = requiredAmountOfXORInEuro / xorPriceInEuroDecimal
+
+        let fiatBalanceDecimal = xorBalance * xorPriceInEuroDecimal
+        let percentage = (min(1, (fiatBalanceDecimal) / requiredAmountOfXORInEuro) as NSNumber).floatValue
+        let haveEnoughXor = percentage >= Self.minAmountOfEuroProcentage
+
+        return haveEnoughXor
+    }
+
     private func updateBalance(xorBalance: Decimal) {
         guard let xorPriceInEuro = self.xorPriceInEuro else { return }
 
@@ -86,27 +100,27 @@ final class SCKYCDetailsViewModel {
         let xorBalanceLeftText = NumberFormatter.polkaswapBalance.stringFromDecimal(requiredAmountOfXOR - xorBalance) ?? ""
 
         let balanceText: String
-        let isKYCFree = self.kycAttempts?.hasFreeAttempts ?? true // TODO: SC fix logic on Phase 2
         let haveEnoughXor = percentage >= Self.minAmountOfEuroProcentage
 
         data.haveEnoughXor = haveEnoughXor
 
-        if isKYCFree {
-            if haveEnoughXor {
-                balanceText = R.string.soraCard.detailsEnoughXorDesription(preferredLanguages: .currentLocale)
-            } else {
-                balanceText = R.string.soraCard.detailsNeedXorDesription(
-                    xorBalanceLeftText,
-                    fiatBalanceLeftText,
-                    preferredLanguages: .currentLocale
-                )
-            }
+        if haveEnoughXor {
+            balanceText = R.string.soraCard.detailsEnoughXorDesription(preferredLanguages: .currentLocale)
         } else {
-            balanceText = R.string.soraCard.detailsAlreadyUsedFreeTry(preferredLanguages: .currentLocale)
+            balanceText = R.string.soraCard.detailsNeedXorDesription(
+                xorBalanceLeftText,
+                fiatBalanceLeftText,
+                preferredLanguages: .currentLocale
+            )
         }
 
         DispatchQueue.main.async  {
-            self.onBalanceUpdate?(haveEnoughXor ? 1 : percentage, balanceText, isKYCFree)
+            self.onBalanceUpdate?(
+                haveEnoughXor ? 1 : percentage,
+                balanceText,
+                true,
+                self.service.applicationFeeCache
+            )
         }
     }
 }

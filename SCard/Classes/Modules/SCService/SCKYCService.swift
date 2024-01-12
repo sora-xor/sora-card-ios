@@ -3,37 +3,54 @@ import PayWingsOAuthSDK
 
 enum SCEndpoint: Endpoint {
     case getReferenceNumber
-    case kycStatus
-    case kycStatuses
+    case kycLastStatus
     case kycAttemptCount
     case xOneStatus(paymentId: String)
     case price(pair: String)
+    case xOneWidget
+    case ibans
+    case fees
+    case version
+    case countryCodes
 
     var path: String {
-
         switch self {
         case .getReferenceNumber:
             return "get-reference-number"
-        case .kycStatus:
+         case .kycLastStatus:
             return "kyc-last-status"
-        case .kycStatuses:
-            return "kyc-status"
         case .kycAttemptCount:
             return "kyc-attempt-count"
         case .xOneStatus(let paymentId):
             return "x1-payment-status/\(paymentId)"
         case .price(let pair):
             return "prices/\(pair)"
+        case .xOneWidget:
+            return "widgets/sdk.js"
+        case .ibans:
+            return "ibans"
+        case .fees:
+            return "fees"
+        case .version:
+            return "version"
+        case .countryCodes:
+            return "country-codes"
         }
     }
 }
 
 public final class SCKYCService {
 
-    internal let client: SCAPIClient
     let config: SCard.Config
+    internal let client: SCAPIClient
+    internal var currentUserState: SCUserState = .none
+    internal var retryFeeCache: String = "3.80"
+    internal var applicationFeeCache: String = "29"
+    internal var iosClientVersion: String?
+    internal var countries: [SCCountry] = []
     private let payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol
     private var isRefreshAccessTokenInProgress = false
+    private var kycStatusRefresherTimer: Timer?
 
     init(client: SCAPIClient, config: SCard.Config) {
         self.client = client
@@ -46,12 +63,16 @@ public final class SCKYCService {
         )
         
         self.payWingsOAuthClient = PayWingsOAuthClient.instance()!
-
-        Task { await kycStatuses() }
     }
 
-    @SCStream internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.notStarted)
+    @SCStream internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.none)
 
+    func startKYCStatusRefresher() {
+        guard kycStatusRefresherTimer == nil else { return }
+        kycStatusRefresherTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] _ in
+            Task { [weak self] in _ = await self?.userStatus() }
+        }
+    }
 
     func refreshAccessTokenIfNeeded() async -> Bool {
         guard let token = await SCStorage.shared.token(),
@@ -137,13 +158,4 @@ public final class SCKYCService {
     func checkEmailVerified(callback: CheckEmailVerifiedCallback) {
         payWingsOAuthClient.checkEmailVerified(callback: callback)
     }
-
-//    // https://api.coingecko.com/api/v3/simple/price?ids=sora&vs_currencies=eur
-//    func xorPriceInEuro() async -> Float? {
-//        let url = URL(string: "https://api.coingecko.com/api/v3/simple/price?ids=sora&vs_currencies=eur")!
-//        guard let (data, _) = try? await URLSession.shared.data(from: url) else { return nil }
-//        let decoder = JSONDecoder()
-//        guard let fiatData = try? decoder.decode([String: [String: Float]].self, from: data) else { return nil }
-//        return fiatData["sora"]?["eur"] as? Float
-//    }
 }

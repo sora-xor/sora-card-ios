@@ -2,14 +2,15 @@ import Foundation
 import PayWingsOAuthSDK
 
 final class SCKYCStatusViewModel {
-    var onStatus: ((SCKYCUserStatus, Bool) -> Void)?
-    var onError: ((String) -> Void)?
+    @MainActor var onStatus: ((SCKYCUserStatus, Int, String) -> Void)?
+    @MainActor var onError: ((String) -> Void)?
     var onClose: (() -> Void)?
     var onRetry: (() -> Void)?
-    var onReset: (() -> Void)?
+    var onLogout: (() -> Void)?
     var onSupport: (() -> Void)?
 
     private let service: SCKYCService
+    private var freeAttemptsLeft: Int?
 
     init(data: SCKYCUserDataModel, service: SCKYCService) {
         self.data = data
@@ -20,25 +21,30 @@ final class SCKYCStatusViewModel {
 
     func getKYCStatus() async {
         guard await service.refreshAccessTokenIfNeeded() else {
-            onError?("PayWings Login required!")
+            await onError?("PayWings Login required!")
             return
         }
-        let response = await service.kycStatuses()
-        switch response {
-        case .failure(let error):
-            onError?(error.errorDescription ?? "error")
-        case .success(let statuses):
-            guard let status = statuses.sorted.last else {
-                onError?("KYC not started yet")
-                return
-            }
 
-            switch await service.kycAttempts() {
-            case .failure(let error):
-                onError?(error.errorDescription ?? "error")
-            case .success(let kycAttempts):
-                onStatus?(status.userStatus, kycAttempts.hasFreeAttempts)
+        await getKYCAttempts()
+        _ = await service.userStatus()
+        await service.updateFees()
+
+        for await status in service.userStatusStream {
+
+            if freeAttemptsLeft == nil {
+                await getKYCAttempts()
             }
+            guard let freeAttemptsLeft = self.freeAttemptsLeft else { return }
+            await onStatus?(status, freeAttemptsLeft, service.retryFeeCache)
+        }
+    }
+
+    private func getKYCAttempts() async {
+        switch await service.kycAttempts() {
+        case .failure(let error):
+            await onError?(error.errorDescription ?? "error")
+        case .success(let kycAttempts):
+            self.freeAttemptsLeft = Int(kycAttempts.freeAttemptsLeft)
         }
     }
 }

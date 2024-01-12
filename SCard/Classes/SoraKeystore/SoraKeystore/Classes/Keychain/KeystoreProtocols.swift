@@ -49,7 +49,7 @@ public protocol SecretDataRepresentable {
 }
 
 extension SecretDataRepresentable {
-    public func toUTF8String() -> String? {
+    public func asUTF8String() -> String? {
         guard let existingData = asSecretData() else { return nil}
         return String(data: existingData, encoding: .utf8)
     }

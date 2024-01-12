@@ -11,6 +11,7 @@
 		4E2767E29D9B4220183A7F7C /* Pods_SCard_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A370A92E8E2A7D1FE5C87353 /* Pods_SCard_Example.framework */; };
 		5E01F0D529D469C1007CE5C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E01F0D429D469C1007CE5C2 /* Assets.xcassets */; };
 		5EB6A4B429D5D2F1000F3CA5 /* SoraCard.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5EB6A4AD29D5D2F1000F3CA5 /* SoraCard.strings */; };
+		5EC900C42AB0697900681DFE /* SoraCard.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5EC900C22AB0697900681DFE /* SoraCard.stringsdict */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -40,6 +41,18 @@
 		5EB6A4B129D5D2F1000F3CA5 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/SoraCard.strings; sourceTree = "<group>"; };
 		5EB6A4B229D5D2F1000F3CA5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/SoraCard.strings; sourceTree = "<group>"; };
 		5EB6A4B329D5D2F1000F3CA5 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/SoraCard.strings; sourceTree = "<group>"; };
+		5EC900C32AB0697900681DFE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/SoraCard.stringsdict; sourceTree = "<group>"; };
+		5EC900C52AB069A600681DFE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/SoraCard.stringsdict; sourceTree = "<group>"; };
+		5EC900C62AB069A600681DFE /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = pt; path = pt.lproj/SoraCard.stringsdict; sourceTree = "<group>"; };
+		5EC900C72AB069A600681DFE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/SoraCard.stringsdict"; sourceTree = "<group>"; };
+		5EC900C82AB069A600681DFE /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/SoraCard.stringsdict; sourceTree = "<group>"; };
+		5EC900C92AB069A600681DFE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/SoraCard.stringsdict; sourceTree = "<group>"; };
+		5EC900CA2AB069A600681DFE /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = vi; path = vi.lproj/SoraCard.stringsdict; sourceTree = "<group>"; };
+		5EC900CB2AB069A600681DFE /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = nl; path = nl.lproj/SoraCard.stringsdict; sourceTree = "<group>"; };
+		5EC900CC2AB069A600681DFE /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/SoraCard.stringsdict; sourceTree = "<group>"; };
+		5EC900CD2AB06A2C00681DFE /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/SoraCard.strings; sourceTree = "<group>"; };
+		5EC900CE2AB06A2E00681DFE /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/SoraCard.strings; sourceTree = "<group>"; };
+		5EC900CF2AB06A3100681DFE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SoraCard.strings"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* SCard_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SCard_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +103,7 @@
 		5EB6A4AC29D5D2F1000F3CA5 /* Localizable */ = {
 			isa = PBXGroup;
 			children = (
+				5EC900C22AB0697900681DFE /* SoraCard.stringsdict */,
 				5EB6A4AD29D5D2F1000F3CA5 /* SoraCard.strings */,
 			);
 			name = Localizable;
@@ -255,6 +269,9 @@
 				ru,
 				fr,
 				nl,
+				pt,
+				"zh-Hans",
+				vi,
 			);
 			mainGroup = 607FACC71AFB9204008FA782;
 			productRefGroup = 607FACD11AFB9204008FA782 /* Products */;
@@ -272,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EC900C42AB0697900681DFE /* SoraCard.stringsdict in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				5EB6A4B429D5D2F1000F3CA5 /* SoraCard.strings in Resources */,
 				5E01F0D529D469C1007CE5C2 /* Assets.xcassets in Resources */,
@@ -444,8 +462,27 @@
 				5EB6A4B129D5D2F1000F3CA5 /* ru */,
 				5EB6A4B229D5D2F1000F3CA5 /* fr */,
 				5EB6A4B329D5D2F1000F3CA5 /* nl */,
+				5EC900CD2AB06A2C00681DFE /* vi */,
+				5EC900CE2AB06A2E00681DFE /* pt */,
+				5EC900CF2AB06A3100681DFE /* zh-Hans */,
 			);
 			name = SoraCard.strings;
+			sourceTree = "<group>";
+		};
+		5EC900C22AB0697900681DFE /* SoraCard.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5EC900C32AB0697900681DFE /* en */,
+				5EC900C52AB069A600681DFE /* fr */,
+				5EC900C62AB069A600681DFE /* pt */,
+				5EC900C72AB069A600681DFE /* zh-Hans */,
+				5EC900C82AB069A600681DFE /* ru */,
+				5EC900C92AB069A600681DFE /* de */,
+				5EC900CA2AB069A600681DFE /* vi */,
+				5EC900CB2AB069A600681DFE /* nl */,
+				5EC900CC2AB069A600681DFE /* es */,
+			);
+			name = SoraCard.stringsdict;
 			sourceTree = "<group>";
 		};
 		607FACD91AFB9204008FA782 /* Main.storyboard */ = {

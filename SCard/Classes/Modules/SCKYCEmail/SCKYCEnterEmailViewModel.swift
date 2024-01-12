@@ -23,12 +23,13 @@ final class SCKYCEnterEmailViewModel {
 
     func register(email: String) {
 
-        guard data.email.isEmpty else {
+        guard !data.isEmailSent else {
             changeEmail(email: email)
             return
         }
 
         data.lastEmailOTPSentDate = Date()
+        data.isEmailSent = true
         data.email = email
 
         service.registerUser(data: data, callback: registerUserCallback)
@@ -50,12 +51,11 @@ extension SCKYCEnterEmailViewModel: RegisterUserCallbackDelegate, ChangeUnverifi
 
     func onSignInSuccessful(refreshToken: String, accessToken: String, accessTokenExpirationTime: Int64) {
         let token = SCToken(refreshToken: refreshToken, accessToken: accessToken, accessTokenExpirationTime: accessTokenExpirationTime)
-        SCAPIClient.shared.set(token: token)
+        SCard.shared?.set(token: token)
         Task { await SCStorage.shared.add(token: token) }
     }
 
     func onUserSignInRequired() {
-        // TODO: neede
         onError?("")
         onContinue?(data)
     }

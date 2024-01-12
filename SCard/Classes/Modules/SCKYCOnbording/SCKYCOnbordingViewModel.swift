@@ -17,7 +17,16 @@ final class SCKYCOnbordingViewModel {
         self.result.delegate = self
     }
 
-    func referenceNumber() async -> String? {
+    func fetchReferenceNumber() async -> Bool {
+        if !service.currentUserState.userReferenceNumber.isEmpty,
+           !service.currentUserState.referenceId.isEmpty,
+           service.currentUserState.kycStatus != .rejected
+        {
+            data.referenceNumber = service.currentUserState.userReferenceNumber
+            data.referenceId = service.currentUserState.referenceId
+            return true
+        }
+
         let result = await service.referenceNumber(
             phone: data.phoneNumber,
             email: data.email
@@ -27,10 +36,11 @@ final class SCKYCOnbordingViewModel {
         case .success(let respons):
             data.referenceNumber = respons.referenceNumber
             data.referenceId = respons.referenceID
-            return data.referenceNumber
+            return true
         case .failure(let error):
-            print(error) // TODO: Update UI
-            return nil
+            print(error)
+            showErrorAlert(title: "Error", message: error.errorDescription ?? error.localizedDescription)
+            return false
         }
     }
 
@@ -50,11 +60,12 @@ final class SCKYCOnbordingViewModel {
     private func goToKyc() {
 
         Task {
-            let referenceNumber = await referenceNumber()
+            guard await fetchReferenceNumber() else { return }
+            let referenceNumber = data.referenceNumber
             let referenceId = data.referenceId
             let token = await SCStorage.shared.token()
 
-            let language = UserDefaults.standard.string(forKey: "language_preference") ?? ""
+            let language = UserDefaults.standard.string(forKey: "selectedLocalization") ?? ""
             let settings = KycSettings(referenceID: referenceId, referenceNumber: referenceNumber, language: language)
 
             let credentials = KycCredentials(
@@ -79,18 +90,22 @@ final class SCKYCOnbordingViewModel {
             )
 
             DispatchQueue.main.async {
-               let cameraAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized) ? true : false
-               let microphoneAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == .authorized) ? true : false
 
-               if cameraAuthorized && microphoneAuthorized {
-                   let config = KycConfig(
-                    credentials: credentials,
-                    settings: settings,
-                    userData: userData,
-                    userCredentials: UserCredentials(accessToken: token?.accessToken ?? "", refreshToken: token?.refreshToken)
-                   )
-                   PayWingsOnboardingKyc.startKyc(vc: self.viewController ?? .init(), config: config, result: self.result)
-               }
+                let cameraAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized) ? true : false
+                let microphoneAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == .authorized) ? true : false
+
+                let accessToken = token?.accessToken ?? ""
+                let refreshToken = token?.refreshToken ?? ""
+                let userCredentials = UserCredentials(accessToken: accessToken, refreshToken: refreshToken)
+                if cameraAuthorized && microphoneAuthorized {
+                    let config = KycConfig(
+                        credentials: credentials,
+                        settings: settings,
+                        userData: userData,
+                        userCredentials:userCredentials
+                    )
+                    PayWingsOnboardingKyc.startKyc(vc: self.viewController ?? .init(), config: config, result: self.result)
+                }
             }
         }
     }
@@ -111,7 +126,7 @@ final class SCKYCOnbordingViewModel {
         case .restricted:
             return
         default:
-            fatalError(NSLocalizedString("Camera Authorization Status not handled!", comment: ""))
+            error(message: "Camera Authorization Status not handled!")
         }
     }
 
@@ -129,7 +144,7 @@ final class SCKYCOnbordingViewModel {
                 }
             })
         default:
-            fatalError(NSLocalizedString("Microphone Authorization Status not handled!", comment: ""))
+            error(message: "Microphone Authorization Status not handled!")
         }
     }
 
@@ -147,6 +162,19 @@ final class SCKYCOnbordingViewModel {
         })
         viewController?.present(alertController, animated: true)
     }
+
+    private func showErrorAlert(title: String, message: String) {
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(
+            title: R.string.soraCard.commonCancel(preferredLanguages: .currentLocale),
+            style: .default)
+        )
+        viewController?.present(alertController, animated: true)
+    }
 }
 
 extension SCKYCOnbordingViewModel: VerificationResultDelegate {
@@ -157,7 +185,24 @@ extension SCKYCOnbordingViewModel: VerificationResultDelegate {
     }
 
     func error(result: PayWingsOnboardingKYC.ErrorEvent) {
-        onContinue?(data)
+        error(message: result.StatusDescription)
+    }
+
+    func error(message: String) {
+
+        let alertController = UIAlertController(
+            title: R.string.soraCard.commonErrorGeneralTitle(preferredLanguages: .currentLocale),
+            message: message,
+            preferredStyle: .alert
+        )
+        alertController.addAction(UIAlertAction(
+            title: R.string.soraCard.commonClose(preferredLanguages: .currentLocale),
+            style: .cancel, handler: { [weak self] action in
+                guard let self = self else { return }
+                self.onContinue?(self.data)
+            })
+        )
+        viewController?.present(alertController, animated: true)
     }
 }
 
