@@ -83,3 +83,9 @@ struct Iban: Codable {
         case statusDescription = "StatusDescription"
     }
 }
+
+extension Iban {
+    var isActive: Bool {
+        status == "Active"
+    }
+}
