@@ -11,6 +11,7 @@ extension SCKYCService {
 //        switch result {
 //        case .success(var scIbanResponse):
 //            scIbanResponse.ibans = []
+//            //scIbanResponse.ibans![0].availableBalance = 1042
 //            return .success(scIbanResponse)
 //        case .failure(let error):
 //            return .failure(error)
@@ -86,6 +87,6 @@ struct Iban: Codable {
 
 extension Iban {
     var isActive: Bool {
-        status == "Active"
+        status == "A"
     }
 }

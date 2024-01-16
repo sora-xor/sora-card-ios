@@ -3,10 +3,29 @@ import Foundation
 extension SCKYCService {
 
     func updateKycState() async {
+
+        var hasActiveIban = false
+        switch await iban() {
+        case .success(let iban):
+            if let iban = iban.ibans?.first {
+                hasActiveIban = iban.isActive
+            }
+        case .failure(let error):
+            print(error)
+        }
+
         switch await kycLastState() {
         case .success(let kycState):
-            self.currentUserState = kycState ?? .none
-            self._userStatusStream.wrappedValue = kycState?.userStatus ?? .none
+            var kycState = kycState ?? .none
+
+            if hasActiveIban, kycState.userStatus != .successful  {
+                self.currentUserState = .successful
+                self._userStatusStream.wrappedValue = .successful
+            } else {
+                self.currentUserState = kycState
+                self._userStatusStream.wrappedValue = kycState.userStatus
+            }
+
         case .failure(let error):
             print("UpdateKycState error:\(error)")
             self.clearUserKYCState()
@@ -122,6 +141,19 @@ extension SCUserState {
         kycStatus: .none,
         verificationStatus: .none,
         ibanStatus: .none,
+        additionalDescription: nil,
+        rejectionReasons: nil,
+        updateTime: .init()
+    )
+
+    static let successful: SCUserState = .init(
+        kycId: "",
+        personId: "",
+        userReferenceNumber: "",
+        referenceId: "",
+        kycStatus: .successful,
+        verificationStatus: .accepted,
+        ibanStatus: .pending,
         additionalDescription: nil,
         rejectionReasons: nil,
         updateTime: .init()
