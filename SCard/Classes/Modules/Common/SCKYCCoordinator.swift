@@ -64,8 +64,6 @@ final class SCKYCCoordinator {
     private func openSCard() async {
         // TODO: present loading creeen
 
-        _ = await self.service.refreshAccessTokenIfNeeded()
-
         if await canShowHardhub() {
             await MainActor.run {
                 showCardHub()
@@ -76,7 +74,7 @@ final class SCKYCCoordinator {
             await rootViewController?.present(navigationController, animated: true)
         }
 
-        let data = SCKYCUserDataModel()
+        let data = await SCKYCUserDataService(service: service).fetchUserData() ?? SCKYCUserDataModel()
 
         await service.updateFees()
 
@@ -84,9 +82,7 @@ final class SCKYCCoordinator {
             self.service.startKYCStatusRefresher()
         }
 
-        if storage.hasToken(),
-           await self.service.refreshAccessTokenIfNeeded()
-        {
+        if service.isUserSignIn() {
             checkUserStatus(data: data)
         } else {
             await MainActor.run { [weak self] in
@@ -214,7 +210,7 @@ final class SCKYCCoordinator {
             self?.showLogoutAlert(in: viewController)
         }
 
-        viewModel.onClose = { [weak self, unowned viewController] in
+        viewModel.onClose = { [unowned viewController] in
             viewController.navigationController?.dismiss(animated: true)
         }
 
@@ -238,7 +234,7 @@ final class SCKYCCoordinator {
         }
 
         viewModel.onAccept = { [weak self] in
-            if self?.storage.hasToken() ?? false {
+            if self?.service.isUserSignIn() ?? false {
                 self?.checkUserStatus(data: data)
             } else {
                 self?.showEnterPhone(data: data)
@@ -293,7 +289,7 @@ final class SCKYCCoordinator {
             showEmailVerification(data: data)
         }
 
-        viewModel.onSignInSuccessful = { [unowned self] data in
+        viewModel.onSignInSuccessfully = { [unowned self] data in
             checkUserStatus(data: data)
         }
 
@@ -481,6 +477,8 @@ final class SCKYCCoordinator {
             UIAlertAction(title: R.string.soraCard.cardHubSettingsLogoutButton(preferredLanguages: .currentLocale) , style: .destructive
         ) { [weak self, viewController] _ in
             Task { [weak self] in await self?.storage.removeToken() }
+            // TODO: refactoring
+            self?.service.signOutUser()
             self?.storage.set(isRety: false)
             self?.service.clearUserKYCState()
             viewController.dismiss(animated: true)

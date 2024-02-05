@@ -38,6 +38,7 @@ final class SCCardHubViewController: UIViewController {
             await MainActor.run {
                 rootView.configure(
                     iban: iban?.iban,
+                    ibanStatus: iban?.status,
                     balance: iban?.availableBalance,
                     needUpdateApp: needUpdateApp
                 )

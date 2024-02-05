@@ -25,7 +25,7 @@ class ViewController: UIViewController {
         resetLabel.textColor = .blue
         resetLabel.isUserInteractionEnabled = true
         resetLabel.addTapGesture(with: { SoramitsuTapGestureRecognizer in
-            Task { await self.soraCard?.removeToken() }
+            self.soraCard?.logout()
         })
 
         view.addSubview(resetLabel)
@@ -44,20 +44,23 @@ class ViewController: UIViewController {
 
         refreshBalanceTimer.invalidate()
         refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            let balane = Decimal(UInt.random(in: 2500...5000))
+            let balane = Decimal(UInt.random(in: 250000...500000))
             xorBalanceStream.wrappedValue = balane
         }
 
+        /// Set BundleID: co.jp.soramitsu.sora.test fot TEST recaptchaKey
         let scConfig = SCard.Config(
             appStoreUrl: "https://apps.apple.com/us/app/sora-wallet-polkaswap/id1457566711",
             backendUrl: "https://backend.dev.sora-card.tachi.soramitsu.co.jp/",
             pwAuthDomain: "soracard.com",
             pwApiKey: "",
+            appPlatformId: "",
+            recaptchaKey: "",
             kycUrl: "https://kyc-test.soracard.com/mobile",
             kycUsername: "",
             kycPassword: "",
             xOneEndpoint: "https://dev.x1ex.com/widgets/sdk.js",
-            xOneId: "",
+            xOneId: "sprkwdgt-WYL6QBNC",
             environmentType: .test,
             themeMode: SoramitsuUI.shared.themeMode
         )

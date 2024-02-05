@@ -1,10 +1,9 @@
 import PayWingsOAuthSDK
-import PayWingsOnboardingKYC
 import SoraUIKit
 
 public class SCard {
 
-    public static let currentSDKVersion = "2.2.0"
+    public static let currentSDKVersion = "2.2.0" // TODO: update
     static let minXorAmount = 100
     static let techSupportLink = "techsupport@soracard.com"
 
@@ -26,6 +25,8 @@ public class SCard {
         public let backendUrl: String
         public let pwAuthDomain: String
         public let pwApiKey: String
+        public let appPlatformId: String
+        public let recaptchaKey: String
         public let kycUrl: String
         public let kycUsername: String
         public let kycPassword: String
@@ -39,6 +40,8 @@ public class SCard {
             backendUrl: String,
             pwAuthDomain: String,
             pwApiKey: String,
+            appPlatformId: String,
+            recaptchaKey: String,
             kycUrl: String,
             kycUsername: String,
             kycPassword: String,
@@ -51,6 +54,8 @@ public class SCard {
             self.backendUrl = backendUrl
             self.pwAuthDomain = pwAuthDomain
             self.pwApiKey = pwApiKey
+            self.appPlatformId = appPlatformId
+            self.recaptchaKey = recaptchaKey
             self.kycUrl = kycUrl
             self.kycUsername = kycUsername
             self.kycPassword = kycPassword
@@ -127,7 +132,7 @@ public class SCard {
     }
 
     public func accessToken() async -> String? {
-        await storage.token()?.accessToken
+        "TODO: token" //await storage.token()?.accessToken
     }
 
     public func removeToken() async {
@@ -165,6 +170,7 @@ public class SCard {
         }
         storage.set(isRety: false)
         service.clearUserKYCState()
+        service.signOutUser()
     }
 }
 
@@ -175,6 +181,8 @@ extension SCard.Config: CustomDebugStringConvertible {
         backendUrl: \(backendUrl)
         pwAuthDomain: \(pwAuthDomain)
         pwApiKey: \(pwApiKey)
+        appPlatformId: \(appPlatformId)
+        recaptchaKey: \(recaptchaKey)
         kycUrl: \(kycUrl)
         kycUsername: \(kycUsername)
         kycPassword: \(kycPassword)

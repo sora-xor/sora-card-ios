@@ -122,3 +122,5 @@
 "select.country.title" = "Kies je land";
 "iban.pending.description" = "Uw IBAN-uitgifte is in behandeling.\n Neem contact met ons op via %@ als de wachttijd langer dan 72 uur is";
 "card.hub.title" = "Card details";
+"iban.suspended.description" = "Your IBAN has been suspended.\nTo find out more, contact %@";
+"iban.frozen.description" = "Your IBAN has been frozen.\nTo find out more, contact %@";

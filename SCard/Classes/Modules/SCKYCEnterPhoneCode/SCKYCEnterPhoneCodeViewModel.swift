@@ -14,7 +14,7 @@ final class SCKYCEnterPhoneCodeViewModel {
 
     var onEmailVerification: ((SCKYCUserDataModel) -> Void)?
     var onUserRegistration: ((SCKYCUserDataModel) -> Void)?
-    var onSignInSuccessful: ((SCKYCUserDataModel) -> Void)?
+    var onSignInSuccessfully: ((SCKYCUserDataModel) -> Void)?
 
     var onResend: ((SCKYCUserDataModel) -> Void)?
     var onUpdateUI: (() -> Void)?
@@ -54,6 +54,24 @@ final class SCKYCEnterPhoneCodeViewModel {
 }
 
 extension SCKYCEnterPhoneCodeViewModel: SignInWithPhoneNumberVerifyOtpCallbackDelegate {
+    func onSignInSuccessful() {
+        Task { [weak self] in
+            guard let self = self else { return }
+            self.service.getUserData(callback: self.getUserDataCallback)
+            await MainActor.run {
+                self.onUpdateUI?()
+            }
+        }
+    }
+    
+    func onShowTimeBasedOtpVerificationInputScreen(accountName: String) {
+        print("TODO: onShowTimeBasedOtpVerificationInputScreen")
+    }
+    
+    func onShowTimeBasedOtpSetupScreen(accountName: String, secretKey: String) {
+        print("TODO: onShowTimeBasedOtpSetupScreen")
+    }
+    
     func onShowEmailConfirmationScreen(email: String, autoEmailSent: Bool) {
         data.email = email
         data.isEmailSent = true
@@ -67,25 +85,13 @@ extension SCKYCEnterPhoneCodeViewModel: SignInWithPhoneNumberVerifyOtpCallbackDe
         onUserRegistration?(data)
     }
 
-    func onUserSignInRequired() {}
+    func onUserSignInRequired() {
+        print("TODO: onUserSignInRequired")
+    }
 
     func onVerificationFailed() {
         codeState = .wrong(R.string.soraCard.otpErrorMessageWrongCode(preferredLanguages: .currentLocale))
         onUpdateUI?()
-    }
-
-    func onSignInSuccessful(refreshToken: String, accessToken: String, accessTokenExpirationTime: Int64) {
-        let token = SCToken(refreshToken: refreshToken, accessToken: accessToken, accessTokenExpirationTime: accessTokenExpirationTime)
-        service.client.set(token: token)
-
-        Task { [weak self] in
-            await SCStorage.shared.add(token: token)
-            guard let self = self else { return }
-            self.service.getUserData(callback: self.getUserDataCallback)
-            await MainActor.run {
-                self.onUpdateUI?()
-            }
-        }
     }
 
     func onError(error: PayWingsOAuthSDK.OAuthErrorCode, errorMessage: String?) {
@@ -109,6 +115,6 @@ extension SCKYCEnterPhoneCodeViewModel: GetUserDataCallbackDelegate {
         data.lastname = lastName ?? ""
         data.email = email ?? ""
 
-        onSignInSuccessful?(data)
+        onSignInSuccessfully?(data)
     }
 }

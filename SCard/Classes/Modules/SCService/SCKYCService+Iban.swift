@@ -1,6 +1,6 @@
 extension SCKYCService {
     func iban() async -> Result<SCIbanResponse, NetworkingError> {
-        guard await refreshAccessTokenIfNeeded() else {
+        guard isUserSignIn() else {
             return .failure(.unauthorized)
         }
         let request = APIRequest(method: .get, endpoint: SCEndpoint.ibans)
@@ -53,6 +53,14 @@ struct SCIbanResponse: Codable {
 }
 
 struct Iban: Codable {
+
+    enum Status: String, Codable {
+        case active = "A"
+        case suspendedByUser = "U"
+        case suspendedBySystem = "S"
+        case closed = "C"
+    }
+
     let id: String
     let iban: String
     let availableBalance: Int
@@ -64,7 +72,8 @@ struct Iban: Codable {
     let currency: String
     let maxTransactionAmount: Int
     let minTransactionAmount: Int
-    let status, statusDescription: String
+    let status: Status
+    let statusDescription: String
     let description: String
 
     enum CodingKeys: String, CodingKey {
@@ -82,11 +91,5 @@ struct Iban: Codable {
         case minTransactionAmount = "MinTransactionAmount"
         case status = "Status"
         case statusDescription = "StatusDescription"
-    }
-}
-
-extension Iban {
-    var isActive: Bool {
-        status == "A"
     }
 }

@@ -1,14 +1,17 @@
 import Foundation
 import AVFoundation
 import PayWingsOAuthSDK
-import PayWingsOnboardingKYC
+import PayWingsKycSDK
 
 final class SCKYCOnbordingViewModel {
     var onContinue: ((SCKYCUserDataModel) -> Void)?
     weak var viewController: UIViewController?
     
     private var result = VerificationResult()
-    private var kycSuccess: PayWingsOnboardingKYC.SuccessEvent?
+    private var kycSuccess: PayWingsKycSDK.SuccessEvent?
+    private let data: SCKYCUserDataModel
+    private let service: SCKYCService
+    private let storage: SCStorage
 
     init(data: SCKYCUserDataModel, service: SCKYCService, storage: SCStorage) {
         self.data = data
@@ -17,7 +20,25 @@ final class SCKYCOnbordingViewModel {
         self.result.delegate = self
     }
 
-    func fetchReferenceNumber() async -> Bool {
+    func set(kycId: String) {
+        data.kycId = kycId
+        storage.add(kycId: kycId)
+    }
+
+    func startKYC() {
+        Task {
+            guard await checkCameraPermission() else { return }
+            guard await checkMicrophonePermission() else { return }
+            guard let kycSettings = await initializeKycSettings() else { return }
+            await initializeKyc()
+
+            await MainActor.run {
+                PayWingsKyc.startKyc(settings: kycSettings)
+            }
+        }
+    }
+
+    private func fetchReferenceNumber() async -> Bool {
         if !service.currentUserState.userReferenceNumber.isEmpty,
            !service.currentUserState.referenceId.isEmpty,
            service.currentUserState.kycStatus != .rejected
@@ -25,6 +46,11 @@ final class SCKYCOnbordingViewModel {
             data.referenceNumber = service.currentUserState.userReferenceNumber
             data.referenceId = service.currentUserState.referenceId
             return true
+        }
+
+        guard !data.phoneNumber.isEmpty, !data.email.isEmpty else {
+            showErrorAlert(title: "Error", message: "No phone number or email")
+            return false
         }
 
         let result = await service.referenceNumber(
@@ -44,107 +70,87 @@ final class SCKYCOnbordingViewModel {
         }
     }
 
-    func set(kycId: String) {
-        data.kycId = kycId
-        storage.add(kycId: kycId)
+    private func initializeKycSettings() async -> KycSettings? {
+        guard await fetchReferenceNumber() else { return nil }
+        let referenceNumber = data.referenceNumber
+        let referenceId = data.referenceId
+        let language = UserDefaults.standard.string(forKey: "selectedLocalization") ?? "en"
+
+        return KycSettings(referenceID: referenceId, referenceNumber: referenceNumber, language: language)
     }
 
-    private let data: SCKYCUserDataModel
-    private let service: SCKYCService
-    private let storage: SCStorage
+    private func initializeKyc() async {
+        let credentials = KycCredentials(
+            username: service.config.kycUsername,
+            password: service.config.kycPassword,
+            endpointUrl: service.config.kycUrl + "/"
+        )
 
-    func startKYC() {
-        checkCameraPermission()
+        let cameraAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized) ? true : false
+        let microphoneAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == .authorized) ? true : false
+
+        guard let viewController = viewController, cameraAuthorized, microphoneAuthorized else {
+            error(message: "Camera or microphone authorization error!")
+            return
+        }
+
+        await MainActor.run {
+            PayWingsKyc.initialize(
+                vc: viewController,
+                credentials: credentials,
+                result: self.result
+            )
+        }
+
+        PayWingsKyc.tokenRefreshHandler { (methodUrl, onComplete) in
+            PayWingsOAuthClient.instance()?.getNewAuthorizationData(
+                methodUrl: methodUrl, httpRequestMethod: .POST, completion: { authData in
+                    onComplete(authData.accessTokenData?.accessToken, authData.dpop)
+                    if authData.userSignInRequired ?? false {
+                        print("PayWingsKyc userSignInRequired")
+                    }
+            })
+        }
     }
 
-    private func goToKyc() {
-
-        Task {
-            guard await fetchReferenceNumber() else { return }
-            let referenceNumber = data.referenceNumber
-            let referenceId = data.referenceId
-            let token = await SCStorage.shared.token()
-
-            let language = UserDefaults.standard.string(forKey: "selectedLocalization") ?? ""
-            let settings = KycSettings(referenceID: referenceId, referenceNumber: referenceNumber, language: language)
-
-            let credentials = KycCredentials(
-                username: service.config.kycUsername,
-                password: service.config.kycPassword,
-                endpointUrl: service.config.kycUrl
-            )
-
-            let userData = KycUserData(
-                firstName: data.name,
-                middleName: "",
-                lastName: data.lastname,
-                address1: "",
-                address2: "",
-                address3: "",
-                zipCode: "",
-                city: "",
-                state: "",
-                countryCode: "",
-                email: data.email,
-                mobileNumber: data.phoneNumber
-            )
-
-            DispatchQueue.main.async {
-
-                let cameraAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized) ? true : false
-                let microphoneAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == .authorized) ? true : false
-
-                let accessToken = token?.accessToken ?? ""
-                let refreshToken = token?.refreshToken ?? ""
-                let userCredentials = UserCredentials(accessToken: accessToken, refreshToken: refreshToken)
-                if cameraAuthorized && microphoneAuthorized {
-                    let config = KycConfig(
-                        credentials: credentials,
-                        settings: settings,
-                        userData: userData,
-                        userCredentials:userCredentials
-                    )
-                    PayWingsOnboardingKyc.startKyc(vc: self.viewController ?? .init(), config: config, result: self.result)
+    private func checkCameraPermission() async -> Bool {
+        await withCheckedContinuation { continuation in
+            switch AVCaptureDevice.authorizationStatus(for: .video) {
+            case .authorized:
+                continuation.resume(returning: true)
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video) { isGranted in
+                    continuation.resume(returning: isGranted)
                 }
+            case .denied:
+                showPhoneSettings(type: PermissionType.Camera.rawValue)
+                continuation.resume(returning: false)
+            case .restricted:
+                continuation.resume(returning: false)
+            default:
+                error(message: "Camera Authorization Status not handled!")
+                continuation.resume(returning: false)
             }
         }
     }
 
-    private func checkCameraPermission() {
-
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            checkMicrophonePermission()
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted: Bool) -> Void in
-                if granted == true {
-                    self.checkMicrophonePermission()
+    private func checkMicrophonePermission() async -> Bool {
+        await withCheckedContinuation { continuation in
+            switch AVAudioSession.sharedInstance().recordPermission {
+            case .granted:
+                continuation.resume(returning: true)
+            case .undetermined:
+                AVAudioSession.sharedInstance().requestRecordPermission { isGranted in
+                    continuation.resume(returning: isGranted)
                 }
-            })
-        case .denied:
-            showPhoneSettings(type: PermissionType.Camera.rawValue)
-        case .restricted:
-            return
-        default:
-            error(message: "Camera Authorization Status not handled!")
-        }
-    }
+            case .denied:
+                showPhoneSettings(type: PermissionType.Microphone.rawValue)
+                continuation.resume(returning: false)
 
-    private func checkMicrophonePermission() {
-
-        switch AVAudioSession.sharedInstance().recordPermission {
-        case .granted:
-            goToKyc()
-        case .denied:
-            showPhoneSettings(type: PermissionType.Microphone.rawValue)
-        case .undetermined:
-            AVAudioSession.sharedInstance().requestRecordPermission({ (granted) in
-                if granted {
-                    self.goToKyc()
-                }
-            })
-        default:
-            error(message: "Microphone Authorization Status not handled!")
+            default:
+                error(message: "Microphone Authorization Status not handled!")
+                continuation.resume(returning: false)
+            }
         }
     }
 
@@ -173,22 +179,12 @@ final class SCKYCOnbordingViewModel {
             title: R.string.soraCard.commonCancel(preferredLanguages: .currentLocale),
             style: .default)
         )
-        viewController?.present(alertController, animated: true)
-    }
-}
-
-extension SCKYCOnbordingViewModel: VerificationResultDelegate {
-    func success(result: PayWingsOnboardingKYC.SuccessEvent) {
-        kycSuccess = result
-        set(kycId: result.KycID ?? "")
-        onContinue?(data)
+        DispatchQueue.main.async {
+            self.viewController?.present(alertController, animated: true)
+        }
     }
 
-    func error(result: PayWingsOnboardingKYC.ErrorEvent) {
-        error(message: result.StatusDescription)
-    }
-
-    func error(message: String) {
+    private func error(message: String) {
 
         let alertController = UIAlertController(
             title: R.string.soraCard.commonErrorGeneralTitle(preferredLanguages: .currentLocale),
@@ -202,7 +198,21 @@ extension SCKYCOnbordingViewModel: VerificationResultDelegate {
                 self.onContinue?(self.data)
             })
         )
-        viewController?.present(alertController, animated: true)
+        DispatchQueue.main.async {
+            self.viewController?.present(alertController, animated: true)
+        }
+    }
+}
+
+extension SCKYCOnbordingViewModel: VerificationResultDelegate {
+    func onSuccess(result: PayWingsKycSDK.SuccessEvent) {
+        kycSuccess = result
+        set(kycId: result.KycID ?? "")
+        onContinue?(data)
+    }
+
+    func onError(result: PayWingsKycSDK.ErrorEvent) {
+        error(message: result.ErrorData.message)
     }
 }
 

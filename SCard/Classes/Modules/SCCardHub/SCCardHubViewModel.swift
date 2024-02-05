@@ -18,10 +18,7 @@ final class SCCardHubViewModel {
     func iban() async -> Iban? {
         switch await service.iban() {
         case .success(let iban):
-            if let iban = iban.ibans?.first {
-                return iban.isActive ? iban : nil
-            }
-            return nil
+            return iban.ibans?.first
         case .failure(let error):
             print(error)
             return nil

@@ -4,12 +4,10 @@ extension SCKYCService {
 
     func updateKycState() async {
 
-        var hasActiveIban = false
+        var hasIban = false
         switch await iban() {
-        case .success(let iban):
-            if let iban = iban.ibans?.first {
-                hasActiveIban = iban.isActive
-            }
+        case .success(let resoponse):
+            hasIban = !(resoponse.ibans ?? []).isEmpty
         case .failure(let error):
             print(error)
         }
@@ -18,7 +16,7 @@ extension SCKYCService {
         case .success(let kycState):
             var kycState = kycState ?? .none
 
-            if hasActiveIban, kycState.userStatus != .successful  {
+            if hasIban, kycState.userStatus != .successful  {
                 self.currentUserState = .successful
                 self._userStatusStream.wrappedValue = .successful
             } else {
@@ -65,7 +63,7 @@ extension SCKYCService {
     }
 
     private func kycLastState() async -> Result<SCUserState?, NetworkingError> {
-        guard await refreshAccessTokenIfNeeded() else {
+        guard isUserSignIn() else {
             return .failure(.unauthorized)
         }
         let request = APIRequest(method: .get, endpoint: SCEndpoint.kycLastStatus)

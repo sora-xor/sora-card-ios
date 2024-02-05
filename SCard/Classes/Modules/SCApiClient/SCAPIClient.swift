@@ -1,4 +1,5 @@
 import Foundation
+import PayWingsOAuthSDK
 
 enum HTTPMethod: String {
     case get = "GET"
@@ -116,7 +117,17 @@ public class SCAPIClient {
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = request.body
 
-        urlRequest.addValue("Bearer " + token.accessToken, forHTTPHeaderField: "Authorization")
+        let (accessToken, _) = await withCheckedContinuation { continuation in
+            PayWingsOAuthClient.instance()?.getNewAuthorizationData(
+                methodUrl: "/test", httpRequestMethod: .POST, completion: { authData in
+                continuation.resume(returning: (authData.accessTokenData?.accessToken, authData.dpop))
+                if authData.userSignInRequired ?? false {
+                    print("SCAPIClient userSignInRequired")
+                }
+            })
+        }
+
+        urlRequest.addValue("Bearer " + (accessToken ?? ""), forHTTPHeaderField: "Authorization")
 
         (headers + (request.headers ?? [])).forEach {
             urlRequest.addValue($0.value, forHTTPHeaderField: $0.field)

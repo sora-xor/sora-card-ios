@@ -44,29 +44,27 @@ final class SCKYCEnterEmailCodeViewModel {
 }
 
 extension SCKYCEnterEmailCodeViewModel: CheckEmailVerifiedCallbackDelegate {
-    func onEmailNotVerified() {
-    }
-
-    func onSignInSuccessful(refreshToken: String, accessToken: String, accessTokenExpirationTime: Int64) {
+    func onSignInSuccessful() {
         timer.invalidate()
-        let token = SCToken(refreshToken: refreshToken, accessToken: accessToken, accessTokenExpirationTime: accessTokenExpirationTime)
-        Task { [weak self] in
-            await SCStorage.shared.add(token: token)
-            guard let self = self else { return }
-            await MainActor.run {
-                self.onContinue?(self.data)
-            }
-        }
+        onContinue?(self.data)
     }
 
-    func onUserSignInRequired() {
-    }
-
-    func onError(error: PayWingsOAuthSDK.OAuthErrorCode, errorMessage: String?) {
+    func onEmailNotVerified() {
+        print("SCKYCEnterEmailCodeViewModel onEmailNotVerified")
     }
 }
 
 extension SCKYCEnterEmailCodeViewModel: SendNewVerificationEmailCallbackDelegate {
+
+    func onError(error: PayWingsOAuthSDK.OAuthErrorCode, errorMessage: String?) {
+        print("SCKYCEnterEmailCodeViewModel error:\(error)")
+    }
+
+    func onUserSignInRequired() {
+        print("SCKYCEnterEmailCodeViewModel onUserSignInRequired")
+    }
+    
     func onShowEmailConfirmationScreen(email: String, autoEmailSent: Bool) {
+        print("SCKYCEnterEmailCodeViewModel onShowEmailConfirmationScreen")
     }
 }

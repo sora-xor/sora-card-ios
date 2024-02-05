@@ -48,21 +48,28 @@ public final class SCKYCService {
     internal var applicationFeeCache: String = "29"
     internal var iosClientVersion: String?
     internal var countries: [SCCountry] = []
-    private let payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol
     private var isRefreshAccessTokenInProgress = false
     private var kycStatusRefresherTimer: Timer?
+    private let authCallback = OAuthInitializationCallback()
+
+    private lazy var payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol = {
+        PayWingsOAuthClient.initialize(
+            environmentType: config.environmentType.pwType,
+            apiKey: config.pwApiKey,
+            domain: config.pwAuthDomain,
+            appPlatformID: config.appPlatformId,
+            recaptchaKey: config.recaptchaKey,
+            callback: authCallback
+        )
+        print(PayWingsOAuthClient.isReady)
+        return PayWingsOAuthClient.instance()!
+    }()
 
     init(client: SCAPIClient, config: SCard.Config) {
         self.client = client
         self.config = config
-
-        PayWingsOAuthClient.initialize(
-            environmentType: config.environmentType.pwType,
-            apiKey: config.pwApiKey,
-            domain: config.pwAuthDomain
-        )
-        
-        self.payWingsOAuthClient = PayWingsOAuthClient.instance()!
+        self.authCallback.delegate = self
+        _ = payWingsOAuthClient
     }
 
     @SCStream internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.none)
@@ -74,47 +81,12 @@ public final class SCKYCService {
         }
     }
 
-    func refreshAccessTokenIfNeeded() async -> Bool {
-        guard let token = await SCStorage.shared.token(),
-              !isRefreshAccessTokenInProgress
-        else {
-            return false
-        }
-        guard Date() >= Date(timeIntervalSince1970: TimeInterval(token.accessTokenExpirationTime))
-        else {
-            client.set(token: token)
-            return true
-        }
+    func isUserSignIn() -> Bool {
+        payWingsOAuthClient.isUserSignIn()
+    }
 
-        isRefreshAccessTokenInProgress = true
-
-        return await withCheckedContinuation { continuation in
-
-            self.payWingsOAuthClient.getNewAccessToken(refreshToken: token.refreshToken) { [weak self] result in
-                if let data = result.accessTokenData {
-                    let token = SCToken(
-                        refreshToken: token.refreshToken,
-                        accessToken: data.accessToken,
-                        accessTokenExpirationTime: data.accessTokenExpirationTime
-                    )
-                    self?.client.set(token: token)
-
-                    Task {
-                        await SCStorage.shared.add(token: token)
-                    }
-                    continuation.resume(returning: true)
-                    self?.isRefreshAccessTokenInProgress = false
-                    return
-                }
-
-                if let errorData = result.errorData {
-                    print("Error SCKYCService:\(errorData.error.rawValue) \(String(describing: errorData.errorMessage))")
-                    continuation.resume(returning: false)
-                    self?.isRefreshAccessTokenInProgress = false
-                    return
-                }
-            }
-        }
+    func signOutUser() {
+        payWingsOAuthClient.signOutUser()
     }
 
     func sendNewVerificationEmail(callback: SendNewVerificationEmailCallback) {
@@ -123,10 +95,7 @@ public final class SCKYCService {
 
     func getUserData(callback: GetUserDataCallback) {
         Task {
-            guard let token = await SCStorage.shared.token() else {
-                return
-            }
-            payWingsOAuthClient.getUserData(accessToken: token.accessToken, callback: callback)
+            payWingsOAuthClient.getUserData(callback: callback)
         }
     }
 
@@ -147,8 +116,13 @@ public final class SCKYCService {
         payWingsOAuthClient.signInWithPhoneNumberVerifyOtp(otp: code, callback: callback)
     }
 
-    func signInWithPhoneNumberRequestOtp(phoneNumber: String, callback: SignInWithPhoneNumberRequestOtpCallback) {
+    func signInWithPhoneNumberRequestOtp(
+        countryCode: String,
+        phoneNumber: String,
+        callback: SignInWithPhoneNumberRequestOtpCallback
+    ) {
         payWingsOAuthClient.signInWithPhoneNumberRequestOtp(
+            phoneNumberCountryCode: countryCode,
             phoneNumber: phoneNumber,
             smsContentTemplate: nil,
             callback: callback
@@ -157,5 +131,15 @@ public final class SCKYCService {
 
     func checkEmailVerified(callback: CheckEmailVerifiedCallback) {
         payWingsOAuthClient.checkEmailVerified(callback: callback)
+    }
+}
+
+extension SCKYCService: OAuthInitializationCallbackDelegate {
+    public func onSuccess() {
+        print("OAuthInitializationCallbackDelegate onSuccess")
+    }
+    
+    public func onFailure(error: PayWingsOAuthSDK.OAuthErrorCode, errorMessage: String?) {
+        print("OAuthInitializationCallbackDelegate error:\(error) errorMessage:\(String(describing: errorMessage))")
     }
 }
