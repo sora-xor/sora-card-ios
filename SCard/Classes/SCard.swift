@@ -3,7 +3,7 @@ import SoraUIKit
 
 public class SCard {
 
-    public static let currentSDKVersion = "2.2.0" // TODO: update
+    public static let currentSDKVersion = "2.2.3"
     static let minXorAmount = 100
     static let techSupportLink = "techsupport@soracard.com"
 
