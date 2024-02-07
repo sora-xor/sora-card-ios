@@ -38,9 +38,12 @@ final class NetworkingLogger {
 
     private func logHeaders(_ urlRequest: URLRequest) {
         if let allHTTPHeaderFields = urlRequest.allHTTPHeaderFields {
-            for (key, value) in allHTTPHeaderFields {
-                print("  \(key) : \(value)")
-            }
+            let toPrint = allHTTPHeaderFields
+                .map { (key, value) in
+                    "\(key): \(value.prefix(20))"
+                }
+                .joined(separator: ", ")
+            print(toPrint)
         }
     }
 

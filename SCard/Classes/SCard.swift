@@ -90,7 +90,7 @@ public class SCard {
         self.config = config
         self.addressProvider = addressProvider
 
-        client = .init(baseURL: URL(string: config.backendUrl)!, baseAuth: "", token: .empty, logLevels: .debug)
+        client = .init(baseURL: URL(string: config.backendUrl)!, baseAuth: "", token: .empty, logLevels: .info)
         service = .init(client: client, config: config)
         coordinator = .init(
             addressProvider: addressProvider,

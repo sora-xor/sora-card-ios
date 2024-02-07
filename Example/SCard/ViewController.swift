@@ -44,9 +44,10 @@ class ViewController: UIViewController {
 
         refreshBalanceTimer.invalidate()
         refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            let balane = Decimal(UInt.random(in: 250000...500000))
-            xorBalanceStream.wrappedValue = balane
+            xorBalanceStream.wrappedValue = Decimal(UInt.random(in: 2500...500000))
         }
+
+        SoramitsuUI.shared.themeMode = .manual(.dark)
 
         /// Set BundleID: co.jp.soramitsu.sora.test fot TEST recaptchaKey
         let scConfig = SCard.Config(

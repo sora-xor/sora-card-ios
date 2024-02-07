@@ -127,7 +127,9 @@ public class SCAPIClient {
             })
         }
 
-        urlRequest.addValue("Bearer " + (accessToken ?? ""), forHTTPHeaderField: "Authorization")
+        if let accessToken = accessToken {
+            urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+        }
 
         (headers + (request.headers ?? [])).forEach {
             urlRequest.addValue($0.value, forHTTPHeaderField: $0.field)

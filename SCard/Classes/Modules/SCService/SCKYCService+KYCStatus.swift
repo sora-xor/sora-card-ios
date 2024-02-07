@@ -4,15 +4,20 @@ extension SCKYCService {
 
     func updateKycState() async {
 
+        guard isUserSignIn() else { return }
+
+        async let ibanResult = iban()
+        async let kycLastStateResult = kycLastState()
+
         var hasIban = false
-        switch await iban() {
+        switch await ibanResult {
         case .success(let resoponse):
             hasIban = !(resoponse.ibans ?? []).isEmpty
         case .failure(let error):
             print(error)
         }
 
-        switch await kycLastState() {
+        switch await kycLastStateResult {
         case .success(let kycState):
             var kycState = kycState ?? .none
 

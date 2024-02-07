@@ -44,13 +44,20 @@ class SCKYCGetFreeCardView: UIView {
     private lazy var button: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.button.sora.isEnabled = false
+            self?.button.isEnabled = false
             self?.onButton?()
-            self?.button.sora.isEnabled = true
+            self?.button.isEnabled = true
         }
-        button.sora.title = R.string.soraCard.detailsIssueCard(preferredLanguages: .currentLocale)
+        let title = R.string.soraCard.detailsIssueCard(preferredLanguages: .currentLocale)
+        button.sora.attributedText = SoramitsuTextItem(
+            text: title,
+            fontData: FontType.buttonM,
+            textColor: .fgInverted,
+            alignment: .center
+        )
+
         button.sora.cornerRadius = .custom(28)
-        button.sora.isEnabled = false
+        button.isEnabled = false
         return button
     }()
 
@@ -71,14 +78,23 @@ class SCKYCGetFreeCardView: UIView {
             needMoreXorInFiat: needMoreXorInFiat
         )
 
+        let title: String
+
         if percentage >= SCKYCCardIssuanceViewModel.minAmountOfEuroProcentage {
-            button.sora.title = R.string.soraCard.detailsIssueCard(preferredLanguages: .currentLocale)
+            title = R.string.soraCard.detailsIssueCard(preferredLanguages: .currentLocale)
         } else {
             let needMoreXorText = NumberFormatter.polkaswapBalance.stringFromDecimal(needMoreXor) ?? ""
-            button.sora.title = R.string.soraCard.cardIssuanceScreenFreeCardGetXor(needMoreXorText, preferredLanguages: .currentLocale)
+            title = R.string.soraCard.cardIssuanceScreenFreeCardGetXor(needMoreXorText, preferredLanguages: .currentLocale)
         }
 
-        button.sora.isEnabled = isButtonEnabled
+        button.sora.attributedText = SoramitsuTextItem(
+            text: title,
+            fontData: FontType.buttonM,
+            textColor: .fgInverted,
+            alignment: .center
+        )
+
+        button.isEnabled = isButtonEnabled
 
         if isButtonEnabled {
             subtitleLabel.sora.text = R.string.soraCard.cardIssuanceScreenFreeCardDescription(

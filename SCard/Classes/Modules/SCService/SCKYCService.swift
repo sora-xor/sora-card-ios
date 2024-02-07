@@ -61,7 +61,7 @@ public final class SCKYCService {
             recaptchaKey: config.recaptchaKey,
             callback: authCallback
         )
-        print(PayWingsOAuthClient.isReady)
+        print("PayWingsOAuthClient isReady: \(PayWingsOAuthClient.isReady)")
         return PayWingsOAuthClient.instance()!
     }()
 

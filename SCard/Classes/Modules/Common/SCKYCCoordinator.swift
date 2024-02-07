@@ -32,6 +32,8 @@ final class SCKYCCoordinator {
     private let navigationController: UINavigationController = {
         let navigationVC = SCNavigationViewController()
         navigationVC.view.backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
+        let color = SoramitsuUI.shared.theme.palette.color(.fgPrimary)
+        navigationVC.navigationBar.titleTextAttributes = [.foregroundColor: color]
         return navigationVC
     }()
 

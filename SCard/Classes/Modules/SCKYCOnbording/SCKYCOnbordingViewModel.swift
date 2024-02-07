@@ -1,4 +1,5 @@
 import Foundation
+import SoraUIKit
 import AVFoundation
 import PayWingsOAuthSDK
 import PayWingsKycSDK
@@ -33,6 +34,7 @@ final class SCKYCOnbordingViewModel {
             await initializeKyc()
 
             await MainActor.run {
+                self.viewController?.startLoader(indicatorColor: SoramitsuUI.shared.theme.palette.color(.accentSecondary))
                 PayWingsKyc.startKyc(settings: kycSettings)
             }
         }
@@ -80,17 +82,28 @@ final class SCKYCOnbordingViewModel {
     }
 
     private func initializeKyc() async {
+        
+        guard let viewController = viewController else {
+            error(message: "KYC initialization went wrong!")
+            return
+        }
+
         let credentials = KycCredentials(
             username: service.config.kycUsername,
             password: service.config.kycPassword,
             endpointUrl: service.config.kycUrl + "/"
         )
 
-        let cameraAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized) ? true : false
-        let microphoneAuthorized = (AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) == .authorized) ? true : false
+        let isCameraAuthorized = (AVCaptureDevice.authorizationStatus(for: .video) == .authorized) ? true : false
+        let isMicAuthorized = (AVCaptureDevice.authorizationStatus(for: .audio) == .authorized) ? true : false
 
-        guard let viewController = viewController, cameraAuthorized, microphoneAuthorized else {
-            error(message: "Camera or microphone authorization error!")
+        guard isCameraAuthorized else {
+            showPhoneSettings(type: PermissionType.Camera.rawValue)
+            return
+        }
+
+        guard isMicAuthorized else {
+            showPhoneSettings(type: PermissionType.Microphone.rawValue)
             return
         }
 
@@ -208,11 +221,17 @@ extension SCKYCOnbordingViewModel: VerificationResultDelegate {
     func onSuccess(result: PayWingsKycSDK.SuccessEvent) {
         kycSuccess = result
         set(kycId: result.KycID ?? "")
+        self.viewController?.stopLoader()
         onContinue?(data)
     }
 
     func onError(result: PayWingsKycSDK.ErrorEvent) {
-        error(message: result.ErrorData.message)
+        self.viewController?.stopLoader()
+        guard result.ErrorData.code != .ABORTED_BY_USER else {
+            self.onContinue?(self.data)
+            return
+        }
+        error(message: "\(result.ErrorData.message)\n\(result.ErrorData.code.description)")
     }
 }
 

@@ -50,7 +50,7 @@ final class SCKYCEnterPhoneView: UIView {
         button.sora.attributedText = SoramitsuTextItem(
             text: R.string.soraCard.commonSendCode(preferredLanguages: .currentLocale),
             fontData: FontType.buttonM,
-            textColor: .bgSurface,
+            textColor: .fgInverted,
             alignment: .center
         )
         button.sora.isEnabled = false
