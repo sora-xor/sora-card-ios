@@ -51,8 +51,9 @@ public final class SCKYCService {
     private var isRefreshAccessTokenInProgress = false
     private var kycStatusRefresherTimer: Timer?
     private let authCallback = OAuthInitializationCallback()
+    internal var getUserDataContinuation: CheckedContinuation<UserDataResponse, Never>?
 
-    private lazy var payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol = {
+    internal lazy var payWingsOAuthClient: PayWingsOAuthSDK.OAuthServiceProtocol = {
         PayWingsOAuthClient.initialize(
             environmentType: config.environmentType.pwType,
             apiKey: config.pwApiKey,
@@ -91,12 +92,6 @@ public final class SCKYCService {
 
     func sendNewVerificationEmail(callback: SendNewVerificationEmailCallback) {
         payWingsOAuthClient.sendNewVerificationEmail(callback: callback)
-    }
-
-    func getUserData(callback: GetUserDataCallback) {
-        Task {
-            payWingsOAuthClient.getUserData(callback: callback)
-        }
     }
 
     func registerUser(data: SCKYCUserDataModel, callback: RegisterUserCallback) {

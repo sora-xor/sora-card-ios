@@ -21,6 +21,7 @@ extension SCKYCService {
         case .success(let kycState):
             var kycState = kycState ?? .none
 
+            /// Fix for user with iban but stuck KYC process for some reason
             if hasIban, kycState.userStatus != .successful  {
                 self.currentUserState = .successful
                 self._userStatusStream.wrappedValue = .successful

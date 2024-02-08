@@ -60,7 +60,9 @@ extension SCKYCEnterEmailViewModel: RegisterUserCallbackDelegate, ChangeUnverifi
 
     func onError(error: PayWingsOAuthSDK.OAuthErrorCode, errorMessage: String?) {
 
-        if error == .EMAIL_ALREADY_VERIFIED {
+        if error == .EMAIL_ALREADY_VERIFIED
+            //TODO: fix on PW side || errorMessage?.contains("User email verification required") ?? false
+        {
             onError?("")
             onContinue?(data)
             return 

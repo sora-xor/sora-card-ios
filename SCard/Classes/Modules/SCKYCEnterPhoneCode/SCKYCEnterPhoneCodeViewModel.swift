@@ -19,13 +19,11 @@ final class SCKYCEnterPhoneCodeViewModel {
     var onResend: ((SCKYCUserDataModel) -> Void)?
     var onUpdateUI: (() -> Void)?
 
-    var callback = SignInWithPhoneNumberVerifyOtpCallback()
     var getUserDataCallback = GetUserDataCallback()
 
     init(data: SCKYCUserDataModel, service: SCKYCService) {
         self.data = data
         self.service = service
-        callback.delegate = self
         getUserDataCallback.delegate = self
     }
 
@@ -44,6 +42,8 @@ final class SCKYCEnterPhoneCodeViewModel {
         if code ~= Self.phoneCodeRegex {
             codeState = .sent
             onUpdateUI?()
+            let callback = SignInWithPhoneNumberVerifyOtpCallback()
+            callback.delegate = self
             service.signInWithPhoneNumberVerifyOtp(code: code, callback: callback)
             return
         }

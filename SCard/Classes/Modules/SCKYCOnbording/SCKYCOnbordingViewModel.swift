@@ -50,6 +50,12 @@ final class SCKYCOnbordingViewModel {
             return true
         }
 
+        if data.phoneNumber.isEmpty || data.email.isEmpty {
+            let userData = await service.getUserData()
+            data.phoneNumber = userData.phoneNumber ?? ""
+            data.email = userData.email ?? ""
+        }
+
         guard !data.phoneNumber.isEmpty, !data.email.isEmpty else {
             showErrorAlert(title: "Error", message: "No phone number or email")
             return false

@@ -114,9 +114,10 @@ final class SCKYCCardIssuanceView: UIView {
         containerView.addArrangedSubviews([
             headerView,
             titleLabel,
-            getCardView,
-            separatorView,
-            payFeeView
+            getCardView
+            /// TMP removal
+            /// separatorView,
+            /// payFeeView
         ])
 
         scrollView.addSubview(containerView)
