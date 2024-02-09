@@ -140,7 +140,7 @@ extension SCUserState {
         personId: "",
         userReferenceNumber: "",
         referenceId: "",
-        kycStatus: .none,
+        kycStatus: .notStarted,
         verificationStatus: .none,
         ibanStatus: .none,
         additionalDescription: nil,
