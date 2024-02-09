@@ -4,8 +4,6 @@ extension SCKYCService {
 
     func updateKycState() async {
 
-        guard isUserSignIn() else { return }
-
         async let ibanResult = iban()
         async let kycLastStateResult = kycLastState()
 

@@ -78,7 +78,10 @@ public final class SCKYCService {
     func startKYCStatusRefresher() {
         guard kycStatusRefresherTimer == nil else { return }
         kycStatusRefresherTimer = Timer.scheduledTimer(withTimeInterval: 10.0, repeats: true) { [weak self] _ in
-            Task { [weak self] in _ = await self?.userStatus() }
+            Task { [weak self] in
+                guard self?.isUserSignIn() ?? false else { return }
+                _ = await self?.userStatus()
+            }
         }
     }
 
