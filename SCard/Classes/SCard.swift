@@ -147,6 +147,10 @@ public class SCard {
         await service.userStatus()
     }
 
+    public var isUserSignIn: Bool {
+        service.isUserSignIn()
+    }
+
     public var currentUserState: SCKYCUserStatus {
         service.currentUserState.userStatus
     }

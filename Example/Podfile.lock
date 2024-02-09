@@ -2,7 +2,7 @@ PODS:
   - IdensicMobileSDK (1.28.0)
   - JOSESwift (2.4.0)
   - PayWingsKycSDK (1.0.0)
-  - PayWingsOAuthSDK (2.0.0):
+  - PayWingsOAuthSDK (2.0.1):
     - JOSESwift (= 2.4.0)
     - RecaptchaEnterprise (= 18.3.0)
   - R.swift (6.1.0):
@@ -11,10 +11,10 @@ PODS:
   - RecaptchaEnterprise (18.3.0):
     - RecaptchaInterop (~> 100.0.0)
   - RecaptchaInterop (100.0.0)
-  - SCard (1.4.0):
+  - SCard (1.5.0):
     - IdensicMobileSDK
     - PayWingsKycSDK (= 1.0.0)
-    - PayWingsOAuthSDK (= 2.0.0)
+    - PayWingsOAuthSDK (= 2.0.1)
     - R.swift (~> 6.1.0)
     - SnapKit
     - SoraUIKit (~> 1.1.2)
@@ -58,12 +58,12 @@ SPEC CHECKSUMS:
   IdensicMobileSDK: 57c80d5544ee364fa526670c1d3bb2e80f374c2b
   JOSESwift: 7ff178bb9173ff42c6e990929a9f2fa702a34f69
   PayWingsKycSDK: b997360d19e585328ae56d5a836d9d2cdd61792d
-  PayWingsOAuthSDK: bde59cb75d4f1e283b6f2743f38f1dbfeffbe4b8
+  PayWingsOAuthSDK: bca50b0bdb92c5d86ffb86f9e176363db324a4ac
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   RecaptchaEnterprise: 9b60bc1e1633d120e24a098d80546776fab1282e
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  SCard: 64801368d53ac4ec10d2d604b5598131cdf5ebfc
+  SCard: 56ef4fc5d407694006c82a8af0079591f5b82abb
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   SoraUIKit: 09128d7766c8204f1550f00ddeccf88e43eff127
 
