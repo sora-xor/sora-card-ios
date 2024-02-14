@@ -1,7 +1,6 @@
 import Foundation
 
-@propertyWrapper
-public class SCStream<Value> {
+public class SCStream<Value>: Sendable {
 
     public var stream: AsyncStream<Value> {
         let (stream, continuation) = AsyncStream<Value>.streamWithContinuation()

@@ -5,7 +5,7 @@ extension SCKYCService {
         }
         let request = APIRequest(method: .get, endpoint: SCEndpoint.ibans)
 
-        var result: Result<SCIbanResponse, NetworkingError> = await client.performDecodable(request: request)
+        let result: Result<SCIbanResponse, NetworkingError> = await client.performDecodable(request: request)
         
 //TODO: iban pending status testing
 //        switch result {

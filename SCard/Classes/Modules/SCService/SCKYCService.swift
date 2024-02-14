@@ -73,7 +73,7 @@ public final class SCKYCService {
         _ = payWingsOAuthClient
     }
 
-    @SCStream internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.none)
+    internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.none)
 
     func startKYCStatusRefresher() {
         guard kycStatusRefresherTimer == nil else { return }

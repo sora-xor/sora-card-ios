@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     }
 
     private func initSCard() -> SCard {
-        @SCStream var xorBalanceStream = SCStream<Decimal>(wrappedValue: Decimal(0))
+        var xorBalanceStream = SCStream(wrappedValue: Decimal(0))
 
         refreshBalanceTimer.invalidate()
         refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in

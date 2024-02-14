@@ -43,12 +43,12 @@ public class SCAPIClient {
     init(
         baseURL: URL,
         baseAuth: String,
-        token: SCToken,
+        authService: OAuthServiceProtocol,
         logLevels: NetworkingLogLevel = .debug
     ) {
         self.baseURL = baseURL
         self.baseAuth = baseAuth
-        self.token = token
+        self.authService = authService
         self.logger.logLevels = logLevels
         self.headers = [
             .init(field: "appName", value: Bundle.main.appName),
@@ -61,10 +61,10 @@ public class SCAPIClient {
 
     private let apiKey = ""
     private let baseAuth: String
-    private var token: SCToken
     private let baseURL: URL
     private let headers: [HTTPHeader]
 
+    private let authService: OAuthServiceProtocol
     private let session = URLSession.shared
     private let logger = NetworkingLogger()
 
@@ -75,10 +75,6 @@ public class SCAPIClient {
         jsonDecoder.dateDecodingStrategy = .formatted(dateFormatter)
         return jsonDecoder
     }()
-
-    func set(token: SCToken) {
-        self.token = token
-    }
 
     func performDecodable<T: Decodable>(request: APIRequest) async -> Result<T, NetworkingError> {
         let result = await perform(request: request)
@@ -117,19 +113,31 @@ public class SCAPIClient {
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = request.body
 
-        let (accessToken, _) = await withCheckedContinuation { continuation in
-            PayWingsOAuthClient.instance()?.getNewAuthorizationData(
-                methodUrl: "/test", httpRequestMethod: .POST, completion: { authData in
-                continuation.resume(returning: (authData.accessTokenData?.accessToken, authData.dpop))
+        guard authService.isUserSignIn() else {
+            return .failure(NetworkingError.unauthorized)
+        }
+
+        // TODO: use dpop
+        let (accessToken, dpop) = await withCheckedContinuation { continuation in
+            authService.getNewAuthorizationData(
+                methodUrl: request.endpoint.path,
+                httpRequestMethod: request.method.pwMethod
+            ) { authData in
                 if authData.userSignInRequired ?? false {
                     print("SCAPIClient userSignInRequired")
                 }
-            })
+                if let errorData = authData.errorData {
+                    print("SCAPIClient error: \(errorData.errorMessage ?? "") \(errorData.error.description)")
+                }
+                continuation.resume(returning: (authData.accessTokenData?.accessToken, authData.dpop))
+            }
         }
 
-        if let accessToken = accessToken {
-            urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+        guard let accessToken = accessToken else {
+            return .failure(NetworkingError.unauthorized)
         }
+
+        urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
 
         (headers + (request.headers ?? [])).forEach {
             urlRequest.addValue($0.value, forHTTPHeaderField: $0.field)
@@ -177,34 +185,6 @@ public class SCAPIClient {
     }
 }
 
-struct SCToken: Codable, SecretDataRepresentable {
-    static let empty: SCToken = .init(refreshToken: "", accessToken: "", accessTokenExpirationTime: 0)
-
-    let refreshToken: String
-    let accessToken: String
-    let accessTokenExpirationTime: Int64
-
-    init(refreshToken: String, accessToken: String, accessTokenExpirationTime: Int64) {
-        self.refreshToken = refreshToken
-        self.accessToken = accessToken
-        self.accessTokenExpirationTime = accessTokenExpirationTime
-    }
-
-    init?(secretData: SecretDataRepresentable?) {
-        guard let secretUTF8String = secretData?.asUTF8String() else { return nil }
-        let secretPrts = secretUTF8String.split(separator: "@").map { String($0) }
-        guard secretPrts.count == 3  else { return nil }
-
-        self.refreshToken = secretPrts[0]
-        self.accessToken = secretPrts[1]
-        self.accessTokenExpirationTime = Int64(secretPrts[2]) ?? 0
-    }
-
-    func asSecretData() -> Data? {
-        "\(refreshToken)@\(accessToken)@\(accessTokenExpirationTime)".data(using: .utf8)
-    }
-}
-
 extension Bundle {
     public var appName: String { getInfo("CFBundleName")  }
     public var displayName: String { getInfo("CFBundleDisplayName")}
@@ -213,4 +193,13 @@ extension Bundle {
     public var appBuild: String { getInfo("CFBundleVersion") }
     public var appVersionLong: String { getInfo("CFBundleShortVersionString") }
     fileprivate func getInfo(_ str: String) -> String { infoDictionary?[str] as? String ?? "" }
+}
+
+extension HTTPMethod {
+    var pwMethod: PayWingsOAuthSDK.HttpRequestMethod {
+        switch self {
+        case .get: .GET
+        case .post: .POST
+        }
+    }
 }
