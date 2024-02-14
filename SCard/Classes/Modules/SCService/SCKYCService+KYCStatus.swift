@@ -30,7 +30,6 @@ extension SCKYCService {
 
         case .failure(let error):
             print("UpdateKycState error:\(error)")
-            self.clearUserKYCState()
         }
 
 //TODO: statuses testing
@@ -59,11 +58,6 @@ extension SCKYCService {
     func userStatus() async -> SCKYCUserStatus {
         await updateKycState()
         return currentUserState.userStatus
-    }
-
-    func clearUserKYCState() {
-        currentUserState = .none
-        _userStatusStream.wrappedValue = .notStarted
     }
 
     private func kycLastState() async -> Result<SCUserState?, NetworkingError> {

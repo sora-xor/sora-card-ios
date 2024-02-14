@@ -89,8 +89,18 @@ public final class SCKYCService {
         payWingsOAuthClient.isUserSignIn()
     }
 
-    func signOutUser() {
+    func logout() {
+        signOutUser()
+        clearUserKYCState()
+    }
+
+    private func signOutUser() {
         payWingsOAuthClient.signOutUser()
+    }
+
+    private func clearUserKYCState() {
+        currentUserState = .none
+        _userStatusStream.wrappedValue = .notStarted
     }
 
     func sendNewVerificationEmail(callback: SendNewVerificationEmailCallback) {

@@ -478,11 +478,8 @@ final class SCKYCCoordinator {
         alertController.addAction(
             UIAlertAction(title: R.string.soraCard.cardHubSettingsLogoutButton(preferredLanguages: .currentLocale) , style: .destructive
         ) { [weak self, viewController] _ in
-            Task { [weak self] in await self?.storage.removeToken() }
-            // TODO: refactoring
-            self?.service.signOutUser()
+            self?.service.logout()
             self?.storage.set(isRety: false)
-            self?.service.clearUserKYCState()
             viewController.dismiss(animated: true)
         })
         viewController.present(alertController, animated: true)
@@ -499,9 +496,9 @@ final class SCKYCCoordinator {
     }
 
     private func resetKYC() async {
-        await storage.removeToken()
+
         storage.set(isRety: false)
-        service.clearUserKYCState()
+        service.logout()
 
         await MainActor.run { [weak self] in
             guard let self = self else { return }

@@ -15,6 +15,10 @@ protocol Endpoint {
     var path: String { get }
 }
 
+protocol BearerProvider {
+    func bearer() async -> String?
+}
+
 final class APIRequest {
     let method: HTTPMethod
     let endpoint: Endpoint
@@ -43,7 +47,7 @@ public class SCAPIClient {
     init(
         baseURL: URL,
         baseAuth: String,
-        authService: OAuthServiceProtocol,
+        authService: OAuthServiceProtocol?,
         logLevels: NetworkingLogLevel = .debug
     ) {
         self.baseURL = baseURL
@@ -64,7 +68,7 @@ public class SCAPIClient {
     private let baseURL: URL
     private let headers: [HTTPHeader]
 
-    private let authService: OAuthServiceProtocol
+    private let authService: OAuthServiceProtocol?
     private let session = URLSession.shared
     private let logger = NetworkingLogger()
 
@@ -76,8 +80,8 @@ public class SCAPIClient {
         return jsonDecoder
     }()
 
-    func performDecodable<T: Decodable>(request: APIRequest) async -> Result<T, NetworkingError> {
-        let result = await perform(request: request)
+    func performDecodable<T: Decodable>(request: APIRequest, bearerProvider: BearerProvider?) async -> Result<T, NetworkingError> {
+        let result = await perform(request: request, bearerProvider: bearerProvider)
 
         switch result {
         case let .success(data):
@@ -93,7 +97,7 @@ public class SCAPIClient {
         }
     }
 
-    func perform(request: APIRequest) async -> Result<Data, NetworkingError> {
+    private func prepareURLRequest(request: APIRequest) -> URLRequest? {
         var urlComponents = URLComponents()
         urlComponents.scheme = baseURL.scheme
         urlComponents.host = baseURL.host
@@ -106,41 +110,76 @@ public class SCAPIClient {
         }
 
         guard let url = urlComponents.url?.appendingPathComponent(request.endpoint.path) else {
-            return .failure(.init(status: .badURL))
+            return nil
         }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = request.body
 
-        guard authService.isUserSignIn() else {
-            return .failure(NetworkingError.unauthorized)
+        (headers + (request.headers ?? [])).forEach {
+            urlRequest.addValue($0.value, forHTTPHeaderField: $0.field)
         }
+        return urlRequest
+    }
 
-        // TODO: use dpop
-        let (accessToken, dpop) = await withCheckedContinuation { continuation in
-            authService.getNewAuthorizationData(
-                methodUrl: request.endpoint.path,
-                httpRequestMethod: request.method.pwMethod
-            ) { authData in
-                if authData.userSignInRequired ?? false {
-                    print("SCAPIClient userSignInRequired")
-                }
-                if let errorData = authData.errorData {
-                    print("SCAPIClient error: \(errorData.errorMessage ?? "") \(errorData.error.description)")
-                }
-                continuation.resume(returning: (authData.accessTokenData?.accessToken, authData.dpop))
-            }
-        }
+    private func addTokenURLRequest(
+        urlRequest: URLRequest,
+        request: APIRequest,
+        bearerProvider: BearerProvider
+    ) async -> URLRequest? {
 
-        guard let accessToken = accessToken else {
-            return .failure(NetworkingError.unauthorized)
+        var urlRequest = urlRequest
+
+//        guard authService?.isUserSignIn() ?? false else {
+//            return nil // .failure(NetworkingError.unauthorized)
+//        }
+
+//        // TODO: use dpop
+//        let (accessToken, dpop) = await withCheckedContinuation { continuation in
+//            authService?.getNewAuthorizationData(
+//                methodUrl: request.endpoint.path,
+//                httpRequestMethod: request.method.pwMethod
+//            ) { authData in
+//                if authData.userSignInRequired ?? false {
+//                    print("SCAPIClient userSignInRequired")
+//                }
+//                if let errorData = authData.errorData {
+//                    print("SCAPIClient error: \(errorData.errorMessage ?? "") \(errorData.error.description)")
+//                }
+//                continuation.resume(returning: (authData.accessTokenData?.accessToken, authData.dpop))
+//            }
+//            continuation.resume(returning: (nil, nil))
+//        }
+
+        guard let accessToken = await bearerProvider.bearer() else {
+            return nil
         }
 
         urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
 
-        (headers + (request.headers ?? [])).forEach {
-            urlRequest.addValue($0.value, forHTTPHeaderField: $0.field)
+
+        return urlRequest
+    }
+
+    func perform(request: APIRequest, bearerProvider: BearerProvider?) async -> Result<Data, NetworkingError> {
+
+        guard var urlRequest = prepareURLRequest(request: request) else {
+            return .failure(.init(status: .badURL))
+        }
+
+        if let bearerProvider = bearerProvider {
+//            guard let await addTokenURLRequest(
+//                urlRequest: urlRequest,
+//                request: request,
+//                bearerProvider: bearerProvider
+//            ) else {
+//                return .failure(NetworkingError.unauthorized)
+//            }
+            guard let accessToken = await bearerProvider.bearer() else {
+                return .failure(NetworkingError.unauthorized)
+            }
+            urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
         }
 
         logger.log(request: urlRequest)
@@ -163,12 +202,10 @@ public class SCAPIClient {
             return .failure(.init(errorCode: error.code))
         }
 
-        return processDataResponse(request: request, urlRequest: urlRequest, data: data, response: response)
+        return processDataResponse(data: data, response: response)
     }
 
     func processDataResponse(
-        request: APIRequest,
-        urlRequest: URLRequest,
         data: Data,
         response: URLResponse
     ) -> Result<Data, NetworkingError> {
