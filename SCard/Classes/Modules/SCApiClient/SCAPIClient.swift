@@ -117,6 +117,10 @@ public class SCAPIClient {
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = request.body
 
+        guard PayWingsOAuthClient.instance()?.isUserSignIn() ?? false else {
+            return .failure(NetworkingError.unauthorized)
+        }
+
         let (accessToken, _) = await withCheckedContinuation { continuation in
             PayWingsOAuthClient.instance()?.getNewAuthorizationData(
                 methodUrl: "/test", httpRequestMethod: .POST, completion: { authData in
