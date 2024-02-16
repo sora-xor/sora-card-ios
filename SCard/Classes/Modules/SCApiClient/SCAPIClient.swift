@@ -80,8 +80,8 @@ public class SCAPIClient {
         self.token = token
     }
 
-    func performDecodable<T: Decodable>(request: APIRequest) async -> Result<T, NetworkingError> {
-        let result = await perform(request: request)
+    func performDecodable<T: Decodable>(request: APIRequest, withAuthorization: Bool = true) async -> Result<T, NetworkingError> {
+        let result = await perform(request: request, withAuthorization: withAuthorization)
 
         switch result {
         case let .success(data):
@@ -97,7 +97,7 @@ public class SCAPIClient {
         }
     }
 
-    func perform(request: APIRequest) async -> Result<Data, NetworkingError> {
+    func perform(request: APIRequest, withAuthorization: Bool) async -> Result<Data, NetworkingError> {
         var urlComponents = URLComponents()
         urlComponents.scheme = baseURL.scheme
         urlComponents.host = baseURL.host
@@ -117,22 +117,24 @@ public class SCAPIClient {
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = request.body
 
-        guard PayWingsOAuthClient.instance()?.isUserSignIn() ?? false else {
-            return .failure(NetworkingError.unauthorized)
-        }
+        if withAuthorization {
+            guard PayWingsOAuthClient.instance()?.isUserSignIn() ?? false else {
+                return .failure(NetworkingError.unauthorized)
+            }
 
-        let (accessToken, _) = await withCheckedContinuation { continuation in
-            PayWingsOAuthClient.instance()?.getNewAuthorizationData(
-                methodUrl: "/test", httpRequestMethod: .POST, completion: { authData in
-                continuation.resume(returning: (authData.accessTokenData?.accessToken, authData.dpop))
-                if authData.userSignInRequired ?? false {
-                    print("SCAPIClient userSignInRequired")
-                }
-            })
-        }
+            let (accessToken, _) = await withCheckedContinuation { continuation in
+                PayWingsOAuthClient.instance()?.getNewAuthorizationData(
+                    methodUrl: "/test", httpRequestMethod: .POST, completion: { authData in
+                        continuation.resume(returning: (authData.accessTokenData?.accessToken, authData.dpop))
+                        if authData.userSignInRequired ?? false {
+                            print("SCAPIClient userSignInRequired")
+                        }
+                    })
+            }
 
-        if let accessToken = accessToken {
-            urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+            if let accessToken = accessToken {
+                urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+            }
         }
 
         (headers + (request.headers ?? [])).forEach {

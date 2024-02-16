@@ -2,7 +2,10 @@ extension SCKYCService {
 
     func updateCountries() async -> Result<[SCCountry], NetworkingError> {
         let request = APIRequest(method: .get, endpoint: SCEndpoint.countryCodes)
-        let response: Result<[String: SCCountryModel], NetworkingError> = await client.performDecodable(request: request)
+        let response: Result<[String: SCCountryModel], NetworkingError> = await client.performDecodable(
+            request: request,
+            withAuthorization: false
+        )
 
         switch response {
         case .success(let countryMap):
