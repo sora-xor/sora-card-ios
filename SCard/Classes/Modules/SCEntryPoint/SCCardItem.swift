@@ -22,7 +22,7 @@ public final class SCCardItem: NSObject {
 
         Task { [weak self] in
 
-            switch self?.service.verionsChangesNeeded() ?? .none {
+            switch await self?.service.verionsChangesNeeded() ?? .none {
             case .major, .minor, .patch:
                 self?.needUpdate = true
             case .none:
@@ -40,12 +40,7 @@ public final class SCCardItem: NSObject {
     }
 
     private func updateBalance() async {
-        switch await service.iban() {
-        case .success(let ibanResponse):
-            self.availableBalance = ibanResponse.ibans?.first?.availableBalance
-        case .failure(let error):
-            print(error)
-        }
+        self.availableBalance = await service.iban()?.availableBalance
     }
 }
 

@@ -5,6 +5,7 @@ import SoraUIKit
 final class SCCardHubViewController: UIViewController {
 
     var onLogout: (() -> Void)?
+    var onSupport: (() -> Void)?
     var onUpdateApp: (() -> Void)?
 
     private let model: SCCardHubViewModel
@@ -31,25 +32,26 @@ final class SCCardHubViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         binding()
-
-        Task {
-            let iban = await model.iban()
-            let needUpdateApp = await model.needUpdateApp()
-            await MainActor.run {
-                rootView.configure(
-                    iban: iban?.iban,
-                    ibanStatus: iban?.status,
-                    balance: iban?.availableBalance,
-                    needUpdateApp: needUpdateApp
-                )
-            }
-        }
+        model.fetchIban()
     }
 
     private func binding() {
 
+        model.onUpdateUI = { [unowned self] iban, needUpdateApp in
+            rootView.configure(
+                iban: iban?.iban,
+                ibanStatus: iban?.status,
+                balance: iban?.availableBalance,
+                needUpdateApp: needUpdateApp
+            )
+        }
+
         rootView.onClose = { [unowned self] in
             self.dismiss(animated: true)
+        }
+
+        rootView.onSupport = { [unowned self] in
+            self.onSupport?()
         }
 
         rootView.onLogout = { [unowned self] in

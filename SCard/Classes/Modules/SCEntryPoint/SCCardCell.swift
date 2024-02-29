@@ -10,6 +10,8 @@ public final class SCCardCell: SoramitsuTableViewCell {
         let view = SoramitsuImageView()
         view.sora.picture = .logo(image: R.image.scFront()!)
         view.sora.isUserInteractionEnabled = true
+        view.sora.cornerRadius = .medium
+        view.sora.clipsToBounds = true
         view.addTapGesture { [unowned self] _ in
             self.onCard?()
         }
@@ -18,7 +20,8 @@ public final class SCCardCell: SoramitsuTableViewCell {
 
     private lazy var bgImageTintView: SoramitsuView = {
         let view = SoramitsuView()
-        view.sora.backgroundColor = .custom(uiColor: .white.withAlphaComponent(0.8))
+        let color = SoramitsuUI.shared.theme.palette.color(.bgPage).withAlphaComponent(0.8)
+        view.sora.backgroundColor = .custom(uiColor: color)
         view.sora.isHidden = true
         return view
     }()
@@ -101,7 +104,7 @@ public final class SCCardCell: SoramitsuTableViewCell {
         contentView.addSubview(bgImage) {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.bottom.equalToSuperview().inset(8)
-            $0.height.equalTo(bgImage.snp.width).multipliedBy(ratio)
+            $0.height.equalTo(bgImage.snp.width).multipliedBy(ratio).priority(990)
         }
 
         bgImage.addSubview(bgImageTintView) {

@@ -110,9 +110,10 @@ final class SCCardHubIbanView: SoramitsuView {
         }
 
         addSubview(shareButton) {
-            $0.top.trailing.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().inset(4)
+            $0.trailing.equalToSuperview().inset(24)
             $0.leading.equalTo(titleLabel.snp.trailing).offset(16)
-            $0.size.equalTo(32)
+            $0.width.equalTo(32)
         }
 
         addSubview(subtitleLabel) {

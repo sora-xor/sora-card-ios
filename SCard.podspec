@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'SCard'
-  s.version          = '1.5.0'
+  s.version          = '1.5.1'
   s.summary          = 'Description of Sora Card.'
 
   s.description      = <<-DESC

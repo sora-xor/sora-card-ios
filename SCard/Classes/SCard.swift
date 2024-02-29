@@ -91,10 +91,12 @@ public class SCard {
         self.config = config
         self.addressProvider = addressProvider
 
+        let bearerProvider = SCPayWingsOAuthProvider()
+
         client = .init(
             baseURL: URL(string: config.backendUrl)!,
             baseAuth: "",
-            authService: PayWingsOAuthClient.instance(),
+            bearerProvider: bearerProvider,
             logLevels: logLevels
         )
         service = .init(client: client, config: config)
@@ -108,7 +110,7 @@ public class SCard {
         )
 
         Task {
-            await service.updateVersion()
+            _ = await service.fetchVersion()
             if SCStorage.shared.isFirstLaunch() {
                 logout()
                 SCStorage.shared.setAppLaunched()

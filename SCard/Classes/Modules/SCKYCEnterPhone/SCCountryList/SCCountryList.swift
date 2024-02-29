@@ -41,7 +41,8 @@ class SCCountryList: UITableViewController, UISearchControllerDelegate {
         searchController.searchResultsUpdater = self
         searchController.searchBar.autocapitalizationType = .none
         searchController.searchBar.delegate = self
-
+        searchController.searchBar.barStyle = SoramitsuUI.shared.theme == .dark ? .black : .default
+        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true

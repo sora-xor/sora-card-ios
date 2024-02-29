@@ -65,7 +65,9 @@ final class SCCardHubHeaderView: SoramitsuView {
         label.sora.font = FontType.headline2
         label.sora.textColor = .fgPrimary
         label.sora.alignment = .right
-        label.sora.text = "€0"
+        label.sora.text = "shimmer"
+        label.sora.loadingPlaceholder.type = .shimmer
+        label.sora.loadingPlaceholder.shimmerview.sora.cornerRadius = .circle
         return label
     }()
 
@@ -153,7 +155,10 @@ final class SCCardHubHeaderView: SoramitsuView {
     }
 
     func configure(balance: Int?) {
-        balanceLabel.text = balance != nil ? SCBalanceConverter.formatedBalance(balance: balance!) : ""
+        // TODO: add localization
+        balanceLabel.sora.text = balance != nil ?
+            SCBalanceConverter.formatedBalance(balance: balance!) : "Can’t load balance"
+        balanceLabel.sora.loadingPlaceholder.type = .none
     }
 
     private func setupInitialLayout() {

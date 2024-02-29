@@ -27,6 +27,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        SoramitsuUI.shared.themeMode = .manual(.dark)
+
         table.delegate = self
         table.dataSource = self
 
@@ -48,35 +50,34 @@ class ViewController: UIViewController {
             xorBalanceStream.wrappedValue = Decimal(UInt.random(in: 2500...500000))
         }
 
-        SoramitsuUI.shared.themeMode = .manual(.dark)
-
-        /// Set BundleID: co.jp.soramitsu.sora.test fot TEST recaptchaKey
-        let scConfig = SCard.Config(
-            appStoreUrl: "https://apps.apple.com/us/app/sora-wallet-polkaswap/id1457566711",
-            backendUrl: "https://backend.dev.sora-card.tachi.soramitsu.co.jp/",
-            pwAuthDomain: "soracard.com",
-            pwApiKey: "6974528a-ee11-4509-b549-a8d02c1aec0d",
-            appPlatformId: "6CB2884B-17CA-4F9F-800C-9C89646D773D",
-            recaptchaKey: "6Lftc1QpAAAAAMRvMZFoqR9I4SI-yRZ8AF-cA40F",
-            kycUrl: "https://kyc-test.soracard.com/mobile",
-            kycUsername: "E7A6CB83-630E-4D24-88C5-18AAF96032A4",
-            kycPassword: "75A55B7E-A18F-4498-9092-58C7D6BDB333",
-            xOneEndpoint: "https://dev.x1ex.com/widgets/sdk.js",
-            xOneId: "sprkwdgt-WYL6QBNC",
+        // Dev BundleID: co.jp.soramitsu.sora.dev
+        let local = SCard.Config(
+            appStoreUrl: "",
+            backendUrl: "",
+            pwAuthDomain: "",
+            pwApiKey: "",
+            appPlatformId: "",
+            recaptchaKey: "",
+            kycUrl: "",
+            kycUsername: "",
+            kycPassword: "",
+            xOneEndpoint: "",
+            xOneId: "",
             environmentType: .test,
             themeMode: SoramitsuUI.shared.themeMode
         )
 
         let soraCard = SCard(
             addressProvider: { "123" },
-            config: scConfig,
+            config: local,
             balanceStream: xorBalanceStream,
             onReceiveController: { vc in
                 print("show onReceiveController in \(vc)")
             },
             onSwapController: { vc in
                 print("show SwapController in \(vc)")
-            }
+            },
+            logLevels: .info
         )
         return soraCard
     }

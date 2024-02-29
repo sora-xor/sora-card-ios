@@ -7,23 +7,32 @@ extension SCKYCService {
         case major
     }
 
-    func version() async -> Result<SCVersion, NetworkingError> {
-        let request = APIRequest(method: .get, endpoint: SCEndpoint.version)
-        return await client.performDecodable(request: request)
+    func version() async -> SCVersion? {
+        if await ClientVersionStorage.shared.clientVersion == nil {
+            _ = await fetchVersion()
+        }
+        return await ClientVersionStorage.shared.clientVersion
     }
 
-    func updateVersion() async {
-        switch await version() {
+    func fetchVersion() async -> Result<SCVersion, NetworkingError> {
+        let request = APIRequest(method: .get, endpoint: SCEndpoint.version)
+        let result: Result<SCVersion, NetworkingError> = await client.performDecodable(
+            request: request,
+            withAuthorization: false
+        )
+
+        switch result {
         case .success(let respose):
-            iosClientVersion = respose.iosClientVersion
+            await ClientVersionStorage.shared.set(clientVersion: respose)
         case .failure(let error):
             print(error)
         }
+        return result
     }
 
-    func verionsChangesNeeded() -> VersionChanges {
+    func verionsChangesNeeded() async -> VersionChanges {
 
-        guard let iosClientVersion = iosClientVersion else { return .none }
+        guard let iosClientVersion = await version()?.iosClientVersion else { return .none }
 
         let neededVersionParts = iosClientVersion.split(separator: ".").map { Int($0) ?? 0 }
         let currentVersionParts = SCard.currentSDKVersion.split(separator: ".").map { Int($0) ?? 0 }

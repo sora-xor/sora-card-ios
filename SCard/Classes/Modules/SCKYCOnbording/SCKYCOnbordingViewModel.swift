@@ -28,13 +28,19 @@ final class SCKYCOnbordingViewModel {
 
     func startKYC() {
         Task {
-            guard await checkCameraPermission() else { return }
-            guard await checkMicrophonePermission() else { return }
+            guard await checkCameraPermission() else {
+                await showPhoneSettings(type: PermissionType.Camera.rawValue)
+                return
+            }
+            guard await checkMicrophonePermission() else { 
+                await showPhoneSettings(type: PermissionType.Microphone.rawValue)
+                return
+            }
             guard let kycSettings = await initializeKycSettings() else { return }
             await initializeKyc()
 
             await MainActor.run {
-                self.viewController?.startLoader(indicatorColor: SoramitsuUI.shared.theme.palette.color(.accentSecondary))
+                viewController?.startLoader(indicatorColor: SoramitsuUI.shared.theme.palette.color(.accentSecondary))
                 PayWingsKyc.startKyc(settings: kycSettings)
             }
         }
@@ -104,12 +110,12 @@ final class SCKYCOnbordingViewModel {
         let isMicAuthorized = (AVCaptureDevice.authorizationStatus(for: .audio) == .authorized) ? true : false
 
         guard isCameraAuthorized else {
-            showPhoneSettings(type: PermissionType.Camera.rawValue)
+            await showPhoneSettings(type: PermissionType.Camera.rawValue)
             return
         }
 
         guard isMicAuthorized else {
-            showPhoneSettings(type: PermissionType.Microphone.rawValue)
+            await showPhoneSettings(type: PermissionType.Microphone.rawValue)
             return
         }
 
@@ -137,17 +143,19 @@ final class SCKYCOnbordingViewModel {
             switch AVCaptureDevice.authorizationStatus(for: .video) {
             case .authorized:
                 continuation.resume(returning: true)
+
             case .notDetermined:
                 AVCaptureDevice.requestAccess(for: .video) { isGranted in
                     continuation.resume(returning: isGranted)
                 }
+
             case .denied:
-                showPhoneSettings(type: PermissionType.Camera.rawValue)
                 continuation.resume(returning: false)
+
             case .restricted:
                 continuation.resume(returning: false)
+
             default:
-                error(message: "Camera Authorization Status not handled!")
                 continuation.resume(returning: false)
             }
         }
@@ -158,28 +166,32 @@ final class SCKYCOnbordingViewModel {
             switch AVAudioSession.sharedInstance().recordPermission {
             case .granted:
                 continuation.resume(returning: true)
+
             case .undetermined:
                 AVAudioSession.sharedInstance().requestRecordPermission { isGranted in
                     continuation.resume(returning: isGranted)
                 }
+
             case .denied:
-                showPhoneSettings(type: PermissionType.Microphone.rawValue)
                 continuation.resume(returning: false)
 
             default:
-                error(message: "Microphone Authorization Status not handled!")
                 continuation.resume(returning: false)
             }
         }
     }
 
+    @MainActor
     private func showPhoneSettings(type: String) {
         let alertController = UIAlertController(
             title: "Permission Error",
             message: "Permission for \(type) access denied, please allow our app permission through Settings in your phone if you want to use our service.",
             preferredStyle: .alert
         )
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .default))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.onContinue?(self.data)
+        })
         alertController.addAction(UIAlertAction(title: "Settings", style: .cancel) { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url, options: [:], completionHandler: { _ in })

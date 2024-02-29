@@ -55,7 +55,7 @@ final class SCKYCCoordinator {
             navigationController.viewControllers = []
         }
 
-        switch service.verionsChangesNeeded() {
+        switch await service.verionsChangesNeeded() {
         case .major, .minor, .patch:
             await showUpdateVersion()
         case .none:
@@ -287,16 +287,17 @@ final class SCKYCCoordinator {
             showEnterName(data: data)
         }
 
-        viewModel.onEmailVerification = { [unowned self] data in
-            showEmailVerification(data: data)
-        }
-
         viewModel.onSignInSuccessfully = { [unowned self] data in
             checkUserStatus(data: data)
         }
 
         let viewController = SCKYCEnterPhoneCodeViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
+
+        viewModel.onEmailVerification = { [unowned self, weak viewController] data in
+            showEmailVerification(data: data)
+            viewController?.removeFromParent()
+        }
     }
 
     private func showEnterName(data: SCKYCUserDataModel) {
@@ -432,9 +433,7 @@ final class SCKYCCoordinator {
         }
 
         viewModel.onSupport = { [weak self] in
-            let url = URL(string: "https://t.me/soracardofficial")!
-            let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
-            self?.navigationController.pushViewController(webViewController, animated: true)
+            self?.showSupport()
         }
 
         navigationController.pushViewController(viewController, animated: true)
@@ -447,6 +446,11 @@ final class SCKYCCoordinator {
         viewController.onLogout = { [weak self, weak viewController] in
             guard let viewController = viewController else { return }
             self?.showLogoutAlert(in: viewController)
+        }
+        viewController.onSupport = { [weak viewController] in
+            let url = URL(string: "https://t.me/soracardofficial")!
+            let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
+            viewController?.present(webViewController, animated: true)
         }
         viewController.onUpdateApp = { [weak self, weak viewController] in
             guard let self = self else { return }
@@ -466,6 +470,12 @@ final class SCKYCCoordinator {
         } else {
             rootViewController?.present(containerView, animated: true)
         }
+    }
+
+    private func showSupport() {
+        let url = URL(string: "https://t.me/soracardofficial")!
+        let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
+        navigationController.pushViewController(webViewController, animated: true)
     }
 
     private func showLogoutAlert(in viewController: UIViewController) {

@@ -7,6 +7,9 @@ final class SCKYCEnterPhoneView: UIView {
     var onInput: ((String) -> Void)?
     var onContinueButton: (() -> Void)?
 
+    private var timer = Timer()
+    private var secondsLeft = 0
+
     private let textLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphM
@@ -72,7 +75,18 @@ final class SCKYCEnterPhoneView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(errorMessage: String, isContinueEnabled: Bool) {
+    func configure(errorMessage: String, isContinueEnabled: Bool, secondsLeft: Int) {
+
+        self.secondsLeft = secondsLeft
+        timer.invalidate()
+        timer = Timer.scheduledTimer(
+            timeInterval: 1,
+            target: self,
+            selector: #selector(updateTimer),
+            userInfo: nil,
+            repeats: true
+        )
+
         inputField.sora.state = errorMessage.isEmpty ? .success : .fail
         inputField.sora.descriptionLabelText = errorMessage
         continueButton.sora.isEnabled = isContinueEnabled
@@ -112,6 +126,32 @@ final class SCKYCEnterPhoneView: UIView {
             $0.top.equalTo(inputField.snp.bottom).offset(28)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
+    }
+
+    @objc private func updateTimer() {
+        guard secondsLeft > 1 else {
+            continueButton.isEnabled = true
+            continueButton.sora.attributedText = SoramitsuTextItem(
+                text: R.string.soraCard.commonSendCode(preferredLanguages: .currentLocale),
+                fontData: FontType.buttonM,
+                textColor: .bgSurface,
+                alignment: .center
+            )
+            secondsLeft = 0
+            timer.invalidate()
+            return
+        }
+        secondsLeft -= 1
+        continueButton.isEnabled = false
+        continueButton.sora.attributedText = SoramitsuTextItem(
+            text: R.string.soraCard.verifyEmailResend(
+                String(secondsLeft),
+                preferredLanguages: .currentLocale
+            ),
+            fontData: FontType.buttonM,
+            textColor: .bgSurface,
+            alignment: .center
+        )
     }
 }
 
