@@ -9,7 +9,7 @@ extension SCKYCService {
 
     func version() async -> Result<SCVersion, NetworkingError> {
         let request = APIRequest(method: .get, endpoint: SCEndpoint.version)
-        return await client.performDecodable(request: request)
+        return await client.performDecodable(request: request, withAuthorization: false)
     }
 
     func updateVersion() async {

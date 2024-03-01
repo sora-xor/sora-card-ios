@@ -20,7 +20,7 @@ final class SCKYCStatusViewModel {
     let data: SCKYCUserDataModel
 
     func getKYCStatus() async {
-        guard await service.refreshAccessTokenIfNeeded() else {
+        guard service.isUserSignIn() else {
             await onError?("PayWings Login required!")
             return
         }

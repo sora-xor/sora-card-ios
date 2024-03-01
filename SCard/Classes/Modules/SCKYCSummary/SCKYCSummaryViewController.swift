@@ -59,8 +59,8 @@ final class SCKYCSummaryViewController: UIViewController {
     }
 
     private func binding() {
-        rootView.onContinueButton = { [unowned viewModel] in
-            viewModel.onContinue?()
+        rootView.onContinueButton = { [weak viewModel] in
+            viewModel?.onContinue?()
         }
 
         viewModel.onAttempts = { [unowned self] attempts, retryFee in

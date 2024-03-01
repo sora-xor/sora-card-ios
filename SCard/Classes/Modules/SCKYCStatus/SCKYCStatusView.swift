@@ -181,7 +181,13 @@ final class SCKYCStatusView: UIView {
                     textColor: .fgPrimary,
                     alignment: .center
                 )
-                actionDescriptionLabel.sora.attributedText =  [attemptsLeft]
+                let paidAttemptsAvailableLater = SoramitsuTextItem(
+                    text: "\n" + R.string.soraCard.paidAttemptsAvailableLater(preferredLanguages: .currentLocale),
+                    fontData: ScreenSizeMapper.value(small: FontType.paragraphS, medium: FontType.paragraphM, large: FontType.paragraphM),
+                    textColor: .fgPrimary,
+                    alignment: .center
+                )
+                actionDescriptionLabel.sora.attributedText =  [attemptsLeft, paidAttemptsAvailableLater]
                 actionButton.sora.title = R.string.soraCard.verificationRejectedScreenTryAgainForEuros(String(retryFee), preferredLanguages: .currentLocale)
 
                 // TODO: impl in phase 2

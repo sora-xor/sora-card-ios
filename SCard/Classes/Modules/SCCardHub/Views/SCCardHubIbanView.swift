@@ -56,13 +56,13 @@ final class SCCardHubIbanView: SoramitsuView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(iban: String?) {
+    func configure(iban: String?, ibanStatus: Iban.Status?) {
 
         if let tapGesture = tapGesture {
             subtitleLabel.removeGestureRecognizer(tapGesture)
         }
 
-        if let iban = iban {
+        if let iban = iban, ibanStatus == .active {
             shareButton.sora.isHidden = false
             subtitleLabel.sora.text = iban
             subtitleLabel.sora.textColor = .fgPrimary
@@ -71,18 +71,25 @@ final class SCCardHubIbanView: SoramitsuView {
             }
         } else {
             shareButton.sora.isHidden = true
-            subtitleLabel.sora.textColor = .fgSecondary
+
+            let text: String
+            switch ibanStatus {
+            case .active, .none:
+                text = R.string.soraCard.ibanPendingDescription(supportLink, preferredLanguages: .currentLocale)
+            case .suspendedByUser:
+                text = R.string.soraCard.ibanSuspendedDescription(supportLink, preferredLanguages: .currentLocale)
+            case .suspendedBySystem, .closed:
+                text = R.string.soraCard.ibanFrozenDescription(supportLink, preferredLanguages: .currentLocale)
+            }
 
             let palette = SoramitsuUI.shared.theme.palette
-            let text = R.string.soraCard.ibanPendingDescription(supportLink, preferredLanguages: .currentLocale)
             let attributedString = NSMutableAttributedString(
                 string: text,
                 attributes: [
-                    NSAttributedString.Key.foregroundColor: palette.color(.fgPrimary),
+                    NSAttributedString.Key.foregroundColor: palette.color(.fgSecondary),
                     NSAttributedString.Key.font: FontType.textM.font
                 ]
             )
-//             TODO: fix crash on some geo locations
             _ = attributedString.addUrl(link: "mailto:\(supportLink)", to: supportLink)
 
             subtitleLabel.sora.attributedText = attributedString
@@ -119,7 +126,8 @@ extension NSMutableAttributedString {
     public func addUrl(link: String, to text: String) -> Bool {
         let range = self.mutableString.range(of: text)
         guard range.location != NSNotFound else { return false }
-        self.addAttribute(.link, value: link, range: range)
+        // self.addAttribute(.link, value: link, range: range)
+        self.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
         return true
     }
 }

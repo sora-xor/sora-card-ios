@@ -3,7 +3,7 @@ import Foundation
 extension SCKYCService {
     func xorPriceInEuro() async -> Result<SCPriceResponse, NetworkingError> {
         let request = APIRequest(method: .get, endpoint: SCEndpoint.price(pair: "xor_euro"))
-        return await client.performDecodable(request: request)
+        return await client.performDecodable(request: request, withAuthorization: false)
     }
 }
 

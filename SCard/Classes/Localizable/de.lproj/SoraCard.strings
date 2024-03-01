@@ -122,3 +122,5 @@
 "select.country.title" = "Wähle dein Land";
 "iban.pending.description" = "Die Ausstellung Ihrer IBAN steht noch aus.\n Falls die Wartezeit länger als 72 Stunden dauert, kontaktieren Sie uns per %@";
 "card.hub.title" = "Card details";
+"iban.suspended.description" = "Your IBAN has been suspended.\nTo find out more, contact %@";
+"iban.frozen.description" = "Your IBAN has been frozen.\nTo find out more, contact %@";

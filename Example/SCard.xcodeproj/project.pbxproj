@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		019DA6CC59F39405E5CB7F51 /* Pods_SCard_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42EED0E51B935FADB244CBA7 /* Pods_SCard_Tests.framework */; };
 		4E2767E29D9B4220183A7F7C /* Pods_SCard_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A370A92E8E2A7D1FE5C87353 /* Pods_SCard_Example.framework */; };
 		5E01F0D529D469C1007CE5C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E01F0D429D469C1007CE5C2 /* Assets.xcassets */; };
 		5EB6A4B429D5D2F1000F3CA5 /* SoraCard.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5EB6A4AD29D5D2F1000F3CA5 /* SoraCard.strings */; };
@@ -17,6 +16,7 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		F4F188397C9133242B4AC508 /* Pods_SCard_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E85F0387EBAADC465BDC942 /* Pods_SCard_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,9 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C0637E0905ABE0F236AD16D /* Pods-SCard_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCard_Tests.release.xcconfig"; path = "Target Support Files/Pods-SCard_Tests/Pods-SCard_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		1C75F264DE6DDA7C85A6084A /* Pods-SCard_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCard_Tests.release.xcconfig"; path = "Target Support Files/Pods-SCard_Tests/Pods-SCard_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		1DD75F8F00717694972B62F7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		42EED0E51B935FADB244CBA7 /* Pods_SCard_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SCard_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FD3D7C9C74CEF89E71A8F22 /* SCard.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SCard.podspec; path = ../SCard.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5E01F0D429D469C1007CE5C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../SCard/Assets/Assets.xcassets; sourceTree = "<group>"; };
 		5EB6A4AE29D5D2F1000F3CA5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SoraCard.strings; sourceTree = "<group>"; };
@@ -62,10 +61,11 @@
 		607FACE51AFB9204008FA782 /* SCard_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SCard_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		6E85F0387EBAADC465BDC942 /* Pods_SCard_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SCard_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7418CA82D21106F4F00E7335 /* Pods-SCard_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCard_Tests.debug.xcconfig"; path = "Target Support Files/Pods-SCard_Tests/Pods-SCard_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		8A744280BC6D9A5C4EDD979D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A370A92E8E2A7D1FE5C87353 /* Pods_SCard_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SCard_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8292A92537131E7C6F70705 /* Pods-SCard_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCard_Example.release.xcconfig"; path = "Target Support Files/Pods-SCard_Example/Pods-SCard_Example.release.xcconfig"; sourceTree = "<group>"; };
-		B833E2B7F3410467733EF25A /* Pods-SCard_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCard_Tests.debug.xcconfig"; path = "Target Support Files/Pods-SCard_Tests/Pods-SCard_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		FDDEF3A44E1ADBCE2A9E7BFE /* Pods-SCard_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCard_Example.debug.xcconfig"; path = "Target Support Files/Pods-SCard_Example/Pods-SCard_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				019DA6CC59F39405E5CB7F51 /* Pods_SCard_Tests.framework in Frameworks */,
+				F4F188397C9133242B4AC508 /* Pods_SCard_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,8 +94,8 @@
 			children = (
 				FDDEF3A44E1ADBCE2A9E7BFE /* Pods-SCard_Example.debug.xcconfig */,
 				A8292A92537131E7C6F70705 /* Pods-SCard_Example.release.xcconfig */,
-				B833E2B7F3410467733EF25A /* Pods-SCard_Tests.debug.xcconfig */,
-				0C0637E0905ABE0F236AD16D /* Pods-SCard_Tests.release.xcconfig */,
+				7418CA82D21106F4F00E7335 /* Pods-SCard_Tests.debug.xcconfig */,
+				1C75F264DE6DDA7C85A6084A /* Pods-SCard_Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -185,7 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				A370A92E8E2A7D1FE5C87353 /* Pods_SCard_Example.framework */,
-				42EED0E51B935FADB244CBA7 /* Pods_SCard_Tests.framework */,
+				6E85F0387EBAADC465BDC942 /* Pods_SCard_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -217,11 +217,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "SCard_Tests" */;
 			buildPhases = (
-				E96D5B9DF462133E7577E9E5 /* [CP] Check Pods Manifest.lock */,
+				23E92FC658F89FBBBC0FAAEC /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				B55CB2FACF9C8962E22A2D66 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -314,31 +313,53 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SCard_Example/Pods-SCard_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/JOSESwift/JOSESwift.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/RecaptchaInterop/RecaptchaInterop.framework",
 				"${BUILT_PRODUCTS_DIR}/SCard/SCard.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SoraUIKit/SoraUIKit.framework",
-				"${PODS_ROOT}/eIDRTC/WebRTC/WebRTC.framework",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/IdensicMobileSDK/IdensicMobileSDK.framework/IdensicMobileSDK",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/PayWingsKycSDK/PayWingsKycSDK.framework/PayWingsKycSDK",
 				"${PODS_XCFRAMEWORKS_BUILD_DIR}/PayWingsOAuthSDK/PayWingsOAuthSDK.framework/PayWingsOAuthSDK",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/PayWingsOnboardingKYC/PayWingsOnboardingKYC.framework/PayWingsOnboardingKYC",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/VideoID/VideoID.framework/VideoID",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JOSESwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RecaptchaInterop.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCard.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SoraUIKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IdensicMobileSDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PayWingsKycSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PayWingsOAuthSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PayWingsOnboardingKYC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VideoID.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SCard_Example/Pods-SCard_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		23E92FC658F89FBBBC0FAAEC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SCard_Tests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2B2796101AC927A60C691799 /* [CP] Check Pods Manifest.lock */ = {
@@ -381,46 +402,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#\"$PODS_ROOT/R.swift/rswift\" generate \"$PROJECT_DIR/R.generated.swift\"\n\"$PODS_ROOT/R.swift/rswift\" generate \"$PROJECT_DIR/../SCard/Classes/R.generated.swift\"\n";
-		};
-		B55CB2FACF9C8962E22A2D66 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SCard_Tests/Pods-SCard_Tests-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/IdensicMobileSDK/IdensicMobileSDK.framework/IdensicMobileSDK",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IdensicMobileSDK.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SCard_Tests/Pods-SCard_Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E96D5B9DF462133E7577E9E5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SCard_Tests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -615,8 +596,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}\"",
+					/usr/lib/swift,
+				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = co.jp.soramitsu.sora.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -634,8 +620,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}\"",
+					/usr/lib/swift,
+				);
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = co.jp.soramitsu.sora.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
@@ -644,7 +635,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B833E2B7F3410467733EF25A /* Pods-SCard_Tests.debug.xcconfig */;
+			baseConfigurationReference = 7418CA82D21106F4F00E7335 /* Pods-SCard_Tests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = YLWWUD25VZ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -671,7 +662,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0C0637E0905ABE0F236AD16D /* Pods-SCard_Tests.release.xcconfig */;
+			baseConfigurationReference = 1C75F264DE6DDA7C85A6084A /* Pods-SCard_Tests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = YLWWUD25VZ;
 				FRAMEWORK_SEARCH_PATHS = (

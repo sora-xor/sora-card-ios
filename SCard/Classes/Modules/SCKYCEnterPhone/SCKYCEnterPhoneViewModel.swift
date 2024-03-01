@@ -13,6 +13,7 @@ final class SCKYCEnterPhoneViewModel {
     private let data: SCKYCUserDataModel
     private var selectedCountry: SCCountry
     private let callback = SignInWithPhoneNumberRequestOtpCallback()
+    private var dialCode = ""
     private var phoneNumber = ""
 
     init(service: SCKYCService, data: SCKYCUserDataModel) {
@@ -42,14 +43,17 @@ final class SCKYCEnterPhoneViewModel {
 
     func onInput(text: String) {
         let cleanText = text.first == "0" ? String(text.dropFirst(1)) : text
-        phoneNumber = selectedCountry.dialCode + cleanText
+        dialCode = selectedCountry.dialCode
+        phoneNumber = cleanText
+        let phone = dialCode + phoneNumber
+        
         if cleanText.isEmpty {
             onUpdateUI?(R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale), false)
         } else {
-            if phoneNumber ~= Self.phoneNumberRegex {
+            if phone ~= Self.phoneNumberRegex {
                 onUpdateUI?("", true)
             } else {
-                if phoneNumber.count > 7 {
+                if phone.count > 7 {
                     onUpdateUI?("Wrong phone number format!", false) // TODO: localize
                 }
             }
@@ -68,6 +72,7 @@ final class SCKYCEnterPhoneViewModel {
         if data.secondsLeftForPhoneOTP == 0 {
             data.lastPhoneOTPSentDate = Date()
             service.signInWithPhoneNumberRequestOtp(
+                countryCode: dialCode,
                 phoneNumber: phoneNumber,
                 callback: callback
             )
@@ -78,6 +83,10 @@ final class SCKYCEnterPhoneViewModel {
 }
 
 extension SCKYCEnterPhoneViewModel: SignInWithPhoneNumberRequestOtpCallbackDelegate {
+    func onShowTimeBasedOtpVerificationInputScreen(accountName: String) {
+        print("TODO: onShowTimeBasedOtpVerificationInputScreen")
+    }
+    
     func onShowOtpInputScreen(otpLength: Int) {
         data.otpLength = otpLength
         onContinue?()

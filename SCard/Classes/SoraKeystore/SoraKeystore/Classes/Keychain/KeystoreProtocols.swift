@@ -5,14 +5,14 @@
 
 import Foundation
 
-public enum KeystoreError: Error {
+enum KeystoreError: Error {
     case invalidIdentifierFormat
     case noKeyFound
     case duplicatedItem
     case unexpectedFail
 }
 
-public protocol KeystoreProtocol: AnyObject {
+protocol KeystoreProtocol: AnyObject {
     func addKey(_ key: Data, with identifier: String) throws
     func updateKey(_ key: Data, with identifier: String) throws
     func fetchKey(for identifier: String) throws -> Data
@@ -21,7 +21,7 @@ public protocol KeystoreProtocol: AnyObject {
 }
 
 extension KeystoreProtocol {
-    public func saveKey(_ key: Data, with identifier: String) throws {
+    func saveKey(_ key: Data, with identifier: String) throws {
         let exists = try checkKey(for: identifier)
         if !exists {
             try addKey(key, with: identifier)
@@ -30,44 +30,44 @@ extension KeystoreProtocol {
         }
     }
 
-    public func deleteKeyIfExists(for identifier: String) throws {
+    func deleteKeyIfExists(for identifier: String) throws {
         let exists = try checkKey(for: identifier)
         if exists {
             try deleteKey(for: identifier)
         }
     }
 
-    public func deleteKeysIfExist(for identifiers: [String]) throws {
+    func deleteKeysIfExist(for identifiers: [String]) throws {
         for identifier in identifiers {
             try deleteKeyIfExists(for: identifier)
         }
     }
 }
 
-public protocol SecretDataRepresentable {
+protocol SecretDataRepresentable {
     func asSecretData() -> Data?
 }
 
 extension SecretDataRepresentable {
-    public func asUTF8String() -> String? {
+    func asUTF8String() -> String? {
         guard let existingData = asSecretData() else { return nil}
         return String(data: existingData, encoding: .utf8)
     }
 }
 
 extension String: SecretDataRepresentable {
-    public func asSecretData() -> Data? {
+    func asSecretData() -> Data? {
         return data(using: .utf8)
     }
 }
 
 extension Data: SecretDataRepresentable {
-    public func asSecretData() -> Data? {
+    func asSecretData() -> Data? {
         return self
     }
 }
 
-public protocol SecretStoreManagerProtocol: AnyObject {
+protocol SecretStoreManagerProtocol: AnyObject {
     func loadSecret(for identifier: String,
                     completionQueue: DispatchQueue,
                     completionBlock: @escaping (SecretDataRepresentable?) -> Void)

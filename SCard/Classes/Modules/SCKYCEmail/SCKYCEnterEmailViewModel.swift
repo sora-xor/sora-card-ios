@@ -43,16 +43,14 @@ final class SCKYCEnterEmailViewModel {
 }
 
 extension SCKYCEnterEmailViewModel: RegisterUserCallbackDelegate, ChangeUnverifiedEmailCallbackDelegate {
-
-    func onShowEmailConfirmationScreen(email: String, autoEmailSent: Bool) {
+    func onSignInSuccessful() {
         onError?("")
         onContinue?(data)
     }
 
-    func onSignInSuccessful(refreshToken: String, accessToken: String, accessTokenExpirationTime: Int64) {
-        let token = SCToken(refreshToken: refreshToken, accessToken: accessToken, accessTokenExpirationTime: accessTokenExpirationTime)
-        SCard.shared?.set(token: token)
-        Task { await SCStorage.shared.add(token: token) }
+    func onShowEmailConfirmationScreen(email: String, autoEmailSent: Bool) {
+        onError?("")
+        onContinue?(data)
     }
 
     func onUserSignInRequired() {
@@ -62,7 +60,9 @@ extension SCKYCEnterEmailViewModel: RegisterUserCallbackDelegate, ChangeUnverifi
 
     func onError(error: PayWingsOAuthSDK.OAuthErrorCode, errorMessage: String?) {
 
-        if error == .EMAIL_ALREADY_VERIFIED {
+        if error == .EMAIL_ALREADY_VERIFIED
+            //TODO: fix on PW side || errorMessage?.contains("User email verification required") ?? false
+        {
             onError?("")
             onContinue?(data)
             return 

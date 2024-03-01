@@ -40,7 +40,7 @@ public final class InMemoryKeychain: KeystoreProtocol {
 }
 
 extension InMemoryKeychain: SecretStoreManagerProtocol {
-    public func loadSecret(for identifier: String,
+    func loadSecret(for identifier: String,
                     completionQueue: DispatchQueue,
                     completionBlock: @escaping (SecretDataRepresentable?) -> Void) {
         completionQueue.async {
@@ -48,7 +48,7 @@ extension InMemoryKeychain: SecretStoreManagerProtocol {
         }
     }
 
-    public func saveSecret(_ secret: SecretDataRepresentable,
+    func saveSecret(_ secret: SecretDataRepresentable,
                     for identifier: String,
                     completionQueue: DispatchQueue, completionBlock: @escaping (Bool) -> Void) {
         keystore[identifier] = secret.asSecretData()

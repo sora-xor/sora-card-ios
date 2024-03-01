@@ -121,4 +121,6 @@
 "card.hub.update.description" = "Bạn đang sử dụng phiên bản hoặc ứng dụng lỗi thời, một số phần có thể không hoạt động như dự kiến.";
 "select.country.title" = "Chọn đất nước của bạn";
 "iban.pending.description" = "Việc cấp IBAN của bạn đang chờ xử lý.\n Trong trường hợp chờ đợi lâu hơn 72h, hãy liên hệ với chúng tôi qua %@";
-"card.hub.title" = "Card details";
+"card.hub.title" = "Chi tiết thẻ";
+"iban.suspended.description" = "IBAN của bạn đã bị đình chỉ.\n Để tìm hiểu thêm, hãy liên hệ %@";
+"iban.frozen.description" = "Your IBAN has been frozen.\nTo find out more, contact %@";

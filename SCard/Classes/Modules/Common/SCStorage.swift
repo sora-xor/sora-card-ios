@@ -1,5 +1,4 @@
 import Foundation
-//import SoraKeystore
 
 final class SCStorage {
 
@@ -49,18 +48,6 @@ final class SCStorage {
 
     func setAppLaunched() {
         UserDefaults.standard.set(true, forKey: Key.isAppStarted.rawValue)
-    }
-
-    func token() async -> SCToken? {
-        await withCheckedContinuation { continuation in
-            secretManager.loadSecret(for: Key.accessToken.rawValue, completionQueue: DispatchQueue.main) { secretDataRepresentable in
-                continuation.resume(returning: SCToken(secretData: secretDataRepresentable))
-            }
-        }
-    }
-
-    func hasToken() -> Bool {
-        secretManager.checkSecret(for: Key.accessToken.rawValue)
     }
 
     func add(token: SCToken) async {

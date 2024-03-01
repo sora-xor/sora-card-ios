@@ -277,7 +277,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 125 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 127 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -739,6 +739,14 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let cardHubUpdateDescription = Rswift.StringResource(key: "card.hub.update.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Your IBAN has been frozen. To find out more, contact %@
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let ibanFrozenDescription = Rswift.StringResource(key: "iban.frozen.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Your IBAN has been suspended. To find out more, contact %@
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let ibanSuspendedDescription = Rswift.StringResource(key: "iban.suspended.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Zahlen Sie €%@ Ausstellungsgebühr
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2527,6 +2535,40 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("card.hub.update.description", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Your IBAN has been frozen. To find out more, contact %@
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func ibanFrozenDescription(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("iban.frozen.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "iban.frozen.description"
+        }
+
+        let format = NSLocalizedString("iban.frozen.description", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
+      }
+
+      /// de translation: Your IBAN has been suspended. To find out more, contact %@
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func ibanSuspendedDescription(_ value1: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("iban.suspended.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "iban.suspended.description"
+        }
+
+        let format = NSLocalizedString("iban.suspended.description", tableName: "SoraCard", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1)
       }
 
       /// de translation: Zahlen Sie €%@ Ausstellungsgebühr

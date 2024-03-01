@@ -1,7 +1,7 @@
 extension SCKYCService {
     func fees() async -> Result<SCKYCRetryFee, NetworkingError> {
         let request = APIRequest(method: .get, endpoint: SCEndpoint.fees)
-        return await client.performDecodable(request: request)
+        return await client.performDecodable(request: request, withAuthorization: false)
     }
 
     func updateFees() async {

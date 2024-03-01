@@ -122,3 +122,5 @@
 "select.country.title" = "Selecciona tu pais";
 "iban.pending.description" = "Tu emisión de IBAN está pendiente.\n En caso de que la espera supere las 72h contáctenos vía %@";
 "card.hub.title" = "Card details";
+"iban.suspended.description" = "Your IBAN has been suspended.\nTo find out more, contact %@";
+"iban.frozen.description" = "Your IBAN has been frozen.\nTo find out more, contact %@";

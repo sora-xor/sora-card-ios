@@ -3,10 +3,31 @@ import Foundation
 extension SCKYCService {
 
     func updateKycState() async {
-        switch await kycLastState() {
+
+        async let ibanResult = iban()
+        async let kycLastStateResult = kycLastState()
+
+        var hasIban = false
+        switch await ibanResult {
+        case .success(let resoponse):
+            hasIban = !(resoponse.ibans ?? []).isEmpty
+        case .failure(let error):
+            print(error)
+        }
+
+        switch await kycLastStateResult {
         case .success(let kycState):
-            self.currentUserState = kycState ?? .none
-            self._userStatusStream.wrappedValue = kycState?.userStatus ?? .none
+            var kycState = kycState ?? .none
+
+            /// Fix for user with iban but stuck KYC process for some reason
+            if hasIban, kycState.userStatus != .successful  {
+                self.currentUserState = .successful
+                self._userStatusStream.wrappedValue = .successful
+            } else {
+                self.currentUserState = kycState
+                self._userStatusStream.wrappedValue = kycState.userStatus
+            }
+
         case .failure(let error):
             print("UpdateKycState error:\(error)")
             self.clearUserKYCState()
@@ -46,7 +67,7 @@ extension SCKYCService {
     }
 
     private func kycLastState() async -> Result<SCUserState?, NetworkingError> {
-        guard await refreshAccessTokenIfNeeded() else {
+        guard isUserSignIn() else {
             return .failure(.unauthorized)
         }
         let request = APIRequest(method: .get, endpoint: SCEndpoint.kycLastStatus)
@@ -119,9 +140,22 @@ extension SCUserState {
         personId: "",
         userReferenceNumber: "",
         referenceId: "",
-        kycStatus: .none,
+        kycStatus: .notStarted,
         verificationStatus: .none,
         ibanStatus: .none,
+        additionalDescription: nil,
+        rejectionReasons: nil,
+        updateTime: .init()
+    )
+
+    static let successful: SCUserState = .init(
+        kycId: "",
+        personId: "",
+        userReferenceNumber: "",
+        referenceId: "",
+        kycStatus: .successful,
+        verificationStatus: .accepted,
+        ibanStatus: .pending,
         additionalDescription: nil,
         rejectionReasons: nil,
         updateTime: .init()
