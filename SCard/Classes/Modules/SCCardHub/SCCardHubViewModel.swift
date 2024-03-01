@@ -1,9 +1,11 @@
 final class SCCardHubViewModel {
+
+    var onUpdateUI: ((Iban?, Bool) -> Void)?
+
     private let service: SCKYCService
 
     func needUpdateApp() async -> Bool {
-        await service.updateVersion()
-        switch service.verionsChangesNeeded() {
+        switch await service.verionsChangesNeeded() {
         case .major, .minor:
             return true
         case .none, .patch:
@@ -15,13 +17,25 @@ final class SCCardHubViewModel {
         self.service = service
     }
 
-    func iban() async -> Iban? {
-        switch await service.iban() {
-        case .success(let iban):
-            return iban.ibans?.first
-        case .failure(let error):
-            print(error)
-            return nil
+    func fetchIban() {
+        Task {
+            let needUpdateApp = await needUpdateApp()
+            for await state in await service.ibanStream() {
+                await MainActor.run {
+                    switch state {
+                    case .inited:
+                        onUpdateUI?(nil, needUpdateApp)
+                    case .loading(let data):
+                        onUpdateUI?(data??.first, needUpdateApp)
+                    case .success(let data):
+                        onUpdateUI?(data?.first, needUpdateApp)
+                    case .failure(let failure):
+                        // TODO: show error to user
+                        print(failure)
+                        onUpdateUI?(nil, needUpdateApp)
+                    }
+                }
+            }
         }
     }
 }

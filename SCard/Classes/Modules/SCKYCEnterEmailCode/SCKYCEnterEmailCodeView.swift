@@ -32,7 +32,7 @@ final class SCKYCEnterEmailCodeView: UIView {
         button.sora.attributedText = SoramitsuTextItem(
             text: R.string.soraCard.commonChangeEmail(preferredLanguages: .currentLocale),
             fontData: FontType.buttonM,
-            textColor: .fgInverted,
+            textColor: .accentSecondary,
             alignment: .center
         )
         button.sora.cornerRadius = .custom(28)

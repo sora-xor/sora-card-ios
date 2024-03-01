@@ -70,7 +70,7 @@ final class SCKYCCardIssuanceViewController: UIViewController {
 
         let alertController = UIAlertController(
             title: R.string.soraCard.detailsGetMoreXor(preferredLanguages: .currentLocale),
-            message: "", // TODO: fix design R.string.soraCard.getMoreXorDialogDescription(preferredLanguages: .currentLocale),
+            message: R.string.soraCard.getMoreXorDialogDescription(preferredLanguages: .currentLocale),
             preferredStyle: .actionSheet
         )
 

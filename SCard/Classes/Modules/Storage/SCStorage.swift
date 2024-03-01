@@ -49,25 +49,4 @@ final class SCStorage {
     func setAppLaunched() {
         UserDefaults.standard.set(true, forKey: Key.isAppStarted.rawValue)
     }
-
-    func add(token: SCToken) async {
-        await withCheckedContinuation { continuation in
-            guard let data = token.asSecretData() else { return }
-            secretManager.saveSecret(
-                data,
-                for: Key.accessToken.rawValue,
-                completionQueue: DispatchQueue.main
-            ) { _ in
-                continuation.resume()
-            }
-        }
-    }
-
-    func removeToken() async {
-        await withCheckedContinuation { continuation in
-            secretManager.removeSecret(for: Key.accessToken.rawValue, completionQueue: DispatchQueue.main) { _ in
-                continuation.resume()
-            }
-        }
-    }
 }

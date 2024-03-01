@@ -78,7 +78,6 @@ final class SCKYCDetailsViewModel {
 
         let xorPriceInEuroDecimal = Decimal(xorPriceInEuro)
         let requiredAmountOfXORInEuro = Decimal(Self.requiredAmountOfEuro) // 95€
-        let requiredAmountOfXOR = requiredAmountOfXORInEuro / xorPriceInEuroDecimal
 
         let fiatBalanceDecimal = xorBalance * xorPriceInEuroDecimal
         let percentage = (min(1, (fiatBalanceDecimal) / requiredAmountOfXORInEuro) as NSNumber).floatValue

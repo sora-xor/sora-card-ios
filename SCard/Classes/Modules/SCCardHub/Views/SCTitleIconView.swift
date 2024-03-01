@@ -25,7 +25,7 @@ class SCTitleIconView: SoramitsuView {
 
     private func setupInitialLayout() {
         addSubview(titleLabel) {
-            $0.top.bottom.equalToSuperview().inset(20)
+            $0.top.bottom.equalToSuperview().inset(16)
             $0.leading.equalToSuperview()
         }
 

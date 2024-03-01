@@ -10,7 +10,7 @@ extension SCKYCService {
         let client = SCAPIClient(
             baseURL: URL(string: "https://\(URL(string: config.xOneEndpoint)!.host!)")!,
             baseAuth: "",
-            token: .empty
+            bearerProvider: nil
         )
         let result = await client.perform(request: .init(method: .get, endpoint: SCEndpoint.xOneWidget), withAuthorization: false)
         switch result {

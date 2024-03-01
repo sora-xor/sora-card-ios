@@ -6,13 +6,17 @@ enum HTTPMethod: String {
     case post = "POST"
 }
 
-struct HTTPHeader {
+struct HTTPHeader: Equatable {
     let field: String
     let value: String
 }
 
 protocol Endpoint {
     var path: String { get }
+}
+
+protocol BearerProvider {
+    func bearer(url: String, method: HttpRequestMethod) async -> String?
 }
 
 final class APIRequest {
@@ -38,17 +42,31 @@ final class APIRequest {
     }
 }
 
-public class SCAPIClient {
+extension APIRequest: Hashable {
+    static func == (lhs: APIRequest, rhs: APIRequest) -> Bool {
+        lhs.method == rhs.method &&
+        lhs.endpoint.path == rhs.endpoint.path &&
+        lhs.queryItems == rhs.queryItems &&
+        lhs.headers == rhs.headers &&
+        lhs.body == rhs.body
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(endpoint.path)
+    }
+}
+
+public actor SCAPIClient {
 
     init(
         baseURL: URL,
         baseAuth: String,
-        token: SCToken,
+        bearerProvider: BearerProvider?,
         logLevels: NetworkingLogLevel = .debug
     ) {
         self.baseURL = baseURL
         self.baseAuth = baseAuth
-        self.token = token
+        self.bearerProvider = bearerProvider
         self.logger.logLevels = logLevels
         self.headers = [
             .init(field: "appName", value: Bundle.main.appName),
@@ -61,12 +79,14 @@ public class SCAPIClient {
 
     private let apiKey = ""
     private let baseAuth: String
-    private var token: SCToken
     private let baseURL: URL
     private let headers: [HTTPHeader]
 
+    private let bearerProvider: BearerProvider?
     private let session = URLSession.shared
     private let logger = NetworkingLogger()
+
+    private var cache: [APIRequest: CacheEntry] = [:]
 
     private let jsonDecoder: JSONDecoder = {
         let jsonDecoder = JSONDecoder()
@@ -76,11 +96,10 @@ public class SCAPIClient {
         return jsonDecoder
     }()
 
-    func set(token: SCToken) {
-        self.token = token
-    }
-
-    func performDecodable<T: Decodable>(request: APIRequest, withAuthorization: Bool = true) async -> Result<T, NetworkingError> {
+    func performDecodable<T: Decodable>(
+        request: APIRequest,
+        withAuthorization: Bool = true
+    ) async -> Result<T, NetworkingError> {
         let result = await perform(request: request, withAuthorization: withAuthorization)
 
         switch result {
@@ -97,7 +116,63 @@ public class SCAPIClient {
         }
     }
 
+    private enum CacheEntry {
+        case inProgress(Task<(Data, URLResponse), Error>)
+        case ready(Data)
+    }
+
     func perform(request: APIRequest, withAuthorization: Bool) async -> Result<Data, NetworkingError> {
+
+        if let cached = cache[request] {
+            switch cached {
+            case .ready(let data):
+                /// cache return .success(data)
+                cache[request] = nil
+            case .inProgress(let task):
+                do {
+                    let (data, response) = try await task.value
+                    return processDataResponse(data: data, response: response)
+                } catch let error as NSError {
+                    return .failure(.init(errorCode: error.code))
+                }
+            }
+        }
+
+        guard var urlRequest = prepareURLRequest(request: request) else {
+            return .failure(.init(status: .badURL))
+        }
+
+        if withAuthorization {
+            guard let accessToken = await bearerProvider?.bearer(
+                url: request.endpoint.path,
+                method: request.method.pwMethod
+            ) else {
+                return .failure(NetworkingError.unauthorized)
+            }
+            urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+        }
+
+        let task = Task { [urlRequest] in
+            try await session.data(for: urlRequest)
+        }
+
+        cache[request] = .inProgress(task)
+
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await task.value
+            logger.log(response: response, data: data)
+        } catch (let error as NSError) {
+            cache[request] = nil
+            return .failure(.init(errorCode: error.code))
+        }
+
+        cache[request] = .ready(data)
+        return processDataResponse(data: data, response: response)
+    }
+
+    private func prepareURLRequest(request: APIRequest) -> URLRequest? {
         var urlComponents = URLComponents()
         urlComponents.scheme = baseURL.scheme
         urlComponents.host = baseURL.host
@@ -110,67 +185,23 @@ public class SCAPIClient {
         }
 
         guard let url = urlComponents.url?.appendingPathComponent(request.endpoint.path) else {
-            return .failure(.init(status: .badURL))
+            return nil
         }
 
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = request.body
 
-        if withAuthorization {
-            guard PayWingsOAuthClient.instance()?.isUserSignIn() ?? false else {
-                return .failure(NetworkingError.unauthorized)
-            }
-
-            let (accessToken, _) = await withCheckedContinuation { continuation in
-                PayWingsOAuthClient.instance()?.getNewAuthorizationData(
-                    methodUrl: "/test", httpRequestMethod: .POST, completion: { authData in
-                        continuation.resume(returning: (authData.accessTokenData?.accessToken, authData.dpop))
-                        if authData.userSignInRequired ?? false {
-                            print("SCAPIClient userSignInRequired")
-                        }
-                    })
-            }
-
-            if let accessToken = accessToken {
-                urlRequest.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
-            }
-        }
-
         (headers + (request.headers ?? [])).forEach {
             urlRequest.addValue($0.value, forHTTPHeaderField: $0.field)
         }
-
-        logger.log(request: urlRequest)
-
-        var data: Data, response: URLResponse
-        do {
-            (data, response) = try await withCheckedThrowingContinuation { continuation in
-                session.dataTask(with: urlRequest) { data, response, error in
-                    if let error = error {
-                        continuation.resume(throwing: error)
-                    } else if let response = response, let data = data {
-                        continuation.resume(returning: (data, response))
-                    } else {
-                        continuation.resume(throwing: NetworkingError(status: .unknown))
-                    }
-                }
-                .resume()
-            }
-        } catch let error as NSError {
-            return .failure(.init(errorCode: error.code))
-        }
-
-        return processDataResponse(request: request, urlRequest: urlRequest, data: data, response: response)
+        return urlRequest
     }
 
-    func processDataResponse(
-        request: APIRequest,
-        urlRequest: URLRequest,
+    private func processDataResponse(
         data: Data,
         response: URLResponse
     ) -> Result<Data, NetworkingError> {
-        logger.log(response: response, data: data)
 
         guard let statusCode = (response as? HTTPURLResponse)?.statusCode else {
             return .failure(.init(status: .unknown))
@@ -183,34 +214,6 @@ public class SCAPIClient {
     }
 }
 
-struct SCToken: Codable, SecretDataRepresentable {
-    static let empty: SCToken = .init(refreshToken: "", accessToken: "", accessTokenExpirationTime: 0)
-
-    let refreshToken: String
-    let accessToken: String
-    let accessTokenExpirationTime: Int64
-
-    init(refreshToken: String, accessToken: String, accessTokenExpirationTime: Int64) {
-        self.refreshToken = refreshToken
-        self.accessToken = accessToken
-        self.accessTokenExpirationTime = accessTokenExpirationTime
-    }
-
-    init?(secretData: SecretDataRepresentable?) {
-        guard let secretUTF8String = secretData?.asUTF8String() else { return nil }
-        let secretPrts = secretUTF8String.split(separator: "@").map { String($0) }
-        guard secretPrts.count == 3  else { return nil }
-
-        self.refreshToken = secretPrts[0]
-        self.accessToken = secretPrts[1]
-        self.accessTokenExpirationTime = Int64(secretPrts[2]) ?? 0
-    }
-
-    func asSecretData() -> Data? {
-        "\(refreshToken)@\(accessToken)@\(accessTokenExpirationTime)".data(using: .utf8)
-    }
-}
-
 extension Bundle {
     public var appName: String { getInfo("CFBundleName")  }
     public var displayName: String { getInfo("CFBundleDisplayName")}
@@ -219,4 +222,13 @@ extension Bundle {
     public var appBuild: String { getInfo("CFBundleVersion") }
     public var appVersionLong: String { getInfo("CFBundleShortVersionString") }
     fileprivate func getInfo(_ str: String) -> String { infoDictionary?[str] as? String ?? "" }
+}
+
+extension HTTPMethod {
+    var pwMethod: PayWingsOAuthSDK.HttpRequestMethod {
+        switch self {
+        case .get: .GET
+        case .post: .POST
+        }
+    }
 }

@@ -6,7 +6,7 @@ final class SCKYCEnterPhoneViewModel {
     static let phoneNumberRegex = "^[\\+][0-9]{8,16}$"
     var onCountry: (() -> Void)?
     var onContinue: (() -> Void)?
-    var onUpdateUI: ((String, Bool) -> Void)?
+    var onUpdateUI: ((String, Bool, Int) -> Void)?
     var onUpdateCountry: ((SCCountry) -> Void)?
 
     private let service: SCKYCService
@@ -48,13 +48,17 @@ final class SCKYCEnterPhoneViewModel {
         let phone = dialCode + phoneNumber
         
         if cleanText.isEmpty {
-            onUpdateUI?(R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale), false)
+            onUpdateUI?(
+                R.string.soraCard.commonNoSpam(preferredLanguages: .currentLocale),
+                false,
+                data.secondsLeftForPhoneOTP
+            )
         } else {
             if phone ~= Self.phoneNumberRegex {
-                onUpdateUI?("", true)
+                onUpdateUI?("", data.secondsLeftForPhoneOTP == 0, data.secondsLeftForPhoneOTP)
             } else {
                 if phone.count > 7 {
-                    onUpdateUI?("Wrong phone number format!", false) // TODO: localize
+                    onUpdateUI?("Wrong phone number format!", false, data.secondsLeftForPhoneOTP)
                 }
             }
         }
@@ -66,17 +70,18 @@ final class SCKYCEnterPhoneViewModel {
     }
 
     func signIn() {
-        onUpdateUI?("", false)
         data.phoneNumber = phoneNumber
 
         if data.secondsLeftForPhoneOTP == 0 {
             data.lastPhoneOTPSentDate = Date()
+            onUpdateUI?("", false, data.secondsLeftForPhoneOTP)
             service.signInWithPhoneNumberRequestOtp(
                 countryCode: dialCode,
                 phoneNumber: phoneNumber,
                 callback: callback
             )
         } else {
+            onUpdateUI?("", false, data.secondsLeftForPhoneOTP)
             onContinue?()
         }
     }
@@ -90,11 +95,11 @@ extension SCKYCEnterPhoneViewModel: SignInWithPhoneNumberRequestOtpCallbackDeleg
     func onShowOtpInputScreen(otpLength: Int) {
         data.otpLength = otpLength
         onContinue?()
-        onUpdateUI?("", true)
+        onUpdateUI?("", false, data.secondsLeftForPhoneOTP) // todo stop timer
     }
 
     func onError(error: PayWingsOAuthSDK.OAuthErrorCode, errorMessage: String?) {
-        onUpdateUI?(error.description, false)
+        onUpdateUI?(error.description, false, data.secondsLeftForPhoneOTP)
     }
 }
 

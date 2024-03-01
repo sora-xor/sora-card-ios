@@ -144,17 +144,6 @@ final class SCKYCStatusView: UIView {
 
             actionButton.sora.isHidden = false
 
-            let disclaimerText = "\n" + R.string.soraCard.verificationRejectedScreenAttemptsPriceDisclaimer(
-                String(retryFee),
-                preferredLanguages: .currentLocale
-            )
-            let disclaimer = SoramitsuTextItem(
-                text:  disclaimerText,
-                fontData: ScreenSizeMapper.value(small: FontType.paragraphS, medium: FontType.paragraphM, large: FontType.paragraphM),
-                textColor: .fgPrimary,
-                alignment: .center
-            )
-
             if freeAttemptsLeft > 0 {
 
                 let text = R.string.soraCard.verificationRejectedScreenAttemptsLeft(

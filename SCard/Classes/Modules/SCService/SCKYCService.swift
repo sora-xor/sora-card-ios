@@ -46,7 +46,6 @@ public final class SCKYCService {
     internal var currentUserState: SCUserState = .none
     internal var retryFeeCache: String = "3.80"
     internal var applicationFeeCache: String = "29"
-    internal var iosClientVersion: String?
     internal var countries: [SCCountry] = []
     private var isRefreshAccessTokenInProgress = false
     private var kycStatusRefresherTimer: Timer?
@@ -73,7 +72,7 @@ public final class SCKYCService {
         _ = payWingsOAuthClient
     }
 
-    @SCStream internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.none)
+    internal var _userStatusStream = SCStream(wrappedValue: SCKYCUserStatus.notStarted)
 
     func startKYCStatusRefresher() {
         guard kycStatusRefresherTimer == nil else { return }
@@ -89,8 +88,18 @@ public final class SCKYCService {
         payWingsOAuthClient.isUserSignIn()
     }
 
-    func signOutUser() {
+    func logout() {
+        signOutUser()
+        clearUserKYCState()
+    }
+
+    private func signOutUser() {
         payWingsOAuthClient.signOutUser()
+    }
+
+    private func clearUserKYCState() {
+        currentUserState = .none
+        _userStatusStream.wrappedValue = .notStarted
     }
 
     func sendNewVerificationEmail(callback: SendNewVerificationEmailCallback) {

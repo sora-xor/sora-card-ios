@@ -50,8 +50,12 @@ final class SCKYCEnterPhoneViewController: UIViewController {
             viewModel.onInput(text: text)
         }
 
-        viewModel.onUpdateUI = { [unowned self] errorMessage, isContinueEnabled in
-            rootView.configure(errorMessage: errorMessage, isContinueEnabled: isContinueEnabled)
+        viewModel.onUpdateUI = { [unowned self] errorMessage, isContinueEnabled, secondsLeft in
+            rootView.configure(
+                errorMessage: errorMessage,
+                isContinueEnabled: isContinueEnabled,
+                secondsLeft: secondsLeft
+            )
         }
 
         viewModel.onUpdateCountry = { [unowned self] country in

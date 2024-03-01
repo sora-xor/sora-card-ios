@@ -1,38 +1,42 @@
 extension SCKYCService {
-    func iban() async -> Result<SCIbanResponse, NetworkingError> {
-        guard isUserSignIn() else {
-            return .failure(.unauthorized)
-        }
-        let request = APIRequest(method: .get, endpoint: SCEndpoint.ibans)
-
-        var result: Result<SCIbanResponse, NetworkingError> = await client.performDecodable(request: request)
-        
-//TODO: iban pending status testing
-//        switch result {
-//        case .success(var scIbanResponse):
-//            scIbanResponse.ibans = []
-//            //scIbanResponse.ibans![0].availableBalance = 1042
-//            return .success(scIbanResponse)
-//        case .failure(let error):
-//            return .failure(error)
-//        }
-//TODO: iban pending status testing
-
-        return result
-    }
 
     func hasIban() async -> Bool {
-        switch await iban() {
-        case .success(let result):
-            if let iban = result.ibans?.first?.iban, !iban.isEmpty {
-                return true
-            } else {
-                return false
+        await iban() != nil
+    }
+
+    func ibanStream() async -> AsyncStream<Loadable<[Iban]?, NetworkingError>> {
+        await IbanStorage.shared.ibansStream.stream
+    }
+
+    func iban() async -> Iban? {
+        switch await IbanStorage.shared.ibansStream.wrappedValue {
+        case .inited:
+            await IbanStorage.shared.set(ibans: .loading(nil))
+            switch await fetchIban() {
+            case .success(let success):
+                return success.ibans?.first
+            case .failure:
+                return nil // TODO: retry ?
             }
-        case .failure(let error):
-            print(error)
-            return false
+        case .loading(let data):
+            return data??.first
+        case .success(let data):
+            return data?.first
+        case .failure:
+            return nil // TODO: retry ?
         }
+    }
+
+    func fetchIban() async -> Result<SCIbanResponse, NetworkingError> {
+        let request = APIRequest(method: .get, endpoint: SCEndpoint.ibans)
+        let result: Result<SCIbanResponse, NetworkingError> = await client.performDecodable(request: request)
+        switch result {
+        case .success(let success):
+            await IbanStorage.shared.set(ibans: .success(success.ibans))
+        case .failure(let error):
+            await IbanStorage.shared.set(ibans: .failure(error))
+        }
+        return result
     }
 }
 
@@ -63,7 +67,7 @@ struct Iban: Codable {
 
     let id: String
     let iban: String
-    let availableBalance: Int
+    var availableBalance: Int
     let balance: Int
     let bicSwift: String
     let bicSwiftForSepa: String

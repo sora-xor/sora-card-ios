@@ -6,6 +6,9 @@ final class SCKYCEnterPhoneCodeView: UIView {
     var onResendButton: (() -> Void)?
     var onCode: ((String) -> Void)?
 
+    private var timer = Timer()
+    private var secondsLeft = 0
+
     private let textLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphM
@@ -41,9 +44,6 @@ final class SCKYCEnterPhoneCodeView: UIView {
         button.isEnabled = false
         return button
     }()
-
-    private var timer = Timer()
-    private var secondsLeft = 0
 
     override init(frame: CGRect) {
         super.init(frame: frame)

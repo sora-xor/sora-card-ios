@@ -4,20 +4,12 @@ extension SCKYCService {
 
     func updateKycState() async {
 
-        async let ibanResult = iban()
-        async let kycLastStateResult = kycLastState()
+        let hasIban = await hasIban()
+        let kycLastStateResult = await kycLastState()
 
-        var hasIban = false
-        switch await ibanResult {
-        case .success(let resoponse):
-            hasIban = !(resoponse.ibans ?? []).isEmpty
-        case .failure(let error):
-            print(error)
-        }
-
-        switch await kycLastStateResult {
+        switch kycLastStateResult {
         case .success(let kycState):
-            var kycState = kycState ?? .none
+            let kycState = kycState ?? .none
 
             /// Fix for user with iban but stuck KYC process for some reason
             if hasIban, kycState.userStatus != .successful  {
@@ -30,26 +22,7 @@ extension SCKYCService {
 
         case .failure(let error):
             print("UpdateKycState error:\(error)")
-            self.clearUserKYCState()
         }
-
-//TODO: statuses testing
-//        Task {
-//            while true {
-//                _userStatusStream.wrappedValue = .none
-//                sleep(3)
-//                _userStatusStream.wrappedValue = .notStarted
-//                sleep(3)
-//                _userStatusStream.wrappedValue = .pending
-//                sleep(3)
-//                _userStatusStream.wrappedValue = .rejected(.init(additionalDescription: "test rej", reasons: ["reason 1"]))
-//                sleep(3)
-//                _userStatusStream.wrappedValue = .userCanceled
-//                sleep(3)
-//                _userStatusStream.wrappedValue = .successful
-//            }
-//        }
-//TODO: statuses testing
     }
 
     var userStatusStream: AsyncStream<SCKYCUserStatus> {
@@ -61,15 +34,7 @@ extension SCKYCService {
         return currentUserState.userStatus
     }
 
-    func clearUserKYCState() {
-        currentUserState = .none
-        _userStatusStream.wrappedValue = .notStarted
-    }
-
     private func kycLastState() async -> Result<SCUserState?, NetworkingError> {
-        guard isUserSignIn() else {
-            return .failure(.unauthorized)
-        }
         let request = APIRequest(method: .get, endpoint: SCEndpoint.kycLastStatus)
         return await client.performDecodable(request: request)
     }

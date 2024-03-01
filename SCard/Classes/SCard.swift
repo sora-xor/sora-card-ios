@@ -3,7 +3,7 @@ import SoraUIKit
 
 public class SCard {
 
-    public static let currentSDKVersion = "2.2.3"
+    public static let currentSDKVersion = "2.2.4"
     static let minXorAmount = 100
     static let techSupportLink = "techsupport@soracard.com"
 
@@ -85,12 +85,20 @@ public class SCard {
         config: Config,
         balanceStream: SCStream<Decimal>,
         onReceiveController: @escaping (UIViewController) -> Void,
-        onSwapController: @escaping (UIViewController) -> Void
+        onSwapController: @escaping (UIViewController) -> Void,
+        logLevels: NetworkingLogLevel = .info
     ) {
         self.config = config
         self.addressProvider = addressProvider
 
-        client = .init(baseURL: URL(string: config.backendUrl)!, baseAuth: "", token: .empty, logLevels: .info)
+        let bearerProvider = SCPayWingsOAuthProvider()
+
+        client = .init(
+            baseURL: URL(string: config.backendUrl)!,
+            baseAuth: "",
+            bearerProvider: bearerProvider,
+            logLevels: logLevels
+        )
         service = .init(client: client, config: config)
         coordinator = .init(
             addressProvider: addressProvider,
@@ -102,11 +110,10 @@ public class SCard {
         )
 
         Task {
-            await service.updateVersion()
+            _ = await service.fetchVersion()
             if SCStorage.shared.isFirstLaunch() {
-                await SCStorage.shared.removeToken()
+                logout()
                 SCStorage.shared.setAppLaunched()
-                service.clearUserKYCState()
             } else {
                 await service.updateKycState()
             }
@@ -125,18 +132,6 @@ public class SCard {
 
     public func start(in vc: UIViewController) {
         Task { await coordinator.start(in: vc) }
-    }
-
-    func set(token: SCToken) {
-        client.set(token: token)
-    }
-
-    public func accessToken() async -> String? {
-        "TODO: token" //await storage.token()?.accessToken
-    }
-
-    public func removeToken() async {
-        await storage.removeToken()
     }
 
     public var userStatusStream: AsyncStream<SCKYCUserStatus> {
@@ -169,12 +164,8 @@ public class SCard {
     }
 
     public func logout() {
-        Task {
-            await storage.removeToken()
-        }
         storage.set(isRety: false)
-        service.clearUserKYCState()
-        service.signOutUser()
+        service.logout()
     }
 }
 
