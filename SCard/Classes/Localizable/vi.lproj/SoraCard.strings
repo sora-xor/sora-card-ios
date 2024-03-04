@@ -123,4 +123,5 @@
 "iban.pending.description" = "Việc cấp IBAN của bạn đang chờ xử lý.\n Trong trường hợp chờ đợi lâu hơn 72h, hãy liên hệ với chúng tôi qua %@";
 "card.hub.title" = "Chi tiết thẻ";
 "iban.suspended.description" = "IBAN của bạn đã bị đình chỉ.\n Để tìm hiểu thêm, hãy liên hệ %@";
-"iban.frozen.description" = "Your IBAN has been frozen.\nTo find out more, contact %@";
+"iban.frozen.description" = "IBAN của bạn đã bị đóng băng.\n Để tìm hiểu thêm, hãy liên hệ %@";
+"card.hub.manage.card" = "Manage SORA Card";

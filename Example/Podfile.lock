@@ -17,15 +17,15 @@ PODS:
     - PayWingsOAuthSDK (= 2.0.2)
     - R.swift (~> 6.1.0)
     - SnapKit
-    - SoraUIKit (~> 1.1.2)
+    - SoraUIKit
   - SnapKit (5.7.1)
-  - SoraUIKit (1.1.4)
+  - SoraUIKit (1.1.11)
 
 DEPENDENCIES:
   - "IdensicMobileSDK (from `{:http=>\"https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.4.tar.gz\"}`)"
   - R.swift (~> 6.1.0)
   - SCard (from `../`)
-  - SoraUIKit (from `https://github.com/soramitsu/ios-ui.git`, tag `1.1.4`)
+  - SoraUIKit (from `https://github.com/soramitsu/ios-ui.git`, tag `1.1.11`)
 
 SPEC REPOS:
   trunk:
@@ -45,14 +45,14 @@ EXTERNAL SOURCES:
     :path: "../"
   SoraUIKit:
     :git: https://github.com/soramitsu/ios-ui.git
-    :tag: 1.1.4
+    :tag: 1.1.11
 
 CHECKOUT OPTIONS:
   IdensicMobileSDK:
     :http: https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.4.tar.gz
   SoraUIKit:
     :git: https://github.com/soramitsu/ios-ui.git
-    :tag: 1.1.4
+    :tag: 1.1.11
 
 SPEC CHECKSUMS:
   IdensicMobileSDK: 0fbb396027943d80945196d94667bd93ed0f4fdf
@@ -63,10 +63,10 @@ SPEC CHECKSUMS:
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   RecaptchaEnterprise: 9b60bc1e1633d120e24a098d80546776fab1282e
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  SCard: b5bad38b2b5d06116338f2586feebf37405cb9b6
+  SCard: b37e680cce0a211e782daf95574a955fe0a4feac
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
-  SoraUIKit: 09128d7766c8204f1550f00ddeccf88e43eff127
+  SoraUIKit: f32d51c0876d016f5f318b534eb8f7eb2eeaa00a
 
-PODFILE CHECKSUM: 1f12841e8a9f4b12c0a2d7490d6bb20eb606dae0
+PODFILE CHECKSUM: 4768d6aebe72257b6e1a3905f6ec7a29d6350eaa
 
 COCOAPODS: 1.12.1

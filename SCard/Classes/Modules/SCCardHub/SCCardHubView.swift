@@ -2,7 +2,6 @@ import UIKit
 import SoraUIKit
 
 final class SCCardHubView: UIView {
-
     var onLogout: (() -> Void)?
     var onSupport: (() -> Void)?
     var onIbanShare: ((String) -> Void)?

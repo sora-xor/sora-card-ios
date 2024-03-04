@@ -21,10 +21,14 @@ Pod::Spec.new do |s|
   s.frameworks = 'UIKit'
   s.dependency 'R.swift', '~> 6.1.0'
   s.dependency 'SnapKit'
-  s.dependency 'SoraUIKit', '~> 1.1.2'
+  s.dependency 'SoraUIKit'
   s.dependency 'PayWingsOAuthSDK', '2.0.2'
   s.dependency 'PayWingsKycSDK', '1.0.1'
   s.dependency 'IdensicMobileSDK' #, '2.2.3'
+
+#   s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+#   s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
+
   # TODO: PW release IdensicMobileSDK to public pods
   # s.dependency 'IdensicMobileSDK', :http => 'https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.4.tar.gz'
 

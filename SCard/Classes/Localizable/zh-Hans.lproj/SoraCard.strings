@@ -123,4 +123,5 @@
 "iban.pending.description" = "您的 IBAN 正在等待签发。\n如果等待时间超过 72 小时，请通过%@联系我们";
 "card.hub.title" = "卡片详情";
 "iban.suspended.description" = "您的IBAN已被暂停使用。\n如需了解更多信息，请联系%@。";
-"iban.frozen.description" = "Your IBAN has been frozen.\nTo find out more, contact %@";
+"iban.frozen.description" = "您的国际银行账号(IBAN)已被冻结。\n欲了解更多信息，请联系%@。";
+"card.hub.manage.card" = "Manage SORA Card";

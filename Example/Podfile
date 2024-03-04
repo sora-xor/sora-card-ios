@@ -5,12 +5,8 @@ platform :ios, '13.0'
 target 'SCard_Example' do
   pod 'R.swift', '~> 6.1.0'
   pod 'IdensicMobileSDK', :http => 'https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.4.tar.gz'
-  pod 'SoraUIKit', :git => 'https://github.com/soramitsu/ios-ui.git', :tag => '1.1.4'
+  pod 'SoraUIKit', :git => 'https://github.com/soramitsu/ios-ui.git', :tag => '1.1.11'
   pod 'SCard', :path => '../'
-
-  target 'SCard_Tests' do
-    inherit! :search_paths
-  end
 end
 
 post_install do |installer|

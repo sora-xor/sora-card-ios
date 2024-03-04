@@ -124,3 +124,4 @@
 "card.hub.title" = "Card details";
 "iban.suspended.description" = "Your IBAN has been suspended.\nTo find out more, contact %@";
 "iban.frozen.description" = "Your IBAN has been frozen.\nTo find out more, contact %@";
+"card.hub.manage.card" = "Manage SORA Card";
