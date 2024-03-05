@@ -125,3 +125,5 @@
 "iban.suspended.description" = "IBAN của bạn đã bị đình chỉ.\n Để tìm hiểu thêm, hãy liên hệ %@";
 "iban.frozen.description" = "IBAN của bạn đã bị đóng băng.\n Để tìm hiểu thêm, hãy liên hệ %@";
 "card.hub.manage.card" = "Manage SORA Card";
+"card.hub.manage.card.alert.title" = "Download SORA Card App";
+"card.hub.manage.card.alert.message" = "To manage your SORA Card, please install the official SORA Card App. Tap OK to be directed to the App Store.";

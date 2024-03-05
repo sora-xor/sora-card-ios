@@ -1,6 +1,7 @@
 final class SCCardHubViewModel {
 
     var onUpdateUI: ((Iban?, Bool) -> Void)?
+    var onAppStore: (() -> Void)?
 
     private let service: SCKYCService
 
@@ -36,6 +37,20 @@ final class SCCardHubViewModel {
                     }
                 }
             }
+        }
+    }
+
+    func manageCard() {
+        // TODO: update card manage app name and bundleID
+        let appName = "SoraWallet"
+        let appScheme = "\(appName)://app"
+        let bundleID = "com.apple.mobilesafari://"
+        let appUrl = URL(string: appScheme)! // bundleID
+
+        if UIApplication.shared.canOpenURL(appUrl) {
+            UIApplication.shared.open(appUrl)
+        } else {
+            onAppStore?()
         }
     }
 }

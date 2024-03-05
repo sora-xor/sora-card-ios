@@ -26,9 +26,6 @@ Pod::Spec.new do |s|
   s.dependency 'PayWingsKycSDK', '1.0.1'
   s.dependency 'IdensicMobileSDK' #, '2.2.3'
 
-#   s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-#   s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
-
   # TODO: PW release IdensicMobileSDK to public pods
   # s.dependency 'IdensicMobileSDK', :http => 'https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.4.tar.gz'
 

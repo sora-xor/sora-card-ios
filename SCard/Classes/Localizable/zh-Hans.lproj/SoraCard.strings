@@ -125,3 +125,5 @@
 "iban.suspended.description" = "您的IBAN已被暂停使用。\n如需了解更多信息，请联系%@。";
 "iban.frozen.description" = "您的国际银行账号(IBAN)已被冻结。\n欲了解更多信息，请联系%@。";
 "card.hub.manage.card" = "Manage SORA Card";
+"card.hub.manage.card.alert.title" = "Download SORA Card App";
+"card.hub.manage.card.alert.message" = "To manage your SORA Card, please install the official SORA Card App. Tap OK to be directed to the App Store.";

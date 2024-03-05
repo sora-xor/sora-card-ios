@@ -125,3 +125,5 @@
 "iban.suspended.description" = "Ваш IBAN был приостановлен.\nЧтобы узнать больше, свяжитесь с %@";
 "iban.frozen.description" = "Ваш IBAN был заморожен.\nЧтобы узнать больше, свяжитесь с %@";
 "card.hub.manage.card" = "Manage SORA Card";
+"card.hub.manage.card.alert.title" = "Download SORA Card App";
+"card.hub.manage.card.alert.message" = "To manage your SORA Card, please install the official SORA Card App. Tap OK to be directed to the App Store.";

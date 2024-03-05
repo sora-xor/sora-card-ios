@@ -458,6 +458,12 @@ final class SCKYCCoordinator {
             let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
             viewController?.present(webViewController, animated: true)
         }
+        viewController.onManaageAppStore = { [weak self, weak viewController] in
+            guard let self = self else { return }
+            let url = URL(string: self.service.config.appStoreUrl)! // TODO: update link to Manage Card App
+            let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
+            viewController?.present(webViewController, animated: true)
+        }
 
         let containerView = BlurViewController()
         containerView.modalPresentationStyle = .overFullScreen

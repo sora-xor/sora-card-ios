@@ -3,14 +3,7 @@ import SoraUIKit
 
 final class SCCardHubHeaderView: SoramitsuView {
 
-    enum Action {
-        case topUp
-        case transfer
-        case exchange
-        case freeze
-    }
-
-    var onAction: ((Action) -> Void)?
+    var onManageCard: (() -> Void)?
 
     private let iconView: SoramitsuImageView = {
         let view = SoramitsuImageView()
@@ -71,70 +64,14 @@ final class SCCardHubHeaderView: SoramitsuView {
         return label
     }()
 
-    private let actionButtonsScrollView: SoramitsuScrollView = {
-        let view = SoramitsuScrollView()
-        view.contentMode = .center
-        view.contentInset = .init(top: 0, left: 24, bottom: 0, right: 24)
-        return view
-    }()
-
-    private let actionButtonsView: SoramitsuStackView = {
-        var view = SoramitsuStackView()
-        view.sora.backgroundColor = .custom(uiColor: .clear)
-        view.sora.axis = .horizontal
-        view.sora.distribution = .equalCentering
-        view.sora.alignment = .center
-        view.spacing = 20
-        view.clipsToBounds = false
-        return view
-    }()
-
-    private lazy var topUpButton: SCActionButtonView = {
-        let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubTopUp(preferredLanguages: .currentLocale)
-        view.button.sora.leftImage = R.image.newArrowDown()
-        view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.onAction?(.topUp)
+    private lazy var manageButton: SoramitsuButton = {
+        let button = SoramitsuButton(size: .large, type: .tonal(.primary))
+        button.sora.cornerRadius = .custom(28)
+        button.sora.title = R.string.soraCard.cardHubManageCard(preferredLanguages: .currentLocale)
+        button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            self?.onManageCard?()
         }
-        view.button.isEnabled = false
-        view.button.sora.shadow = .none
-        return view
-    }()
-
-    private lazy var transferButton: SCActionButtonView = {
-        let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubTransfer(preferredLanguages: .currentLocale)
-        view.button.sora.leftImage = R.image.newArrowUp()
-        view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.onAction?(.transfer)
-        }
-        view.button.isEnabled = false
-        view.button.sora.shadow = .none
-        return view
-    }()
-
-    private lazy var exchangeButton: SCActionButtonView = {
-        let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubExchange(preferredLanguages: .currentLocale)
-        view.button.sora.leftImage = R.image.exchange()
-        view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.onAction?(.exchange)
-        }
-        view.button.isEnabled = false
-        view.button.sora.shadow = .none
-        return view
-    }()
-
-    private lazy var freezeButton: SCActionButtonView = {
-        let view = SCActionButtonView()
-        view.titleLabel.sora.text = R.string.soraCard.cardhubFreeze(preferredLanguages: .currentLocale)
-        view.button.sora.leftImage = R.image.freeze()
-        view.button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.onAction?(.freeze)
-        }
-        view.button.isEnabled = false
-        view.button.sora.shadow = .none
-        return view
+        return button
     }()
 
     convenience init() {
@@ -187,30 +124,10 @@ final class SCCardHubHeaderView: SoramitsuView {
             $0.trailing.equalToSuperview().inset(24)
         }
 
-        actionButtonsView.addArrangedSubviews([
-//            topUpButton,
-//            transferButton,
-//            exchangeButton,
-//            freezeButton
-        ])
-
-        addSubview(actionButtonsScrollView) {
+        addSubview(manageButton) {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(16)
         }
-
-        actionButtonsScrollView.addSubview(actionButtonsView) {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(self).inset(16)
-        }
-    }
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layoutIfNeeded()
-        let offset = max(0, actionButtonsScrollView.bounds.width - actionButtonsScrollView.contentSize.width) / 2
-        actionButtonsScrollView.contentInset = .init(top: 0, left: offset, bottom: 0, right: offset)
     }
 }

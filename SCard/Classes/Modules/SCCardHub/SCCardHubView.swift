@@ -37,7 +37,7 @@ final class SCCardHubView: UIView {
         return view
     }()
 
-    private var cardHubHeaderView = SCCardHubHeaderView()
+    private(set) var cardHubHeaderView = SCCardHubHeaderView()
 
     private lazy var updateView: SCCardHubUpdateAppView = {
         let view = SCCardHubUpdateAppView()

@@ -4,6 +4,7 @@ import SoraUIKit
 
 final class SCCardHubViewController: UIViewController {
 
+    var onManaageAppStore: (() -> Void)?
     var onLogout: (() -> Void)?
     var onSupport: (() -> Void)?
     var onUpdateApp: (() -> Void)?
@@ -46,6 +47,14 @@ final class SCCardHubViewController: UIViewController {
             )
         }
 
+        model.onAppStore = { [unowned self] in
+            showDownloadAppAlert()
+        }
+
+        rootView.cardHubHeaderView.onManageCard = { [unowned self] in
+            self.model.manageCard()
+        }
+
         rootView.onClose = { [unowned self] in
             self.dismiss(animated: true)
         }
@@ -71,5 +80,27 @@ final class SCCardHubViewController: UIViewController {
             applicationActivities: nil
         )
         present(activityController, animated: true, completion: nil)
+    }
+
+    private func showDownloadAppAlert() {
+        let alertController = UIAlertController(
+            title: R.string.soraCard.cardHubManageCardAlertTitle(preferredLanguages: .currentLocale),
+            message: R.string.soraCard.cardHubManageCardAlertMessage(preferredLanguages: .currentLocale),
+            preferredStyle: .alert
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: R.string.soraCard.commonCancel(preferredLanguages: .currentLocale),
+                style: .cancel)
+        )
+        alertController.addAction(
+            UIAlertAction(
+                title: R.string.soraCard.commonOk(preferredLanguages: .currentLocale),
+                style: .default
+            ){ [weak self] _ in
+                self?.onManaageAppStore?()
+            }
+        )
+        present(alertController, animated: true)
     }
 }

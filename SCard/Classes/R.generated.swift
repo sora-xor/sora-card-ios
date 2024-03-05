@@ -277,7 +277,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 127 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 130 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -399,6 +399,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let termsAndConditionsSoraCommunityAlert = Rswift.StringResource(key: "terms.and.conditions.sora.community.alert", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Download SORA Card App
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardHubManageCardAlertTitle = Rswift.StringResource(key: "card.hub.manage.card.alert.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: E-Mail
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -559,6 +563,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let getPreparedTakeSelfieTitle = Rswift.StringResource(key: "get.prepared.take.selfie.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Manage SORA Card
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardHubManageCard = Rswift.StringResource(key: "card.hub.manage.card", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Nachfüllen
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -667,6 +675,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let enterPhoneNumberPhoneInputFieldLabel = Rswift.StringResource(key: "enter.phone.number.phone.input.field.label", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: To manage your SORA Card, please install the official SORA Card App. Tap OK to be directed to the App Store.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let cardHubManageCardAlertMessage = Rswift.StringResource(key: "card.hub.manage.card.alert.message", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Um die Identitätsverifizierung abzuschließen, müssen Sie Folgendes tun:
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -1238,6 +1250,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("terms.and.conditions.sora.community.alert", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Download SORA Card App
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardHubManageCardAlertTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.manage.card.alert.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.manage.card.alert.title"
+        }
+
+        return NSLocalizedString("card.hub.manage.card.alert.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: E-Mail
@@ -1850,6 +1877,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("get.prepared.take.selfie.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Manage SORA Card
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardHubManageCard(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.manage.card", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.manage.card"
+        }
+
+        return NSLocalizedString("card.hub.manage.card", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Nachfüllen
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2259,6 +2301,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("enter.phone.number.phone.input.field.label", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: To manage your SORA Card, please install the official SORA Card App. Tap OK to be directed to the App Store.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func cardHubManageCardAlertMessage(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("card.hub.manage.card.alert.message", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "card.hub.manage.card.alert.message"
+        }
+
+        return NSLocalizedString("card.hub.manage.card.alert.message", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Um die Identitätsverifizierung abzuschließen, müssen Sie Folgendes tun:
