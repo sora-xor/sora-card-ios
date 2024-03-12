@@ -41,11 +41,20 @@ final class SCCardHubViewModel {
     }
 
     func manageCard() {
-        // TODO: update card manage app name and bundleID
-        let appName = "SoraWallet"
-        let appScheme = "\(appName)://app"
-        let bundleID = "com.apple.mobilesafari://"
-        let appUrl = URL(string: appScheme)! // bundleID
+        #if DEBUG
+        let bundleId = "soracard.wallet.test"
+        #elseif F_DEV
+        let bundleId = "soracard.wallet.test"
+        #elseif F_TEST
+        let bundleId = "soracard.wallet.test"
+        #elseif F_STAGING
+        let bundleId = "soracard.wallet"
+        #else
+        let bundleId = "soracard.wallet"
+        #endif
+
+        let bundleUrl = "\(bundleId)://"
+        let appUrl = URL(string: bundleUrl)!
 
         if UIApplication.shared.canOpenURL(appUrl) {
             UIApplication.shared.open(appUrl)

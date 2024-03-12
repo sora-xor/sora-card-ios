@@ -460,7 +460,7 @@ final class SCKYCCoordinator {
         }
         viewController.onManaageAppStore = { [weak self, weak viewController] in
             guard let self = self else { return }
-            let url = URL(string: self.service.config.appStoreUrl)! // TODO: update link to Manage Card App
+            let url = URL(string: "https://apps.apple.com/app/sora-card/id6466728323")!
             let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
             viewController?.present(webViewController, animated: true)
         }
