@@ -94,7 +94,7 @@ final class SCCardHubHeaderView: SoramitsuView {
     func configure(balance: Int?) {
         // TODO: add localization
         balanceLabel.sora.text = balance != nil ?
-            SCBalanceConverter.formatedBalance(balance: balance!) : "Can’t load balance"
+            SCBalanceConverter.formatedBalance(balance: balance!) : "--"
         balanceLabel.sora.loadingPlaceholder.type = .none
     }
 

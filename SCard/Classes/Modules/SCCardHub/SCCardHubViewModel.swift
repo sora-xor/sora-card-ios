@@ -42,15 +42,15 @@ final class SCCardHubViewModel {
 
     func manageCard() {
         #if DEBUG
-        let bundleId = "soracard.wallet.test"
+        let bundleId = "com.soracard.iban.wallet.test"
         #elseif F_DEV
-        let bundleId = "soracard.wallet.test"
+        let bundleId = "com.soracard.iban.wallet.test"
         #elseif F_TEST
-        let bundleId = "soracard.wallet.test"
+        let bundleId = "com.soracard.iban.wallet.test"
         #elseif F_STAGING
-        let bundleId = "soracard.wallet"
+        let bundleId = "com.soracard.iban.wallet"
         #else
-        let bundleId = "soracard.wallet"
+        let bundleId = "com.soracard.iban.wallet"
         #endif
 
         let bundleUrl = "\(bundleId)://"
