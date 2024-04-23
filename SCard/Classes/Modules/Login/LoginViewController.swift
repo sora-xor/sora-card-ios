@@ -14,6 +14,7 @@ final class LoginViewController: UIViewController {
     override func loadView() {
         super.loadView()
         view = LoginView()
+        title = R.string.soraCard.statusNotStarted(preferredLanguages: .currentLocale)
     }
 
     override func viewDidLoad() {

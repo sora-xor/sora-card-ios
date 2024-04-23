@@ -24,7 +24,6 @@ final class LoginView: UIView {
     private let iconView: SoramitsuImageView = {
         let view = SoramitsuImageView()
         let icon = R.image.scFront()
-//        UIImage(named: "scFront", in: Bundle(for: SCKYCDetailsView.self), compatibleWith: nil)
         view.sora.picture = .logo(image: R.image.scFront()!)
         return view
     }()
@@ -91,14 +90,6 @@ final class LoginView: UIView {
         return label
     }()
 
-    private let detailsFeeLabel: SoramitsuLabel = {
-        let label = SoramitsuLabel()
-        label.sora.font = FontType.paragraphM
-        label.sora.textColor = .fgSecondary
-        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsEuro(SCard.issuanceFee, preferredLanguages: .currentLocale)
-        return label
-    }()
-
     private let unsupportedCountriesDisclaimerLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphXS
@@ -153,8 +144,7 @@ final class LoginView: UIView {
         addSubview(scrollView)
 
         detailsContainerView.addArrangedSubviews([
-            detailsTitleLabel,
-            detailsFeeLabel
+            detailsTitleLabel
         ])
 
         feeContainerView.addArrangedSubview(feeLabel)

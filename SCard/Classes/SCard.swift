@@ -6,10 +6,6 @@ public class SCard {
     public static let currentSDKVersion = "2.2.4"
     static let techSupportLink = "techsupport@soracard.com"
 
-    static var issuanceFee: String {
-        SCard.shared?.service.applicationFeeCache ?? "29"
-    }
-
     public static var shared: SCard?
 
     internal let service: KYCService

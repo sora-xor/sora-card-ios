@@ -90,14 +90,6 @@ final class VersionUpdateView: UIView {
         return label
     }()
 
-    private let detailsFeeLabel: SoramitsuLabel = {
-        let label = SoramitsuLabel()
-        label.sora.font = FontType.paragraphM
-        label.sora.textColor = .fgSecondary
-        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsEuro(SCard.issuanceFee, preferredLanguages: .currentLocale)
-        return label
-    }()
-
     private let unsupportedCountriesDisclaimerLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphXS
@@ -161,8 +153,7 @@ final class VersionUpdateView: UIView {
         addSubview(scrollView)
 
         detailsContainerView.addArrangedSubviews([
-            detailsTitleLabel,
-            detailsFeeLabel
+            detailsTitleLabel
         ])
 
         feeContainerView.addArrangedSubview(feeLabel)
