@@ -99,8 +99,13 @@ public class SCard {
             bearerProvider: bearerProvider,
             logLevels: logLevels
         )
-        service = .init(client: client, config: config)
-        coordinator = .init(
+        service = SCKYCService(client: client, config: config)
+
+        let exchangeService = SCExchangeService(client: client, config: config)
+        let exchangeCoordinator = SCExchangeOnboardingCoordinator(service: exchangeService)
+
+        coordinator = SCKYCCoordinator(
+            exchangeCoordinator: exchangeCoordinator,
             addressProvider: addressProvider,
             service: service,
             storage: storage,

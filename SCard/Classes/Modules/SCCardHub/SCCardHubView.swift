@@ -2,6 +2,8 @@ import UIKit
 import SoraUIKit
 
 final class SCCardHubView: UIView {
+
+    var onManageCard: (() -> Void)?
     var onLogout: (() -> Void)?
     var onSupport: (() -> Void)?
     var onIbanShare: ((String) -> Void)?
@@ -84,6 +86,16 @@ final class SCCardHubView: UIView {
         return label
     }()
 
+    private lazy var manageCardView: SCTitleIconView = {
+        let view = SCTitleIconView()
+        view.rightImageView.image = R.image.arrowRightSmall()
+        view.titleLabel.sora.text = R.string.soraCard.cardHubManageCard(preferredLanguages: .currentLocale)
+        view.addTapGesture { [weak self] _ in
+            self?.onManageCard?()
+        }
+        return view
+    }()
+
     private lazy var supportView: SCTitleIconView = {
         let view = SCTitleIconView()
         view.rightImageView.image = R.image.arrowRightSmall()
@@ -140,6 +152,7 @@ final class SCCardHubView: UIView {
         settingsContainerView.addArrangedSubviews([
             settingsTitleLabel,
             SpacingView(height: 20),
+            manageCardView,
             supportView,
             logoutView
         ])

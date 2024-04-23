@@ -3,7 +3,8 @@ import SoraUIKit
 
 final class SCCardHubHeaderView: SoramitsuView {
 
-    var onManageCard: (() -> Void)?
+    var onExchange: (() -> Void)?
+    var onSettings: (() -> Void)?
 
     private let iconView: SoramitsuImageView = {
         let view = SoramitsuImageView()
@@ -64,12 +65,22 @@ final class SCCardHubHeaderView: SoramitsuView {
         return label
     }()
 
-    private lazy var manageButton: SoramitsuButton = {
+    private lazy var exchangeButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .tonal(.primary))
         button.sora.cornerRadius = .custom(28)
-        button.sora.title = R.string.soraCard.cardHubManageCard(preferredLanguages: .currentLocale)
+        button.sora.title = "Exchange XOR" //R.string.soraCard.cardHubManageCard(preferredLanguages: .currentLocale)
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.onManageCard?()
+            self?.onExchange?()
+        }
+        return button
+    }()
+
+    private lazy var settingsButton: SoramitsuButton = {
+        let button = SoramitsuButton(size: .large, type: .tonal(.primary))
+        button.sora.leftImage = R.image.settings()//?.withTintColor( .primary)
+        button.sora.cornerRadius = .circle
+        button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            self?.onSettings?()
         }
         return button
     }()
@@ -124,7 +135,17 @@ final class SCCardHubHeaderView: SoramitsuView {
             $0.trailing.equalToSuperview().inset(24)
         }
 
-        addSubview(manageButton) {
+        let buttonsView = SoramitsuStackView(arrangedSubviews: [
+            exchangeButton,
+            settingsButton
+        ])
+        buttonsView.spacing = 16
+
+        settingsButton.snp.makeConstraints {
+            $0.size.equalTo(56)
+        }
+
+        addSubview(buttonsView) {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(16)

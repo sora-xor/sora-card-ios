@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        SoramitsuUI.shared.themeMode = .manual(.dark)
+        SoramitsuUI.shared.themeMode = .manual(.light)
 
         table.delegate = self
         table.dataSource = self
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
 
         refreshBalanceTimer.invalidate()
         refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            xorBalanceStream.wrappedValue = Decimal(UInt.random(in: 2500...500000))
+            xorBalanceStream.wrappedValue = Decimal(UInt.random(in: 1000000...2000000))
         }
 
         // Dev BundleID: co.jp.soramitsu.sora.dev

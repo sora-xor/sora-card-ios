@@ -12,6 +12,7 @@ enum SCEndpoint: Endpoint {
     case fees
     case version
     case countryCodes
+    case onboardUser
 
     var path: String {
         switch self {
@@ -35,6 +36,8 @@ enum SCEndpoint: Endpoint {
             return "version"
         case .countryCodes:
             return "country-codes"
+        case .onboardUser:
+            return "OnboardUser"
         }
     }
 }
@@ -91,6 +94,7 @@ public final class SCKYCService {
     func logout() {
         signOutUser()
         clearUserKYCState()
+        clearIban()
     }
 
     private func signOutUser() {
@@ -100,6 +104,10 @@ public final class SCKYCService {
     private func clearUserKYCState() {
         currentUserState = .none
         _userStatusStream.wrappedValue = .notStarted
+    }
+
+    private func clearIban() {
+        //Task { await IbanStorage.shared.set(ibans: .inited) }
     }
 
     func sendNewVerificationEmail(callback: SendNewVerificationEmailCallback) {

@@ -4,7 +4,7 @@ import AVFoundation
 import PayWingsOAuthSDK
 import PayWingsKycSDK
 
-final class SCKYCOnbordingViewModel {
+final class SCKYCOnboardingViewModel {
     var onContinue: ((SCKYCUserDataModel) -> Void)?
     weak var viewController: UIViewController?
     
@@ -235,7 +235,7 @@ final class SCKYCOnbordingViewModel {
     }
 }
 
-extension SCKYCOnbordingViewModel: VerificationResultDelegate {
+extension SCKYCOnboardingViewModel: VerificationResultDelegate {
     func onSuccess(result: PayWingsKycSDK.SuccessEvent) {
         kycSuccess = result
         set(kycId: result.KycID ?? "")

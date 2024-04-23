@@ -51,15 +51,19 @@ final class SCKYCEnterPhoneViewController: UIViewController {
         }
 
         viewModel.onUpdateUI = { [unowned self] errorMessage, isContinueEnabled, secondsLeft in
-            rootView.configure(
-                errorMessage: errorMessage,
-                isContinueEnabled: isContinueEnabled,
-                secondsLeft: secondsLeft
-            )
+            DispatchQueue.main.async { [unowned self] in
+                rootView.configure(
+                    errorMessage: errorMessage,
+                    isContinueEnabled: isContinueEnabled,
+                    secondsLeft: secondsLeft
+                )
+            }
         }
 
         viewModel.onUpdateCountry = { [unowned self] country in
-            rootView.configure(country: country)
+            DispatchQueue.main.async { [unowned self] in
+                rootView.configure(country: country)
+            }
         }
     }
 }

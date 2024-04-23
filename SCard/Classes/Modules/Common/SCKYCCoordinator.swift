@@ -11,8 +11,10 @@ final class SCKYCCoordinator {
     internal var balanceStream: SCStream<Decimal>
     private let onReceiveController: (UIViewController) -> Void
     private let onSwapController: (UIViewController) -> Void
+    private let exchangeCoordinator: SCExchangeOnboardingCoordinator
 
     init(
+        exchangeCoordinator: SCExchangeOnboardingCoordinator,
         addressProvider: @escaping () -> String,
         service: SCKYCService,
         storage: SCStorage,
@@ -20,6 +22,7 @@ final class SCKYCCoordinator {
         onSwapController: @escaping (UIViewController) -> Void,
         onReceiveController: @escaping (UIViewController) -> Void
     ) {
+        self.exchangeCoordinator = exchangeCoordinator
         self.addressProvider = addressProvider
         self.service = service
         self.storage = storage
@@ -62,6 +65,10 @@ final class SCKYCCoordinator {
             await openSCard()
         }
     }
+    private func pushViewController(_ viewController: UIViewController, animated: Bool = true) {
+        navigationController.pushViewController(viewController, animated: animated)
+        navigationController.stopLoader()
+    }
 
     private func openSCard() async {
         // TODO: present loading creeen
@@ -74,6 +81,7 @@ final class SCKYCCoordinator {
 
         } else if await navigationController.presentingViewController == nil {
             await rootViewController?.present(navigationController, animated: true)
+            await navigationController.startLoader()
         }
 
         let data = await SCKYCUserDataService(service: service).fetchUserData() ?? SCKYCUserDataModel()
@@ -109,7 +117,7 @@ final class SCKYCCoordinator {
                     let viewController = SCXOneViewController(viewModel:
                             .init(address: self.addressProvider(), service: self.service)
                     )
-                    self.navigationController.pushViewController(viewController, animated: true)
+                    self.pushViewController(viewController)
                 } else {
                     let viewController = SCXOneBlockedViewController()
                     viewController.onAction = { [weak self] in
@@ -119,7 +127,7 @@ final class SCKYCCoordinator {
                     viewController.onUnsupportedCountries = { [weak self] in
                         self?.showUnsupportedCountries()
                     }
-                    self.navigationController.pushViewController(viewController, animated: true)
+                    self.pushViewController(viewController)
                 }
             }
         }
@@ -136,7 +144,7 @@ final class SCKYCCoordinator {
         viewController.onLogin = { [weak self] in
             self?.showTermsAndConditions(data: data)
         }
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func showUnsupportedCountries() {
@@ -176,7 +184,7 @@ final class SCKYCCoordinator {
         }
 
         let viewController = SCKYCDetailsViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func showCardIssuance(data: SCKYCUserDataModel) {
@@ -216,7 +224,7 @@ final class SCKYCCoordinator {
             viewController.navigationController?.dismiss(animated: true)
         }
 
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func showTermsAndConditions(data: SCKYCUserDataModel) {
@@ -243,7 +251,7 @@ final class SCKYCCoordinator {
             }
         }
 
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func show(url: URL) {
@@ -252,7 +260,7 @@ final class SCKYCCoordinator {
             configuration: .init(),
             request: request
         )
-        navigationController.pushViewController(webViewController, animated: true)
+        pushViewController(webViewController)
     }
 
     private func showEnterPhone(data: SCKYCUserDataModel) {
@@ -269,7 +277,7 @@ final class SCKYCCoordinator {
 
         }
         let viewController = SCKYCEnterPhoneViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func showCountryList(_ onCountrySelected: @escaping (SCCountry) -> Void) {
@@ -278,7 +286,7 @@ final class SCKYCCoordinator {
             navigationController.popViewController(animated: true)
             onCountrySelected(selectedCountry)
         }
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func showEnterPhoneCode(data: SCKYCUserDataModel) {
@@ -292,7 +300,7 @@ final class SCKYCCoordinator {
         }
 
         let viewController = SCKYCEnterPhoneCodeViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
 
         viewModel.onEmailVerification = { [unowned self, weak viewController] data in
             showEmailVerification(data: data)
@@ -307,7 +315,7 @@ final class SCKYCCoordinator {
 
         }
         let viewController = SCKYCEnterNameViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func showEnterEmail(data: SCKYCUserDataModel) {
@@ -316,7 +324,7 @@ final class SCKYCCoordinator {
             showEmailVerification(data: data)
         }
         let viewController = SCKYCEnterEmailViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func showEmailVerification(data: SCKYCUserDataModel) {
@@ -334,7 +342,7 @@ final class SCKYCCoordinator {
         }
         
         let viewController = SCKYCEnterEmailCodeViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func checkUserStatus(data: SCKYCUserDataModel) {
@@ -394,7 +402,7 @@ final class SCKYCCoordinator {
         }
 
         let viewController = SCKYCSummaryViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
 
         viewModel.onClose = { [unowned viewController] in
             viewController.navigationController?.dismiss(animated: true)
@@ -406,12 +414,12 @@ final class SCKYCCoordinator {
     }
 
     private func startKYC(data: SCKYCUserDataModel) {
-        let viewModel = SCKYCOnbordingViewModel(data: data, service: service, storage: storage)
+        let viewModel = SCKYCOnboardingViewModel(data: data, service: service, storage: storage)
         viewModel.onContinue = { [unowned self] data in
             showStatus(data: data)
         }
-        let viewController = SCKYCOnbordingViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        let viewController = SCKYCOnboardingViewController(viewModel: viewModel)
+        pushViewController(viewController)
         storage.set(isRety: false)
     }
 
@@ -436,13 +444,17 @@ final class SCKYCCoordinator {
             self?.showSupport()
         }
 
-        navigationController.pushViewController(viewController, animated: true)
+        pushViewController(viewController)
     }
 
     private func showCardHub() {
 
         let viewController = SCCardHubViewController(model: .init(service: service))
 
+        viewController.onExhange = { [weak self, weak viewController] in
+            guard let viewController = viewController else { return }
+            self?.showExhange(in: viewController)
+        }
         viewController.onLogout = { [weak self, weak viewController] in
             guard let viewController = viewController else { return }
             self?.showLogoutAlert(in: viewController)
@@ -475,6 +487,12 @@ final class SCKYCCoordinator {
             }
         } else {
             rootViewController?.present(containerView, animated: true)
+        }
+    }
+
+    private func showExhange(in viewController: UIViewController) {
+        Task {
+            await exchangeCoordinator.start(in: viewController)
         }
     }
 

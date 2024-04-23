@@ -4,6 +4,7 @@ import SoraUIKit
 
 final class SCCardHubViewController: UIViewController {
 
+    var onExhange: (() -> Void)?
     var onManaageAppStore: (() -> Void)?
     var onLogout: (() -> Void)?
     var onSupport: (() -> Void)?
@@ -51,7 +52,15 @@ final class SCCardHubViewController: UIViewController {
             showDownloadAppAlert()
         }
 
-        rootView.cardHubHeaderView.onManageCard = { [unowned self] in
+        rootView.cardHubHeaderView.onExchange = { [unowned self] in
+            self.onExhange?()
+        }
+
+        rootView.cardHubHeaderView.onSettings = { [unowned self] in
+            print("TODO: onSettings")
+        }
+
+        rootView.onManageCard = { [unowned self] in
             self.model.manageCard()
         }
 

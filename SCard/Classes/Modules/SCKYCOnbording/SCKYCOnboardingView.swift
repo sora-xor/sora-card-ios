@@ -1,7 +1,7 @@
 import UIKit
 import SoraUIKit
 
-final class SCKYCOnbordingView: UIView {
+final class SCKYCOnboardingView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

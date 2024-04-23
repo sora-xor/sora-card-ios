@@ -1,10 +1,10 @@
 import UIKit
 
-final class SCKYCOnbordingViewController: UIViewController {
+final class SCKYCOnboardingViewController: UIViewController {
 
-    private let viewModel: SCKYCOnbordingViewModel
+    private let viewModel: SCKYCOnboardingViewModel
 
-    init(viewModel: SCKYCOnbordingViewModel) {
+    init(viewModel: SCKYCOnboardingViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.viewModel.viewController = self
@@ -16,7 +16,7 @@ final class SCKYCOnbordingViewController: UIViewController {
 
     override func loadView() {
         super.loadView()
-        view = SCKYCOnbordingView()
+        view = SCKYCOnboardingView()
     }
 
     override func viewDidLoad() {

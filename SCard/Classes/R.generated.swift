@@ -105,7 +105,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 16 images.
+  /// This `R.image` struct is generated, and contains static references to 19 images.
   struct image {
     /// Image `arrowDown`.
     static let arrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowDown")
@@ -113,6 +113,10 @@ struct R: Rswift.Validatable {
     static let arrowRightSmall = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowRightSmall")
     /// Image `attention`.
     static let attention = Rswift.ImageResource(bundle: R.hostingBundle, name: "attention")
+    /// Image `checkBoxOff`.
+    static let checkBoxOff = Rswift.ImageResource(bundle: R.hostingBundle, name: "checkBoxOff")
+    /// Image `checkBoxOn`.
+    static let checkBoxOn = Rswift.ImageResource(bundle: R.hostingBundle, name: "checkBoxOn")
     /// Image `checkSmall`.
     static let checkSmall = Rswift.ImageResource(bundle: R.hostingBundle, name: "checkSmall")
     /// Image `close`.
@@ -135,6 +139,8 @@ struct R: Rswift.Validatable {
     static let newArrowUp = Rswift.ImageResource(bundle: R.hostingBundle, name: "newArrowUp")
     /// Image `scFront`.
     static let scFront = Rswift.ImageResource(bundle: R.hostingBundle, name: "scFront")
+    /// Image `settings`.
+    static let settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "settings")
     /// Image `upload`.
     static let upload = Rswift.ImageResource(bundle: R.hostingBundle, name: "upload")
     /// Image `xOneBlocked`.
@@ -158,6 +164,20 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "attention", bundle: ..., traitCollection: ...)`
     static func attention(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.attention, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "checkBoxOff", bundle: ..., traitCollection: ...)`
+    static func checkBoxOff(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.checkBoxOff, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "checkBoxOn", bundle: ..., traitCollection: ...)`
+    static func checkBoxOn(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.checkBoxOn, compatibleWith: traitCollection)
     }
     #endif
 
@@ -235,6 +255,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "scFront", bundle: ..., traitCollection: ...)`
     static func scFront(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.scFront, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "settings", bundle: ..., traitCollection: ...)`
+    static func settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.settings, compatibleWith: traitCollection)
     }
     #endif
 
