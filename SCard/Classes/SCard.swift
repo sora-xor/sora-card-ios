@@ -4,7 +4,6 @@ import SoraUIKit
 public class SCard {
 
     public static let currentSDKVersion = "2.2.4"
-    static let minXorAmount = 100
     static let techSupportLink = "techsupport@soracard.com"
 
     static var issuanceFee: String {

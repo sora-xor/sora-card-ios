@@ -91,15 +91,6 @@ final class LoginView: UIView {
         return label
     }()
 
-    private let detailsDescriptionLabel: SoramitsuLabel = {
-        let label = SoramitsuLabel()
-        label.sora.font = FontType.paragraphM
-        label.sora.textColor = .fgPrimary
-        label.sora.numberOfLines = 0
-        label.sora.text = R.string.soraCard.detailsFreeCardIssuanceConditionsXor(String(SCard.minXorAmount), "", preferredLanguages: .currentLocale)
-        return label
-    }()
-
     private let detailsFeeLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphM
@@ -163,7 +154,6 @@ final class LoginView: UIView {
 
         detailsContainerView.addArrangedSubviews([
             detailsTitleLabel,
-            detailsDescriptionLabel,
             detailsFeeLabel
         ])
 
