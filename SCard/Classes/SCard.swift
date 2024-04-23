@@ -13,10 +13,10 @@ public class SCard {
 
     public static var shared: SCard?
 
-    internal let service: SCKYCService
+    internal let service: KYCService
     private let config: Config
-    private let coordinator: SCKYCCoordinator
-    private let client: SCAPIClient
+    private let coordinator: KYCCoordinator
+    private let client: APIClient
     private let storage: SCStorage = .shared
     private let addressProvider: () -> String
 
@@ -90,7 +90,7 @@ public class SCard {
         self.config = config
         self.addressProvider = addressProvider
 
-        let bearerProvider = SCPayWingsOAuthProvider()
+        let bearerProvider = PayWingsOAuthProvider()
 
         client = .init(
             baseURL: URL(string: config.backendUrl)!,
@@ -98,12 +98,12 @@ public class SCard {
             bearerProvider: bearerProvider,
             logLevels: logLevels
         )
-        service = SCKYCService(client: client, config: config)
+        service = KYCService(client: client, config: config)
 
-        let exchangeService = SCExchangeService(client: client, config: config)
-        let exchangeCoordinator = SCExchangeOnboardingCoordinator(service: exchangeService)
+        let exchangeService = ExchangeService(client: client, config: config)
+        let exchangeCoordinator = ExchangeOnboardingCoordinator(service: exchangeService)
 
-        coordinator = SCKYCCoordinator(
+        coordinator = KYCCoordinator(
             exchangeCoordinator: exchangeCoordinator,
             addressProvider: addressProvider,
             service: service,
@@ -133,11 +133,11 @@ public class SCard {
         Task { await coordinator.start(in: vc) }
     }
 
-    public var userStatusStream: AsyncStream<SCKYCUserStatus> {
+    public var userStatusStream: AsyncStream<KYCUserStatus> {
         service.userStatusStream
     }
 
-    public func userStatus() async -> SCKYCUserStatus? {
+    public func userStatus() async -> KYCUserStatus? {
         await service.userStatus()
     }
 
@@ -145,7 +145,7 @@ public class SCard {
         service.isUserSignIn()
     }
 
-    public var currentUserState: SCKYCUserStatus {
+    public var currentUserState: KYCUserStatus {
         service.currentUserState.userStatus
     }
 
@@ -155,7 +155,7 @@ public class SCard {
     }
 
     public func xOneViewController(address: String) -> UIViewController {
-        return SCXOneViewController(viewModel: .init(address: address, service: service))
+        return XOneViewController(viewModel: .init(address: address, service: service))
     }
 
     public var configuration: String {
