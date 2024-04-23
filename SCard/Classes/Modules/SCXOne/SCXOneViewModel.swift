@@ -61,7 +61,7 @@ public final class SCXOneViewModel {
             id="\(service.config.xOneId)"
             data-from-currency="EUR"
 
-            data-from-amount="\(SCKYCDetailsViewModel.requiredAmountOfEuro)"
+            data-from-amount="\(100)"
             data-hide-buy-more-button="true"
             data-hide-try-again-button="false"
             data-disable-to-blockchain="true"

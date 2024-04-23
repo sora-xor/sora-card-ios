@@ -8,7 +8,6 @@ final class SCKYCCoordinator {
     private let addressProvider: () -> String
     private let service: SCKYCService
     private let storage: SCStorage
-    internal var balanceStream: SCStream<Decimal>
     private let onReceiveController: (UIViewController) -> Void
     private let onSwapController: (UIViewController) -> Void
     private let exchangeCoordinator: SCExchangeOnboardingCoordinator
@@ -18,7 +17,6 @@ final class SCKYCCoordinator {
         addressProvider: @escaping () -> String,
         service: SCKYCService,
         storage: SCStorage,
-        balanceStream: SCStream<Decimal>,
         onSwapController: @escaping (UIViewController) -> Void,
         onReceiveController: @escaping (UIViewController) -> Void
     ) {
@@ -26,7 +24,6 @@ final class SCKYCCoordinator {
         self.addressProvider = addressProvider
         self.service = service
         self.storage = storage
-        self.balanceStream = balanceStream
         self.onSwapController = onSwapController
         self.onReceiveController = onReceiveController
     }
@@ -151,82 +148,6 @@ final class SCKYCCoordinator {
         show(url: URL(string: "https://soracard.com/blacklist")!)
     }
 
-    // TODO: remove
-    private func showCardDetails(data: SCKYCUserDataModel) {
-        let viewModel = SCKYCDetailsViewModel(
-            data: data,
-            service: service,
-            balanceStream: balanceStream
-        )
-
-        viewModel.onIssueCardForFree = { [weak self] in
-            self?.showTermsAndConditions(data: data)
-        }
-
-        viewModel.onIssueCard = {
-            print("TODO: 12$ pay integration")
-        }
-
-        viewModel.onReceiveXor = { [weak self] in
-            self?.showReceiveController()
-        }
-
-        viewModel.onSwapXor = { [weak self] in
-            self?.showSwapController()
-        }
-
-        viewModel.onGetXorWithFiat = { [weak self] in
-            self?.showXOne()
-        }
-
-        viewModel.onUnsupportedCountries = { [weak self] in
-            self?.show(url: URL(string: "https://soracard.com/blacklist")!)
-        }
-
-        let viewController = SCKYCDetailsViewController(viewModel: viewModel)
-        pushViewController(viewController)
-    }
-
-    private func showCardIssuance(data: SCKYCUserDataModel) {
-        let viewModel = SCKYCCardIssuanceViewModel(
-            data: data,
-            service: service,
-            balanceStream: balanceStream
-        )
-
-        viewModel.onIssueCardForFree = { [weak self] in
-            self?.showTermsAndConditions(data: data)
-        }
-
-        viewModel.onPayForIssueCard = {
-            print("TODO: impl 20$ pay integration")
-        }
-
-        viewModel.onReceiveXor = { [weak self] in
-            self?.showReceiveController()
-        }
-
-        viewModel.onSwapXor = { [weak self] in
-            self?.showSwapController()
-        }
-
-        viewModel.onGetXorWithFiat = { [weak self] in
-            self?.showXOne()
-        }
-
-        let viewController = SCKYCCardIssuanceViewController(viewModel: viewModel)
-
-        viewModel.onLogout = { [weak self, unowned viewController] in
-            self?.showLogoutAlert(in: viewController)
-        }
-
-        viewModel.onClose = { [unowned viewController] in
-            viewController.navigationController?.dismiss(animated: true)
-        }
-
-        pushViewController(viewController)
-    }
-
     private func showTermsAndConditions(data: SCKYCUserDataModel) {
         let viewModel = SCTermsConditionsViewModel()
         let viewController = SCTermsConditionsViewController(viewModel: viewModel)
@@ -349,12 +270,8 @@ final class SCKYCCoordinator {
         Task {
 
             await service.updateKycState()
-            let isEnoughXor = await SCKYCDetailsViewModel.isEnoughXor(
-                xorBalance: self.balanceStream.wrappedValue,
-                service: service
-            )
 
-            await MainActor.run { [weak self, isEnoughXor] in
+            await MainActor.run { [weak self] in
                 guard let self else { return }
 
                 let kycLastState = self.service.currentUserState
@@ -366,11 +283,7 @@ final class SCKYCCoordinator {
                 switch kycLastState.kycStatus {
 
                 case .notStarted, .none:
-                    if isEnoughXor {
-                        self.showGetPrepared(data: data)
-                    } else {
-                        self.showCardIssuance(data: data)
-                    }
+                    self.showGetPrepared(data: data)
                 case .started, .failed:
                     self.showGetPrepared(data: data)
 

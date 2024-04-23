@@ -83,7 +83,6 @@ public class SCard {
     public init(
         addressProvider: @escaping () -> String,
         config: Config,
-        balanceStream: SCStream<Decimal>,
         onReceiveController: @escaping (UIViewController) -> Void,
         onSwapController: @escaping (UIViewController) -> Void,
         logLevels: NetworkingLogLevel = .info
@@ -109,7 +108,6 @@ public class SCard {
             addressProvider: addressProvider,
             service: service,
             storage: storage,
-            balanceStream: balanceStream,
             onSwapController: onSwapController,
             onReceiveController: onReceiveController
         )
@@ -129,10 +127,6 @@ public class SCard {
         didSet {
             LocalizationManager.shared.selectedLocalization = selectedLocalization
         }
-    }
-
-    public func updateBalance(stream: SCStream<Decimal>) {
-        coordinator.balanceStream = stream
     }
 
     public func start(in vc: UIViewController) {

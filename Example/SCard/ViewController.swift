@@ -43,13 +43,6 @@ class ViewController: UIViewController {
     }
 
     private func initSCard() -> SCard {
-        var xorBalanceStream = SCStream(wrappedValue: Decimal(0))
-
-        refreshBalanceTimer.invalidate()
-        refreshBalanceTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            xorBalanceStream.wrappedValue = Decimal(UInt.random(in: 1000000...2000000))
-        }
-
         // Dev BundleID: co.jp.soramitsu.sora.dev
         let local = SCard.Config(
             appStoreUrl: "",
@@ -70,7 +63,6 @@ class ViewController: UIViewController {
         let soraCard = SCard(
             addressProvider: { "123" },
             config: local,
-            balanceStream: xorBalanceStream,
             onReceiveController: { vc in
                 print("show onReceiveController in \(vc)")
             },
