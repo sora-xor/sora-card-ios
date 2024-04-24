@@ -32,11 +32,12 @@ final class KYCNotRegistredController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.setHidesBackButton(true, animated: false)
         self.navigationItem.rightBarButtonItem = .init(
-            image: R.image.close()?.withTintColor(SoramitsuUI.shared.theme.palette.color(.fgPrimary)),
+            image: R.image.close(),
             style: .done,
             target: self,
             action: #selector(onCloseButton)
         )
+        self.navigationItem.rightBarButtonItem?.tintColor = SoramitsuUI.shared.theme.palette.color(.fgPrimary)
         rootView.configure(phoneNumber: data.phoneCountryCode + data.phoneNumber)
         binding()
     }
