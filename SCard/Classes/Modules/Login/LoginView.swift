@@ -3,6 +3,7 @@ import SoraUIKit
 
 final class LoginView: UIView {
 
+    var onRegister: (() -> Void)?
     var onLogin: (() -> Void)?
     var onUnsupportedCountries: (() -> Void)?
 
@@ -117,15 +118,26 @@ final class LoginView: UIView {
         return button
     }()
 
-    private lazy var actionButton: SoramitsuButton = {
+    private lazy var registerButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.primary))
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.actionButton.sora.isEnabled = false
-            self?.onLogin?()
-            self?.actionButton.sora.isEnabled = true
+            self?.registerButton.sora.isEnabled = false
+            self?.onRegister?()
+            self?.registerButton.sora.isEnabled = true
         }
         button.sora.title = R.string.soraCard.loginTitle(preferredLanguages: .currentLocale)
         button.sora.cornerRadius = .custom(28)
+        return button
+    }()
+
+    private lazy var loginButton: SoramitsuButton = {
+        let button = SoramitsuButton(size: .large, type: .text(.primary))
+        button.sora.title = R.string.soraCard.detailsAlreadyHaveCard(preferredLanguages: .currentLocale)
+        button.sora.addHandler(for: .touchUpInside) { [weak self] in
+            self?.registerButton.sora.isEnabled = false
+            self?.onLogin?()
+            self?.registerButton.sora.isEnabled = true
+        }
         return button
     }()
 
@@ -157,7 +169,8 @@ final class LoginView: UIView {
             detailsContainerView,
             unsupportedCountriesDisclaimerLabel,
             unsupportedCountriesButton,
-            actionButton
+            registerButton,
+            loginButton
         ])
 
         scrollView.addSubview(containerView)

@@ -9,6 +9,7 @@ final class KYCEnterPhoneView: UIView {
 
     private var timer = Timer()
     private var secondsLeft = 0
+    private var isPhoneNumberZeroPrefixCorrectionOn = true
 
     private let textLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
@@ -22,7 +23,7 @@ final class KYCEnterPhoneView: UIView {
 
     private(set) lazy var codeField: InputField = {
         let view = InputField()
-        view.sora.state = .default // Filled
+        view.sora.state = .default
         view.isUserInteractionEnabled = false
         return view
     }()
@@ -75,6 +76,10 @@ final class KYCEnterPhoneView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func configure(phoneNumber: String) {
+        inputField.sora.text = phoneNumber
+    }
+
     func configure(errorMessage: String, isContinueEnabled: Bool, secondsLeft: Int) {
 
         self.secondsLeft = secondsLeft
@@ -87,7 +92,18 @@ final class KYCEnterPhoneView: UIView {
             repeats: true
         )
 
-        inputField.sora.state = errorMessage.isEmpty ? .success : .fail
+        switch (errorMessage.isEmpty, isContinueEnabled) {
+        case (true, true):
+            inputField.sora.state = .success
+        case (true, false):
+            inputField.sora.state = .disabled
+            inputField.sora.state = .default
+        case (false, true):
+            inputField.sora.state = .disabled
+            inputField.sora.state = .default
+        case (false, false):
+            inputField.sora.state = .fail
+        }
         inputField.sora.descriptionLabelText = errorMessage
         continueButton.sora.isEnabled = isContinueEnabled
     }

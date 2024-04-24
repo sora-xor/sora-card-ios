@@ -41,16 +41,6 @@ final class KYCCoordinator {
         storage.set(isHidden: false)
         self.rootViewController = rootViewController
 
-// TODO: Testing showCardIssuance only
-//        if await navigationController.presentingViewController == nil {
-//            await rootViewController.present(navigationController, animated: true)
-//        }
-//        await MainActor.run {
-//            self.showCardIssuance(data: .init())
-//        }
-//        return
-// TODO: Testing showCardIssuance only
-
         await MainActor.run {
             navigationController.viewControllers = []
         }
@@ -132,7 +122,7 @@ final class KYCCoordinator {
 
     private func showLogin(data: KYCUserDataModel) {
 
-        let viewController = LoginViewController()
+        let viewController = LoginViewController(data: data)
 
         viewController.onUnsupportedCountries = { [weak self] in
             self?.showUnsupportedCountries()
@@ -216,6 +206,10 @@ final class KYCCoordinator {
             showEnterName(data: data)
         }
 
+        viewModel.onUserNotRegistred = { [unowned self] data in
+            showUserNotRegistred(data: data)
+        }
+
         viewModel.onSignInSuccessfully = { [unowned self] data in
             checkUserStatus(data: data)
         }
@@ -227,6 +221,24 @@ final class KYCCoordinator {
             showEmailVerification(data: data)
             viewController?.removeFromParent()
         }
+    }
+
+    private func showUserNotRegistred(data: KYCUserDataModel) {
+        let viewController = KYCNotRegistredController(data: data)
+        viewController.onTryAnotherNumber = { [unowned self] in
+            let enterPhoneViewController = self.navigationController.viewControllers.first {
+                $0 is KYCEnterPhoneViewController
+            } ?? .init()
+            self.navigationController.popToViewController(enterPhoneViewController, animated: true)
+        }
+
+        viewController.onRegister = { [unowned self] in
+            let enterPhoneViewController = self.navigationController.viewControllers.first {
+                $0 is KYCEnterPhoneViewController
+            } ?? .init()
+            self.navigationController.popToViewController(enterPhoneViewController, animated: true)
+        }
+        pushViewController(viewController)
     }
 
     private func showEnterName(data: KYCUserDataModel) {
@@ -384,7 +396,6 @@ final class KYCCoordinator {
             viewController?.present(webViewController, animated: true)
         }
         viewController.onManaageAppStore = { [weak self, weak viewController] in
-            guard let self = self else { return }
             let url = URL(string: "https://apps.apple.com/app/sora-card/id6466728323")!
             let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
             viewController?.present(webViewController, animated: true)

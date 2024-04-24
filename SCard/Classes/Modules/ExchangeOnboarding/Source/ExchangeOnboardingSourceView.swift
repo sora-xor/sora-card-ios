@@ -8,7 +8,7 @@ final class ExchangeOnboardingSourceView: UIView {
 
     private let title: SoramitsuLabel = {
         let label = SoramitsuLabel()
-        label.sora.text = "What is the source of your funds?"
+        label.sora.text = R.string.soraCard.sourceOfFunds(preferredLanguages: .currentLocale)
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
@@ -17,7 +17,7 @@ final class ExchangeOnboardingSourceView: UIView {
 
     private let subtitle: SoramitsuLabel = {
         let label = SoramitsuLabel()
-        label.sora.text = "You can select multiple answers:"
+        label.sora.text = R.string.soraCard.selectMany(preferredLanguages: .currentLocale)
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgSecondary
         label.sora.numberOfLines = 0
@@ -148,13 +148,13 @@ extension ExchangeOnboarding.SourceOfFunds {
     var title: String {
         switch self {
         case .salary:
-            "Salary"
+            R.string.soraCard.itemSalary(preferredLanguages: .currentLocale)
         case .savings:
-            "Savings"
+            R.string.soraCard.item_savings(preferredLanguages: .currentLocale)
         case .trading:
-            "Trading profits"
+            R.string.soraCard.itemTradingProfits(preferredLanguages: .currentLocale)
         case .other:
-            "Other"
+            R.string.soraCard.itemOther(preferredLanguages: .currentLocale)
         }
     }
 }

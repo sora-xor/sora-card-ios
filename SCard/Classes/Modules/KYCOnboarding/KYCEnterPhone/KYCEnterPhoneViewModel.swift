@@ -7,19 +7,24 @@ final class KYCEnterPhoneViewModel {
     var onCountry: (() -> Void)?
     var onContinue: (() -> Void)?
     var onUpdateUI: ((String, Bool, Int) -> Void)?
+    var onPhoneNumber: ((String) -> Void)?
     var onUpdateCountry: ((SCCountry) -> Void)?
 
+    let data: KYCUserDataModel
+
     private let service: KYCService
-    private let data: KYCUserDataModel
-    private var selectedCountry: SCCountry
+    private var selectedCountry: SCCountry = .usa
     private let callback = SignInWithPhoneNumberRequestOtpCallback()
     private var dialCode = ""
     private var phoneNumber = ""
 
+    private var isPhoneNumberZeroPrefixCorrectionOn: Bool {
+        data.loginCase == .register
+    }
+
     init(service: KYCService, data: KYCUserDataModel) {
         self.service = service
         self.data = data
-        self.selectedCountry = .usa
         callback.delegate = self
     }
 
@@ -32,6 +37,7 @@ final class KYCEnterPhoneViewModel {
                 let country = countries
                     .first(where: { $0.code.lowercased() == regionCode?.lowercased() }) ?? .usa
                 selectedCountry = country
+                data.phoneCountryCode = country.dialCode
                 await MainActor.run {
                     onUpdateCountry?(country)
                 }
@@ -42,7 +48,15 @@ final class KYCEnterPhoneViewModel {
     }
 
     func onInput(text: String) {
-        let cleanText = text.first == "0" ? String(text.dropFirst(1)) : text
+
+        var cleanText = text
+        if cleanText.first == "0" {
+            if isPhoneNumberZeroPrefixCorrectionOn {
+                cleanText = String(cleanText.drop(while: { $0 == "0"} ))
+                onPhoneNumber?(cleanText)
+            }
+        }
+
         dialCode = selectedCountry.dialCode
         phoneNumber = cleanText
         let phone = dialCode + phoneNumber
@@ -55,7 +69,11 @@ final class KYCEnterPhoneViewModel {
             )
         } else {
             if phone ~= Self.phoneNumberRegex {
-                onUpdateUI?("", data.secondsLeftForPhoneOTP == 0, data.secondsLeftForPhoneOTP)
+                if phoneNumber.first == "0" {
+                    onUpdateUI?("The phone number format entered seems unusual. If issues arise, consider removing the leading \"0\".", data.secondsLeftForPhoneOTP == 0, data.secondsLeftForPhoneOTP)
+                } else {
+                    onUpdateUI?("", data.secondsLeftForPhoneOTP == 0, data.secondsLeftForPhoneOTP)
+                }
             } else {
                 if phone.count > 7 {
                     onUpdateUI?("Wrong phone number format!", false, data.secondsLeftForPhoneOTP)
@@ -66,6 +84,7 @@ final class KYCEnterPhoneViewModel {
 
     func onCountrySelected(_ selectedCountry: SCCountry) {
         self.selectedCountry = selectedCountry
+        data.phoneCountryCode = selectedCountry.dialCode
         onUpdateCountry?(selectedCountry)
     }
 

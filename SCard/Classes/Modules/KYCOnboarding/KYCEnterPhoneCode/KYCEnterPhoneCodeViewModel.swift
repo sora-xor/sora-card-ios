@@ -14,6 +14,7 @@ final class KYCEnterPhoneCodeViewModel {
 
     var onEmailVerification: ((KYCUserDataModel) -> Void)?
     var onUserRegistration: ((KYCUserDataModel) -> Void)?
+    var onUserNotRegistred: ((KYCUserDataModel) -> Void)?
     var onSignInSuccessfully: ((KYCUserDataModel) -> Void)?
 
     var onResend: ((KYCUserDataModel) -> Void)?
@@ -82,7 +83,12 @@ extension KYCEnterPhoneCodeViewModel: SignInWithPhoneNumberVerifyOtpCallbackDele
     func onShowRegistrationScreen() {
         codeState = .succeed
         onUpdateUI?()
-        onUserRegistration?(data)
+
+        if data.loginCase == .register {
+            onUserRegistration?(data)
+        } else {
+            onUserNotRegistred?(data)
+        }
     }
 
     func onUserSignInRequired() {

@@ -34,6 +34,7 @@ final class KYCEnterPhoneViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         rootView.inputField.textField.becomeFirstResponder()
+        rootView.inputField.textField.sora.text = viewModel.data.phoneNumber
     }
 
     private func binding() {
@@ -58,6 +59,10 @@ final class KYCEnterPhoneViewController: UIViewController {
                     secondsLeft: secondsLeft
                 )
             }
+        }
+
+        viewModel.onPhoneNumber = { [unowned self] phoneNumber in
+            rootView.configure(phoneNumber: phoneNumber)
         }
 
         viewModel.onUpdateCountry = { [unowned self] country in

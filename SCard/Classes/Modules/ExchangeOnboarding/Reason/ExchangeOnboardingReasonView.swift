@@ -8,7 +8,7 @@ final class ExchangeOnboardingReasonView: UIView {
 
     private let title: SoramitsuLabel = {
         let label = SoramitsuLabel()
-        label.sora.text = "What is your reason for using the exchange?"
+        label.sora.text = R.string.soraCard.openingReason(preferredLanguages: .currentLocale)
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
@@ -17,7 +17,7 @@ final class ExchangeOnboardingReasonView: UIView {
 
     private let subtitle: SoramitsuLabel = {
         let label = SoramitsuLabel()
-        label.sora.text = "You can select multiple answers:"
+        label.sora.text = R.string.soraCard.selectMany(preferredLanguages: .currentLocale)
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgSecondary
         label.sora.numberOfLines = 0
@@ -34,7 +34,7 @@ final class ExchangeOnboardingReasonView: UIView {
     private lazy var continueButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
         button.sora.attributedText = SoramitsuTextItem(
-            text: "Next",
+            text: R.string.soraCard.commonNext(preferredLanguages: .currentLocale),
             fontData: FontType.buttonM,
             textColor: .bgSurface,
             alignment: .center
@@ -129,15 +129,15 @@ extension ExchangeOnboarding.OpeningReason {
     var title: String {
         switch self {
         case .trading:
-            "Trading"
+            R.string.soraCard.itemTrading(preferredLanguages: .currentLocale)
         case .sending:
-            "Sending or receiving crypto"
+            R.string.soraCard.itemSendingReceivingCrypto(preferredLanguages: .currentLocale)
         case .purchasing:
-            "Purchasing crypto"
+            R.string.soraCard.itemPurchasingCrypto(preferredLanguages: .currentLocale)
         case .holding:
-            "Holding crypto"
+            R.string.soraCard.itemHoldingCrypto(preferredLanguages: .currentLocale)
         case .mining:
-            "Receiving mining profits"
+            R.string.soraCard.itemReceivingMiningProfits(preferredLanguages: .currentLocale)            
         }
     }
 }

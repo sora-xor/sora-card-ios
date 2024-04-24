@@ -8,7 +8,7 @@ final class ExchangeOnboardingVolumeView: UIView {
 
     private let title: SoramitsuLabel = {
         let label = SoramitsuLabel()
-        label.sora.text = "What is your expected exchange volume?"
+        label.sora.text = R.string.soraCard.expectedVolume(preferredLanguages: .currentLocale)
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
@@ -17,7 +17,7 @@ final class ExchangeOnboardingVolumeView: UIView {
 
     private let subtitle: SoramitsuLabel = {
         let label = SoramitsuLabel()
-        label.sora.text = "Select one of the following:"
+        label.sora.text = R.string.soraCard.selectOne(preferredLanguages: .currentLocale)
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgSecondary
         label.sora.numberOfLines = 0
@@ -34,7 +34,7 @@ final class ExchangeOnboardingVolumeView: UIView {
     private lazy var continueButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .filled(.secondary))
         button.sora.attributedText = SoramitsuTextItem(
-            text: "Next",
+            text: R.string.soraCard.commonNext(preferredLanguages: .currentLocale),
             fontData: FontType.buttonM,
             textColor: .bgSurface,
             alignment: .center
@@ -138,7 +138,7 @@ extension ExchangeOnboarding.ExpectedVolume {
         case .k100:
             "100,000€"
         case .more:
-            "More than 100,000€"
+            R.string.soraCard.itemMoreThan("100,000€", preferredLanguages: .currentLocale)
         }
     }
 }
