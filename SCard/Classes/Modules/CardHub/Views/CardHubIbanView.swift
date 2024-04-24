@@ -77,7 +77,7 @@ final class CardHubIbanView: SoramitsuView {
             case .active, .none:
                 text = R.string.soraCard.ibanPendingDescription(supportLink, preferredLanguages: .currentLocale)
             case .suspendedByUser:
-                text = R.string.soraCard.ibanSuspendedDescription(supportLink, preferredLanguages: .currentLocale)
+                text = R.string.soraCard.ibanFrozenDescription(supportLink, preferredLanguages: .currentLocale)
             case .suspendedBySystem, .closed:
                 text = R.string.soraCard.ibanFrozenDescription(supportLink, preferredLanguages: .currentLocale)
             }

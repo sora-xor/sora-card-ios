@@ -1,7 +1,7 @@
 PODS:
-  - IdensicMobileSDK (1.29.0)
+  - IdensicMobileSDK (1.30.0)
   - JOSESwift (2.4.0)
-  - PayWingsKycSDK (1.0.1)
+  - PayWingsKycSDK (1.0.2)
   - PayWingsOAuthSDK (2.0.2):
     - JOSESwift (= 2.4.0)
     - RecaptchaEnterprise (= 18.3.0)
@@ -11,9 +11,9 @@ PODS:
   - RecaptchaEnterprise (18.3.0):
     - RecaptchaInterop (~> 100.0.0)
   - RecaptchaInterop (100.0.0)
-  - SCard (1.5.1):
+  - SCard (1.6.0):
     - IdensicMobileSDK
-    - PayWingsKycSDK (= 1.0.1)
+    - PayWingsKycSDK (= 1.0.2)
     - PayWingsOAuthSDK (= 2.0.2)
     - R.swift (~> 6.1.0)
     - SnapKit
@@ -22,7 +22,7 @@ PODS:
   - SoraUIKit (1.1.11)
 
 DEPENDENCIES:
-  - "IdensicMobileSDK (from `{:http=>\"https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.4.tar.gz\"}`)"
+  - "IdensicMobileSDK (from `{:http=>\"https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.5.tar.gz\"}`)"
   - R.swift (~> 6.1.0)
   - SCard (from `../`)
   - SoraUIKit (from `https://github.com/soramitsu/ios-ui.git`, tag `1.1.11`)
@@ -40,7 +40,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   IdensicMobileSDK:
-    :http: https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.4.tar.gz
+    :http: https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.5.tar.gz
   SCard:
     :path: "../"
   SoraUIKit:
@@ -49,24 +49,24 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   IdensicMobileSDK:
-    :http: https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.4.tar.gz
+    :http: https://github.com/PayWings/PayWingsOnboardingKycSDK-iOS-IdensicMobile/archive/v2.2.5.tar.gz
   SoraUIKit:
     :git: https://github.com/soramitsu/ios-ui.git
     :tag: 1.1.11
 
 SPEC CHECKSUMS:
-  IdensicMobileSDK: 0fbb396027943d80945196d94667bd93ed0f4fdf
+  IdensicMobileSDK: 2f148d82c4a8222571086c4368dc0622c8571122
   JOSESwift: 7ff178bb9173ff42c6e990929a9f2fa702a34f69
-  PayWingsKycSDK: c709ff0ebff5c5a7d771c211655c2857f209edb0
+  PayWingsKycSDK: bd0a9c4294f536b1338f47004ddcdcca108e95c0
   PayWingsOAuthSDK: 40168c32d47402bf33ef1c167ce2261dac6da102
   R.swift: ec98ff71c4ab2f6fd01dd077e5afd15e63a4834c
   R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   RecaptchaEnterprise: 9b60bc1e1633d120e24a098d80546776fab1282e
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  SCard: 58ad6131ab20174c1c50e6c474132b79c6d16a13
+  SCard: e68363341b3e69e37644a815a9a44c1325185424
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SoraUIKit: f32d51c0876d016f5f318b534eb8f7eb2eeaa00a
 
-PODFILE CHECKSUM: 2f564662619e9f8dca2f9b979315f9927be7267e
+PODFILE CHECKSUM: 1636197726e965264d1ba6715cf4c327405f241d
 
 COCOAPODS: 1.12.1
