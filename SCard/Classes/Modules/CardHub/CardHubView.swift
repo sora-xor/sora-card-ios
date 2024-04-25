@@ -86,18 +86,19 @@ final class CardHubView: UIView {
         return label
     }()
 
-    private lazy var manageCardView: TitleIconView = {
-        let view = TitleIconView()
+    private lazy var manageCardView: TitleSubtitleIconView = {
+        let view = TitleSubtitleIconView()
         view.rightImageView.image = R.image.arrowRightSmall()
         view.titleLabel.sora.text = R.string.soraCard.cardHubManageCard(preferredLanguages: .currentLocale)
+        view.subtitleLabel.sora.isHidden = false
         view.addTapGesture { [weak self] _ in
             self?.onManageCard?()
         }
         return view
     }()
 
-    private lazy var supportView: TitleIconView = {
-        let view = TitleIconView()
+    private lazy var supportView: TitleSubtitleIconView = {
+        let view = TitleSubtitleIconView()
         view.rightImageView.image = R.image.arrowRightSmall()
         view.titleLabel.sora.text = R.string.soraCard.commonSupport(preferredLanguages: .currentLocale)
         view.addTapGesture { [weak self] _ in
@@ -106,8 +107,8 @@ final class CardHubView: UIView {
         return view
     }()
 
-    private lazy var logoutView: TitleIconView = {
-        let view = TitleIconView()
+    private lazy var logoutView: TitleSubtitleIconView = {
+        let view = TitleSubtitleIconView()
         view.rightImageView.image = R.image.arrowRightSmall()
         view.titleLabel.sora.text = R.string.soraCard.cardHubSettingsLogoutTitle(preferredLanguages: .currentLocale)
         view.titleLabel.sora.textColor = .statusError
@@ -125,6 +126,10 @@ final class CardHubView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(phoneNumber: String) {
+        manageCardView.subtitleLabel.sora.text = phoneNumber
     }
 
     func configure(iban: String?, ibanStatus: Iban.Status?, balance: Int?, needUpdateApp: Bool) {

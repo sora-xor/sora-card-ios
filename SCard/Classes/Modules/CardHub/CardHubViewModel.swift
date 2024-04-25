@@ -2,6 +2,7 @@ final class CardHubViewModel {
 
     var onUpdateUI: ((Iban?, Bool) -> Void)?
     var onAppStore: (() -> Void)?
+    var onUpdatePhoneNumber: ((String) -> Void)?
 
     private let service: KYCService
 
@@ -16,6 +17,15 @@ final class CardHubViewModel {
 
     init(service: KYCService) {
         self.service = service
+    }
+
+    func fetchPhoneNumber() {
+        Task {
+            guard let phoneNumber = await service.getUserData().phoneNumber else { return }
+            await MainActor.run {
+                onUpdatePhoneNumber?(phoneNumber)
+            }
+        }
     }
 
     func fetchIban() {

@@ -125,7 +125,7 @@ final class LoginView: UIView {
             self?.onRegister?()
             self?.registerButton.sora.isEnabled = true
         }
-        button.sora.title = R.string.soraCard.loginTitle(preferredLanguages: .currentLocale)
+        button.sora.title = R.string.soraCard.signUpSoraCard(preferredLanguages: .currentLocale)
         button.sora.cornerRadius = .custom(28)
         return button
     }()

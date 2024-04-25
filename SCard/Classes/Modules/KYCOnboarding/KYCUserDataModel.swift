@@ -22,6 +22,10 @@ final class KYCUserDataModel {
 
     var loginCase: LoginCase = .register
 
+    var fullPhoneNumber: String {
+        phoneCountryCode + phoneNumber
+    }
+
     var secondsLeftForPhoneOTP: Int {
         if let lastPhoneOTPSentDate = lastPhoneOTPSentDate {
             return max(-Int(Date().timeIntervalSince(lastPhoneOTPSentDate + 60)), 0)

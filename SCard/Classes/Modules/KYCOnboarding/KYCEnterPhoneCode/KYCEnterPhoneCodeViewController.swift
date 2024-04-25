@@ -52,7 +52,7 @@ final class KYCEnterPhoneCodeViewController: UIViewController {
     private func configure() {
         DispatchQueue.main.async {
             self.rootView.configure(
-                phoneNumber: self.viewModel.data.phoneNumber,
+                phoneNumber: self.viewModel.data.fullPhoneNumber,
                 secondsLeft: self.viewModel.data.secondsLeftForPhoneOTP,
                 codeState: self.viewModel.codeState
             )

@@ -1,7 +1,7 @@
 import Foundation
 import SoraUIKit
 
-class TitleIconView: SoramitsuView {
+class TitleSubtitleIconView: SoramitsuView {
 
     let titleLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
@@ -10,6 +10,17 @@ class TitleIconView: SoramitsuView {
         label.backgroundColor = .clear
         label.sora.font = FontType.textM
         label.sora.textColor = .fgPrimary
+        return label
+    }()
+
+    let subtitleLabel: SoramitsuLabel = {
+        let label = SoramitsuLabel()
+        label.numberOfLines = 1
+        label.textAlignment = .left
+        label.backgroundColor = .clear
+        label.sora.font = FontType.textBoldXS
+        label.sora.textColor = .fgSecondary
+        label.sora.isHidden = true
         return label
     }()
 
@@ -25,7 +36,13 @@ class TitleIconView: SoramitsuView {
 
     private func setupInitialLayout() {
         addSubview(titleLabel) {
-            $0.top.bottom.equalToSuperview().inset(16)
+            $0.top.equalToSuperview().inset(16)
+            $0.leading.equalToSuperview()
+        }
+
+        addSubview(subtitleLabel) {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.bottom.equalToSuperview().inset(16)
             $0.leading.equalToSuperview()
         }
 

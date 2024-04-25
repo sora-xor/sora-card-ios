@@ -23,6 +23,14 @@ final class KYCStatusView: UIView {
         return label
     }()
 
+    private let phoneLabel: SoramitsuLabel = {
+        let label = SoramitsuLabel()
+        label.sora.font = FontType.paragraphBoldM
+        label.sora.textColor = .fgPrimary
+        label.sora.numberOfLines = 3
+        return label
+    }()
+
     private let descriptionLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.paragraphM
@@ -95,6 +103,10 @@ final class KYCStatusView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(phoneNumber: String) {
+        phoneLabel.sora.text = "\(R.string.soraCard.yourPhoneNumber(preferredLanguages: .currentLocale)): \(phoneNumber)"
     }
 
     func configure(error: String) {
@@ -188,6 +200,7 @@ final class KYCStatusView: UIView {
     private func setupInitialLayout() {
 
         addSubview(titleLabel)
+        addSubview(phoneLabel)
         addSubview(descriptionLabel)
 
         let textScrollView = UIScrollView()
@@ -214,8 +227,13 @@ final class KYCStatusView: UIView {
             $0.leading.trailing.equalToSuperview().inset(24)
         }
 
-        descriptionLabel.snp.makeConstraints {
+        phoneLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+            $0.leading.trailing.equalToSuperview().inset(24)
+        }
+
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(phoneLabel.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
 

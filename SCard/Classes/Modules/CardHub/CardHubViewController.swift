@@ -34,6 +34,7 @@ final class CardHubViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         binding()
+        model.fetchPhoneNumber()
         model.fetchIban()
     }
 
@@ -52,12 +53,16 @@ final class CardHubViewController: UIViewController {
             showDownloadAppAlert()
         }
 
+        model.onUpdatePhoneNumber = { [unowned self] phoneNumber in
+            rootView.configure(phoneNumber: phoneNumber)
+        }
+
         rootView.cardHubHeaderView.onExchange = { [unowned self] in
             self.onExhange?()
         }
 
         rootView.cardHubHeaderView.onSettings = { [unowned self] in
-            print("TODO: onSettings")
+            self.model.manageCard()
         }
 
         rootView.onManageCard = { [unowned self] in

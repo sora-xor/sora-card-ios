@@ -38,7 +38,7 @@ final class KYCNotRegistredController: UIViewController {
             action: #selector(onCloseButton)
         )
         self.navigationItem.rightBarButtonItem?.tintColor = SoramitsuUI.shared.theme.palette.color(.fgPrimary)
-        rootView.configure(phoneNumber: data.phoneCountryCode + data.phoneNumber)
+        rootView.configure(phoneNumber: data.fullPhoneNumber)
         binding()
     }
 
