@@ -6,6 +6,14 @@ public final class SCBuyXorCell: SoramitsuTableViewCell {
     var onClose: (() -> Void)?
     var onTap: (() -> Void)?
 
+    private lazy var bgView: SoramitsuView = {
+        let view = SoramitsuView()
+        view.sora.backgroundColor = .bgSurface
+        view.sora.cornerRadius = .max
+        view.sora.clipsToBounds = true
+        return view
+    }()
+
     private lazy var title: SoramitsuLabel = {
         let view = SoramitsuLabel()
         view.sora.text = R.string.soraCard.exchangeBannerTitle(preferredLanguages: .currentLocale)
@@ -49,7 +57,6 @@ public final class SCBuyXorCell: SoramitsuTableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
-        contentView.backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgSurface)
         contentView.layer.cornerRadius = 32
         contentView.clipsToBounds = true
         contentView.addTapGesture { _ in
@@ -62,26 +69,31 @@ public final class SCBuyXorCell: SoramitsuTableViewCell {
 
     private func setupConstraints() {
 
-        contentView.addSubview(icon) {
+        contentView.addSubview(bgView) {
+            $0.top.bottom.equalToSuperview().inset(8)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+
+        bgView.addSubview(icon) {
             $0.trailing.bottom.equalToSuperview().inset(-16)
         }
 
-        contentView.addSubview(closeButton) {
+        bgView.addSubview(closeButton) {
             $0.top.equalToSuperview().inset(12)
             $0.trailing.equalToSuperview().inset(16)
         }
 
-        contentView.addSubview(title) {
+        bgView.addSubview(title) {
             $0.top.equalToSuperview().inset(16)
             $0.leading.equalToSuperview().inset(24)
         }
 
-        contentView.addSubview(subTitle) {
+        bgView.addSubview(subTitle) {
             $0.top.equalTo(title.snp.bottom).offset(8)
             $0.leading.equalToSuperview().inset(24)
         }
 
-        contentView.addSubview(button) {
+        bgView.addSubview(button) {
             $0.top.equalTo(subTitle.snp.bottom).offset(12)
             $0.leading.bottom.equalToSuperview().inset(24)
             $0.width.equalTo(100)
