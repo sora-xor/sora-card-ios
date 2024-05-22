@@ -141,7 +141,7 @@
 "opening.reason" = "По какой причине вы пользуетесь биржей?";
 "source.of.funds" = "Каков источник ваших средств?";
 "item.salary" = "Зарплата";
-"item_savings" = "Сбережения";
+"item.savings" = "Сбережения";
 "item.trading.profits" = "Прибыль от торговли";
 "item.other" = "Другое";
 "item.trading" = "Торговля";
@@ -154,3 +154,6 @@
 "common.done" = "Готово";
 "select.one" = "Выберите один из следующих вариантов:";
 "select.many" = "Вы можете выбрать несколько ответов:";
+"exchange.banner.title" = "Buy XOR token";
+"exchange.banner.subtitle" = "Buy or sell XOR token with euro cash";
+"exchange.banner.button" = "Buy XOR";

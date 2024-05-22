@@ -13,6 +13,8 @@ enum SCEndpoint: Endpoint {
     case version
     case countryCodes
     case onboardUser
+    case onboarded
+    case userIframe
 
     var path: String {
         switch self {
@@ -37,7 +39,11 @@ enum SCEndpoint: Endpoint {
         case .countryCodes:
             return "country-codes"
         case .onboardUser:
-            return "OnboardUser"
+            return "cryptogateway/onboard-user"
+        case .onboarded:
+            return "cryptogateway/onboarded"
+        case .userIframe:
+            return "cryptogateway/get-user-iframe"
         }
     }
 }

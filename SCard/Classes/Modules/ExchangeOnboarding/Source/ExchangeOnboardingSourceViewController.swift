@@ -50,10 +50,9 @@ final class ExchangeOnboardingSourceViewController: UIViewController {
         }
     }
 
-    private func updateUI(errorMessage: String? = nil) {
+    private func updateUI(errorMessage: String = "") {
         DispatchQueue.main.async {
             self.rootView.configure(variants: self.viewModel.sources)
-            guard let errorMessage = errorMessage else { return }
             self.rootView.configure(errorMessage: errorMessage)
         }
     }

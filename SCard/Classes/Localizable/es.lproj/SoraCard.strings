@@ -141,7 +141,7 @@
 "opening.reason" = "What is your reason for using the exchange?";
 "source.of.funds" = "What is the source of your funds?";
 "item.salary" = "Salary";
-"item_savings" = "Savings";
+"item.savings" = "Savings";
 "item.trading.profits" = "Trading profits";
 "item.other" = "Other";
 "item.trading" = "Trading";
@@ -154,3 +154,6 @@
 "common.done" = "Done";
 "select.one" = "Select one of the following:";
 "select.many" = "You can select multiple answers:";
+"exchange.banner.title" = "Buy XOR token";
+"exchange.banner.subtitle" = "Buy or sell XOR token with euro cash";
+"exchange.banner.button" = "Buy XOR";

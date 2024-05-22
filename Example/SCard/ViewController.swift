@@ -5,11 +5,14 @@ import SnapKit
 class ViewController: UIViewController {
 
     private let scardCellId = "SCCardCell"
+    private let buyXorCellId = "buyXorCellId"
     private lazy var table: UITableView = {
         let view = UITableView()
         view.register(SCCardCell.self, forCellReuseIdentifier: scardCellId)
         view.refreshControl = .init()
         view.refreshControl?.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+        view.backgroundColor = .clear
+        view.separatorStyle = .singleLine
         return view
     }()
 
@@ -24,6 +27,15 @@ class ViewController: UIViewController {
         }
     }()
 
+    private lazy var buyXorItem: SCBuyXorItem = {
+        SCBuyXorItem() {
+            print("TODO: close scard")
+        } onTap: { [weak self] in
+            guard let self = self else { return }
+            self.soraCard.showExchange(in: self)
+        }
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +44,7 @@ class ViewController: UIViewController {
         table.delegate = self
         table.dataSource = self
 
+        view.backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         view.addSubview(table)
         table.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -82,7 +95,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,6 +107,12 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
 
         case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: buyXorCellId) ?? SCBuyXorCell()
+            guard let scardCell = cell as? SoramitsuTableViewCellProtocol else { return cell }
+            scardCell.set(item: buyXorItem, context: nil)
+            return cell
+
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "LogoutCell") ??
                 UITableViewCell(style: .subtitle, reuseIdentifier: "LogoutCell")
             cell.textLabel?.text = soraCard.isUserSignIn ? "Logout" : "Logouted"

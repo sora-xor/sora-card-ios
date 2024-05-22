@@ -52,6 +52,7 @@ final class KYCCoordinator {
             await openSCard()
         }
     }
+    
     private func pushViewController(_ viewController: UIViewController, animated: Bool = true) {
         navigationController.pushViewController(viewController, animated: animated)
         navigationController.stopLoader()

@@ -45,6 +45,7 @@ final class ExchangeOnboardingReasonView: UIView {
             self?.onContinue?()
             self?.continueButton.sora.isEnabled = true
         }
+        button.sora.isEnabled = false
         return button
     }()
 
@@ -68,21 +69,18 @@ final class ExchangeOnboardingReasonView: UIView {
 
         variantsStack.removeArrangedSubviews()
 
+        var hasSelectedVariant = false
         for variant in variants.sorted(by: { $0.key.rawValue < $1.key.rawValue }) {
             let checkBoxView = CheckBoxView(title: variant.key.title)
             checkBoxView.isSelected = variant.value
             checkBoxView.addTapGesture { [weak self] _ in
                 self?.onReason?(variant.key)
             }
-
             variantsStack.addArrangedSubview(checkBoxView)
+            hasSelectedVariant = hasSelectedVariant || variant.value
         }
-    }
 
-    func select(variant: ExchangeOnboarding.ExpectedVolume) {
-        for (index, view) in variantsStack.subviews.enumerated() {
-            (view as? CheckBoxView)?.isSelected = index == (variant.rawValue - 1)
-        }
+        continueButton.sora.isEnabled = hasSelectedVariant
     }
 
     private func setupInitialLayout() {

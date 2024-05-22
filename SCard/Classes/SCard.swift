@@ -11,6 +11,7 @@ public class SCard {
     internal let service: KYCService
     private let config: Config
     private let coordinator: KYCCoordinator
+    private let exchangeCoordinator: ExchangeOnboardingCoordinator
     private let client: APIClient
     private let storage: SCStorage = .shared
     private let addressProvider: () -> String
@@ -96,7 +97,7 @@ public class SCard {
         service = KYCService(client: client, config: config)
 
         let exchangeService = ExchangeService(client: client, config: config)
-        let exchangeCoordinator = ExchangeOnboardingCoordinator(service: exchangeService)
+        exchangeCoordinator = ExchangeOnboardingCoordinator(service: exchangeService)
 
         coordinator = KYCCoordinator(
             exchangeCoordinator: exchangeCoordinator,
@@ -126,6 +127,10 @@ public class SCard {
 
     public func start(in vc: UIViewController) {
         Task { await coordinator.start(in: vc) }
+    }
+
+    public func showExchange(in vc: UIViewController) {
+        Task { await exchangeCoordinator.start(in: vc) }
     }
 
     public var userStatusStream: AsyncStream<KYCUserStatus> {

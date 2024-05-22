@@ -25,10 +25,28 @@ class ExchangeOnboardingCoordinator {
     func start(in rootViewController: UIViewController) {
         self.rootViewController = rootViewController
 
-        rootViewController.present(navigationController, animated: true)
-        // TODO: check if user unboarded
+        navigationController.viewControllers = []
 
-        showOnboardingVolume()
+        rootViewController.present(navigationController, animated: true)
+        navigationController.startLoader()
+
+        Task {
+            switch await service.onboarded() {
+            case .success(let response):
+                guard let response = response else { return }
+                navigationController.stopLoader()
+                if response.onboarded {
+                    showExchange()
+                } else {
+                    showOnboardingVolume()
+                }
+
+            case .failure(let error):
+                print(error.localizedDescription)
+                navigationController.stopLoader()
+                navigationController.dismiss(animated: true)
+            }
+        }
     }
 
     @MainActor
@@ -60,9 +78,37 @@ class ExchangeOnboardingCoordinator {
     private func showOnboardingSource() {
         let model = ExchangeOnboardingSourceViewModel(service: service, model: onboardingModel)
         model.onContinue = { [weak self] in
-            print("Todo")
+            self?.showExchange()
         }
         let viewController =  ExchangeOnboardingSourceViewController(viewModel: model)
         navigationController.pushViewController(viewController, animated: true)
+    }
+
+    @MainActor
+    private func showExchange() {
+
+        navigationController.startLoader()
+        Task { [weak self] in
+            switch await self?.service.userIframe(type: .exchange) {
+            case .success(let response):
+                guard let urlStr = response?.url, let url = URL(string: urlStr) else { return }
+                self?.navigationController.stopLoader()
+                self?.show(url: url)
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .none:
+                ()
+            }
+        }
+    }
+
+    @MainActor
+    private func show(url: URL) {
+        let request = URLRequest(url: url)
+        let webViewController = WebViewController(
+            configuration: .init(),
+            request: request
+        )
+        navigationController.pushViewController(webViewController, animated: true)
     }
 }

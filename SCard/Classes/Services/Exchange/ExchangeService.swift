@@ -9,44 +9,45 @@ final class ExchangeService {
         self.client = client
     }
 
-    func onboardUser() async -> Result<SCOnboardUserResponse?, NetworkingError> {
-//        let client = SCAPIClient(
-//            baseURL: URL(string: "https://cryptogatewaytest.paywings.io/whitelabel")!,
-//            baseAuth: "",
-//            bearerProvider: nil
-//        )
+    func onboarded() async -> Result<OnboardedResponse?, NetworkingError> {
+        let request = APIRequest(method: .get, endpoint: SCEndpoint.onboarded)
+        return await client.performDecodable(request: request)
+    }
 
-        let postData = SCOnboardUserRequest(
-            personID: "00000000-0000-0000-0000-000000000000",
-            referenceID: "",
+    func onboardUser() async -> Result<OnboardUserResponse?, NetworkingError> {
+        let postData = OnboardUserRequest(
             expectedVolume: .k10,
             openingReason: [.holding],
             sourceOfFunds: [.salary]
         )
 
         let body = (try? JSONEncoder().encode(postData)) ?? Data()
-        let request = APIRequest(method: .get, endpoint: SCEndpoint.onboardUser, body: body)
+        let request = APIRequest(method: .post, endpoint: SCEndpoint.onboardUser, body: body)
 
-        return await client.performDecodable(request: request, withAuthorization: false)
+        return await client.performDecodable(request: request)
     }
 
-    struct SCOnboardUserRequest: Codable {
-        let personID: String
-        let referenceID: String
+    func userIframe(type: IframeType) async -> Result<IframeResponse?, NetworkingError> {
+        let postData = IFrameRequest(iframeType: type)
+        let body = (try? JSONEncoder().encode(postData)) ?? Data()
+        let request = APIRequest(method: .post, endpoint: SCEndpoint.userIframe, body: body)
+
+        return await client.performDecodable(request: request)
+    }
+
+    struct OnboardUserRequest: Codable {
         let expectedVolume: ExchangeOnboarding.ExpectedVolume
         let openingReason: [ExchangeOnboarding.OpeningReason]
         let sourceOfFunds: [ExchangeOnboarding.SourceOfFunds]
 
         enum CodingKeys: String, CodingKey {
-            case personID = "PersonID"
-            case referenceID = "ReferenceID"
             case expectedVolume = "ExpectedVolume"
             case openingReason = "OpeningReason"
             case sourceOfFunds = "SourceOfFunds"
         }
     }
 
-    struct SCOnboardUserResponse: Codable {
+    struct OnboardUserResponse: Codable {
         let statusCode: Int
         let referenceID: String
         let callerReferenceID: String
@@ -54,6 +55,43 @@ final class ExchangeService {
 
         enum CodingKeys: String, CodingKey {
             case statusCode = "StatusCode"
+            case referenceID = "ReferenceID"
+            case callerReferenceID = "CallerReferenceID"
+            case statusDescription = "StatusDescription"
+        }
+    }
+
+    struct OnboardedResponse: Codable {
+        let onboarded: Bool
+    }
+
+
+    struct IFrameRequest: Codable {
+        let iframeType: IframeType
+
+        enum CodingKeys: String, CodingKey {
+            case iframeType = "IframeType"
+        }
+    }
+
+    enum IframeType: Int, Codable {
+        case withdrawal = 1
+        case deposit = 2
+        case exchange = 3
+    }
+
+    struct IframeResponse: Codable {
+        let statusCode: Int
+        let url: String
+        let urlValidTo: String
+        let referenceID: String
+        let callerReferenceID: String
+        let statusDescription: String
+
+        enum CodingKeys: String, CodingKey {
+            case statusCode = "StatusCode"
+            case url = "Url"
+            case urlValidTo = "UrlValidTo"
             case referenceID = "ReferenceID"
             case callerReferenceID = "CallerReferenceID"
             case statusDescription = "StatusDescription"

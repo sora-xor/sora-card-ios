@@ -44,6 +44,7 @@ final class ExchangeOnboardingSourceView: UIView {
             self?.continueButton.sora.isEnabled = false
             self?.onContinue?()
         }
+        button.sora.isEnabled = false
         return button
     }()
 
@@ -76,26 +77,23 @@ final class ExchangeOnboardingSourceView: UIView {
 
         variantsStack.removeArrangedSubviews()
 
+        var hasSelectedVariant = false
         for variant in variants.sorted(by: { $0.key.rawValue < $1.key.rawValue }) {
             let checkBoxView = CheckBoxView(title: variant.key.title)
             checkBoxView.isSelected = variant.value
             checkBoxView.addTapGesture { [weak self] _ in
                 self?.onSource?(variant.key)
             }
-
             variantsStack.addArrangedSubview(checkBoxView)
+            hasSelectedVariant = hasSelectedVariant || variant.value
         }
+
+        continueButton.sora.isEnabled = hasSelectedVariant
     }
 
     func configure(errorMessage: String) {
         errorLabel.sora.text = errorMessage
         continueButton.sora.isEnabled = true
-    }
-
-    func select(variant: ExchangeOnboarding.ExpectedVolume) {
-        for (index, view) in variantsStack.subviews.enumerated() {
-            (view as? CheckBoxView)?.isSelected = index == (variant.rawValue - 1)
-        }
     }
 
     private func setupInitialLayout() {
@@ -150,7 +148,7 @@ extension ExchangeOnboarding.SourceOfFunds {
         case .salary:
             R.string.soraCard.itemSalary(preferredLanguages: .currentLocale)
         case .savings:
-            R.string.soraCard.item_savings(preferredLanguages: .currentLocale)
+            R.string.soraCard.itemSavings(preferredLanguages: .currentLocale)
         case .trading:
             R.string.soraCard.itemTradingProfits(preferredLanguages: .currentLocale)
         case .other:

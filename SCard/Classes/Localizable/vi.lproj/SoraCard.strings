@@ -139,9 +139,9 @@
 "onboarding.questions.description" = "Nếu bạn muốn thực hiện trao đổi, hãy trả lời ba câu hỏi sau.";
 "expected.volume" = "Khối lượng giao dịch dự kiến của bạn là bao nhiêu?";
 "opening.reason" = "Lý do bạn sử dụng sàn giao dịch là gì?";
-"source.of.funds" = "Nguồn tiền của bạn là gì?";
+"source.of.funds" = "Nguồn tiền của bạn?";
 "item.salary" = "Lương";
-"item_savings" = "Tiết kiệm";
+"item.savings" = "Tiết kiệm";
 "item.trading.profits" = "Lợi nhuận giao dịch";
 "item.other" = "Khác";
 "item.trading" = "GIao dịch";
@@ -154,3 +154,6 @@
 "common.done" = "Xong";
 "select.one" = "Chọn một trong các tùy chọn sau:";
 "select.many" = "Bạn có thể chọn nhiều câu trả lời:";
+"exchange.banner.title" = "Buy XOR token";
+"exchange.banner.subtitle" = "Buy or sell XOR token with euro cash";
+"exchange.banner.button" = "Buy XOR";
