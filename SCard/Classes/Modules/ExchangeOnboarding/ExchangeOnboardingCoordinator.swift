@@ -89,7 +89,7 @@ class ExchangeOnboardingCoordinator {
 
         navigationController.startLoader()
         Task { [weak self] in
-            switch await self?.service.userIframe(type: .exchange) {
+            switch await self?.service.userIframe(type: .deposit) {
             case .success(let response):
                 guard let urlStr = response?.url, let url = URL(string: urlStr) else { return }
                 self?.navigationController.stopLoader()

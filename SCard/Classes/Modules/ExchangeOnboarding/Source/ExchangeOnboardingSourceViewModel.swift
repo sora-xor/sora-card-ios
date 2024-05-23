@@ -21,7 +21,7 @@ final class ExchangeOnboardingSourceViewModel {
     func processOnboarding() {
 
         Task {
-            switch await service.onboardUser() {
+            switch await service.onboardUser(data: model) {
             case .success(let response):
                 onError?("")
                 onContinue?()

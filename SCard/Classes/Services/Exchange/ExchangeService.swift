@@ -14,11 +14,11 @@ final class ExchangeService {
         return await client.performDecodable(request: request)
     }
 
-    func onboardUser() async -> Result<OnboardUserResponse?, NetworkingError> {
+    func onboardUser(data: ExchangeOnboardingModel) async -> Result<OnboardUserResponse?, NetworkingError> {
         let postData = OnboardUserRequest(
-            expectedVolume: .k10,
-            openingReason: [.holding],
-            sourceOfFunds: [.salary]
+            expectedVolume: data.volume,
+            openingReason: data.reasons.compactMap { $1 ? $0 : nil },
+            sourceOfFunds: data.sources.compactMap { $1 ? $0 : nil }
         )
 
         let body = (try? JSONEncoder().encode(postData)) ?? Data()
