@@ -53,6 +53,7 @@ public final class KYCService {
     let config: SCard.Config
     internal let client: APIClient
     internal var currentUserState: UserState = .none
+    internal var currentUserIban: Iban?
     internal var retryFeeCache: String = "3.80"
     internal var applicationFeeCache: String = "29"
     internal var countries: [SCCountry] = []

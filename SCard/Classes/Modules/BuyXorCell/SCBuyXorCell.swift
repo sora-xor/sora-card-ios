@@ -57,8 +57,6 @@ public final class SCBuyXorCell: SoramitsuTableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
-        contentView.layer.cornerRadius = 32
-        contentView.clipsToBounds = true
         contentView.addTapGesture { _ in
             self.onTap?()
         }
@@ -104,6 +102,7 @@ public final class SCBuyXorCell: SoramitsuTableViewCell {
 extension SCBuyXorCell: SoramitsuTableViewCellProtocol {
     public func set(item: SoramitsuTableViewItemProtocol, context: SoramitsuTableViewContext?) {
         guard let item = item as? SCBuyXorItem else { return }
+        sora.backgroundColor = .custom(uiColor: .clear)
         self.onClose = item.onClose
         self.onTap = item.onTap
     }

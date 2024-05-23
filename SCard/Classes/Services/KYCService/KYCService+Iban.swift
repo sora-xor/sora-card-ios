@@ -32,8 +32,10 @@ extension KYCService {
         let result: Result<IbanResponse, NetworkingError> = await client.performDecodable(request: request)
         switch result {
         case .success(let success):
+            currentUserIban = success.ibans?.first
             await IbanStorage.shared.set(ibans: .success(success.ibans))
         case .failure(let error):
+            currentUserIban = nil
             await IbanStorage.shared.set(ibans: .failure(error))
         }
         return result

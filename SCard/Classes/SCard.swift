@@ -149,6 +149,10 @@ public class SCard {
         service.currentUserState.userStatus
     }
 
+    public var hasIban: Bool {
+        service.currentUserIban != nil
+    }
+
     public var isSCBannerHidden: Bool {
         get { storage.isSCBannerHidden() }
         set { storage.set(isHidden: newValue) }
