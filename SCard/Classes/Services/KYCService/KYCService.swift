@@ -114,7 +114,10 @@ public final class KYCService {
     }
 
     private func clearIban() {
-        //Task { await IbanStorage.shared.set(ibans: .inited) }
+        Task {
+            await IbanStorage.shared.ibansStream.finishAll()
+            await IbanStorage.shared.set(ibans: .inited)
+        }
     }
 
     func sendNewVerificationEmail(callback: SendNewVerificationEmailCallback) {

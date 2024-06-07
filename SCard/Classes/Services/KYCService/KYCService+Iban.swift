@@ -1,5 +1,9 @@
 extension KYCService {
 
+    func updateIban() async {
+        _ = await fetchIban()
+    }
+
     func hasIban() async -> Bool {
         await iban() != nil
     }
@@ -11,7 +15,6 @@ extension KYCService {
     func iban() async -> Iban? {
         switch await IbanStorage.shared.ibansStream.wrappedValue {
         case .inited:
-            await IbanStorage.shared.set(ibans: .loading(nil))
             switch await fetchIban() {
             case .success(let success):
                 return success.ibans?.first
@@ -27,7 +30,14 @@ extension KYCService {
         }
     }
 
-    func fetchIban() async -> Result<IbanResponse, NetworkingError> {
+    private func fetchIban() async -> Result<IbanResponse, NetworkingError> {
+
+//        if case .loading( let data) = await IbanStorage.shared.ibansStream.wrappedValue {
+//            await IbanStorage.shared.set(ibans: .loading(data))
+//        } else {
+//            await IbanStorage.shared.set(ibans: .loading(nil))
+//        }
+
         let request = APIRequest(method: .get, endpoint: SCEndpoint.ibans)
         let result: Result<IbanResponse, NetworkingError> = await client.performDecodable(request: request)
         switch result {

@@ -29,19 +29,14 @@ final class KYCCoordinator {
     }
 
     private weak var rootViewController: UIViewController?
-    private let navigationController: UINavigationController = {
-        let navigationVC = SCNavigationViewController()
-        navigationVC.view.backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
-        let color = SoramitsuUI.shared.theme.palette.color(.fgPrimary)
-        navigationVC.navigationBar.titleTextAttributes = [.foregroundColor: color]
-        return navigationVC
-    }()
+    private let navigationController = SCNavigationViewController()
 
     func start(in rootViewController: UIViewController) async {
         storage.set(isHidden: false)
         self.rootViewController = rootViewController
 
         await MainActor.run {
+            configureNavigationController()
             navigationController.viewControllers = []
         }
 
@@ -52,7 +47,13 @@ final class KYCCoordinator {
             await openSCard()
         }
     }
-    
+
+    private func configureNavigationController() {
+        let color = SoramitsuUI.shared.theme.palette.color(.fgPrimary)
+        navigationController.view.backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
+        navigationController.navigationBar.titleTextAttributes = [.foregroundColor: color]
+    }
+
     private func pushViewController(_ viewController: UIViewController, animated: Bool = true) {
         navigationController.pushViewController(viewController, animated: animated)
         navigationController.stopLoader()

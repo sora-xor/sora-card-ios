@@ -302,8 +302,7 @@
 		};
 		5E01F0D329D4666F007CE5C2 /* R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (

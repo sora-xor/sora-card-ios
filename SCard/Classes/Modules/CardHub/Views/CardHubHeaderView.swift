@@ -59,7 +59,7 @@ final class CardHubHeaderView: SoramitsuView {
         label.sora.font = FontType.headline2
         label.sora.textColor = .fgPrimary
         label.sora.alignment = .right
-        label.sora.text = "shimmer"
+        label.sora.text = "      "
         label.sora.loadingPlaceholder.type = .shimmer
         label.sora.loadingPlaceholder.shimmerview.sora.cornerRadius = .circle
         return label

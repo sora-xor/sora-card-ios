@@ -62,6 +62,7 @@ public final class SCCardCell: SoramitsuTableViewCell {
         view.sora.text = KYCUserStatus.notStarted.text
         view.sora.textColor = .fgPrimary
         view.sora.alignment = .center
+        view.sora.isHidden = true
         return view
     }()
 
@@ -160,6 +161,8 @@ extension SCCardCell: SoramitsuTableViewCellProtocol {
     private func update(status: KYCUserStatus, availableBalance: Int?, needUpdate: Bool) {
 
         guard status != .none else { return }
+
+        getCardLabel.sora.isHidden = false
 
         guard !needUpdate else {
             bgImageTintView.sora.isHidden = false

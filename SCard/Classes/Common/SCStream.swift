@@ -19,8 +19,12 @@ public class SCStream<Value>: Sendable {
         self.wrappedValue = wrappedValue
     }
 
-    deinit {
+    public func finishAll() {
         _ = continuations.map { $0.finish() }
+    }
+
+    deinit {
+        finishAll()
     }
 
     private var continuations: [AsyncStream<Value>.Continuation] = []

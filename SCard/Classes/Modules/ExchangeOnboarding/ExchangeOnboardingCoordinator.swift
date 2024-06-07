@@ -78,7 +78,9 @@ class ExchangeOnboardingCoordinator {
     private func showOnboardingSource() {
         let model = ExchangeOnboardingSourceViewModel(service: service, model: onboardingModel)
         model.onContinue = { [weak self] in
-            self?.showExchange()
+            DispatchQueue.main.async {
+                self?.showExchange()
+            }
         }
         let viewController =  ExchangeOnboardingSourceViewController(viewModel: model)
         navigationController.pushViewController(viewController, animated: true)
@@ -86,16 +88,27 @@ class ExchangeOnboardingCoordinator {
 
     @MainActor
     private func showExchange() {
-
         navigationController.startLoader()
         Task { [weak self] in
-            switch await self?.service.userIframe(type: .deposit) {
+            let result = await self?.service.userIframe(type: .deposit)
+            await MainActor.run { self?.navigationController.stopLoader() }
+            switch result {
             case .success(let response):
-                guard let urlStr = response?.url, let url = URL(string: urlStr) else { return }
-                self?.navigationController.stopLoader()
-                self?.show(url: url)
+                guard let urlStr = response?.url, let url = URL(string: urlStr) else {
+                    self?.showAlert(
+                        title: R.string.soraCard.commonErrorGeneralTitle(),
+                        message: response?.statusDescription ?? ""
+                    )
+                    return
+                }
+                await MainActor.run {
+                    self?.show(url: url)
+                }
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.showAlert(
+                    title: R.string.soraCard.commonErrorGeneralTitle(),
+                    message: error.localizedDescription
+                )
             case .none:
                 ()
             }
@@ -110,5 +123,25 @@ class ExchangeOnboardingCoordinator {
             request: request
         )
         navigationController.pushViewController(webViewController, animated: true)
+    }
+
+
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+
+        alert.addAction(
+            .init(
+                title: R.string.soraCard.commonClose(preferredLanguages: .currentLocale),
+                style: .cancel,
+                handler: { [weak self] _ in
+                    self?.navigationController.dismiss(animated: true)
+                }
+            )
+        )
+        (navigationController.topViewController ?? navigationController).present(alert, animated: true)
     }
 }

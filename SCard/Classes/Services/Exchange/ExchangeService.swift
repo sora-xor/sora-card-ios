@@ -82,8 +82,8 @@ final class ExchangeService {
 
     struct IframeResponse: Codable {
         let statusCode: Int
-        let url: String
-        let urlValidTo: String
+        let url: String?
+        let urlValidTo: String?
         let referenceID: String
         let callerReferenceID: String
         let statusDescription: String

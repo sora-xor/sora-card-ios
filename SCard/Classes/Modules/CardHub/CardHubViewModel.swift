@@ -41,9 +41,8 @@ final class CardHubViewModel {
                     case .success(let data):
                         onUpdateUI?(data?.first, needUpdateApp)
                     case .failure(let failure):
-                        // TODO: show error to user
-                        print(failure)
                         onUpdateUI?(nil, needUpdateApp)
+                        print(failure)
                     }
                 }
             }

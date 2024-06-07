@@ -40,8 +40,8 @@ final class CardHubViewController: UIViewController {
 
     private func binding() {
 
-        model.onUpdateUI = { [unowned self] iban, needUpdateApp in
-            rootView.configure(
+        model.onUpdateUI = { [weak self] iban, needUpdateApp in
+            self?.rootView.configure(
                 iban: iban?.iban,
                 ibanStatus: iban?.status,
                 balance: iban?.availableBalance,

@@ -23,8 +23,13 @@ final class ExchangeOnboardingSourceViewModel {
         Task {
             switch await service.onboardUser(data: model) {
             case .success(let response):
-                onError?("")
-                onContinue?()
+                if response?.statusCode == 0 {
+                    onError?("")
+                    onContinue?()
+                } else {
+                    onError?(response?.statusDescription ?? "")
+                }
+
             case .failure(let error):
                 onError?(error.localizedDescription)
             }

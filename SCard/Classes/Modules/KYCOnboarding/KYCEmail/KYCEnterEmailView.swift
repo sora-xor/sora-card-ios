@@ -23,6 +23,7 @@ final class KYCEnterEmailView: UIView {
         view.sora.keyboardType = .emailAddress
         view.sora.textContentType = .emailAddress
         view.sora.addHandler(for: .editingChanged) { [weak self] in
+            self?.configure(errorMessage: "")
             self?.continueButton.sora.isEnabled = !(view.sora.text?.isEmpty ?? true)
         }
         return view

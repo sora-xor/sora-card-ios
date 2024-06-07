@@ -40,6 +40,7 @@ public final class SCCardItem: NSObject {
     }
 
     private func updateBalance() async {
+        await service.updateIban()
         self.availableBalance = await service.iban()?.availableBalance
     }
 }
