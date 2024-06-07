@@ -38,6 +38,7 @@ final class KYCCoordinator {
         await MainActor.run {
             configureNavigationController()
             navigationController.viewControllers = []
+            navigationController.stopLoader()
         }
 
         switch await service.verionsChangesNeeded() {
