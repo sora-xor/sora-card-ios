@@ -129,7 +129,8 @@ final class CardHubView: UIView {
     }
 
     func configure(phoneNumber: String) {
-        manageCardView.subtitleLabel.sora.text = phoneNumber
+        // TODO: fix crash manageCardView.subtitleLabel.sora.text = phoneNumber
+        manageCardView.subtitleLabel.text = phoneNumber
     }
 
     func configure(iban: String?, ibanStatus: Iban.Status?, balance: Int?, needUpdateApp: Bool) {
