@@ -27,10 +27,12 @@ final class ExchangeOnboardingSourceViewModel {
                 if response?.statusCode == 0 {
                     onError?("")
                     onContinue?()
-                } else {
+                } else if response?.statusCode == -4 {
                     //TODO: tmd fix, backend fix needed for users with no PW push
                     //onError?(response?.statusDescription ?? "")
                     onAlreadyOnboarded?()
+                } else {
+                    onError?(response?.statusDescription ?? R.string.soraCard.errorOccured(preferredLanguages: .currentLocale))
                 }
 
             case .failure(let error):
