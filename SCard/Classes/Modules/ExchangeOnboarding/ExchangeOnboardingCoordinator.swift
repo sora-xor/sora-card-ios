@@ -66,6 +66,11 @@ class ExchangeOnboardingCoordinator {
         }
         model.onAlreadyOnboarded = { [weak self] in
             DispatchQueue.main.async {
+                self?.showExchange()
+            }
+        }
+        model.onOnboardingAlreadyStarted = { [weak self] in
+            DispatchQueue.main.async {
                 self?.showStatus()
             }
         }

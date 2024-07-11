@@ -2,6 +2,7 @@ final class ExchangeOnboardingSourceViewModel {
     var onContinue: (() -> Void)?
     var onError: ((String) -> Void)?
     var onAlreadyOnboarded: (() -> Void)?
+    var onOnboardingAlreadyStarted: (() -> Void)?
 
     private let service: ExchangeService
     private let model: ExchangeOnboardingModel
@@ -24,13 +25,16 @@ final class ExchangeOnboardingSourceViewModel {
         Task {
             switch await service.onboardUser(data: model) {
             case .success(let response):
+
+                //TODO: tmd fix, backend fix needed for users with no PW push
+                //onError?(response?.statusDescription ?? "")
                 if response?.statusCode == 0 {
                     onError?("")
                     onContinue?()
                 } else if response?.statusCode == -4 {
-                    //TODO: tmd fix, backend fix needed for users with no PW push
-                    //onError?(response?.statusDescription ?? "")
                     onAlreadyOnboarded?()
+                } else if response?.statusCode == -10 {
+                    onOnboardingAlreadyStarted?()
                 } else {
                     onError?(response?.statusDescription ?? R.string.soraCard.errorOccured(preferredLanguages: .currentLocale))
                 }
