@@ -62,7 +62,25 @@ final class ExchangeService {
     }
 
     struct OnboardedResponse: Codable {
-        let onboarded: Bool
+        let personId: String
+        let updateTime: UInt
+        let verificationDescription: String
+        let verificationMessage: String
+        let verificationStatus: OnboardingStatus
+
+        enum CodingKeys: String, CodingKey {
+            case personId = "person_id"
+            case updateTime = "update_time"
+            case verificationDescription = "verification_description"
+            case verificationMessage = "verification_message"
+            case verificationStatus = "verification_status"
+        }
+    }
+
+    enum OnboardingStatus: Int, Codable {
+        case pending = 0
+        case accepted = 1
+        case rejected = 2
     }
 
 

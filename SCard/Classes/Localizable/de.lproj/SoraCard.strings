@@ -157,3 +157,8 @@
 "exchange.banner.title" = "Buy XOR token";
 "exchange.banner.subtitle" = "Buy or sell XOR token with euro cash";
 "exchange.banner.button" = "Buy XOR";
+"common.onboarding" = "Onboarding";
+"almost.there" = "Almost there!";
+"gatehub.onboarding.description" = "Please wait while we set everything up.";
+"error.occured" = "Unfortunately, an error occurred.";
+"gatehub.unable.complete" = "We were unable to complete the onboarding process.";

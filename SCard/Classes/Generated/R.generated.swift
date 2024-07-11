@@ -105,7 +105,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 20 images.
+  /// This `R.image` struct is generated, and contains static references to 22 images.
   struct image {
     /// Image `arrowDown`.
     static let arrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowDown")
@@ -139,10 +139,14 @@ struct R: Rswift.Validatable {
     static let newArrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "newArrowDown")
     /// Image `newArrowUp`.
     static let newArrowUp = Rswift.ImageResource(bundle: R.hostingBundle, name: "newArrowUp")
+    /// Image `rejectionIcon`.
+    static let rejectionIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "rejectionIcon")
     /// Image `scFront`.
     static let scFront = Rswift.ImageResource(bundle: R.hostingBundle, name: "scFront")
     /// Image `settings`.
     static let settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "settings")
+    /// Image `timeIcon`.
+    static let timeIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "timeIcon")
     /// Image `upload`.
     static let upload = Rswift.ImageResource(bundle: R.hostingBundle, name: "upload")
     /// Image `xOneBlocked`.
@@ -261,6 +265,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "rejectionIcon", bundle: ..., traitCollection: ...)`
+    static func rejectionIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.rejectionIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "scFront", bundle: ..., traitCollection: ...)`
     static func scFront(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.scFront, compatibleWith: traitCollection)
@@ -271,6 +282,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "settings", bundle: ..., traitCollection: ...)`
     static func settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.settings, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "timeIcon", bundle: ..., traitCollection: ...)`
+    static func timeIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.timeIcon, compatibleWith: traitCollection)
     }
     #endif
 
@@ -313,7 +331,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 160 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 165 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -339,6 +357,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let termsAndConditionsGeneralTerms = Rswift.StringResource(key: "terms.and.conditions.general.terms", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Almost there!
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let almostThere = Rswift.StringResource(key: "almost.there", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Anmelden oder Registrieren
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -377,16 +399,16 @@ struct R: Rswift.Validatable {
       static let getPreparedTitle = Rswift.StringResource(key: "get.prepared.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Buy XOR
       ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static let exchangeBannerButton = Rswift.StringResource(key: "exchange.banner.button", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// Locales: de, en, es, ru, fr, nl, vi, pt
+      static let exchangeBannerButton = Rswift.StringResource(key: "exchange.banner.button", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt"], comment: nil)
       /// de translation: Buy XOR token
       ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static let exchangeBannerTitle = Rswift.StringResource(key: "exchange.banner.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// Locales: de, en, es, ru, fr, nl, vi, pt
+      static let exchangeBannerTitle = Rswift.StringResource(key: "exchange.banner.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt"], comment: nil)
       /// de translation: Buy or sell XOR token with euro cash
       ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
-      static let exchangeBannerSubtitle = Rswift.StringResource(key: "exchange.banner.subtitle", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// Locales: de, en, es, ru, fr, nl, vi, pt
+      static let exchangeBannerSubtitle = Rswift.StringResource(key: "exchange.banner.subtitle", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt"], comment: nil)
       /// de translation: CODE SENDEN
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -647,6 +669,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let getPreparedOkTitle = Rswift.StringResource(key: "get.prepared.ok.title", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Onboarding
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let commonOnboarding = Rswift.StringResource(key: "common.onboarding", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Onboarding question %@ of %@
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -659,6 +685,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let paidAttemptsAvailableLater = Rswift.StringResource(key: "paid.attempts.available.later", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Please wait while we set everything up.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let gatehubOnboardingDescription = Rswift.StringResource(key: "gatehub.onboarding.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Purchasing crypto
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -819,6 +849,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let cardIssuanceScreenFreeCardDescription = Rswift.StringResource(key: "card.issuance.screen.free.card.description", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Unfortunately, an error occurred.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let errorOccured = Rswift.StringResource(key: "error.occured", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Update app
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -867,6 +901,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let userRegistrationFirstNameInputFiledLabel = Rswift.StringResource(key: "user.registration.first.name.input.filed.label", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: We were unable to complete the onboarding process.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let gatehubUnableComplete = Rswift.StringResource(key: "gatehub.unable.complete", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Wenn Sie XOR im Wert von mindestens €%@ auf Ihrem SORA Card halten, staken oder Liquidität bereitstellen
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -1046,6 +1084,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("terms.and.conditions.general.terms", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Almost there!
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func almostThere(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("almost.there", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "almost.there"
+        }
+
+        return NSLocalizedString("almost.there", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Anmelden oder Registrieren
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -1183,7 +1236,7 @@ struct R: Rswift.Validatable {
 
       /// de translation: Buy XOR
       ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      /// Locales: de, en, es, ru, fr, nl, vi, pt
       static func exchangeBannerButton(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("exchange.banner.button", tableName: "SoraCard", bundle: hostingBundle, comment: "")
@@ -1198,7 +1251,7 @@ struct R: Rswift.Validatable {
 
       /// de translation: Buy XOR token
       ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      /// Locales: de, en, es, ru, fr, nl, vi, pt
       static func exchangeBannerTitle(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("exchange.banner.title", tableName: "SoraCard", bundle: hostingBundle, comment: "")
@@ -1213,7 +1266,7 @@ struct R: Rswift.Validatable {
 
       /// de translation: Buy or sell XOR token with euro cash
       ///
-      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      /// Locales: de, en, es, ru, fr, nl, vi, pt
       static func exchangeBannerSubtitle(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("exchange.banner.subtitle", tableName: "SoraCard", bundle: hostingBundle, comment: "")
@@ -2215,6 +2268,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("get.prepared.ok.title", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
+      /// de translation: Onboarding
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func commonOnboarding(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("common.onboarding", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "common.onboarding"
+        }
+
+        return NSLocalizedString("common.onboarding", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Onboarding question %@ of %@
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2260,6 +2328,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("paid.attempts.available.later", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Please wait while we set everything up.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func gatehubOnboardingDescription(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("gatehub.onboarding.description", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "gatehub.onboarding.description"
+        }
+
+        return NSLocalizedString("gatehub.onboarding.description", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Purchasing crypto
@@ -2870,6 +2953,21 @@ struct R: Rswift.Validatable {
         return String(format: format, locale: locale, value1)
       }
 
+      /// de translation: Unfortunately, an error occurred.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func errorOccured(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("error.occured", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "error.occured"
+        }
+
+        return NSLocalizedString("error.occured", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
       /// de translation: Update app
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -3050,6 +3148,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("user.registration.first.name.input.filed.label", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: We were unable to complete the onboarding process.
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func gatehubUnableComplete(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("gatehub.unable.complete", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "gatehub.unable.complete"
+        }
+
+        return NSLocalizedString("gatehub.unable.complete", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Wenn Sie XOR im Wert von mindestens €%@ auf Ihrem SORA Card halten, staken oder Liquidität bereitstellen

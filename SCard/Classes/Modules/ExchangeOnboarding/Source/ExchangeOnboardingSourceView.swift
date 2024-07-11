@@ -93,7 +93,9 @@ final class ExchangeOnboardingSourceView: UIView {
 
     func configure(errorMessage: String) {
         errorLabel.sora.text = errorMessage
-        continueButton.sora.isEnabled = true
+        if !errorMessage.isEmpty {
+            continueButton.sora.isEnabled = false
+        }
     }
 
     private func setupInitialLayout() {

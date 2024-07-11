@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E2767E29D9B4220183A7F7C /* Pods_SCard_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A370A92E8E2A7D1FE5C87353 /* Pods_SCard_Example.framework */; };
 		5E01F0D529D469C1007CE5C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E01F0D429D469C1007CE5C2 /* Assets.xcassets */; };
+		5E0807422C3FD38000000D04 /* SUIPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0807412C3FD38000000D04 /* SUIPreview.swift */; };
 		5EB6A4B429D5D2F1000F3CA5 /* SoraCard.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5EB6A4AD29D5D2F1000F3CA5 /* SoraCard.strings */; };
 		5EC900C42AB0697900681DFE /* SoraCard.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5EC900C22AB0697900681DFE /* SoraCard.stringsdict */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
@@ -21,6 +22,8 @@
 		1DD75F8F00717694972B62F7 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		4FD3D7C9C74CEF89E71A8F22 /* SCard.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SCard.podspec; path = ../SCard.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		5E01F0D429D469C1007CE5C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../SCard/Assets/Assets.xcassets; sourceTree = "<group>"; };
+		5E08073F2C3FD2E100000D04 /* ExchangeOnboardingStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExchangeOnboardingStatusView.swift; path = ../SCard/Classes/Modules/ExchangeOnboarding/Status/ExchangeOnboardingStatusView.swift; sourceTree = "<group>"; };
+		5E0807412C3FD38000000D04 /* SUIPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SUIPreview.swift; sourceTree = "<group>"; };
 		5EB6A4AE29D5D2F1000F3CA5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SoraCard.strings; sourceTree = "<group>"; };
 		5EB6A4AF29D5D2F1000F3CA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SoraCard.strings; sourceTree = "<group>"; };
 		5EB6A4B029D5D2F1000F3CA5 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/SoraCard.strings; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
+				5E08073F2C3FD2E100000D04 /* ExchangeOnboardingStatusView.swift */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for SCard */,
 				607FACE81AFB9204008FA782 /* Tests */,
@@ -113,6 +117,7 @@
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				5E0807412C3FD38000000D04 /* SUIPreview.swift */,
 			);
 			name = "Example for SCard";
 			path = SCard;
@@ -326,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				5E0807422C3FD38000000D04 /* SUIPreview.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

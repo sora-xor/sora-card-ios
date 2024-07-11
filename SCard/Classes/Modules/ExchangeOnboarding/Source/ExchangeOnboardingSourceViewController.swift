@@ -26,7 +26,7 @@ final class ExchangeOnboardingSourceViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Onboarding question 3 of 3"
+        self.navigationItem.title = R.string.soraCard.onboardingQuestions("3", "3", preferredLanguages: .currentLocale)
         binding()
         updateUI()
     }

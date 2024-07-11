@@ -1,6 +1,7 @@
 final class ExchangeOnboardingSourceViewModel {
     var onContinue: (() -> Void)?
     var onError: ((String) -> Void)?
+    var onAlreadyOnboarded: (() -> Void)?
 
     private let service: ExchangeService
     private let model: ExchangeOnboardingModel
@@ -27,7 +28,9 @@ final class ExchangeOnboardingSourceViewModel {
                     onError?("")
                     onContinue?()
                 } else {
-                    onError?(response?.statusDescription ?? "")
+                    //TODO: tmd fix, backend fix needed for users with no PW push
+                    //onError?(response?.statusDescription ?? "")
+                    onAlreadyOnboarded?()
                 }
 
             case .failure(let error):

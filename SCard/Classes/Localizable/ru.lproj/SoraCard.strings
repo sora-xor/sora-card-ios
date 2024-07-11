@@ -107,7 +107,7 @@
 "cardhub.freeze" = "Заморозить";
 "cardhub.coming.soon" = "Управление картами скоро появится";
 "cardhub.iban.title" = "Данные счета IBAN";
-"common.copied" = "Copied to Clipboard";
+"common.copied" = "Скопировано в буфер обмена";
 "card.attention.text" = "Внимание";
 "get.prepared.proof.address.note" = "Примечание. Заявления таких необанков, как Revolut и N26, в настоящее время не считаются действительным подтверждением адреса.";
 "get.prepared.alert" = "У вас есть только %@ бесплатных попыток пройти процедуру KYC. Каждая следующая попытка после этого будет стоить € %@ . Платные попытки станут доступны после следующего обновления приложения.";
@@ -121,7 +121,7 @@
 "card.hub.update.description" = "Вы используете устаревшую версию приложения, некоторые части могут работать не так, как задумано.";
 "select.country.title" = "Выберите свою страну";
 "iban.pending.description" = "Выдача вашего IBAN ожидается.\nВ случае ожидания более 72 часов свяжитесь с нами по адресу %@";
-"card.hub.title" = "Card details";
+"card.hub.title" = "Данные карты";
 "iban.frozen.description" = "Ваш IBAN был заморожен.\nЧтобы узнать больше, свяжитесь с %@";
 "card.hub.manage.card" = "Управление картой SORA";
 "card.hub.manage.card.alert.title" = "Скачать приложение SORA Card";
@@ -157,3 +157,8 @@
 "exchange.banner.title" = "Buy XOR token";
 "exchange.banner.subtitle" = "Buy or sell XOR token with euro cash";
 "exchange.banner.button" = "Buy XOR";
+"common.onboarding" = "Регистрация";
+"almost.there" = "Почти готово!";
+"gatehub.onboarding.description" = "Пожалуйста, подождите, пока мы все настроим.";
+"error.occured" = "К сожалению, произошла ошибка.";
+"gatehub.unable.complete" = "Нам не удалось завершить процесс регистрации.";

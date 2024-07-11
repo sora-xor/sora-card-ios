@@ -30,23 +30,7 @@ class ExchangeOnboardingCoordinator {
         rootViewController.present(navigationController, animated: true)
         navigationController.startLoader()
 
-        Task {
-            switch await service.onboarded() {
-            case .success(let response):
-                guard let response = response else { return }
-                navigationController.stopLoader()
-                if response.onboarded {
-                    showExchange()
-                } else {
-                    showOnboardingVolume()
-                }
-
-            case .failure(let error):
-                print(error.localizedDescription)
-                navigationController.stopLoader()
-                navigationController.dismiss(animated: true)
-            }
-        }
+        checkExchangeStatus()
     }
 
     @MainActor
@@ -78,12 +62,68 @@ class ExchangeOnboardingCoordinator {
     private func showOnboardingSource() {
         let model = ExchangeOnboardingSourceViewModel(service: service, model: onboardingModel)
         model.onContinue = { [weak self] in
+            self?.checkExchangeStatus()
+        }
+        model.onAlreadyOnboarded = { [weak self] in
             DispatchQueue.main.async {
-                self?.showExchange()
+                self?.showStatus()
             }
         }
         let viewController =  ExchangeOnboardingSourceViewController(viewModel: model)
         navigationController.pushViewController(viewController, animated: true)
+    }
+
+    @MainActor
+    private func showStatus() {
+        let model = ExchangeOnboardingStatusViewModel(service: service, model: onboardingModel)
+        let viewController = ExchangeOnboardingStatusViewController(viewModel: model)
+
+        model.onSupport = { [weak self] in
+            self?.showSupport()
+        }
+
+        model.onClose = { [weak viewController] in
+            viewController?.dismiss(animated: true)
+        }
+
+        model.onExchange = { [weak self] in
+            self?.showExchange()
+        }
+
+        navigationController.pushViewController(viewController, animated: true)
+    }
+
+    private func showSupport() {
+        let url = URL(string: "https://t.me/soracardofficial")!
+        let webViewController = WebViewFactory.createWebViewController(for: url, style: .automatic)
+        navigationController.pushViewController(webViewController, animated: true)
+    }
+
+    private func checkExchangeStatus() {
+        Task {
+            switch await service.onboarded() {
+            case .success(let response):
+                guard let response = response else { return }
+                await navigationController.stopLoader()
+
+                switch response.verificationStatus {
+                case .pending, .rejected:
+                    await showStatus()
+                case .accepted:
+                    await showExchange()
+                }
+                
+            case .failure(let error):
+                await navigationController.stopLoader()
+                if error.status == .notFound {
+                    await showOnboardingVolume()
+                } else {
+                    print(error.localizedDescription)
+                    await navigationController.stopLoader()
+                    await navigationController.dismiss(animated: true)
+                }
+            }
+        }
     }
 
     @MainActor
