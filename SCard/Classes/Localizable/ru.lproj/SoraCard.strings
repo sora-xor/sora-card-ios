@@ -162,3 +162,4 @@
 "gatehub.onboarding.description" = "Пожалуйста, подождите, пока мы все настроим.";
 "error.occured" = "К сожалению, произошла ошибка.";
 "gatehub.unable.complete" = "Нам не удалось завершить процесс регистрации.";
+"support.chat" = "Support chat";

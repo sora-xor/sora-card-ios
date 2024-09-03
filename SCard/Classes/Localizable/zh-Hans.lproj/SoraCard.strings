@@ -159,3 +159,4 @@
 "gatehub.onboarding.description" = "Please wait while we set everything up.";
 "error.occured" = "Unfortunately, an error occurred.";
 "gatehub.unable.complete" = "We were unable to complete the onboarding process.";
+"support.chat" = "Support chat";

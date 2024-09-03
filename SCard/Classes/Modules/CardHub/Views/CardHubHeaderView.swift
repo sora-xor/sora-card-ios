@@ -72,6 +72,7 @@ final class CardHubHeaderView: SoramitsuView {
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
             self?.onExchange?()
         }
+        button.isEnabled = false
         return button
     }()
 

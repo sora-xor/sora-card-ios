@@ -331,7 +331,7 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.soraCard` struct is generated, and contains static references to 165 localization keys.
+    /// This `R.string.soraCard` struct is generated, and contains static references to 166 localization keys.
     struct soraCard {
       /// de translation: 0 € jährliche Servicegebühr
       ///
@@ -809,6 +809,10 @@ struct R: Rswift.Validatable {
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
       static let verificationRejectedSupport = Rswift.StringResource(key: "verification.rejected.support", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
+      /// de translation: Support chat
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static let supportChat = Rswift.StringResource(key: "support.chat", tableName: "SoraCard", bundle: R.hostingBundle, locales: ["de", "en", "es", "ru", "fr", "nl", "vi", "pt", "zh-Hans"], comment: nil)
       /// de translation: Tausche Krypto gegen XOR
       ///
       /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
@@ -2799,6 +2803,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("verification.rejected.support", tableName: "SoraCard", bundle: bundle, comment: "")
+      }
+
+      /// de translation: Support chat
+      ///
+      /// Locales: de, en, es, ru, fr, nl, vi, pt, zh-Hans
+      static func supportChat(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("support.chat", tableName: "SoraCard", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "SoraCard", preferredLanguages: preferredLanguages) else {
+          return "support.chat"
+        }
+
+        return NSLocalizedString("support.chat", tableName: "SoraCard", bundle: bundle, comment: "")
       }
 
       /// de translation: Tausche Krypto gegen XOR

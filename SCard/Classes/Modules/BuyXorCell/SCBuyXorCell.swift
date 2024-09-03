@@ -34,6 +34,7 @@ public final class SCBuyXorCell: SoramitsuTableViewCell {
         let view = SoramitsuButton(size: .extraSmall, type: .filled(.primary))
         view.sora.title = R.string.soraCard.exchangeBannerButton(preferredLanguages: .currentLocale)
         view.sora.cornerRadius = .circle
+        view.isEnabled = false
         return view
     }()
 
