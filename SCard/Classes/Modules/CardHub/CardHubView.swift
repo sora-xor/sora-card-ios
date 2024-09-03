@@ -91,12 +91,7 @@ final class CardHubView: UIView {
         view.rightImageView.image = R.image.arrowRightSmall()
         view.titleLabel.sora.text = R.string.soraCard.cardHubManageCard(preferredLanguages: .currentLocale)
         view.subtitleLabel.sora.isHidden = false
-        view.subtitleLabel.textColor = UIColor(
-            red: 0.615686274509804,
-            green: 0.5058823529411764,
-            blue: 0.5058823529411764,
-            alpha: 1.0
-        )
+        view.subtitleLabel.sora.textColor = .fgSecondary
         view.addTapGesture { [weak self] _ in
             self?.onManageCard?()
         }
@@ -135,8 +130,7 @@ final class CardHubView: UIView {
     }
 
     func configure(phoneNumber: String) {
-        // TODO: fix crash manageCardView.subtitleLabel.sora.text = phoneNumber
-        manageCardView.subtitleLabel.text = phoneNumber
+        manageCardView.subtitleLabel.sora.text = phoneNumber
     }
 
     func configure(iban: String?, ibanStatus: Iban.Status?, balance: Int?, needUpdateApp: Bool) {
