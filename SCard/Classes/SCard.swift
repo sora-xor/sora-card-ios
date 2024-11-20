@@ -107,6 +107,8 @@ public class SCard {
             onSwapController: onSwapController,
             onReceiveController: onReceiveController
         )
+        
+        TypographyConstants.registerFonts(from: Bundle(for: TypographyConstants.self))
 
         Task {
             _ = await service.fetchVersion()
