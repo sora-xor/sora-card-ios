@@ -15,23 +15,6 @@ final class CardHubHeaderView: SoramitsuView {
         return view
     }()
 
-    private let cardLabelView: SoramitsuView = {
-        let view = SoramitsuView()
-        view.sora.cornerRadius = .custom(20)
-        view.sora.backgroundColor = .bgSurface
-        view.isHidden = true // TODO: impl
-        return view
-    }()
-
-    private let cardLabel: SoramitsuLabel = {
-        let label = SoramitsuLabel()
-        label.sora.font = FontType.headline2
-        label.sora.textColor = .fgPrimary
-        label.sora.alignment = .center
-        label.sora.text = "Show details" // TODO: localize
-        return label
-    }()
-
     private let titleLabel: SoramitsuLabel = {
 
         let sora = SoramitsuTextItem(
@@ -114,15 +97,6 @@ final class CardHubHeaderView: SoramitsuView {
 
         addSubview(iconView) {
             $0.top.leading.trailing.equalToSuperview().inset(16)
-        }
-
-        cardLabelView.addSubview(cardLabel) {
-            $0.top.bottom.equalToSuperview().inset(8)
-            $0.leading.trailing.equalToSuperview().inset(16)
-        }
-
-        iconView.addSubview(cardLabelView) {
-            $0.trailing.bottom.equalToSuperview().inset(8)
         }
 
         addSubview(titleLabel) {

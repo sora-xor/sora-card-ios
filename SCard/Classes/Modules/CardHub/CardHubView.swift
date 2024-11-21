@@ -30,6 +30,12 @@ final class CardHubView: UIView {
         return button
     }()
 
+    private let scrollableContainerView: ScrollableContainerView = {
+        let view = ScrollableContainerView()
+        view.stackView.spacing = 16
+        return view
+    }()
+    
     private let scrollView = UIScrollView()
 
     private var containerView: UIStackView = {
@@ -88,6 +94,7 @@ final class CardHubView: UIView {
 
     private lazy var manageCardView: TitleSubtitleIconView = {
         let view = TitleSubtitleIconView()
+        view.rightImageView.sora.tintColor = .fgSecondary
         view.rightImageView.image = R.image.arrowRightSmall()
         view.titleLabel.sora.text = R.string.soraCard.cardHubManageCard(preferredLanguages: .currentLocale)
         view.subtitleLabel.sora.isHidden = false
@@ -100,6 +107,7 @@ final class CardHubView: UIView {
 
     private lazy var supportView: TitleSubtitleIconView = {
         let view = TitleSubtitleIconView()
+        view.rightImageView.sora.tintColor = .fgSecondary
         view.rightImageView.image = R.image.arrowRightSmall()
         view.titleLabel.sora.text = R.string.soraCard.supportChat(preferredLanguages: .currentLocale)
         view.addTapGesture { [weak self] _ in
@@ -110,6 +118,7 @@ final class CardHubView: UIView {
 
     private lazy var logoutView: TitleSubtitleIconView = {
         let view = TitleSubtitleIconView()
+        view.rightImageView.sora.tintColor = .fgSecondary
         view.rightImageView.image = R.image.arrowRightSmall()
         view.titleLabel.sora.text = R.string.soraCard.cardHubSettingsLogoutTitle(preferredLanguages: .currentLocale)
         view.titleLabel.sora.textColor = .statusError
@@ -153,7 +162,7 @@ final class CardHubView: UIView {
             $0.leading.greaterThanOrEqualTo(titleLabel.snp.trailing)
         }
 
-        addSubview(scrollView)
+        addSubview(scrollableContainerView)
 
         settingsContainerView.addArrangedSubviews([
             settingsTitleLabel,
@@ -163,23 +172,15 @@ final class CardHubView: UIView {
             logoutView
         ])
 
-        containerView.addArrangedSubviews([
-            cardHubHeaderView,
-            updateView,
-            ibanView,
-            settingsContainerView
-        ])
+        scrollableContainerView.addArrangedSubview(cardHubHeaderView)
+        scrollableContainerView.addArrangedSubview(updateView)
+        scrollableContainerView.addArrangedSubview(ibanView)
+        scrollableContainerView.addArrangedSubview(settingsContainerView)
 
-        scrollView.addSubview(containerView)
-
-        scrollView.snp.makeConstraints {
+        scrollableContainerView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(8)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
-
-        containerView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.trailing.equalTo(self).inset(16)
+            $0.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(16)
         }
     }
 
