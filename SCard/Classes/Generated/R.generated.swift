@@ -105,7 +105,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.image` struct is generated, and contains static references to 22 images.
+  /// This `R.image` struct is generated, and contains static references to 20 images.
   struct image {
     /// Image `arrowDown`.
     static let arrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "arrowDown")
@@ -135,10 +135,6 @@ struct R: Rswift.Validatable {
     static let kycRejected = Rswift.ImageResource(bundle: R.hostingBundle, name: "kycRejected")
     /// Image `kycSuccessful`.
     static let kycSuccessful = Rswift.ImageResource(bundle: R.hostingBundle, name: "kycSuccessful")
-    /// Image `newArrowDown`.
-    static let newArrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "newArrowDown")
-    /// Image `newArrowUp`.
-    static let newArrowUp = Rswift.ImageResource(bundle: R.hostingBundle, name: "newArrowUp")
     /// Image `rejectionIcon`.
     static let rejectionIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "rejectionIcon")
     /// Image `scFront`.
@@ -247,20 +243,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "kycSuccessful", bundle: ..., traitCollection: ...)`
     static func kycSuccessful(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.kycSuccessful, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "newArrowDown", bundle: ..., traitCollection: ...)`
-    static func newArrowDown(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.newArrowDown, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "newArrowUp", bundle: ..., traitCollection: ...)`
-    static func newArrowUp(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.newArrowUp, compatibleWith: traitCollection)
     }
     #endif
 

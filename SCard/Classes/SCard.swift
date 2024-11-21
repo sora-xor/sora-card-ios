@@ -59,6 +59,8 @@ public class SCard {
             self.xOneId = xOneId
             self.environmentType = environmentType
             self.themeMode = themeMode
+            
+            SoramitsuUI.shared.themeMode = themeMode
         }
 
         public enum EnvironmentType: String {
@@ -153,6 +155,12 @@ public class SCard {
 
     public var hasIban: Bool {
         service.currentUserIban != nil
+    }
+    
+    public func getBankInfo() async -> BankInfo? {
+        await service.updateIban()
+        guard let iban = await service.iban() else { return nil }
+        return BankInfo(balance: iban.availableBalance, iban: iban.iban)
     }
 
     public var isSCBannerHidden: Bool {

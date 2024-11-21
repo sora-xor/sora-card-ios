@@ -42,6 +42,7 @@ final class KYCEnterPhoneView: UIView {
 
     private lazy var countryView: IconTitleIconView = {
         let view = IconTitleIconView()
+        view.rightImageView.sora.tintColor = .fgSecondary
         view.rightImageView.sora.picture = .logo(image: R.image.arrowRightSmall() ?? .init())
         view.addTapGesture { [weak self] _ in
             self?.onCountry?()

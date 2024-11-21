@@ -30,7 +30,7 @@ final class CardHubIbanView: SoramitsuView {
 
     private lazy var shareButton: SoramitsuButton = {
         let button = SoramitsuButton(size: .large, type: .bleached(.tertiary))
-        button.sora.tintColor = .accentTertiary
+        button.sora.tintColor = .fgSecondary
         button.sora.backgroundColor = .custom(uiColor: .clear)
         button.sora.leftImage = R.image.upload()
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
@@ -120,6 +120,10 @@ final class CardHubIbanView: SoramitsuView {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.bottom.leading.trailing.equalToSuperview().inset(24)
         }
+        
+        self.snp.makeConstraints({
+            $0.height.equalTo(104)
+        })
     }
 }
 
