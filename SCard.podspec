@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.dependency 'SnapKit'
   s.dependency 'SoraUIKit'#, '1.1.11'
   s.dependency 'PayWingsOAuthSDK', '2.0.2'
-  s.dependency 'PayWingsKycSDK', '1.0.2'
+  s.dependency 'PayWingsKycSDK', '1.0.6'
   s.dependency 'IdensicMobileSDK' #, '2.2.5'
 
   # TODO: PW release IdensicMobileSDK to public pods
