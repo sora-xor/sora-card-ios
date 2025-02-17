@@ -31,10 +31,21 @@ final class KYCEnterPhoneViewController: UIViewController {
         binding()
         viewModel.setupCrrentCountry()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.updateTimerIfNeeded()
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         rootView.inputField.textField.becomeFirstResponder()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel.saveTimerIfNeeded()
+        rootView.stopTimer()
     }
 
     private func binding() {

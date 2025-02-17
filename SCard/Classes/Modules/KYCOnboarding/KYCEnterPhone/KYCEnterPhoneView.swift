@@ -7,8 +7,10 @@ final class KYCEnterPhoneView: UIView {
     var onInput: ((String) -> Void)?
     var onContinueButton: (() -> Void)?
 
-    private var timer = Timer()
+    private var timer: Timer?
     private var secondsLeft = 0
+    
+    private var errorMessage: KYCEnterPhoneInputMessage?
     private var isPhoneNumberZeroPrefixCorrectionOn = true
     
     private var state: ContinueButtonState = ContinueButtonState.disabled
@@ -60,6 +62,7 @@ final class KYCEnterPhoneView: UIView {
             textColor: .fgSecondary,
             alignment: .center
         )
+       
         button.sora.isEnabled = false
         button.sora.cornerRadius = .custom(28)
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
@@ -96,11 +99,17 @@ extension KYCEnterPhoneView {
 
     // MARK: Configure TextField and Continue Button States, set timer if needed
     
-    func configure(errorMessage: String, isContinueEnabled: Bool, secondsLeft: Int) {
+    func configure(errorMessage: KYCEnterPhoneInputMessage, isContinueEnabled: Bool, secondsLeft: Int) {
         self.secondsLeft = secondsLeft
         resetTimerIfNeeded()
+        self.errorMessage = errorMessage
         updateInputFieldState(errorMessage: errorMessage)
-        setInitialButtonState(errorMessage: errorMessage, isContinueEnabled: isContinueEnabled, secondsLeft: secondsLeft)
+        setInitialButtonState(isContinueEnabled: isContinueEnabled, secondsLeft: secondsLeft)
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
     }
 }
 
@@ -108,8 +117,7 @@ extension KYCEnterPhoneView {
 
 private extension KYCEnterPhoneView {
     func resetTimerIfNeeded() {
-        timer.invalidate()
-        
+        stopTimer()
         if secondsLeft > 0 {
             timer = Timer.scheduledTimer(
                 timeInterval: 1,
@@ -121,12 +129,23 @@ private extension KYCEnterPhoneView {
         }
     }
     
-    func updateInputFieldState(errorMessage: String) {
-        inputField.sora.state = errorMessage.isEmpty ? .success : .fail
-        inputField.sora.descriptionLabelText = errorMessage
+    func updateInputFieldState(errorMessage: KYCEnterPhoneInputMessage) {
+        switch errorMessage {
+        case .zeroFormat, .noSpam, .wrongFormat, .timerIsActive:
+            inputField.sora.state = .fail
+            inputField.sora.descriptionLabelText = errorMessage.description
+            
+        case .error(let errorMessage):
+            inputField.sora.state = .fail
+            inputField.sora.descriptionLabelText = errorMessage.description
+        
+        case .none:
+            inputField.sora.state = .success
+            inputField.sora.descriptionLabelText = errorMessage.description
+        }
     }
     
-    func setInitialButtonState(errorMessage: String, isContinueEnabled: Bool, secondsLeft: Int) {
+    func setInitialButtonState(isContinueEnabled: Bool, secondsLeft: Int) {
         let initialState: ContinueButtonState = secondsLeft > 0
         ? .disabledCount(secondsLeft: secondsLeft)
         : (isContinueEnabled ? .enabled : .disabled)
@@ -142,16 +161,29 @@ private extension KYCEnterPhoneView {
     @objc func updateTimer() {
         guard secondsLeft > 1 else {
             secondsLeft = 0
-            timer.invalidate()
+            stopTimer()
             let stateAfterTimeOut: ContinueButtonState = inputField.sora.state == .fail ? .disabled : .enabled
             updateButtonState(to: stateAfterTimeOut)
+            resetInputFieldIfNeeded()
             return
         }
         
         secondsLeft -= 1
         updateButtonState(to: .disabledCount(secondsLeft: secondsLeft))
     }
+    
+    func resetInputFieldIfNeeded() {
+        guard let errorMessage else { return }
+        switch errorMessage {
+        case .timerIsActive:
+            inputField.sora.state = .disabled
+            inputField.sora.state = .default
+            inputField.sora.descriptionLabelText = ""
+        case .none, .zeroFormat, .wrongFormat, .noSpam, .error(_): break
+        }
+    }
 }
+
 
 
 // MARK: - Layout setups
