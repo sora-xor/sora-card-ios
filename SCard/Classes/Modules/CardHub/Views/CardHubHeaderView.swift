@@ -14,6 +14,7 @@ final class CardHubHeaderView: SoramitsuView {
         }
         return view
     }()
+    
 
     private let titleLabel: SoramitsuLabel = {
 
@@ -36,15 +37,22 @@ final class CardHubHeaderView: SoramitsuView {
         label.sora.attributedText = [sora, card]
         return label
     }()
+    
+    private lazy var balanceInfoContainer: SoramitsuView = {
+        let view = SoramitsuView()
+        view.sora.cornerRadius = .circle
+        view.sora.backgroundColor = .fgPrimary
+        view.sora.loadingPlaceholder.type = .shimmer
+        view.sora.loadingPlaceholder.shimmerview.sora.cornerRadius = .circle
+        return view
+    }()
 
-    private let balanceLabel: SoramitsuLabel = {
+    private lazy var balanceLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
         label.sora.font = FontType.headline2
-        label.sora.textColor = .fgPrimary
+        label.sora.textColor = .bgPage
         label.sora.alignment = .right
         label.sora.text = "      "
-        label.sora.loadingPlaceholder.type = .shimmer
-        label.sora.loadingPlaceholder.shimmerview.sora.cornerRadius = .circle
         return label
     }()
 
@@ -68,7 +76,7 @@ final class CardHubHeaderView: SoramitsuView {
         }
         return button
     }()
-
+    
     convenience init() {
         self.init(frame: .zero)
     }
@@ -82,32 +90,40 @@ final class CardHubHeaderView: SoramitsuView {
         setupInitialLayout()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // TODO: add localization
     func configure(balance: Int?) {
-        // TODO: add localization
+        balanceInfoContainer.sora.loadingPlaceholder.type = .none
         balanceLabel.sora.text = balance != nil ?
             BalanceConverter.formatedBalance(balance: balance!) : "--"
-        balanceLabel.sora.loadingPlaceholder.type = .none
+   
     }
+}
 
-    private func setupInitialLayout() {
+// MARK: - Layout
 
+private extension CardHubHeaderView {
+    func setupInitialLayout() {
         addSubview(iconView) {
             $0.top.leading.trailing.equalToSuperview().inset(16)
         }
-
+  
         addSubview(titleLabel) {
             $0.top.equalTo(iconView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().inset(24)
         }
 
-        addSubview(balanceLabel) {
-            $0.centerY.equalTo(titleLabel)
-            $0.leading.equalTo(titleLabel.snp.trailing).offset(8)
-            $0.trailing.equalToSuperview().inset(24)
+        balanceInfoContainer.addSubview(balanceLabel) {
+            $0.top.bottom.equalToSuperview().inset(8)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        iconView.addSubview(balanceInfoContainer) {
+            $0.bottom.trailing.equalToSuperview().inset(8)
         }
 
         let buttonsView = SoramitsuStackView(arrangedSubviews: [
@@ -127,3 +143,4 @@ final class CardHubHeaderView: SoramitsuView {
         }
     }
 }
+
