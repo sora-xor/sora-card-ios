@@ -2,6 +2,9 @@ import UIKit
 import SoraUIKit
 
 final class KYCEnterEmailView: UIView {
+    
+    private let continueButtonText = R.string.soraCard.commonSendLink(preferredLanguages: .currentLocale)
+    private lazy var state: BaseContinueButtonState = .disabled("")
 
     var onContinueButton: (() -> Void)?
 
@@ -24,7 +27,7 @@ final class KYCEnterEmailView: UIView {
         view.sora.textContentType = .emailAddress
         view.sora.addHandler(for: .editingChanged) { [weak self] in
             self?.configure(errorMessage: "")
-            self?.continueButton.sora.isEnabled = !(view.sora.text?.isEmpty ?? true)
+            self?.configureContinueButton(isEmpty: !(view.sora.text?.isEmpty ?? true))
         }
         return view
     }()
@@ -34,14 +37,16 @@ final class KYCEnterEmailView: UIView {
         button.sora.attributedText = SoramitsuTextItem(
             text: R.string.soraCard.commonSendLink(preferredLanguages: .currentLocale),
             fontData: FontType.buttonM,
-            textColor: .bgSurface,
+            textColor: .fgSecondary,
             alignment: .center
         )
         button.sora.isEnabled = false
         button.sora.cornerRadius = .custom(28)
         button.sora.addHandler(for: .touchUpInside) { [weak self] in
-            self?.continueButton.sora.isEnabled = false
-            self?.onContinueButton?()
+            guard let self else { return }
+            self.continueButton.sora.isEnabled = false
+            self.updateButtonState(to: .disabled(self.continueButtonText))
+            self.onContinueButton?()
         }
         return button
     }()
@@ -51,7 +56,8 @@ final class KYCEnterEmailView: UIView {
         backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
     }
-
+    
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -82,5 +88,18 @@ final class KYCEnterEmailView: UIView {
             $0.top.equalTo(inputField.snp.bottom).offset(28)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
+    }
+}
+
+private extension KYCEnterEmailView {
+    func configureContinueButton(isEmpty: Bool) {
+        continueButton.sora.isEnabled = isEmpty
+        let newState: BaseContinueButtonState = isEmpty ? .enabled(continueButtonText) : .disabled(continueButtonText)
+        updateButtonState(to: newState)
+    }
+    
+    func updateButtonState(to newState: BaseContinueButtonState) {
+        state = newState
+        state.apply(to: continueButton)
     }
 }

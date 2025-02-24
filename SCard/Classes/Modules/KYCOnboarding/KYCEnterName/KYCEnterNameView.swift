@@ -2,11 +2,14 @@ import UIKit
 import SoraUIKit
 
 final class KYCEnterNameView: UIView {
-
+    
+    private let continueButtonText = R.string.soraCard.commonContinue(preferredLanguages: .currentLocale).capitalized
+    private lazy var state: BaseContinueButtonState = .disabled("")
+    
     var onName: ((String) -> Void)?
     var onLastname: ((String) -> Void)?
     var onContinue: (() -> Void)?
-
+   
     private(set) lazy var nameField: InputField = {
         let view = InputField()
         view.sora.titleLabelText = R.string.soraCard.userRegistrationFirstNameInputFiledLabel(preferredLanguages: .currentLocale)
@@ -36,7 +39,7 @@ final class KYCEnterNameView: UIView {
         button.sora.attributedText = SoramitsuTextItem(
             text: R.string.soraCard.commonContinue(preferredLanguages: .currentLocale).capitalized,
             fontData: FontType.buttonM,
-            textColor: .bgSurface,
+            textColor: .fgSecondary,
             alignment: .center
         )
         button.sora.cornerRadius = .custom(28)
@@ -52,13 +55,15 @@ final class KYCEnterNameView: UIView {
         backgroundColor = SoramitsuUI.shared.theme.palette.color(.bgPage)
         setupInitialLayout()
     }
-
+    
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func configure(isContinueButtonEnabled: Bool) {
         continueButton.sora.isEnabled = isContinueButtonEnabled
+        updateButtonState(to: isContinueButtonEnabled ? .enabled(continueButtonText) : .disabled(continueButtonText))
     }
 
     private func setupInitialLayout() {
@@ -82,6 +87,51 @@ final class KYCEnterNameView: UIView {
         continueButton.snp.makeConstraints {
             $0.top.equalTo(lastnameField.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(24)
+        }
+    }
+}
+
+private extension KYCEnterNameView {
+    func updateButtonState(to newState: BaseContinueButtonState) {
+        state = newState
+        state.apply(to: continueButton)
+    }
+}
+
+
+enum BaseContinueButtonState: Equatable {
+    case enabled(String)
+    case disabled(String)
+    
+    var textItem: SoramitsuTextItem {
+        let text: String
+        
+        switch self {
+        case .enabled(let buttonText), .disabled(let buttonText):
+            text = buttonText
+        }
+        
+        let color: SoramitsuColor = (self == .enabled(text)) ? .bgSurface : .fgSecondary
+        
+        return SoramitsuTextItem(
+            text: text,
+            fontData: FontType.buttonM,
+            textColor: color,
+            alignment: .center
+        )
+    }
+    
+    func apply(to button: SoramitsuButton) {
+        button.sora.attributedText = self.textItem
+    }
+    
+    static func == (lhs: BaseContinueButtonState, rhs: BaseContinueButtonState) -> Bool {
+        switch (lhs, rhs) {
+        case (.enabled(let text1), .enabled(let text2)),
+             (.disabled(let text1), .disabled(let text2)):
+            return text1 == text2
+        default:
+            return false
         }
     }
 }
