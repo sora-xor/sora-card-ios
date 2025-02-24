@@ -4,7 +4,7 @@ import SoraUIKit
 final class KYCEnterEmailView: UIView {
     
     private let continueButtonText = R.string.soraCard.commonSendLink(preferredLanguages: .currentLocale)
-    private lazy var state: BaseContinueButtonState = .disabled("")
+    private var state: BaseContinueButtonState = .disabled("")
 
     var onContinueButton: (() -> Void)?
 
