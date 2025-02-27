@@ -4,7 +4,9 @@ enum ExchangeOnboarding {
         let volume: ExchangeOnboarding.ExpectedVolume
         let reasons: [ExchangeOnboarding.OpeningReason]
         let sources: [ExchangeOnboarding.SourceOfFunds]
+        let employmentStatus: ExchangeOnboarding.EmploymentStatus
     }
+    
 
     enum ExpectedVolume: Int, Codable, CaseIterable {
         case k10 = 1
@@ -27,5 +29,11 @@ enum ExchangeOnboarding {
         case savings = 2
         case trading = 3
         case other = 4
+    }
+    
+    enum EmploymentStatus: Int, Codable, CaseIterable {
+        // mock
+        case unemployed = 0
+        case employed = 1
     }
 }
