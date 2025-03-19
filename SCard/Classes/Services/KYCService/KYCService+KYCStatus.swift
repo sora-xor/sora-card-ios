@@ -127,6 +127,11 @@ extension UserState {
     )
 }
 
+public struct BankInfo {
+    public let balance: Int
+    public let iban: String
+}
+
 @frozen
 public enum KYCUserStatus: Equatable {
     case none

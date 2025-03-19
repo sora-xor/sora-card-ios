@@ -34,7 +34,7 @@ final class KYCEnterPhoneCodeView: UIView {
         button.sora.attributedText = SoramitsuTextItem(
             text: R.string.soraCard.verifyEmailResend("...", preferredLanguages: .currentLocale),
             fontData: FontType.buttonM,
-            textColor: .bgSurface,
+            textColor: .fgSecondary,
             alignment: .center
         )
         button.sora.cornerRadius = .custom(28)
@@ -127,7 +127,7 @@ final class KYCEnterPhoneCodeView: UIView {
                 preferredLanguages: .currentLocale
             ),
             fontData: FontType.buttonM,
-            textColor: .bgSurface,
+            textColor: .fgSecondary,
             alignment: .center
         )
     }

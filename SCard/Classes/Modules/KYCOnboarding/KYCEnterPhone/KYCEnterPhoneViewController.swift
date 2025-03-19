@@ -14,7 +14,8 @@ final class KYCEnterPhoneViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -34,7 +35,6 @@ final class KYCEnterPhoneViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         rootView.inputField.textField.becomeFirstResponder()
-        rootView.inputField.textField.sora.text = viewModel.data.phoneNumber
     }
 
     private func binding() {

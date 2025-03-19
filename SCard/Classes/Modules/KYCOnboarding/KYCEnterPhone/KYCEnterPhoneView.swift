@@ -10,6 +10,8 @@ final class KYCEnterPhoneView: UIView {
     private var timer = Timer()
     private var secondsLeft = 0
     private var isPhoneNumberZeroPrefixCorrectionOn = true
+    
+    private var state: ContinueButtonState = ContinueButtonState.disabled
 
     private let textLabel: SoramitsuLabel = {
         let label = SoramitsuLabel()
@@ -55,7 +57,7 @@ final class KYCEnterPhoneView: UIView {
         button.sora.attributedText = SoramitsuTextItem(
             text: R.string.soraCard.commonSendCode(preferredLanguages: .currentLocale),
             fontData: FontType.buttonM,
-            textColor: .fgInverted,
+            textColor: .fgSecondary,
             alignment: .center
         )
         button.sora.isEnabled = false
@@ -72,41 +74,18 @@ final class KYCEnterPhoneView: UIView {
         setupInitialLayout()
         configure(country: .usa)
     }
-
+    
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
+// MARK: - Internal methods
+
+extension KYCEnterPhoneView {
     func configure(phoneNumber: String) {
         inputField.sora.text = phoneNumber
-    }
-
-    func configure(errorMessage: String, isContinueEnabled: Bool, secondsLeft: Int) {
-
-        self.secondsLeft = secondsLeft
-        timer.invalidate()
-        timer = Timer.scheduledTimer(
-            timeInterval: 1,
-            target: self,
-            selector: #selector(updateTimer),
-            userInfo: nil,
-            repeats: true
-        )
-
-        switch (errorMessage.isEmpty, isContinueEnabled) {
-        case (true, true):
-            inputField.sora.state = .success
-        case (true, false):
-            inputField.sora.state = .disabled
-            inputField.sora.state = .default
-        case (false, true):
-            inputField.sora.state = .disabled
-            inputField.sora.state = .default
-        case (false, false):
-            inputField.sora.state = .fail
-        }
-        inputField.sora.descriptionLabelText = errorMessage
-        continueButton.sora.isEnabled = isContinueEnabled
     }
 
     func configure(country: SCCountry) {
@@ -115,62 +94,100 @@ final class KYCEnterPhoneView: UIView {
         codeField.sora.text = country.dialCode
     }
 
-    private func setupInitialLayout() {
+    // MARK: Configure TextField and Continue Button States, set timer if needed
+    
+    func configure(errorMessage: String, isContinueEnabled: Bool, secondsLeft: Int) {
+        self.secondsLeft = secondsLeft
+        resetTimerIfNeeded()
+        updateInputFieldState(errorMessage: errorMessage)
+        setInitialButtonState(errorMessage: errorMessage, isContinueEnabled: isContinueEnabled, secondsLeft: secondsLeft)
+    }
+}
 
+// MARK: - Helper' methods
+
+private extension KYCEnterPhoneView {
+    func resetTimerIfNeeded() {
+        timer.invalidate()
+        
+        if secondsLeft > 0 {
+            timer = Timer.scheduledTimer(
+                timeInterval: 1,
+                target: self,
+                selector: #selector(updateTimer),
+                userInfo: nil,
+                repeats: true
+            )
+        }
+    }
+    
+    func updateInputFieldState(errorMessage: String) {
+        inputField.sora.state = errorMessage.isEmpty ? .success : .fail
+        inputField.sora.descriptionLabelText = errorMessage
+    }
+    
+    func setInitialButtonState(errorMessage: String, isContinueEnabled: Bool, secondsLeft: Int) {
+        let initialState: ContinueButtonState = secondsLeft > 0
+        ? .disabledCount(secondsLeft: secondsLeft)
+        : (isContinueEnabled ? .enabled : .disabled)
+        
+        updateButtonState(to: initialState)
+    }
+    
+    func updateButtonState(to newState: ContinueButtonState) {
+        state = newState
+        state.apply(to: continueButton)
+    }
+
+    @objc func updateTimer() {
+        guard secondsLeft > 1 else {
+            secondsLeft = 0
+            timer.invalidate()
+            let stateAfterTimeOut: ContinueButtonState = inputField.sora.state == .fail ? .disabled : .enabled
+            updateButtonState(to: stateAfterTimeOut)
+            return
+        }
+        
+        secondsLeft -= 1
+        updateButtonState(to: .disabledCount(secondsLeft: secondsLeft))
+    }
+}
+
+
+// MARK: - Layout setups
+
+private extension KYCEnterPhoneView {
+    func setupInitialLayout() {
+        
         addSubview(textLabel) {
             $0.top.equalTo(self.safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
-
+        
         addSubview(countryView) {
             $0.top.equalTo(textLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
         }
-
+        
         addSubview(codeField) {
             $0.top.equalTo(countryView.snp.bottom).offset(24)
             $0.leading.equalToSuperview().inset(24)
             $0.width.equalTo(85)
         }
-
+        
         addSubview(inputField) {
             $0.top.equalTo(countryView.snp.bottom).offset(24)
             $0.leading.equalTo(codeField.snp.trailing).offset(8)
             $0.trailing.equalToSuperview().inset(24)
         }
-
+        
         addSubview(continueButton) {
             $0.top.equalTo(inputField.snp.bottom).offset(28)
             $0.leading.trailing.equalToSuperview().inset(24)
         }
     }
-
-    @objc private func updateTimer() {
-        guard secondsLeft > 1 else {
-            continueButton.isEnabled = true
-            continueButton.sora.attributedText = SoramitsuTextItem(
-                text: R.string.soraCard.commonSendCode(preferredLanguages: .currentLocale),
-                fontData: FontType.buttonM,
-                textColor: .bgSurface,
-                alignment: .center
-            )
-            secondsLeft = 0
-            timer.invalidate()
-            return
-        }
-        secondsLeft -= 1
-        continueButton.isEnabled = false
-        continueButton.sora.attributedText = SoramitsuTextItem(
-            text: R.string.soraCard.verifyEmailResend(
-                String(secondsLeft),
-                preferredLanguages: .currentLocale
-            ),
-            fontData: FontType.buttonM,
-            textColor: .bgSurface,
-            alignment: .center
-        )
-    }
 }
+
 
 extension String {
     func image(
@@ -184,5 +201,50 @@ extension String {
                 withAttributes: attributes
             )
         }
+    }
+}
+
+// MARK: - ContinueButtonState
+
+enum ContinueButtonState {
+    case disabledCount(secondsLeft: Int)
+    case enabled
+    case disabled
+    
+    var isEnabled: Bool {
+        switch self {
+        case .enabled:
+            return true
+        case .disabled, .disabledCount:
+            return false
+        }
+    }
+    
+    var textItem: SoramitsuTextItem {
+        let text: String
+        let color: SoramitsuColor
+        switch self {
+            
+        case .disabledCount(let secondsLeft):
+            text = R.string.soraCard.verifyEmailResend(String(secondsLeft), preferredLanguages: .currentLocale)
+            color = .fgSecondary
+        case .enabled:
+            text = R.string.soraCard.commonSendCode(preferredLanguages: .currentLocale)
+            color = .bgSurface
+        case .disabled:
+            text = R.string.soraCard.commonSendCode(preferredLanguages: .currentLocale)
+            color = .fgSecondary
+        }
+        return SoramitsuTextItem(
+            text: text,
+            fontData: FontType.buttonM,
+            textColor: color,
+            alignment: .center
+        )
+    }
+    
+    func apply(to button: SoramitsuButton) {
+        button.isEnabled = self.isEnabled
+        button.sora.attributedText = self.textItem
     }
 }
