@@ -1,14 +1,14 @@
 import UIKit
 import SoraUIKit
 
-final class ExchangeOnboardingReasonView: UIView {
+final class EmploymentStatusView: UIView {
 
-    var onReason: ((ExchangeOnboarding.OpeningReason) -> Void)?
+    var onEmploymentStatus: ((ExchangeOnboarding.EmploymentStatus) -> Void)?
     var onContinue: (() -> Void)?
 
     private let title: SoramitsuLabel = {
         let label = SoramitsuLabel()
-        label.sora.text = R.string.soraCard.openingReason(preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.gatehubEmploymentStatus(preferredLanguages: .currentLocale)
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgPrimary
         label.sora.numberOfLines = 0
@@ -17,7 +17,7 @@ final class ExchangeOnboardingReasonView: UIView {
 
     private let subtitle: SoramitsuLabel = {
         let label = SoramitsuLabel()
-        label.sora.text = R.string.soraCard.selectMany(preferredLanguages: .currentLocale)
+        label.sora.text = R.string.soraCard.selectOne(preferredLanguages: .currentLocale)
         label.sora.font = FontType.paragraphM
         label.sora.textColor = .fgSecondary
         label.sora.numberOfLines = 0
@@ -45,7 +45,6 @@ final class ExchangeOnboardingReasonView: UIView {
             self?.onContinue?()
             self?.continueButton.sora.isEnabled = true
         }
-        button.sora.isEnabled = false
         return button
     }()
 
@@ -64,23 +63,27 @@ final class ExchangeOnboardingReasonView: UIView {
     }
 
     func configure(
-        variants: [ExchangeOnboarding.OpeningReason: Bool]
+        variants: [ExchangeOnboarding.EmploymentStatus],
+        selected: ExchangeOnboarding.EmploymentStatus
     ) {
 
         variantsStack.removeArrangedSubviews()
 
-        var hasSelectedVariant = false
-        for variant in variants.sorted(by: { $0.key.rawValue < $1.key.rawValue }) {
-            let checkBoxView = CheckBoxView(title: variant.key.title)
-            checkBoxView.isSelected = variant.value
+        for variant in variants {
+            let checkBoxView = CheckBoxView(title: variant.title)
+            checkBoxView.isSelected = variant == selected
             checkBoxView.addTapGesture { [weak self] _ in
-                self?.onReason?(variant.key)
+                self?.onEmploymentStatus?(variant)
             }
-            variantsStack.addArrangedSubview(checkBoxView)
-            hasSelectedVariant = hasSelectedVariant || variant.value
-        }
 
-        continueButton.sora.isEnabled = hasSelectedVariant
+            variantsStack.addArrangedSubview(checkBoxView)
+        }
+    }
+
+    func select(variant: ExchangeOnboarding.EmploymentStatus) {
+        for (index, view) in variantsStack.subviews.enumerated() {
+            (view as? CheckBoxView)?.isSelected = index == (variant.rawValue - 1)
+        }
     }
 
     private func setupInitialLayout() {
@@ -123,21 +126,19 @@ final class ExchangeOnboardingReasonView: UIView {
     }
 }
 
-extension ExchangeOnboarding.OpeningReason {
+extension ExchangeOnboarding.EmploymentStatus {
     var title: String {
         switch self {
-        case .trading:
-            R.string.soraCard.itemTrading(preferredLanguages: .currentLocale)
-        case .sending:
-            R.string.soraCard.itemSendingReceivingCrypto(preferredLanguages: .currentLocale)
-        case .purchasing:
-            R.string.soraCard.itemPurchasingCrypto(preferredLanguages: .currentLocale)
-        case .holding:
-            R.string.soraCard.itemHoldingCrypto(preferredLanguages: .currentLocale)
-        case .mining:
-            R.string.soraCard.itemReceivingMiningProfits(preferredLanguages: .currentLocale)
-        case .transactions:
-            R.string.soraCard.itemCrossBorderTx(preferredLanguages: .currentLocale)
+        case .employed:
+            R.string.soraCard.gatehubItemEmployed(preferredLanguages: .currentLocale)
+        case .student:
+            R.string.soraCard.gatehubItemStudent(preferredLanguages: .currentLocale)
+        case .selfEmployed:
+            R.string.soraCard.gatehubItemSelfemployed(preferredLanguages: .currentLocale)
+        case .unemployed:
+            R.string.soraCard.gatehubItemUnemployed(preferredLanguages: .currentLocale)
+        case .retired:
+            R.string.soraCard.gatehubItemRetired(preferredLanguages: .currentLocale)
         }
     }
 }

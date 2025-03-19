@@ -32,12 +32,23 @@ class ExchangeOnboardingCoordinator {
 
         checkExchangeStatus()
     }
+    
+    @MainActor
+    private func showOnboardingEmploymentStatus() {
+        guard navigationController.viewControllers.isEmpty else { return }
+        navigationController.startLoader()
+        let model = EmploymentStatusViewModel(employmentStatus: onboardingModel.employmentStatus)
+        model.onContinue = { [weak self] employmentStatus in
+            self?.onboardingModel.employmentStatus = employmentStatus
+            self?.showOnboardingVolume()
+        }
+        let viewController = EmploymentStatusViewController(viewModel: model)
+        navigationController.pushViewController(viewController, animated: true)
+        navigationController.stopLoader()
+    }
 
     @MainActor
     private func showOnboardingVolume() {
-
-        guard navigationController.viewControllers.isEmpty else { return }
-        navigationController.startLoader()
         let model = ExchangeOnboardingVolumeViewModel(service: service, volume: onboardingModel.volume)
         model.onContinue = { [weak self] volume in
             self?.onboardingModel.volume = volume
@@ -45,7 +56,6 @@ class ExchangeOnboardingCoordinator {
         }
         let viewController = ExchangeOnboardingVolumeViewController(viewModel: model)
         navigationController.pushViewController(viewController, animated: true)
-        navigationController.stopLoader()
     }
 
     @MainActor
@@ -121,7 +131,7 @@ class ExchangeOnboardingCoordinator {
             case .failure(let error):
                 await navigationController.stopLoader()
                 if error.status == .notFound {
-                    await showOnboardingVolume()
+                    await showOnboardingEmploymentStatus()
                 } else {
                     print(error.localizedDescription)
                     await navigationController.stopLoader()

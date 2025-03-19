@@ -1,9 +1,18 @@
 enum ExchangeOnboarding {
 
     struct Data {
+        let employmentStatus: ExchangeOnboarding.EmploymentStatus
         let volume: ExchangeOnboarding.ExpectedVolume
         let reasons: [ExchangeOnboarding.OpeningReason]
         let sources: [ExchangeOnboarding.SourceOfFunds]
+    }
+    
+    enum EmploymentStatus: Int, Codable, CaseIterable {
+        case employed = 1
+        case student = 2
+        case selfEmployed = 3
+        case unemployed = 4
+        case retired = 5
     }
 
     enum ExpectedVolume: Int, Codable, CaseIterable {
@@ -20,6 +29,7 @@ enum ExchangeOnboarding {
         case purchasing = 3
         case holding = 4
         case mining = 5
+        case transactions = 6
     }
 
     enum SourceOfFunds: Int, Codable, CaseIterable {

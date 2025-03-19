@@ -137,6 +137,13 @@
 "exchange.xor" = "Exchange XOR";
 "onboarding.questions" = "Onboarding question %@ of %@";
 "onboarding.questions.description" = "If you want to make an exchange, answer the following three questions.";
+"gatehub.employment.status" = "What is your employment status?";
+"gatehub.employment.status" = "What is your employment status?";
+"gatehub.item.employed" = "Employed";
+"gatehub.item.student" = "Student";
+"gatehub.item.selfemployed" = "Self-employed";
+"gatehub.item.unemployed" = "Unemployed";
+"gatehub.item.retired" = "Retired";
 "expected.volume" = "What is your expected exchange volume?";
 "opening.reason" = "What is your reason for using the exchange?";
 "source.of.funds" = "What is the source of your funds?";
@@ -150,6 +157,7 @@
 "item.holding.crypto" = "Holding crypto";
 "item.receiving.mining.profits" = "Receiving mining profits";
 "item.more.than" = "More than %@";
+"item.cross.border.tx" = "Cross-border transactions";
 "common.next" = "Next";
 "common.done" = "Done";
 "select.one" = "Select one of the following:";

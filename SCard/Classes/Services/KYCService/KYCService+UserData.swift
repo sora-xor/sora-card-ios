@@ -21,7 +21,7 @@ extension KYCService {
 
         return await withCheckedContinuation { continuation in
             getUserDataContinuation = continuation
-            payWingsOAuthClient.getUserData(callback: callback)
+            getUserData(callback: callback)
         }
     }
 

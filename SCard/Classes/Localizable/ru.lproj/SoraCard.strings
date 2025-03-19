@@ -137,6 +137,12 @@
 "exchange.xor" = "Обменять XOR";
 "onboarding.questions" = "Вступительный вопрос %@ из %@";
 "onboarding.questions.description" = "Если вы хотите совершить обмен, ответьте на следующие три вопроса.";
+"gatehub.employment.status" = "What is your employment status?";
+"gatehub.item.employed" = "Employed";
+"gatehub.item.student" = "Student";
+"gatehub.item.selfemployed" = "Self-employed";
+"gatehub.item.unemployed" = "Unemployed";
+"gatehub.item.retired" = "Retired";
 "expected.volume" = "Каков ваш ожидаемый объем обмена?";
 "opening.reason" = "По какой причине вы пользуетесь биржей?";
 "source.of.funds" = "Каков источник ваших средств?";
@@ -150,6 +156,7 @@
 "item.holding.crypto" = "Хранение криптовалюты";
 "item.receiving.mining.profits" = "Получение прибыли от майнинга";
 "item.more.than" = "Более %@";
+"item.cross.border.tx" = "Cross-border transactions";
 "common.next" = "Следующий";
 "common.done" = "Готово";
 "select.one" = "Выберите один из следующих вариантов:";
