@@ -99,6 +99,7 @@ final class CardHubView: UIView {
         view.titleLabel.sora.text = R.string.soraCard.cardHubManageCard(preferredLanguages: .currentLocale)
         view.subtitleLabel.sora.isHidden = false
         view.subtitleLabel.sora.textColor = .fgSecondary
+        view.subtitleLabel.sora.text = String()
         view.addTapGesture { [weak self] _ in
             self?.onManageCard?()
         }
