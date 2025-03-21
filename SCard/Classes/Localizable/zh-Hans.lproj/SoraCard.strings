@@ -138,7 +138,6 @@
 "onboarding.questions" = "Onboarding question %@ of %@";
 "onboarding.questions.description" = "If you want to make an exchange, answer the following three questions.";
 "gatehub.employment.status" = "What is your employment status?";
-"gatehub.employment.status" = "What is your employment status?";
 "gatehub.item.employed" = "Employed";
 "gatehub.item.student" = "Student";
 "gatehub.item.selfemployed" = "Self-employed";
