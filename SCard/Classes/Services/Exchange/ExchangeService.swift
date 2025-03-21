@@ -18,7 +18,8 @@ final class ExchangeService {
         let postData = OnboardUserRequest(
             expectedVolume: data.volume,
             openingReason: data.reasons.compactMap { $1 ? $0 : nil },
-            sourceOfFunds: data.sources.compactMap { $1 ? $0 : nil }
+            sourceOfFunds: data.sources.compactMap { $1 ? $0 : nil },
+            employmentStatus: data.employmentStatus
         )
 
         let body = (try? JSONEncoder().encode(postData)) ?? Data()
@@ -39,11 +40,13 @@ final class ExchangeService {
         let expectedVolume: ExchangeOnboarding.ExpectedVolume
         let openingReason: [ExchangeOnboarding.OpeningReason]
         let sourceOfFunds: [ExchangeOnboarding.SourceOfFunds]
+        let employmentStatus: ExchangeOnboarding.EmploymentStatus
 
         enum CodingKeys: String, CodingKey {
             case expectedVolume = "ExpectedVolume"
             case openingReason = "OpeningReason"
             case sourceOfFunds = "SourceOfFunds"
+            case employmentStatus = "EmploymentStatus"
         }
     }
 
