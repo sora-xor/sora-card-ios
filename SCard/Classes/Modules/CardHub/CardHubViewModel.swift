@@ -23,7 +23,7 @@ final class CardHubViewModel {
         Task {
             guard let phoneNumber = await service.getUserData().phoneNumber else { return }
             await MainActor.run {
-                onUpdatePhoneNumber?(phoneNumber)
+//                onUpdatePhoneNumber?(phoneNumber)
             }
         }
     }
