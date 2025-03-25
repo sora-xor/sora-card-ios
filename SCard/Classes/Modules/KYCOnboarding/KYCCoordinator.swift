@@ -11,6 +11,8 @@ final class KYCCoordinator {
     private let onReceiveController: (UIViewController) -> Void
     private let onSwapController: (UIViewController) -> Void
     private let exchangeCoordinator: ExchangeOnboardingCoordinator
+    
+    private var lastPhoneOTPSentDate: Date?
 
     init(
         exchangeCoordinator: ExchangeOnboardingCoordinator,
@@ -178,6 +180,10 @@ final class KYCCoordinator {
     }
 
     private func showEnterPhone(data: KYCUserDataModel) {
+        if let lastPhoneOTPSentDate {
+            data.lastPhoneOTPSentDate = lastPhoneOTPSentDate
+        }
+        
         let viewModel = KYCEnterPhoneViewModel(service: service, data: data)
 
         viewModel.onCountry = { [unowned self, unowned viewModel] in
@@ -188,8 +194,12 @@ final class KYCCoordinator {
 
         viewModel.onContinue = { [unowned self] in
             showEnterPhoneCode(data: data)
-
         }
+        
+        viewModel.outputWithActiveTimer = { [unowned self] date in
+            self.lastPhoneOTPSentDate = date
+        }
+        
         let viewController = KYCEnterPhoneViewController(viewModel: viewModel)
         pushViewController(viewController)
     }
