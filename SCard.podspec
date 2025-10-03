@@ -22,7 +22,8 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'SCardResources' => [
       'SCard/Assets/**/*.xcassets',
-      'SCard/Assets/**/*'
+      'SCard/Assets/**/*',
+      'SCard/Classes/Localizable/**/*'
     ]
   }
   s.frameworks = 'UIKit'

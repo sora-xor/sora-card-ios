@@ -10,7 +10,15 @@ import UIKit
 /// This `R` struct is generated and contains references to static resources.
 struct R: Rswift.Validatable {
   fileprivate static let applicationLocale = hostingBundle.preferredLocalizations.first.flatMap { Locale(identifier: $0) } ?? Locale.current
-  fileprivate static let hostingBundle = Bundle(for: R.Class.self)
+  fileprivate static let hostingBundle: Bundle = {
+    // Prefer the CocoaPods resource bundle if present, otherwise fall back to the code bundle.
+    let codeBundle = Bundle(for: R.Class.self)
+    if let url = codeBundle.url(forResource: "SCardResources", withExtension: "bundle"),
+       let resourcesBundle = Bundle(url: url) {
+      return resourcesBundle
+    }
+    return codeBundle
+  }()
 
   /// Find first language and bundle for which the table exists
   fileprivate static func localeBundle(tableName: String, preferredLanguages: [String]) -> (Foundation.Locale, Foundation.Bundle)? {
